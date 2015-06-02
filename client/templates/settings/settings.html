@@ -1,0 +1,13 @@
+<template name="settings">
+<form class="main form page">
+  <div class="form-group {{errorClass 'name'}}">
+    <label class="control-label" for="name">名字</label>
+    <div class="controls">
+      <input name="name" id="name" type="text" value="{{name}}" placeholder="输入你的真名" class="form-control" />
+      <span class="help-block">{{errorMessage 'name'}}</span>
+    </div>
+  </div>
+  <input type="submit" value="Submit" class="btn btn-primary submit" />
+  <hr />
+</form>
+</template>
