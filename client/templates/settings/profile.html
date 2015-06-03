@@ -1,7 +1,72 @@
 <template name="profile">
-<div class="post">
-  <p>
-  姓名:{{user.profile.name}}
-  </p>
+<div class="profile form-horizontal">
+  <div class="form-group">
+    <div class="col-md-6 text-center">
+        <img src="images/head.png">
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="col-md-2 control-label">真实姓名</label>
+        <div class="col-md-10">
+          <span class="form-control">real name{{user.profile.name}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">性别</label>
+        <div class="col-md-10">
+          <span class="form-control">i男or女{{user.profile.gender}}</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">出生日期</label>
+        <div class="col-md-10">
+          <span class="form-control">{{user.profile.birthday}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-1 control-label">昵称</label>
+    <div class="col-md-5">
+      <span class="form-control">您的昵称{{user.profile.nickname}}</span>
+    </div>
+    <label class="col-md-1 control-label">身份</label>
+    <div class="col-md-5">
+      <span class="form-control">{{user.profile.state}}</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-1 control-label">毕业院校</label>
+    <div class="col-md-5">
+      <span class="form-control">graduated college{{user.profile.college}}</span>
+    </div>
+    <label class="col-md-1 control-label">学历</label>
+    <div class="col-md-5">
+      <span class="form-control">{{user.profile.degree}}</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-1 control-label">专业</label>
+    <div class="col-md-5">
+      <span class="form-control">{{user.profile.professional}}</span>
+    </div>
+    <label class="col-md-1 control-label">授课地点</label>
+    <div class="col-md-5">
+      <span class="form-control">{{profile.degree}}</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-1 control-label">个人简介</label>
+    <div class="col-md-11">
+      <div>self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-1 control-label">麻辣语录</label>
+    <div class="col-md-11">
+      <span class="form-control">motto</span>
+    </div>
+  </div>
 </div>
 </template>
