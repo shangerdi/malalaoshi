@@ -8,19 +8,19 @@
       <div class="form-group">
         <label class="col-md-2 control-label">真实姓名</label>
         <div class="col-md-10">
-          <span class="form-control">real name{{user.profile.name}}</span>
+          <span class="form-control">{{currentUser.profile.name}}</span>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-2 control-label">性别</label>
         <div class="col-md-10">
-          <span class="form-control">i男or女{{user.profile.gender}}</span>
+          <span class="form-control">{{currentUser.profile.gender}}</span>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-2 control-label">出生日期</label>
         <div class="col-md-10">
-          <span class="form-control">{{user.profile.birthday}}</span>
+          <span class="form-control">{{currentUser.profile.birthday}}</span>
         </div>
       </div>
     </div>
@@ -28,44 +28,48 @@
   <div class="form-group">
     <label class="col-md-1 control-label">昵称</label>
     <div class="col-md-5">
-      <span class="form-control">您的昵称{{user.profile.nickname}}</span>
+      <span class="form-control">{{currentUser.profile.nickname}}</span>
     </div>
     <label class="col-md-1 control-label">身份</label>
     <div class="col-md-5">
-      <span class="form-control">{{user.profile.state}}</span>
+      <span class="hide">{{currentUser.profile.state}}</span>
+      <span class="form-control" id="state"></span>
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-1 control-label">毕业院校</label>
     <div class="col-md-5">
-      <span class="form-control">graduated college{{user.profile.college}}</span>
+      <span class="form-control">{{currentUser.profile.college}}</span>
     </div>
     <label class="col-md-1 control-label">学历</label>
     <div class="col-md-5">
-      <span class="form-control">{{user.profile.degree}}</span>
+      <span class="form-control">{{currentUser.profile.degree}}</span>
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-1 control-label">专业</label>
     <div class="col-md-5">
-      <span class="form-control">{{user.profile.professional}}</span>
+      <span class="form-control">{{currentUser.profile.major}}</span>
     </div>
     <label class="col-md-1 control-label">授课地点</label>
     <div class="col-md-5">
-      <span class="form-control">{{profile.degree}}</span>
+      <span class="form-control">{{currentUser.profile.location}}
+        {{currentUser.profile.address.province}}
+        {{currentUser.profile.address.city}}市
+        {{currentUser.profile.address.district}}区
+      </span>
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-1 control-label">个人简介</label>
     <div class="col-md-11">
-      <div>self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction self introduction
-      </div>
+      <div class="form-control">{{currentUser.profile.selfIntro}}</div>
     </div>
   </div>
   <div class="form-group">
     <label class="col-md-1 control-label">麻辣语录</label>
     <div class="col-md-11">
-      <span class="form-control">motto</span>
+      <span class="form-control">{{currentUser.profile.motto}}</span>
     </div>
   </div>
 </div>
