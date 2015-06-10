@@ -3,7 +3,6 @@ Template.settings.onCreated(function() {
 });
 Template.settings.onRendered(function() {
   var curUser = Meteor.user();
-  console.log(curUser.profile.birthday);
   if (curUser.profile.birthday) {
     var a = curUser.profile.birthday.split('-');
     $('#birthdayYear').val(a[0]+'年');
@@ -126,6 +125,42 @@ Template.settings.events({
     var days = getDaysArray();
     $.each(days, function(i,day) {
       $daySelect.append('<option>'+day.d+'</option>');
+    });
+  },
+  'click #checkCellphone': function(e) {
+    var cellphoneNum = $("#cellphone").val();
+    if (!cellphoneNum || !/^((\+86)|(86))?(1)\d{10}$/.test(cellphoneNum)) {
+      alert("手机号错误");
+      return;
+    }
+
+    Meteor.call('sendPhoneCheckCode', cellphoneNum, function(error, result) {
+      console.log(result);
+      if (error) {
+        return throwError(error.reason);
+      }
+    });
+  },
+  'click #confirmCheckCode': function(e) {
+    var cellphoneNum = $("#cellphone").val();
+    var cellphoneCheckCode = $("#cellphoneCheckCode").val();
+    if (!cellphoneNum || !/^((\+86)|(86))?(1)\d{10}$/.test(cellphoneNum)) {
+      alert("手机号错误");
+      return;
+    }
+    if (!cellphoneCheckCode || !/^\d{6}$/.test(cellphoneCheckCode)) {
+      alert("验证码错误");
+      return;
+    }
+
+    Meteor.call('verifyPhoneCheckCode', cellphoneNum, cellphoneCheckCode, function(error, result) {
+      console.log(result);
+      if (error) {
+        return throwError(error.reason);
+      }
+      if (result) {
+        alert("验证通过");
+      }
     });
   }
 });
