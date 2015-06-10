@@ -45,14 +45,36 @@ Template.register.events({
     var errors = validateRegister(params);
     if (errors.hasError) {
       return Session.set('registerErrors', errors);
+    } else {
+      Session.set('registerErrors', {});
     }
-
-    Meteor.call('sendPhoneCheckCode', cellphone, function(error, result) {
+    
+    params.purpose = "reg";
+    var $theButton = $(e.target), timer, countdown = 60;
+    $theButton.attr("disabled",true);
+    // call server's method, send check code to this phone number
+    Meteor.call('sendPhoneCheckCode', params, function(error, result) {
       console.log(result);
       if (error) {
         // return throwError(error.reason);
         return Session.set('registerErrors', {cellphone: error.reason});
+        $theButton.removeAttr("disabled");
       }
+      if (result && result.code!=0) {
+        alert(result.msg);
+        $theButton.removeAttr("disabled");
+      }
+      // build a timer, after {countdown} seconds, the user can click this button again
+      timer = window.setInterval(function(){
+        if (countdown<=0) {
+          window.clearInterval(timer);
+          $theButton.val("重新获取");
+          $theButton.removeAttr("disabled");
+          return;
+        }
+        $theButton.val("还有"+countdown+"秒重新获取");
+        countdown--;
+      },999);
     });
   },
   'click #doRegister': function(e) {
@@ -63,16 +85,30 @@ Template.register.events({
     var errors = validateRegister(params, 'reg');
     if (errors.hasError) {
       return Session.set('registerErrors', errors);
+    } else {
+      Session.set('registerErrors', {});
     }
 
+    // do register
     Meteor.call('doRegisterViaPhone', params, function(error, result) {
       console.log(result);
       if (error) {
         // return throwError(error.reason);
         return Session.set('registerErrors', {checkCode: error.reason});
       }
-      Session.set('registerErrors', {});
-      alert("验证通过");
+      if (result) {
+        if (result.code==0) {
+          // alert("验证通过");
+          Meteor.loginWithPassword(cellphone, password, function(error){
+            if (error) {
+              return Session.set('registerErrors', {checkCode: error.reason});
+            }
+            Router.go('settings');
+          });
+        } else {
+          alert(result.msg);
+        }
+      }
     });
   }
 });

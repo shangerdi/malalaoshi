@@ -3,6 +3,9 @@ Template.settings.onCreated(function() {
 });
 Template.settings.onRendered(function() {
   var curUser = Meteor.user();
+  if (!curUser || !curUser.profile) {
+    return;
+  }
   if (curUser.profile.birthday) {
     var a = curUser.profile.birthday.split('-');
     $('#birthdayYear').val(a[0]+'年');
@@ -134,12 +137,6 @@ Template.settings.events({
       return;
     }
 
-    Meteor.call('sendPhoneCheckCode', cellphoneNum, function(error, result) {
-      console.log(result);
-      if (error) {
-        return throwError(error.reason);
-      }
-    });
   },
   'click #confirmCheckCode': function(e) {
     var cellphoneNum = $("#cellphone").val();
@@ -153,14 +150,5 @@ Template.settings.events({
       return;
     }
 
-    Meteor.call('verifyPhoneCheckCode', cellphoneNum, cellphoneCheckCode, function(error, result) {
-      console.log(result);
-      if (error) {
-        return throwError(error.reason);
-      }
-      if (result) {
-        alert("验证通过");
-      }
-    });
   }
 });
