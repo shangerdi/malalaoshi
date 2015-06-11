@@ -1,17 +1,12 @@
-<template name="register">
+<template name="mylogin">
 <form class="main form page form-horizontal">
   <div class="col-sm-offset-4 col-sm-4">
-    <h3 class="text-center">注册账户</h3>
+    <h3 class="text-center">手机登录</h3>
 
     <div class="form-group {{errorClass 'cellphone'}}">
       <label for="cellphone">手机号：</label>
       <input class="form-control" id="cellphone" name="cellphone" type="text" placeholder="请输入有效的手机号"/>
       <span class="help-block">{{errorMessage 'cellphone'}}</span>
-    </div>
-    <div class="form-group {{errorClass 'password'}}">
-      <label for="password">设置密码：</label>
-      <input class="form-control" id="password" name="password" type="password" placeholder="请输入6-16位数字、字母或者常用符号，字母区分大小写"/>
-      <span class="help-block">{{errorMessage 'password'}}</span>
     </div>
 
     <div class="form-group {{errorClass 'checkCode'}}">
@@ -22,10 +17,10 @@
       <span class="help-block">{{errorMessage 'checkCode'}}</span>
     </div>
     <div class="form-group">
-        <input class="btn btn-warning col-sm-12" id="doRegister" type="button" value="免费注册" />
+        <input class="btn btn-warning col-sm-12" id="doLogin" type="button" value="登录" />
     </div>
     <div class="form-group text-right">
-        或<a class="text-primary" href="{{pathFor 'mylogin'}}"><strong>登录</strong></a>
+        或<a class="text-primary" href="{{pathFor 'register'}}"><strong>注册</strong></a>
     </div>
   </div>
 </form>
