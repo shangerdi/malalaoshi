@@ -1,13 +1,148 @@
 <template name="settings">
-<form class="main form page">
+<form class="main form page form-horizontal">
+  <h3>个人资料</h3>
+  <hr>
   <div class="form-group {{errorClass 'name'}}">
-    <label class="control-label" for="name">名字</label>
-    <div class="controls">
-      <input name="name" id="name" type="text" value="{{name}}" placeholder="输入你的真名" class="form-control" />
+    <label class="col-sm-2 control-label" for="name"><code>*</code>姓名</label>
+    <div class="col-sm-10 controls">
+      <input name="name" id="name" type="text" value="{{currentUser.profile.name}}" placeholder="输入您的真实姓名" class="form-control" />
       <span class="help-block">{{errorMessage 'name'}}</span>
     </div>
   </div>
-  <input type="submit" value="Submit" class="btn btn-primary submit" />
+
+  <div class="form-group {{errorClass 'nickname'}}">
+    <label class="col-sm-2 control-label" for="nickname">昵称</label>
+    <div class="col-sm-10 controls">
+      <input class="form-control" id="nickname" name="nickname" type="text" value="{{currentUser.profile.nickname}}" placeholder="输入昵称"/>
+      <span class="help-block">{{errorMessage 'nickname'}}</span>
+    </div>
+  </div>
+
+  <!--<div class="form-group {{errorClass 'cellphone'}}">
+    <label class="col-sm-2 control-label" for="cellphone"><code>*</code>手机号</label>
+    <div class="col-sm-10 controls form-inline">
+      <input class="form-control" id="cellphone" name="cellphone" type="text" value="{{currentUser.profile.cellphone}}" placeholder="输入您的手机号"/>
+      <input class="btn btn-warning" id="checkCellphone" type="button" value="验证" />
+      <span class="help-block">{{errorMessage 'cellphone'}}</span>
+    </div>
+  </div>
+  <div class="form-group {{errorClass 'cellphoneCheckCode'}}">
+    <label class="col-sm-2 control-label" for="cellphoneCheckCode">验证码</label>
+    <div class="col-sm-10 controls form-inline">
+      <input class="form-control" id="cellphoneCheckCode" name="cellphoneCheckCode" type="text" value="{{currentUser.profile.cellphoneCheckCode}}" placeholder="输入您收到的短信验证码"/>
+      <input class="btn btn-info" id="confirmCheckCode" type="button" value="确定" />
+      <span class="help-block">{{errorMessage 'cellphoneCheckCode'}}</span>
+    </div>
+  </div>-->
+
+  <div class="form-group {{errorClass 'gender'}}">
+    <label class="col-sm-2 control-label" for="gender"><code>*</code>性别</label>
+    <div class="col-sm-10 controls radio">
+      <label class="col-sm-2"><input class="" id="gender1" name="gender" type="radio" value="男"/>男</label>
+      <label class="col-sm-2"><input class="" id="gender2" name="gender" type="radio" value="女"/>女</label>
+      <span class="help-block">{{errorMessage 'gender'}}</span>
+    </div>
+  </div>
+
+  <div class="form-group {{errorClass 'birthday'}}">
+    <label class="col-sm-2 control-label" for="birthday"><code>*</code>出生日期</label>
+    <div class="col-sm-4 controls">
+      <select class="form-control" id="birthdayYear" name="birthdayYear" value="{{birthdayYear}}">
+        {{#each years}}
+          <option>{{y}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="col-sm-3 controls">
+      <select class="form-control" id="birthdayMonth" name="birthdayMonth" value="{{birthdayMonth}}">
+        {{#each months}}
+          <option>{{m}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="col-sm-3 controls">
+      <select class="form-control" id="birthdayDay" name="birthdayDay" value="{{birthdayDay}}">
+        {{#each days}}
+          <option>{{d}}</option>
+        {{/each}}
+      </select>
+      <span class="help-block">{{errorMessage 'birthday'}}</span>
+    </div>
+  </div>
+
+  <div class="form-group {{errorClass 'state'}}">
+    <label class="col-sm-2 control-label" for="state"><code>*</code>目前身份</label>
+    <div class="col-sm-10 controls radio">
+      <label class="col-sm-4"><input class="" id="state1" name="state" type="radio" value="1"/>在职教师（含公立学校和培训结构）</label>
+      <label class="col-sm-3"><input class="" id="state2" name="state" type="radio" value="2"/>准教师</label>
+      <span class="help-block">{{errorMessage 'state'}}</span>
+    </div>
+  </div>
+
+  <div class="form-group {{errorClass 'college'}}">
+    <label class="col-sm-2 control-label" for="college"><code>*</code>毕业院校</label>
+    <div class="col-sm-10 controls">
+      <input class="form-control" id="college" name="college" type="text" value="{{currentUser.profile.college}}" placeholder="输入您的大学名称"/>
+      <span class="help-block">{{errorMessage 'college'}}</span>
+    </div>
+  </div>
+
+  <div class="form-group {{errorClass 'degree'}}">
+    <label class="col-sm-2 control-label" for="degree"><code>*</code>学历</label>
+    <div class="col-sm-10 controls">
+      <select class="form-control" id="degree" name="degree" value="{{currentUser.profile.degree}}">
+        <option>博士后</option>
+        <option>博士</option>
+        <option>硕士</option>
+        <option>本科</option>
+        <option>高中</option>
+        <option>初中</option>
+        <option>小学</option>
+      </select>
+      <span class="help-block">{{errorMessage 'degree'}}</span>
+    </div>
+  </div>
+
+  <div class="form-group {{errorClass 'major'}}">
+    <label class="col-sm-2 control-label" for="major">专业</label>
+    <div class="col-sm-10 controls">
+      <input class="form-control" id="major" name="major" type="text" value="{{currentUser.profile.major}}" placeholder="输入您所学的专业"/>
+      <span class="help-block">{{errorMessage 'major'}}</span>
+    </div>
+  </div>
+
+  <div class="form-group {{errorClass 'address'}}">
+    <label class="col-sm-2 control-label" for="address"><code>*</code>所在区域</label>
+    <div class="col-sm-10 controls form-inline">
+      <input class="form-control" id="addressProvince" name="addressProvince" type="text" value="{{currentUser.profile.address.province}}"/>省
+      <input class="form-control" id="addressCity" name="addressCity" type="text" value="{{currentUser.profile.address.city}}"/>市
+      <input class="form-control" id="addressDistrict" name="addressDistrict" type="text" value="{{currentUser.profile.address.district}}"/>区(县)
+      <span class="help-block">{{errorMessage 'address'}}</span>
+    </div>
+  </div>
+
+  <div class="form-group {{errorClass 'selfIntro'}}">
+    <label class="col-sm-2 control-label" for="selfIntro"><code>*</code>个人简介</label>
+    <div class="col-sm-10 controls">
+      <textarea class="form-control" id="selfIntro" name="selfIntro" rows="4" value="{{currentUser.profile.selfIntro}}" placeholder="不要为空哟"></textarea>
+      <span class="help-block">{{errorMessage 'selfIntro'}}</span>
+    </div>
+  </div>
+
+  <div class="form-group {{errorClass 'motto'}}">
+    <label class="col-sm-2 control-label" for="motto">个人语录</label>
+    <div class="col-sm-10 controls">
+      <textarea class="form-control" id="motto" name="motto" rows="4" value="{{currentUser.profile.motto}}" placeholder="写两句吧"></textarea>
+      <span class="help-block">{{errorMessage 'motto'}}</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input class="col-sm-2 btn btn-warning submit" type="submit" value="提交" />
+      <input class="col-sm-offset-1 col-sm-2 btn cancel" type="button" value="取消" />
+    </div>
+  </div>
   <hr />
 </form>
 </template>
