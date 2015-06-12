@@ -166,3 +166,9 @@ background: rgba(0, 0, 0, 0.1); }
 .profile {
   width: 90%;
 }
+.gravatar {
+  width: 180px;
+  margin:0 auto;
+  height: 240px;
+  background:#999;
+}
