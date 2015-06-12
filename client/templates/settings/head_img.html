@@ -1,0 +1,16 @@
+<template name="headImg">
+<form class="main form page form-horizontal" action="/uploadHeadImg/" method="post" enctype="multipart/form-data">
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="name">上传头像</label>
+    <input type="file" name="imgFile" >
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input class="col-sm-2 btn btn-warning" id="uploadHeadImg" type="submit" value="提交" />
+    </div>
+  </div>
+
+</form>
+</template>

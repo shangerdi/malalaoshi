@@ -52,23 +52,23 @@
         <div class="form-group {{errorClass 'birthday'}}">
           <label class="col-sm-2 control-label" for="birthday"><code>*</code>出生日期</label>
           <div class="col-sm-4 controls">
-            <select class="form-control" id="birthdayYear" name="birthdayYear" value="{{birthdayYear}}">
+            <select class="form-control birthday" id="birthdayYear" name="birthdayYear" value="{{birthdayYear}}">
               {{#each years}}
-              <option>{{y}}</option>
+                <option>{{y}}</option>
               {{/each}}
             </select>
           </div>
           <div class="col-sm-3 controls">
-            <select class="form-control" id="birthdayMonth" name="birthdayMonth" value="{{birthdayMonth}}">
+            <select class="form-control birthday" id="birthdayMonth" name="birthdayMonth" value="{{birthdayMonth}}">
               {{#each months}}
-              <option>{{m}}</option>
+                <option>{{m}}</option>
               {{/each}}
             </select>
           </div>
           <div class="col-sm-3 controls">
-            <select class="form-control" id="birthdayDay" name="birthdayDay" value="{{birthdayDay}}">
+            <select class="form-control birthday" id="birthdayDay" name="birthdayDay" value="{{birthdayDay}}">
               {{#each days}}
-              <option>{{d}}</option>
+                <option>{{d}}</option>
               {{/each}}
             </select>
             <span class="help-block">{{errorMessage 'birthday'}}</span>
@@ -100,10 +100,9 @@
               <option>博士</option>
               <option>硕士</option>
               <option>本科</option>
-              <option>专科</option>
               <option>高中</option>
-              <option>初中</option>
-              <option>小学</option>
+              <!-- <option>初中</option>
+              <option>小学</option> -->
             </select>
             <span class="help-block">{{errorMessage 'degree'}}</span>
           </div>
@@ -117,12 +116,37 @@
           </div>
         </div>
 
-        <div class="form-group {{errorClass 'address'}}">
+      <!--   <div class="form-group {{errorClass 'address'}}">
           <label class="col-sm-2 control-label" for="address"><code>*</code>所在区域</label>
           <div class="col-sm-10 controls form-inline">
             <input class="form-control" id="addressProvince" name="addressProvince" type="text" value="{{currentUser.profile.address.province}}"/>省
             <input class="form-control" id="addressCity" name="addressCity" type="text" value="{{currentUser.profile.address.city}}"/>市
             <input class="form-control" id="addressDistrict" name="addressDistrict" type="text" value="{{currentUser.profile.address.district}}"/>区(县)
+            <span class="help-block">{{errorMessage 'address'}}</span>
+          </div>
+        </div> -->
+        <div class="form-group {{errorClass 'address'}}">
+          <label class="col-sm-2 control-label" for="address"><code>*</code>所在区域</label>
+          <div class="col-sm-4 controls">
+            <select class="form-control address" id="addressProvince" name="addressProvince" value="{{addressProvince}}">
+                <option value=""> - 省 - </option>
+            </select>
+          </div>
+          <div class="col-sm-3 controls">
+            <select class="form-control address" id="addressCity" name="addressCity" value="{{addressCity}}">
+                <option value=""> - 市 - </option>
+            </select>
+          </div>
+          <div class="col-sm-3 controls">
+            <select class="form-control address" id="addressDistrict" name="addressDistrict" value="{{addressDistrict}}">
+             <option value=""> - 区/县 - </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label"></label>
+          <div class="col-sm-10 controls">
+            <textarea class="form-control" id="addressRoad" name="addressRoad" rows="4" value="{{addressRoad}}" placeholder="街道"></textarea>
             <span class="help-block">{{errorMessage 'address'}}</span>
           </div>
         </div>
