@@ -54,9 +54,18 @@
     <label class="col-md-1 control-label">授课地点</label>
     <div class="col-md-5">
       <span class="form-control">{{currentUser.profile.location}}
-        {{currentUser.profile.address.province}}
-        {{currentUser.profile.address.city}}市
-        {{currentUser.profile.address.district}}区
+        {{#if currentUser.profile.address.province.code}}
+          {{currentUser.profile.address.province.name}}
+        {{/if}}
+        {{#if notInTopCity}}
+        {{#if currentUser.profile.address.city.code}}
+          {{currentUser.profile.address.city.name}}
+        {{/if}}
+        {{/if}}
+        {{#if currentUser.profile.address.district.code}}
+          {{currentUser.profile.address.district.name}}
+        {{/if}}
+        {{currentUser.profile.address.road}}
       </span>
     </div>
   </div>

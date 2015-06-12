@@ -8,3 +8,16 @@ Template.profile.onRendered(function() {
 		$("#state").text(stateStr);
 	}
 });
+Template.profile.helpers({
+  notInTopCity: function() {
+    var curUser = Meteor.user();
+    if (!curUser || !curUser.profile) {
+      return true;
+    }
+    var userAddress = curUser.profile.address;
+    if (userAddress && userAddress.province && userAddress.province.type==1) {
+      return false;
+    }
+    return true;
+  }
+});

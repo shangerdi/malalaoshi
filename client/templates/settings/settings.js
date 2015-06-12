@@ -1,11 +1,23 @@
+var areaOfChina = new AreaOfChina();
 Template.settings.onCreated(function() {
   Session.set('settingsErrors', {});
 });
 Template.settings.onRendered(function() {
+  // init area province list
+  var cur = areaOfChina.getProvince();
+  if (cur) {
+    var arrProv = cur.fetch();
+    var $proSelect = $("#addressProvince");
+    $.each(arrProv, function(i, obj) {
+      $proSelect.append('<option value="'+obj.code+'" type="'+(obj.type?obj.type:0)+'">'+obj.name+'</option>');
+    });
+  }
+
   var curUser = Meteor.user();
   if (!curUser || !curUser.profile) {
     return;
   }
+  // init user's some properties
   if (curUser.profile.birthday) {
     var a = curUser.profile.birthday.split('-');
     $('#birthdayYear').val(a[0]+'年');
@@ -26,6 +38,30 @@ Template.settings.onRendered(function() {
       this.checked = false;
     }
   });
+  var userAddress = curUser.profile.address;
+  if (userAddress && userAddress.province) {
+    if (userAddress.province.code) {
+      $("#addressProvince").val(userAddress.province.code);
+    }
+    if (userAddress.city && userAddress.city.code) {
+      var cur = areaOfChina.getSubAreas(userAddress.province.code);
+      var $citySelect = $("#addressCity");
+      var arrCity = cur.fetch();
+      $.each(arrCity, function(i,obj) {
+        $citySelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+      });
+      $citySelect.val(userAddress.city.code);
+    }
+    if (userAddress.district && userAddress.district.code) {
+      var cur = areaOfChina.getSubAreas(userAddress.city.code);
+      var $distSelect = $("#addressDistrict");
+      var arrDist = cur.fetch();
+      $.each(arrDist, function(i,obj) {
+        $distSelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+      });
+      $distSelect.val(userAddress.district.code);
+    }
+  }
 });
 Template.settings.helpers({
   errorMessage: function(field) {
@@ -36,7 +72,7 @@ Template.settings.helpers({
   },
   years: function() {
     var a = [], curYear = new Date().getFullYear();
-    for (var i=1950;i<=curYear;i++) {
+    for (var i=curYear;i>=1950;i--) {
       a.push({y:i+"年"});
     }
     return a;
@@ -83,10 +119,12 @@ Template.settings.events({
     var birthday = parseInt($('#birthdayYear').val())+'-'+parseInt($('#birthdayMonth').val())+'-'+parseInt($('#birthdayDay').val());
     var state = $(curForm).find('input[name="state"]:checked').val();
     var address = {
-      province:$("#addressProvince").val(),
-      city:$("#addressCity").val(),
-      district:$("#addressDistrict").val()
+      province:{"code":$("#addressProvince").val(), "name":$("#addressProvince").find("option:selected").text(), "type":$("#addressProvince").find("option:selected").attr('type')},
+      city:{"code":$("#addressCity").val(), "name":$("#addressCity").find("option:selected").text()},
+      district:{"code":$("#addressDistrict").val(), "name":$("#addressDistrict").find("option:selected").text()},
+      road:$("#addressRoad").val()
     };
+    // console.log(address);
     var profile = {
       name: $(curForm).find('[name=name]').val(),
       nickname: $(curForm).find('[name=nickname]').val(),
@@ -100,7 +138,7 @@ Template.settings.events({
       selfIntro: $(curForm).find('[name=selfIntro]').val(),
       motto: $(curForm).find('[name=motto]').val()
     }
-    console.log(profile);
+    // console.log(profile);
 
     var errors = validateProfile(profile);
     if (errors.hasError) {
@@ -114,7 +152,7 @@ Template.settings.events({
       Router.go('profile');  
     });
   },
-  'change select': function(e) {
+  'change select.birthday': function(e) {
     var t = e.target;
     if (t.id!='birthdayYear' && t.id!='birthdayMonth') {
       return;
@@ -129,6 +167,34 @@ Template.settings.events({
     $.each(days, function(i,day) {
       $daySelect.append('<option>'+day.d+'</option>');
     });
+  },
+  'change select.address': function(e) {// 地区select组件事件
+    var t = e.target;
+    if (t.id!='addressProvince' && t.id!='addressCity') {
+      return;
+    }
+    var code = t.value;
+    if (t.id=='addressProvince') {
+      var cur = areaOfChina.getSubAreas(code);
+      var $citySelect = $("#addressCity");
+      $citySelect.children(":gt(0)").remove();
+      if (!cur){return;}
+      var arrCity = cur.fetch();
+      $.each(arrCity, function(i,obj) {
+        $citySelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+      });
+      var $distSelect = $("#addressDistrict");
+      $distSelect.children(":gt(0)").remove();
+    } else if (t.id=='addressCity') {
+      var cur = areaOfChina.getSubAreas(code);
+      var $distSelect = $("#addressDistrict");
+      $distSelect.children(":gt(0)").remove();
+      if (!cur){return;}
+      var arrDist = cur.fetch();
+      $.each(arrDist, function(i,obj) {
+        $distSelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+      });
+    }
   },
   'click #checkCellphone': function(e) {
     var cellphoneNum = $("#cellphone").val();

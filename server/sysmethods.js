@@ -41,13 +41,13 @@ Meteor.methods({
     var params = {apikey: apikey, mobile: cellphone, text: smsMsg};
     console.log(params);
     try {
-      //{
-      //  // the following 4 lines are testing statement
-      //  var ctText = '{"code":0,"msg":"OK","result":{"count":1,"fee":1,"sid":2029448147}}';
-      //  console.log(ctText);
-      //  var ctObj = JSON.parse(ctText);
-      //  return ctObj;
-      //}
+      {
+        // the following 4 lines are testing statement
+        var ctText = '{"code":0,"msg":"OK","result":{"count":1,"fee":1,"sid":2029448147}}';
+        console.log(ctText);
+        var ctObj = JSON.parse(ctText);
+        return ctObj;
+      }
       // send the sms message
       var url = "http://yunpian.com/v1/sms/send.json";
       var headers = {"Accept": "text/plain;charset=utf-8;", "Content-Type":"application/x-www-form-urlencoded;charset=utf-8;"};
