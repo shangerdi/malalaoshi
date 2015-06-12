@@ -8,5 +8,15 @@ Template.header.helpers({
     });
 
     return active && 'active';
+  },
+  sup: function() {
+    var host = window.location.hostname;
+    if (host.match('(localhost|127.0.0.1)')) {
+      return 'Dev';
+    }
+    else if (host.match('stage\..*')) {
+      return 'Stage';
+    }
+    return '';
   }
 });
