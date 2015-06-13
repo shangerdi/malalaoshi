@@ -7,10 +7,13 @@ Meteor.methods({
     if (!cellphone || !/^((\+86)|(86))?(1)\d{10}$/.test(cellphone)) {
       throw new Meteor.Error('参数错误', "手机号错误");
     }
+    if (cellphone.length>11) {
+      cellphone = cellphone.substr(cellphone.length-11);
+    }
     this.unblock();
     if (regParams.purpose == "reg") {
       // check if the phone is registered?
-      var oldUser = Meteor.users.findOne({username: cellphone});
+      var oldUser = Meteor.users.findOne({"phoneNo": cellphone});
       if (oldUser) {
         return {code:1, msg: "该手机号已经注册过了！"};
       }
@@ -69,6 +72,9 @@ Meteor.methods({
     if (!checkCode || !/^\d{6}$/.test(checkCode)) {
       return new Meteor.Error('registerErrors', {checkCode:"验证码错误"});
     }
+    if (cellphone.length>11) {
+      cellphone = cellphone.substr(cellphone.length-11);
+    }
     this.unblock();
     // query the checkcode cache data
 
@@ -84,9 +90,12 @@ Meteor.methods({
     if (!password || !/^\S{6,16}$/.test(password)) {
       throw new Meteor.Error('参数错误', "密码格式错误");
     }
+    if (cellphone.length>11) {
+      cellphone = cellphone.substr(cellphone.length-11);
+    }
     this.unblock();
     // check if the phone is registered?
-    var oldUser = Meteor.users.findOne({username: cellphone});
+    var oldUser = Meteor.users.findOne({"phoneNo": cellphone});
     if (oldUser) {
       return {code:1, msg: "该手机号已经注册过了！"};
     }
@@ -110,8 +119,8 @@ Meteor.methods({
     CheckCodeCache.remove({_id: cellphone});
     // do create user
     try {
-      var userOptions = {username: cellphone, password: password};
-      Accounts.createUser(userOptions);
+      var userOptions = {username: cellphone, "password": password, "phoneNo": cellphone};
+      Accounts.insertUserDoc(userOptions);
     } catch (ex) {
       console.log(ex);
       throw new Meteor.Error('系统提示', "处理失败，请稍后重试！");
@@ -126,6 +135,9 @@ Meteor.methods({
     }
     if (!checkCode || !/^\d{6}$/.test(checkCode)) {
       return new Meteor.Error('registerErrors', {checkCode:"验证码错误"});
+    }
+    if (cellphone.length>11) {
+      cellphone = cellphone.substr(cellphone.length-11);
     }
     this.unblock();
 
@@ -150,12 +162,13 @@ Meteor.methods({
     var userId;
     try {
       // check if the phone is registered?
-      var oldUser = Meteor.users.findOne({username: cellphone});
+      var oldUser = Meteor.users.findOne({"phoneNo": cellphone});
       if (oldUser) {
         userId = oldUser._id;
       } else {
-        var userOptions = {username: cellphone, password: Random.secret()};
-        userId = Accounts.createUser(userOptions);
+        var role = params.role?params.role:'teacher';
+        var userOptions = {"username": cellphone, "phoneNo": cellphone, "role": role};
+        userId = Accounts.insertUserDoc(userOptions, userOptions);
       }
     } catch (ex) {
       console.log(ex);
