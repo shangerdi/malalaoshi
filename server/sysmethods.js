@@ -166,7 +166,8 @@ Meteor.methods({
       if (oldUser) {
         userId = oldUser._id;
       } else {
-        var userOptions = {"username": cellphone, "phoneNo": cellphone};
+        var role = params.role?params.role:'teacher';
+        var userOptions = {"username": cellphone, "phoneNo": cellphone, "role": role};
         userId = Accounts.insertUserDoc(userOptions, userOptions);
       }
     } catch (ex) {
