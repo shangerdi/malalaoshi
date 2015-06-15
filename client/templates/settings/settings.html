@@ -4,7 +4,12 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="gravatar">
+        <img src="{{currentUser.profile.headImgUrl}}" width="180" height="180" >
       </div>
+      <div class="hide" id="headImgUploadFormBox">
+        {{>headImg}}
+      </div>
+      <input type="hidden" id="headImgUrl" name="headImgUrl">
     </div>
     <div class="col-sm-9">
       <div class="form-group {{errorClass 'name'}}">

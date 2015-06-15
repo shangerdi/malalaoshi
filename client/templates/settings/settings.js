@@ -126,6 +126,7 @@ Template.settings.events({
     };
     // console.log(address);
     var profile = {
+      headImgUrl: $(curForm).find('[name=headImgUrl]').val(),
       name: $(curForm).find('[name=name]').val(),
       nickname: $(curForm).find('[name=nickname]').val(),
       gender: gender,
@@ -216,5 +217,34 @@ Template.settings.events({
       return;
     }
 
+  },
+  'click .gravatar': function(e) {
+    $gravatar = $(e.target);
+    $("#headImgUploadFormBox").css("width", "800px");
+    $("#headImgUploadFormBox").css("position", "fixed");
+    $("#headImgUploadFormBox").css("top", "50px");
+    $("#headImgUploadFormBox").css("left", "200px");
+    $("#headImgUploadFormBox").css("zIndex", "9999");
+    $("#headImgUploadFormBox").css("border", "1px solid black");
+    $("#headImgUploadIFrame")[0].onload = function(e) {
+      var data = $(e.target.contentWindow.document.body).text();
+      var obj = JSON.parse(data);
+      if (!obj || typeof obj.code=="undefined") {
+        alert("上传失败，请稍后重试！");
+      } else {
+        if (obj.code==0) {
+          var hiUrl = obj.server+obj.path;
+          $gravatar.html('<img src="'+hiUrl+'" width="180" height="180">');
+          $("#headImgUrl").val(hiUrl);
+          $("#headImgUploadFormBox").addClass('hide');
+        } else {
+          alert(obj.msg);
+        }
+      }
+    };
+    $("#uploadHeadImgCancelBtn").click(function(event) {
+      $("#headImgUploadFormBox").addClass('hide');
+    });
+    $("#headImgUploadFormBox").removeClass('hide');
   }
 });

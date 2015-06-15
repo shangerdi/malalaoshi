@@ -1,7 +1,4 @@
-// console.log(process.env.NODE_PATH);
-console.log(process);
 var multiparty = Npm.require('multiparty');
-var util = Npm.require('util');
 var fs = Npm.require('fs');
 var path = Npm.require('path') ;
 
@@ -15,26 +12,26 @@ Router.route('/uploadHeadImg/', function(){
     var form = new multiparty.Form();
 
     form.parse(req, function(err, fields, files) {
+      console.log(fields);
       console.log(files);
-      if (files && files.imgFile && files.imgFile.length>0) {
+      if (files && files.imgFile && files.imgFile.length>0 && files.imgFile[0].originalFilename && files.imgFile[0].size) {
         var fileObj = files.imgFile[0];
         var tmpPath = fileObj.path;
         var webPath = "/images/"+path.basename(tmpPath);
-        var newPath = path.normalize(process.env.METEOR_SHELL_DIR+"/../../..")+"/public"+webPath;
+        var newPath = path.normalize(process.env.FILES_SERVER_ROOT)+webPath;
         console.log(newPath);
         try {
           copyFile(tmpPath, newPath);
           res.writeHead(200, {'content-type': 'text/plain'});
-          res.write('received upload:\n\n');
-          res.end(util.inspect({"code": 0, "path": webPath}));
+          res.end(JSON.stringify({"code": 0, "path": webPath, "server": process.env.FILES_SERVER}));
           return;
         } catch (err) {
           console.log(err);
-          res.end(util.inspect({"code": -1, "err": err}));
+          res.end(JSON.stringify({"code": -1, "err": err}));
           return;
         }
       } else {
-        res.end(util.inspect({"code": 1, "msg": "参数错误"}));
+        res.end(JSON.stringify({"code": 1, "msg": "参数错误"}));
         return;
       }
     });

@@ -1,16 +1,33 @@
 <template name="headImg">
-<form class="main form page form-horizontal" action="/uploadHeadImg/" method="post" enctype="multipart/form-data">
+<form class="main form page form-horizontal" id="headImgUploadForm" action="/uploadHeadImg/" method="post" enctype="multipart/form-data" target="headImgUploadIFrame">
+
+  <div class="form-group">
+    <div class="form-inline">
+      <div class="col-sm-6 img-preview">
+        <div><img class="bg-info" id="imgFilePreview1" width="300" height="300" /></div>
+      </div>
+      <div class="img-preview">
+        <div><img class="bg-info" id="imgFilePreview2" width="100" height="100" /></div>
+        <div>100 × 100</div>
+        <div><img class="img-circle bg-info" id="imgFilePreview3" width="50" height="50" /></div>
+        <div>50 × 50</div>
+      </div>
+    </div>
+  </div>
 
   <div class="form-group">
     <label class="col-sm-2 control-label" for="name">上传头像</label>
+    <input type="hidden" id="curUserId" name="curUserId" value="{{currentUser._id}}">
     <input type="file" id="imgFile" name="imgFile" >
   </div>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <input class="col-sm-2 btn btn-warning" id="uploadHeadImg" type="submit" value="提交" />
+      <input class="col-sm-2 btn btn-warning" id="uploadHeadImgBtn" type="submit" value="提交" />
+      <input class="col-sm-offset-1 col-sm-2 btn btn-disable" id="uploadHeadImgCancelBtn" type="button" value="取消" />
     </div>
   </div>
 
 </form>
+<iframe id="headImgUploadIFrame" name="headImgUploadIFrame" style="display:none"></iframe>
 </template>

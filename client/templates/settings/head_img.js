@@ -1,65 +1,50 @@
 Template.headImg.events({
   'change #imgFile': function(e) {
     var ele = e.target;
-    console.log(ele);
-    var picPath = getPath(ele);
-    console.log(picPath);
-    var image = new Image();  
-   image.src = picPath;
-   var flag = validImgFile();
-   console.log(flag);
+    var imgType = ["gif", "jpeg", "jpg", "bmp", "png"];
+    var flag = validImgFile();
+    if (!flag) {
+      return false;
+    }
+    var imtUrl = getObjectURL(ele.files[0]);
 
-    $("#imgFilePreviewBox").html("<img width='"+image.width+"' height='"+image.height+"' id='aPic' src='"+picPath+"'>");
+    $("#imgFilePreview1").attr("src", imtUrl);
+    $("#imgFilePreview2").attr("src", imtUrl);
+    $("#imgFilePreview3").attr("src", imtUrl);
 
     // valid image properties
-    function validImgFile()  
-    {  
-   
-        //验证上传文件格式是否正确   
-        var pos = picPath.lastIndexOf(".");   
-        var lastname = picPath.substring(pos, picPath.length)   
-        if (lastname.toLowerCase() != ".jpg") {   
-            console.log("您上传的文件类型为" + lastname + "，图片必须为 JPG 类型");   
-            return false;   
-        }   
-          
-        //验证上传文件宽高比例   
-        if (image.height / image.width > 1.5 || image.height / image.width < 1.25) {   
-            console.log("您上传的图片比例超出范围，宽高比应介于1.25-1.5");   
-            return false;   
-        }  
-           
-        //验证上传文件是否超出了大小   
-        if (image.fileSize / 1024 > 150) {   
-            console.log("您上传的文件大小超出了150K限制！");   
-            return false;   
-        }
-    } 
+    function validImgFile() {
+      if (!ele.value || !ele.files) {
+        alert("请选择图片文件");
+        return false;
+      }
 
-    //得到图片的完整路径  
-    function getPath(obj)  
-    {  
-         if(obj)  
-         {  
-             //ie  
-             if (window.navigator.userAgent.indexOf("MSIE")>=1)  
-            {  
-                obj.select();  
-                // IE下取得图片的本地路径  
-                return document.selection.createRange().text;  
-             }  
-             //firefox  
-             else if(window.navigator.userAgent.indexOf("Firefox")>=1)  
-             {  
-                if(obj.files)  
-                {  
-                 // Firefox下取得的是图片的数据  
-                return obj.files.item(0).getAsDataURL();  
-                }  
-                return obj.value;  
-             }  
-         return obj.value;  
-         }  
-    }  
+      //验证上传文件格式是否正确   
+      if (!RegExp("\.(" + imgType.join("|") + ")$", "i").test(ele.value.toLowerCase())) {
+        alert("选择图片类型错误");
+        this.value = "";
+        return false;
+      }
+
+      //验证上传文件是否超出了大小   
+      if (ele.files[0].size && (ele.files[0].size / 1024 > 150)) {
+        alert("您上传的文件大小("+(ele.files[0].size / 1024)+"K)超出了150K限制！");
+        return false;
+      }
+
+      return true;
+    }
+
+    function getObjectURL(file) {
+      var url = null;
+      if (window.createObjectURL != undefined) {
+        url = window.createObjectURL(file);
+      } else if (window.URL != undefined) {
+        url = window.URL.createObjectURL(file);
+      } else if (window.webkitURL != undefined) {
+        url = window.webkitURL.createObjectURL(file);
+      }
+      return url;
+    }
   }
 });
