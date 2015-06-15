@@ -1,6 +1,6 @@
 // console.log(process.env.NODE_PATH);
 console.log(process);
-// var multiparty = Npm.require('multiparty');
+var multiparty = Npm.require('multiparty');
 var util = Npm.require('util');
 var fs = Npm.require('fs');
 var path = Npm.require('path') ;
@@ -11,7 +11,7 @@ Router.route('/uploadHeadImg/', function(){
   // console.log(req.files);
   // console.log(this.params);
 
-    var multiparty = Npm.require('multiparty');
+    // var multiparty = Npm.require('multiparty');
     var form = new multiparty.Form();
 
     form.parse(req, function(err, fields, files) {
