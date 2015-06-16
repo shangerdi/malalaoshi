@@ -219,33 +219,6 @@ Template.settings.events({
 
   },
   'click .gravatar': function(e) {
-    $gravatar = $(e.target);
-    $("#headImgUploadFormBox").css("width", "800px");
-    $("#headImgUploadFormBox").css("position", "fixed");
-    $("#headImgUploadFormBox").css("top", "50px");
-    $("#headImgUploadFormBox").css("left", "200px");
-    $("#headImgUploadFormBox").css("zIndex", "9999");
-    $("#headImgUploadFormBox").css("border", "1px solid black");
-    $("#headImgUploadIFrame")[0].onload = function(e) {
-      var data = $(e.target.contentWindow.document.body).text();
-      var obj = JSON.parse(data);
-      if (!obj || typeof obj.code=="undefined") {
-        alert("上传失败，请稍后重试！");
-      } else {
-        if (obj.code==0) {
-          var hiUrl = obj.server+obj.path;
-          if ($gravatar.is('img')) {
-            $gravatar.attr("src", hiUrl);
-          } else {
-            $gravatar.find("img").attr("src", hiUrl);
-          }
-          $("#headImgUrl").val(hiUrl);
-          $("#headImgUploadFormBox").addClass('hide');
-        } else {
-          alert(obj.msg);
-        }
-      }
-    };
     $("#uploadHeadImgCancelBtn").click(function(event) {
       $("#headImgUploadFormBox").addClass('hide');
     });

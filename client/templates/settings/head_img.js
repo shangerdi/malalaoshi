@@ -46,5 +46,28 @@ Template.headImg.events({
       }
       return url;
     }
+  },
+  'submit #headImgUploadForm': function(e) {
+    e.preventDefault();
+    var uploader = new Slingshot.Upload("myHeadImgUploads");
+
+    var error = uploader.validate(document.getElementById('imgFile').files[0]);
+    if (error) {
+      console.error(error);
+    }
+
+    uploader.send(document.getElementById('imgFile').files[0], function(error, downloadUrl) {
+      if (error) {
+        // Log service detailed response
+        // console.error('Error uploading', uploader.xhr.response);
+        console.error(error);
+        alert(error.reason);
+      } else {
+        //Meteor.users.update(Meteor.userId(), {$set: {"profile.headImgUrl": downloadUrl}});
+        $('.gravatar').find("img").attr("src", downloadUrl);
+        $("#headImgUrl").val(downloadUrl);
+        $("#headImgUploadFormBox").addClass('hide');
+      }
+    });
   }
 });
