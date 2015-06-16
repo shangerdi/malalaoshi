@@ -126,6 +126,7 @@ Template.settings.events({
     };
     // console.log(address);
     var profile = {
+      headImgUrl: $(curForm).find('[name=headImgUrl]').val(),
       name: $(curForm).find('[name=name]').val(),
       nickname: $(curForm).find('[name=nickname]').val(),
       gender: gender,
@@ -216,5 +217,11 @@ Template.settings.events({
       return;
     }
 
+  },
+  'click .gravatar': function(e) {
+    $("#uploadHeadImgCancelBtn").click(function(event) {
+      $("#headImgUploadFormBox").addClass('hide');
+    });
+    $("#headImgUploadFormBox").removeClass('hide');
   }
 });

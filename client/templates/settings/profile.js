@@ -19,5 +19,12 @@ Template.profile.helpers({
       return false;
     }
     return true;
+  },
+  headImgUrl: function() {
+    var curUser = Meteor.user();
+    if (curUser && curUser.profile && curUser.profile.headImgUrl) {
+      return curUser.profile.headImgUrl;
+    }
+    return "/images/head.png";
   }
 });
