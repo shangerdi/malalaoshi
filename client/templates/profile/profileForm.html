@@ -1,15 +1,15 @@
-<template name="settings">
+<template name="profileForm">
 <form class="main form page form-horizontal">
   <hr>
   <div class="row">
     <div class="col-sm-3">
-      <div class="gravatar">
-        <img src="{{currentUser.profile.headImgUrl}}" width="180" height="180" >
+      <div class="avatar">
+        <img src="{{currentUser.profile.avatarUrl}}" width="180" height="180" >
       </div>
-      <div class="hide" id="headImgUploadFormBox">
-        {{>headImg}}
+      <div class="hide" id="avatarUploadFormBox">
+        {{>avatar}}
       </div>
-      <input type="hidden" id="headImgUrl" name="headImgUrl" value="{{currentUser.profile.headImgUrl}}">
+      <input type="hidden" id="avatarUrl" name="avatarUrl" value="{{currentUser.profile.avatarUrl}}">
     </div>
     <div class="col-sm-9">
       <div class="form-group {{errorClass 'name'}}">

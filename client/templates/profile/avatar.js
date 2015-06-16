@@ -1,4 +1,4 @@
-Template.headImg.events({
+Template.avatar.events({
   'change #imgFile': function(e) {
     var ele = e.target;
     var imgType = ["gif", "jpeg", "jpg", "bmp", "png"];
@@ -47,7 +47,7 @@ Template.headImg.events({
       return url;
     }
   },
-  'submit #headImgUploadForm': function(e) {
+  'submit #avatarUploadForm': function(e) {
     e.preventDefault();
     var uploader = new Slingshot.Upload("myHeadImgUploads");
 
@@ -63,10 +63,10 @@ Template.headImg.events({
         console.error(error);
         alert(error.reason);
       } else {
-        //Meteor.users.update(Meteor.userId(), {$set: {"profile.headImgUrl": downloadUrl}});
-        $('.gravatar').find("img").attr("src", downloadUrl);
-        $("#headImgUrl").val(downloadUrl);
-        $("#headImgUploadFormBox").addClass('hide');
+        //Meteor.users.update(Meteor.userId(), {$set: {"profile.avatarUrl": downloadUrl}});
+        $('.avatar').find("img").attr("src", downloadUrl);
+        $("#avatarUrl").val(downloadUrl);
+        $("#avatarUploadFormBox").addClass('hide');
       }
     });
   }

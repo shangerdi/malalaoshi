@@ -20,10 +20,10 @@ Template.profile.helpers({
     }
     return true;
   },
-  headImgUrl: function() {
+  avatarUrl: function() {
     var curUser = Meteor.user();
-    if (curUser && curUser.profile && curUser.profile.headImgUrl) {
-      return curUser.profile.headImgUrl;
+    if (curUser && curUser.profile && curUser.profile.avatarUrl) {
+      return curUser.profile.avatarUrl;
     }
     return "/images/head.png";
   }

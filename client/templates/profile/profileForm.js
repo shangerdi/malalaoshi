@@ -1,8 +1,8 @@
 var areaOfChina = new AreaOfChina();
-Template.settings.onCreated(function() {
+Template.profileForm.onCreated(function() {
   Session.set('settingsErrors', {});
 });
-Template.settings.onRendered(function() {
+Template.profileForm.onRendered(function() {
   // init area province list
   var cur = areaOfChina.getProvince();
   if (cur) {
@@ -63,7 +63,7 @@ Template.settings.onRendered(function() {
     }
   }
 });
-Template.settings.helpers({
+Template.profileForm.helpers({
   errorMessage: function(field) {
     return Session.get('settingsErrors')[field];
   },
@@ -111,7 +111,7 @@ getDaysArray = function() {
   }
   return a;
 }
-Template.settings.events({
+Template.profileForm.events({
   'submit form': function(e) {
     e.preventDefault();
     var curForm = e.target;
@@ -126,7 +126,7 @@ Template.settings.events({
     };
     // console.log(address);
     var profile = {
-      headImgUrl: $(curForm).find('[name=headImgUrl]').val(),
+      avatarUrl: $(curForm).find('[name=avatarUrl]').val(),
       name: $(curForm).find('[name=name]').val(),
       nickname: $(curForm).find('[name=nickname]').val(),
       gender: gender,
@@ -218,10 +218,10 @@ Template.settings.events({
     }
 
   },
-  'click .gravatar': function(e) {
+  'click .avatar': function(e) {
     $("#uploadHeadImgCancelBtn").click(function(event) {
-      $("#headImgUploadFormBox").addClass('hide');
+      $("#avatarUploadFormBox").addClass('hide');
     });
-    $("#headImgUploadFormBox").removeClass('hide');
+    $("#avatarUploadFormBox").removeClass('hide');
   }
 });
