@@ -234,7 +234,11 @@ Template.settings.events({
       } else {
         if (obj.code==0) {
           var hiUrl = obj.server+obj.path;
-          $gravatar.html('<img src="'+hiUrl+'" width="180" height="180">');
+          if ($gravatar.is('img')) {
+            $gravatar.attr("src", hiUrl);
+          } else {
+            $gravatar.find("img").attr("src", hiUrl);
+          }
           $("#headImgUrl").val(hiUrl);
           $("#headImgUploadFormBox").addClass('hide');
         } else {

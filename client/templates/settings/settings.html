@@ -9,7 +9,7 @@
       <div class="hide" id="headImgUploadFormBox">
         {{>headImg}}
       </div>
-      <input type="hidden" id="headImgUrl" name="headImgUrl">
+      <input type="hidden" id="headImgUrl" name="headImgUrl" value="{{currentUser.profile.headImgUrl}}">
     </div>
     <div class="col-sm-9">
       <div class="form-group {{errorClass 'name'}}">

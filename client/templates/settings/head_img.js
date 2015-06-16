@@ -15,7 +15,7 @@ Template.headImg.events({
     // valid image properties
     function validImgFile() {
       if (!ele.value || !ele.files) {
-        alert("请选择图片文件");
+        // alert("请选择图片文件");
         return false;
       }
 
@@ -27,10 +27,10 @@ Template.headImg.events({
       }
 
       //验证上传文件是否超出了大小   
-      if (ele.files[0].size && (ele.files[0].size / 1024 > 150)) {
-        alert("您上传的文件大小("+(ele.files[0].size / 1024)+"K)超出了150K限制！");
-        return false;
-      }
+      // if (ele.files[0].size && (ele.files[0].size / 1024 > 150)) {
+      //   alert("您上传的文件大小("+(ele.files[0].size / 1024)+"K)超出了150K限制！");
+      //   return false;
+      // }
 
       return true;
     }
