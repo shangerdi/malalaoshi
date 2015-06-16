@@ -13,7 +13,13 @@
       <ul class="nav navbar-nav">
         {{#if currentUser}}
         <li class="{{activeRouteClass  'settings'}}">
-          <a href="{{pathFor 'settings'}}">修改资料</a>
+          <a href="{{pathFor 'settings'}}">个人资料</a>
+        </li>
+        {{/if}}
+
+        {{#if role = 'admin'}}
+        <li class="{{activeRouteClass  'profiles'}}">
+          <a href="{{pathFor 'profiles'}}">审核</a>
         </li>
         {{/if}}
       </ul>
