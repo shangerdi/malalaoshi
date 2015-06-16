@@ -16,6 +16,15 @@
           <a href="{{pathFor 'profileForm'}}">个人资料</a>
         </li>
         {{/if}}
+        <li class="{{activeRouteClass  'messages'}}">
+          <a href="{{pathFor 'messages'}}">消息</a>
+        </li>
+        <li class="{{activeRouteClass  'rights'}}">
+          <a href="{{pathFor 'rights'}}">会员权益</a>
+        </li>
+        <li class="{{activeRouteClass  'feedback'}}">
+          <a href="{{pathFor 'feedback'}}">意见与建议</a>
+        </li>
 
         {{#if role = 'admin'}}
         <li class="{{activeRouteClass  'teachers'}}">
