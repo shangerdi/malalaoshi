@@ -18,5 +18,8 @@ Template.header.helpers({
       return 'Stage';
     }
     return '';
+  },
+  role: function() {
+    return Meteor.user().role;
   }
 });
