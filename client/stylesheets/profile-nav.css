@@ -1,0 +1,64 @@
+.profile-nav {
+  width: 210px;
+}
+.profile-nav .avatar {
+  margin:0;
+  height: 207px;
+  width: 210px;
+  background:#999;
+}
+.profile-nav .username {
+  padding: 23px 0;
+  text-align: center;
+  font-size: 30px;
+  line-height: 30px;
+  color: #333;
+}
+.profile-nav .edit-profile input {
+  width: 100%;
+  height: 56px;
+  background-color: #db3e00;
+  color: #fff;
+  font-size: 16px;
+}
+.profile-nav .items {
+  margin-top: 20px;
+}
+.profile-nav .items .title {
+  padding: 20px 0px;
+  padding-left: 20px;
+  background-color: #e2e2e2;
+  font-size: 16px;
+  line-height: 16px;
+  color: #444;
+}
+.profile-nav .items li {
+  padding: 20px 0px;
+  padding-left: 20px;
+  background-color: #fff;
+  font-size: 14px;
+  line-height: 14px;
+  color: #7d7d7d;
+  border-top: 1px solid #eee;
+}
+.profile-nav .items li .flag {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background-color: #7d7d7d;
+  color: #fff;
+}
+.profile-nav .items li .fulfill {
+  background-color: #0a0;
+}
+.profile-nav .items .base-info {
+  
+}
+.profile-nav .items .edu-info {
+  
+}
+.profile-nav .items .cert-info {
+  
+}
