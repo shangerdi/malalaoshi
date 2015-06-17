@@ -24,3 +24,11 @@
   padding: 16px 0;
   border-top: 1px solid #e2e2e2;
 }
+.message-list li .content .unread{
+  /*font-weight: bold;*/
+}
+.message-list li .content .datetime{
+  font-size: 12px;
+  color: #987;
+  margin-right: 20px;
+}
