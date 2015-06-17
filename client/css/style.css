@@ -1,6 +1,5 @@
 .grid-block, .main, .post, .comments li, .comment-form {
   background: #fff;
-  border-radius: 3px;
   padding: 10px;
   margin-bottom: 10px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
@@ -9,9 +8,7 @@
 }
 
 body {
-  background: #f1f1f1;
   color: #7d7d7d;
-  font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 #main {
@@ -27,11 +24,8 @@ body {
 }
 
 .navbar {
-  margin-bottom: 10px; }
-  /* line 32, ../sass/style.scss */
-  .navbar .navbar-inner {
-    border-radius: 0px 0px 3px 3px; }
-
+margin-bottom: 10px;
+}
 #spinner {
 height: 300px; }
 
@@ -107,7 +101,6 @@ white-space: nowrap; }
 
 .load-more {
   display: block;
-  border-radius: 3px;
   background: rgba(0, 0, 0, 0.05);
   text-align: center;
   height: 60px;
