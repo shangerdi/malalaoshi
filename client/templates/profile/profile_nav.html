@@ -1,13 +1,21 @@
 <template name="profileNav">
 <div class="profile-nav">
-  <div class="row">
-    <img src="{{avatarUrl}}" width="210" height="207" >
+  <div class="head-img">
+    <img src="{{currentUser.profile.headImgUrl}}" width="210" height="207" >
   </div>
-  <div class="row">
+  <div class="username">
     <span>{{currentUser.profile.name}}</span>
   </div>
-  <div class="row">
-    <input class="btn-primary" type="button" value="完善您的个人资料" >
+  <div class="edit-profile">
+    <input class="btn btn-edit-profile" type="button" value="完善您的个人资料" >
+  </div>
+  <div class="items">
+    <div class="title">审核项目</div>
+    <ul class="list-unstyled">
+      <li class="base-info"><span class="flag fulfill">√</span>基本信息</li>
+      <li class="edu-info"><span class="flag fulfill">√</span>教育信息</li>
+      <li class="cert-info"><span class="flag fulfill-not">√</span>教学资质</li>
+    </ul>
   </div>
 </div>
 </template>
