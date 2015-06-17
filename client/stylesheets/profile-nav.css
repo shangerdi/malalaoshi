@@ -1,9 +1,11 @@
 .profile-nav {
   width: 210px;
-  font-family: '微软雅黑';
 }
-.profile-nav .head-img {
-
+.profile-nav .avatar {
+  margin:0;
+  height: 207px;
+  width: 210px;
+  background:#999;
 }
 .profile-nav .username {
   padding: 23px 0;
