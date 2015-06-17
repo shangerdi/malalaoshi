@@ -10,5 +10,5 @@ Meteor.publish("userData", function () {
   }
 });
 Meteor.publish('messages', function() {
-  return Messages.find({userId: this.userId});
+  return Messages.find({userId: this.userId, read: {$ne: true}});
 });
