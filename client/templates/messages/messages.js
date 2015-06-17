@@ -13,23 +13,23 @@ Template.messageItem.helpers({
     return (!this.read);
   },
   'createTimeStr': function() {
-    var theTime = this.createTime.getTime();
+    var theTime = this.createTime;
     if (!theTime) {
       return "";
     }
     var now = new Date(),
       nowTime = now.getTime(),
-      s = new Date(theTime);
-    diffValue = nowTime - theTime,
+      s = new Date(theTime),
+      diffValue = nowTime - theTime,
       minute = 1000 * 60,
       hour = minute * 60,
       day = hour * 24,
       month = day * 30,
       year = month * 12;
 
-    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-    var yesterDay = today - day;
-    var beforeYesterDay = yesterDay - day;
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime(),
+      yesterDay = today - day,
+      beforeYesterDay = yesterDay - day;
 
     if (diffValue < minute) {
       return "刚刚";
@@ -47,7 +47,10 @@ Template.messageItem.helpers({
       return "前天" + s.getHours() + ":" + s.getMinutes();
     }
     if (diffValue < year) {
-      return (s.getMonth() + 1) + "月" + s.getDate() + "日";
+      var theYearTime = new Date(now.getFullYear()).getTime();
+      if (theTime >= theYearTime) {
+        return (s.getMonth() + 1) + "月" + s.getDate() + "日";
+      }
     }
     return s.getFullYear() + "年" + (s.getMonth() + 1) + "月" + s.getDate() + "日";
   }
