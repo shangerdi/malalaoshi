@@ -1,0 +1,40 @@
+<template name="messages">
+{{>profileBanner}}
+<div class="messages">
+  <div class="messages-title">
+    系统消息
+    {{#if messageCount}}
+      <span class="badge">({{messageCount}})</span>
+    {{/if}}
+  </div>
+  <ul class="list-unstyled message-list">
+    {{#if messageCount}}
+      {{#each messages}}
+        {{> messageItem}}
+      {{/each}}
+    {{else}}
+      <li>
+        <div class="content"><span>如果您有任何的消息或回复，你将会在这里看到。</span>
+        </div>
+      </li>
+      <li>
+        <div class="content"><span>如果您有任何的消息或回复，<br>
+          你将会在这里看到。</span>
+        </div>
+      </li>
+    {{/if}}
+  </ul>
+</div>
+</template>
+
+<template name="messageItem">
+  <li>
+    <div class="content">
+      <input type="hidden" value="{{_id}}" />
+      <span class="flag">是否已读</span>
+      <span class="text">消息内容</span>
+      <span class="datetime">时间</span>
+      <a class="action">action</a>
+    </div>
+  </li>
+</template>

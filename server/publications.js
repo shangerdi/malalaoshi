@@ -9,3 +9,6 @@ Meteor.publish("userData", function () {
     this.ready();
   }
 });
+Meteor.publish('messages', function() {
+  return Messages.find({userId: this.userId});
+});

@@ -1,0 +1,23 @@
+.messages {
+  margin-top: 20px;
+}
+.messages-title {
+  padding: 20px 0px;
+  padding-left: 20px;
+  background-color: #e2e2e2;
+  font-size: 16px;
+  line-height: 16px;
+  color: #444;
+}
+.message-list {
+  background-color: #fff;
+  font-size: 14px;
+  color: #7d7d7d;
+}
+.message-list li {
+  padding: 0 20px;
+}
+.message-list li .content{
+  padding: 16px 0;
+  border-top: 1px solid #e2e2e2;
+}
