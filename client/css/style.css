@@ -9,8 +9,8 @@
 }
 
 body {
-  background: #eee;
-  color: #666666;
+  background: #f1f1f1;
+  color: #7d7d7d;
   font-family: 'Lantinghei SC', 'Microsoft Yahei', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -183,4 +183,19 @@ background: rgba(0, 0, 0, 0.1); }
 }
 .footer{
   margin:50px 0;
+}
+.red{
+  color:#db3e00;
+}
+.title{
+  font-weight:300;
+  font-size:18px;
+  font-style:italic;
+}
+.title .red{
+  font-weight:600;
+  font-size:22px;
+}
+.subtitle {
+  font-size:16px;
 }
