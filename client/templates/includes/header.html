@@ -1,5 +1,5 @@
 <template name="header">
-  <nav class="navbar navbar-default" role="navigation">
+  <nav class="navbar navbar-default">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
         <span class="sr-only">Toggle navigation</span>
@@ -7,10 +7,29 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{pathFor 'profile'}}">非常公会 <sup>{{sup}}</sup></a>
+      <a class="navbar-brand" href="{{pathFor 'dashboard'}}">非常公会 <sup>{{sup}}</sup></a>
     </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="{{activeRouteClass  'messages'}}">
+          <a href="{{pathFor 'messages'}}">消息</a>
+        </li>
+        {{# if currentUser}}
+        {{> loginButtons}}
+        {{else}}
+        <li>
+          <a href="{{pathFor 'mylogin'}}">登录 | 注册</a>
+        </li>
+        {{/if}}
+      </ul>
+    </div>
+  </nav>
+  <nav class="navbar navbar-inverse" role="navigation">
     <div class="collapse navbar-collapse" id="navigation">
       <ul class="nav navbar-nav">
+        <li class="{{activeRouteClass  'profile'}}">
+          <a href="{{pathFor 'profile'}}">首页</a>
+        </li>
         {{#if currentUser}}
         <li class="{{activeRouteClass  'profileForm'}}">
           <a href="{{pathFor 'profileForm'}}">个人资料</a>
@@ -29,15 +48,6 @@
         {{#if role = 'admin'}}
         <li class="{{activeRouteClass  'teachers'}}">
           <a href="{{pathFor 'teachers'}}">审核老师</a>
-        </li>
-        {{/if}}
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        {{# if currentUser}}
-        {{> loginButtons}}
-        {{else}}
-        <li>
-          <a href="{{pathFor 'mylogin'}}">登录 | 注册</a>
         </li>
         {{/if}}
       </ul>
