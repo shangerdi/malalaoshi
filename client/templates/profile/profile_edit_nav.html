@@ -1,0 +1,23 @@
+<template name="profileEditNav">
+<div class="profile-edit-nav">
+  <div class="items">
+    <ul class="list-unstyled">
+      <li class="{{activeRouteClass 'profileForm'}}">
+        <a href="{{pathFor 'profileForm'}}">基本信息</a>
+      </li>
+      <li class="{{activeRouteClass 'profileEditEdu'}}">
+        <a href="{{pathFor 'profileEditEdu'}}">教育信息</a>
+      </li>
+      <li class="{{activeRouteClass 'profileEditCert'}}">
+        <a href="{{pathFor 'profileEditCert'}}">教学资质</a>
+      </li>
+      <li class="{{activeRouteClass 'profileEditAvatar'}}">
+        <a href="{{pathFor 'profileEditAvatar'}}">更换头像</a>
+      </li>
+    </ul>
+  </div>
+  <div class="view-profile">
+    <input class="btn btn-success" type="button" value="查看个人资料" >
+  </div>
+</div>
+</template>

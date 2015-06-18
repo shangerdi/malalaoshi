@@ -1,13 +1,14 @@
 <template name="profileForm">
-<div class="main profile-dashboard">
+<div class="main profile-edit">
   <div class="row">
     {{>profileBanner}}
   </div>
   <div class="row">
     <div class="col-sm-3">
-      {{>profileNav}}
+      {{>profileEditNav}}
     </div>
     <div class="col-sm-9">
+      <div class="profile-edit-title">基本信息</div>
       <form class="form form-horizontal">
         <div class="col-sm-12">
             <div class="form-group {{errorClass 'name'}}">
