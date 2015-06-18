@@ -12,7 +12,7 @@
       <form class="form form-horizontal">
         <div class="col-sm-12">
             <div class="form-group {{errorClass 'name'}}">
-              <label class="col-sm-2 control-label" for="name"><code>*</code>姓名</label>
+              <label class="col-sm-2 control-label" for="name">姓名</label>
               <div class="col-sm-10 controls">
                 <input name="name" id="name" type="text" value="{{currentUser.profile.name}}" placeholder="输入您的真实姓名" class="form-control" />
                 <span class="help-block">{{errorMessage 'name'}}</span>
@@ -28,7 +28,7 @@
             </div>
 
             <!--<div class="form-group {{errorClass 'cellphone'}}">
-              <label class="col-sm-2 control-label" for="cellphone"><code>*</code>手机号</label>
+              <label class="col-sm-2 control-label" for="cellphone">手机号</label>
               <div class="col-sm-10 controls form-inline">
               <input class="form-control" id="cellphone" name="cellphone" type="text" value="{{currentUser.profile.cellphone}}" placeholder="输入您的手机号"/>
               <input class="btn btn-warning" id="checkCellphone" type="button" value="验证" />
@@ -45,7 +45,7 @@
               </div>-->
 
               <div class="form-group {{errorClass 'gender'}}">
-                <label class="col-sm-2 control-label" for="gender"><code>*</code>性别</label>
+                <label class="col-sm-2 control-label" for="gender">性别</label>
                 <div class="col-sm-10 controls radio">
                   <label class="col-sm-2"><input class="" id="gender1" name="gender" type="radio" value="男"/>男</label>
                   <label class="col-sm-2"><input class="" id="gender2" name="gender" type="radio" value="女"/>女</label>
@@ -54,7 +54,7 @@
               </div>
 
               <div class="form-group {{errorClass 'birthday'}}">
-                <label class="col-sm-2 control-label" for="birthday"><code>*</code>出生日期</label>
+                <label class="col-sm-2 control-label" for="birthday">出生日期</label>
                 <div class="col-sm-4 controls">
                   <select class="form-control birthday" id="birthdayYear" name="birthdayYear" value="{{birthdayYear}}">
                     {{#each years}}
@@ -80,7 +80,7 @@
               </div>
 
               <div class="form-group {{errorClass 'state'}}">
-                <label class="col-sm-2 control-label" for="state"><code>*</code>目前身份</label>
+                <label class="col-sm-2 control-label" for="state">目前身份</label>
                 <div class="col-sm-10 controls radio">
                   <label class="col-sm-4"><input class="" id="state1" name="state" type="radio" value="1"/>在职教师（含公立学校和培训结构）</label>
                   <label class="col-sm-3"><input class="" id="state2" name="state" type="radio" value="2"/>准教师</label>
@@ -89,7 +89,7 @@
               </div>
 
               <div class="form-group {{errorClass 'college'}}">
-                <label class="col-sm-2 control-label" for="college"><code>*</code>毕业院校</label>
+                <label class="col-sm-2 control-label" for="college">毕业院校</label>
                 <div class="col-sm-10 controls">
                   <input class="form-control" id="college" name="college" type="text" value="{{currentUser.profile.college}}" placeholder="输入您的大学名称"/>
                   <span class="help-block">{{errorMessage 'college'}}</span>
@@ -97,7 +97,7 @@
               </div>
 
               <div class="form-group {{errorClass 'degree'}}">
-                <label class="col-sm-2 control-label" for="degree"><code>*</code>学历</label>
+                <label class="col-sm-2 control-label" for="degree">学历</label>
                 <div class="col-sm-10 controls">
                   <select class="form-control" id="degree" name="degree" value="{{currentUser.profile.degree}}">
                     <option>博士后</option>
@@ -121,7 +121,7 @@
               </div>
 
             <!--   <div class="form-group {{errorClass 'address'}}">
-                <label class="col-sm-2 control-label" for="address"><code>*</code>所在区域</label>
+                <label class="col-sm-2 control-label" for="address">所在区域</label>
                 <div class="col-sm-10 controls form-inline">
                   <input class="form-control" id="addressProvince" name="addressProvince" type="text" value="{{currentUser.profile.address.province}}"/>省
                   <input class="form-control" id="addressCity" name="addressCity" type="text" value="{{currentUser.profile.address.city}}"/>市
@@ -130,7 +130,7 @@
                 </div>
               </div> -->
               <div class="form-group {{errorClass 'address'}}">
-                <label class="col-sm-2 control-label" for="address"><code>*</code>所在区域</label>
+                <label class="col-sm-2 control-label" for="address">所在区域</label>
                 <div class="col-sm-4 controls">
                   <select class="form-control address" id="addressProvince" name="addressProvince" value="{{addressProvince}}">
                       <option value=""> - 省 - </option>
@@ -156,7 +156,7 @@
               </div>
 
               <div class="form-group {{errorClass 'selfIntro'}}">
-                <label class="col-sm-2 control-label" for="selfIntro"><code>*</code>个人简介</label>
+                <label class="col-sm-2 control-label" for="selfIntro">个人简介</label>
                 <div class="col-sm-10 controls">
                   <textarea class="form-control" id="selfIntro" name="selfIntro" rows="4" value="{{currentUser.profile.selfIntro}}" placeholder="不要为空哟"></textarea>
                   <span class="help-block">{{errorMessage 'selfIntro'}}</span>
