@@ -12,3 +12,6 @@ Meteor.publish("userData", function () {
 Meteor.publish('messages', function() {
   return Messages.find({userId: this.userId, read: {$ne: true}});
 });
+Meteor.publish('feedbacks', function() {
+  return Feedbacks.find({userId: this.userId});
+});
