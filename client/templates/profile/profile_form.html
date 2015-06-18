@@ -4,22 +4,12 @@
     {{>profileBanner}}
   </div>
   <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       {{>profileNav}}
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm-9">
       <form class="form form-horizontal">
-        <div class="row">
-   <!--        <div class="col-sm-3">
-            <div class="avatar">
-              <img src="{{currentUser.profile.avatarUrl}}" width="180" height="180" >
-            </div>
-            <div class="hide" id="avatarUploadFormBox">
-              {{>avatar}}
-            </div>
-            <input type="hidden" id="avatarUrl" name="avatarUrl" value="{{currentUser.profile.avatarUrl}}">
-          </div> -->
-          <div class="col-sm-9">
+        <div class="col-sm-12">
             <div class="form-group {{errorClass 'name'}}">
               <label class="col-sm-2 control-label" for="name"><code>*</code>姓名</label>
               <div class="col-sm-10 controls">
@@ -185,7 +175,6 @@
                   <input class="col-sm-2 btn btn-success submit" type="submit" value="提交" />
                 </div>
               </div>
-          </div>
         </div>
         <hr />
       </form>
