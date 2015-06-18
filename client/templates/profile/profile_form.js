@@ -126,7 +126,6 @@ Template.profileForm.events({
     };
     // console.log(address);
     var profile = {
-      avatarUrl: $(curForm).find('[name=avatarUrl]').val(),
       name: $(curForm).find('[name=name]').val(),
       nickname: $(curForm).find('[name=nickname]').val(),
       gender: gender,
@@ -217,11 +216,5 @@ Template.profileForm.events({
       return;
     }
 
-  },
-  'click .avatar': function(e) {
-    $("#uploadHeadImgCancelBtn").click(function(event) {
-      $("#avatarUploadFormBox").addClass('hide');
-    });
-    $("#avatarUploadFormBox").removeClass('hide');
   }
 });
