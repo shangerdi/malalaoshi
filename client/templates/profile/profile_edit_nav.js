@@ -10,3 +10,8 @@ Template.profileEditNav.helpers({
     return activeTab && 'active-tab';
   }
 });
+Template.profileEditNav.events({
+  'click .view-profile': function(e) {
+    Router.go('profile');
+  }
+});

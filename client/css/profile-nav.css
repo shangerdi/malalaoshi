@@ -1,6 +1,3 @@
-.profile-nav {
-  width: 210px;
-}
 .profile-nav .avatar {
   margin:0;
   height: 207px;
@@ -14,7 +11,7 @@
   line-height: 30px;
   color: #333;
 }
-.profile-nav .edit-profile input {
+.profile-nav .edit-profile {
   width: 100%;
   height: 56px;
   font-size: 16px;
