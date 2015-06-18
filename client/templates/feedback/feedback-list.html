@@ -1,0 +1,16 @@
+<template name="feedbacks">
+  <table class="table table-striped table-bordered table-hover">
+    <tr>
+      <th>用户手机号</th>
+      <th>反馈内容</th>
+      <th>提交时间</th>
+    </tr>
+    {{#each feedbacks}}
+    <tr>
+      <td>{{phoneNo}}</td>
+      <td>{{content}}</td>
+      <td>{{created}}</td>
+    </tr>
+    {{/each}}
+  </table>
+</template>
