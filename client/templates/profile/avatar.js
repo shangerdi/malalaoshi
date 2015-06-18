@@ -63,10 +63,11 @@ Template.avatar.events({
         console.error(error);
         alert(error.reason);
       } else {
-        //Meteor.users.update(Meteor.userId(), {$set: {"profile.avatarUrl": downloadUrl}});
-        $('.avatar').find("img").attr("src", downloadUrl);
-        $("#avatarUrl").val(downloadUrl);
-        $("#avatarUploadFormBox").addClass('hide');
+        console.log(downloadUrl);
+        Meteor.users.update(Meteor.userId(), {$set: {"profile.avatarUrl": downloadUrl}});
+        // $('.avatar').find("img").attr("src", downloadUrl);
+        // $("#avatarUrl").val(downloadUrl);
+        // $("#avatarUploadFormBox").addClass('hide');
       }
     });
   }
