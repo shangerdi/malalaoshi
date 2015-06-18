@@ -50,3 +50,19 @@
 .profile-edit-edu {
   margin-top: 20px;
 }
+.btn-add-edu-item {
+  margin: 20px 0;
+  color: #db3e00;
+  font-size: 18px;
+  line-height: 18px;
+}
+.btn-add-edu-item .mark-plus {
+  position: relative;
+  display: inline-block;
+  top: 4px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #db3e00;
+  border-radius: 50%;
+  font-size: 30px;
+}
