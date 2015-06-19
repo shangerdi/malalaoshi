@@ -36,51 +36,62 @@ Template.profileEditEdu.events({
   'click .btn-save-edu': function (e) {
     var hasError;
     var showError = function(prop, msg) {
-      var $formGroup = prop.closest('.form-group');
+      if (prop.is('.profile-edu-item')) {
+        $formGroup = prop;
+      } else {
+        $formGroup = prop.closest('.form-group');
+      }
       $formGroup.addClass('has-error');
       $formGroup.find('.help-block').text(msg);
     };
     // init state
     $(".profile-edu-items").find('.form-group').removeClass('has-error');
     $(".profile-edu-items").find('.help-block').text('');
-    // check error
-    $(".profile-edu-item").each(function(){
-      $item = $(this);
-      if (!$item.is(":visible")) {
-        return;
-      }
-      var prop = $item.find("select[name=degree]");
-      if (prop.val()=="") {
-        hasError = true;
-        showError(prop, "请选择学历");
-      }
-      prop = $item.find("input[name=college]");
-      if (prop.val()=="") {
-        hasError = true;
-        showError(prop, "请填写学校名字");
-      }
-      prop = $item.find("input[name=major]");
-      if (prop.val()=="") {
-        hasError = true;
-        showError(prop, "请填写专业");
-      }
-    });
-    if (hasError) {
-      return false;
-    }
-    // collect data
+    // check error, collect data
     var eduItems = [];
     $(".profile-edu-item").each(function(){
       $item = $(this);
       if (!$item.is(":visible")) {
         return;
       }
-      var degree = $item.find("select[name=degree]").val();
-      var college = $item.find("input[name=college]").val();
-      var major = $item.find("input[name=major]").val();
+      var err = false;
+      var prop = $item.find("select[name=degree]");
+      var degree = prop.val();
+      if (degree=="") {
+        err = true;
+        showError(prop, "请选择学历");
+      }
+      prop = $item.find("input[name=college]");
+      var college = prop.val();
+      if (college=="") {
+        err = true;
+        showError(prop, "请填写学校名字");
+      }
+      prop = $item.find("input[name=major]");
+      var major = prop.val();
+      if (major=="") {
+        err = true;
+        showError(prop, "请填写专业");
+      }
+      if (err) {
+        hasError = true;
+        return;
+      }
+      _.each(eduItems, function(ele){
+        if (ele.degree==degree && ele.college==college && ele.major==major) {
+          err = true;
+          showError($item, "与前面的重复了，请确认");
+        }
+      });
+      if (err) {
+        hasError = true;
+        return;
+      }
       eduItems.push({'degree':degree, 'college':college, 'major':major})
     });
-    console.log(eduItems);
+    if (hasError) {
+      return false;
+    }
     // do save
     Meteor.call('updateEducation', eduItems, function(error, result) {
       if (error)
@@ -92,8 +103,9 @@ Template.profileEditEdu.events({
   }
 });
 Template.eduItem.onRendered(function() {
-  if (this.data && this.data.degree)
+  if (this.data && this.data.degree) {
     this.$("select[name=degree]").val(this.data.degree);
+  }
 });
 Template.eduItem.events({
   'click .btn-delete-item': function(e) {
