@@ -1,7 +1,8 @@
 .profile-nav .avatar {
-  margin:0;
+  margin:0 auto;
   height: 207px;
-  width: 210px;
+  width: 100%;
+  max-width:210px;
   background:#999;
 }
 .profile-nav .username {
