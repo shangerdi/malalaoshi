@@ -113,7 +113,7 @@ Template.profileEditCert.events({
       alert("保存成功");
       $(".cert-upload-box.man-insert").remove();
       $(".cert-profession-items .cert-upload-box:gt("+professionItems.length+")").remove();
-      if ($(".cert-profession-items").children().length>professionItems.length) {}
+      if ($(".cert-profession-items").children().length>professionItems.length) {
         $lastBox = $(".cert-profession-items .cert-upload-box").last();
         clearUploadBox($lastBox);
       }
