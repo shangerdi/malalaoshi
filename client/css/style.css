@@ -207,3 +207,6 @@ background: rgba(0, 0, 0, 0.1); }
 .subtitle {
   font-size:16px;
 }
+#login-buttons-open-change-password{
+  display:none;
+}
