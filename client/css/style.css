@@ -20,7 +20,7 @@ body {
 .navbar ul.nav{
   margin-left:-15px;
 }
-ul.navbar-nav{
+.navbar.navbar-inverse ul.navbar-nav{
   overflow:hidden;
 }
 .navbar ul.nav > li.active{
