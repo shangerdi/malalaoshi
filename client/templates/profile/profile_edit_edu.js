@@ -25,6 +25,12 @@ Template.profileEditEdu.events({
     $profileEduItem.find("select").val("");
     $profileEduItem.find('.form-group').removeClass('has-error');
     $profileEduItem.find('.help-block').text('');
+    $profileEduItem.find('.btn-delete-item').click(function(e) {
+      $item = $(e.target).closest(".profile-edu-item");
+      $item.addClass('man-delete');
+      $item.hide();
+    });
+    $profileEduItem.addClass('man-insert');
     $(".profile-edu-items").append($profileEduItem);
   },
   'click .btn-save-edu': function (e) {
@@ -80,6 +86,8 @@ Template.profileEditEdu.events({
       if (error)
         return throwError(error.reason);
       alert("保存成功");
+      $(".profile-edu-item.man-insert").remove();
+      $(".profile-edu-item.man-delete").show();
     });
   }
 });
@@ -90,6 +98,7 @@ Template.eduItem.onRendered(function() {
 Template.eduItem.events({
   'click .btn-delete-item': function(e) {
     $profileEduItem = $(e.target).closest(".profile-edu-item");
+    $profileEduItem.addClass('man-delete');
     $profileEduItem.hide();
   }
 });
