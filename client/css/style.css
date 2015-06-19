@@ -10,7 +10,19 @@
 body {
   color: #7d7d7d;
 }
-
+.navbar{
+  border:none;
+}
+.navbar ul.nav{
+  margin-left:-15px;
+}
+ul.navbar-nav{
+  overflow:hidden;
+}
+.navbar ul.nav > li.active{
+  margin-top:-2px;
+  border-bottom:2px solid #db3e00;
+}
 #main {
   position: relative;
 }
