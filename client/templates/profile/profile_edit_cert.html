@@ -9,8 +9,41 @@
     </div>
     <div class="col-sm-9">
       <div class="profile-edit-title">教学资质</div>
-      <form class="form form-horizontal">
-      </form>
+      <div class="profile-edit-cert">
+        <div class="row cert-title">教师证认证</div>
+        <div class="row cert-upload-box">
+          <div class="col-sm-3 cert-img-box">
+            <div class="img-box"><img src={{eduCert.teacherQualifyImgUrl}}></div>
+            <div class="file-input-mask">上传图片<input title="请选择图片" type="file" name="photo" multiple=""></div>
+          </div>
+          <div class="col-sm-9 cert-action-box">
+            <p>请提交在有效期内的教师证照片，需保证头像及文字清晰可见。</p>
+          </div>
+        </div>
+
+        <div class="row cert-title">专业资质认证</div>
+        <div class="cert-profession-items">
+          <div class="row cert-upload-box">
+            <div class="col-sm-3 cert-img-box">
+              <div class="img-box"><img src={{certImgUrl}}></div>
+              <div class="file-input-mask">上传图片<input title="请选择图片" type="file" name="photo" multiple=""></div>
+            </div>
+            <div class="col-sm-9 cert-action-box">
+              <p>请提交你教学能力或专业能力的证明，如职称证书、考级证书等。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <a class="btn btn-add-edu-item"><span class="mark-plus">+</span>添加一行</a>
+          </div>
+          <div>
+            <input class="btn btn-success btn-save" type="button" value="保存">
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
