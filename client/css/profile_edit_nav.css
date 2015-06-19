@@ -68,15 +68,24 @@
 }
 .profile-edit-cert {
   padding-left: 30px;
+  padding-right: 15px;
 }
 .profile-edit-cert .cert-title {
-  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 20px 0;
+  font-size: 16px;
+  border-bottom: 1px solid #444;
 }
 .profile-edit-cert .cert-img-box {
-  padding: 0;
-  border: 1px solid #444;
+  padding-left: 0;
 }
-.profile-edit-cert .img-mask{
+.profile-edit-cert .cert-img-box .img-box {
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  background: #ddd;
+}
+.profile-edit-cert .cert-img-box .file-input-mask{
   position: absolute;
   left: 0;
   bottom: 0;
@@ -88,9 +97,8 @@
   color: #fff;
   background-color: rgba(0,0,0,0.62);
   overflow: hidden;
-  /*display: none;*/
 }
-.profile-edit-cert .cert-img-box .img-mask input {
+.profile-edit-cert .cert-img-box .file-input-mask input {
   position: absolute;
   top: 0;
   right: 0;
@@ -102,4 +110,7 @@
   font-size: 16px;
   direction: ltr;
   cursor: pointer;
+}
+.profile-edit-cert .cert-action-box {
+  padding-left: 30px;
 }
