@@ -1,17 +1,26 @@
-Template.profileEditEdu.onCreated(function() {
-  Session.set('settingsErrors', {});
-});
 Template.profileEditEdu.helpers({
-  errorMessage: function(field) {
-    return Session.get('settingsErrors')[field];
+  eduInfo: function () {
+    return UserEducation.findOne({userId: Meteor.userId()});
   },
-  errorClass: function (field) {
-    return !!Session.get('settingsErrors')[field] ? 'has-error' : '';
+  eduItems: function () {
+    var eduInfo = UserEducation.findOne({userId: Meteor.userId()});
+    if (!eduInfo || !eduInfo.eduItems) {
+      return [];
+    }
+    return eduInfo.eduItems;
+  },
+  eduItemsEmpty: function () {
+    var eduInfo = UserEducation.findOne({userId: Meteor.userId()});
+    if (!eduInfo || !eduInfo.eduItems || eduInfo.eduItems.length==0) {
+      return true;
+    }
+    return false;
   }
 });
 Template.profileEditEdu.events({
   'click .btn-add-edu-item': function(e) {
-    $profileEduItem = $(".profile-edu-item").first().clone();
+    $profileEduItem = $(".profile-edu-item").last().clone();
+    $profileEduItem.show();
     $profileEduItem.find("input").val("");
     $profileEduItem.find("select").val("");
     $profileEduItem.find('.form-group').removeClass('has-error');
@@ -31,6 +40,9 @@ Template.profileEditEdu.events({
     // check error
     $(".profile-edu-item").each(function(){
       $item = $(this);
+      if (!$item.is(":visible")) {
+        return;
+      }
       var prop = $item.find("select[name=degree]");
       if (prop.val()=="") {
         hasError = true;
@@ -54,6 +66,9 @@ Template.profileEditEdu.events({
     var eduItems = [];
     $(".profile-edu-item").each(function(){
       $item = $(this);
+      if (!$item.is(":visible")) {
+        return;
+      }
       var degree = $item.find("select[name=degree]").val();
       var college = $item.find("input[name=college]").val();
       var major = $item.find("input[name=major]").val();
@@ -61,6 +76,20 @@ Template.profileEditEdu.events({
     });
     console.log(eduItems);
     // do save
-    
+    Meteor.call('updateEducation', eduItems, function(error, result) {
+      if (error)
+        return throwError(error.reason);
+      alert("保存成功");
+    });
+  }
+});
+Template.eduItem.onRendered(function() {
+  if (this.data && this.data.degree)
+    this.$("select[name=degree]").val(this.data.degree);
+});
+Template.eduItem.events({
+  'click .btn-delete-item': function(e) {
+    $profileEduItem = $(e.target).closest(".profile-edu-item");
+    $profileEduItem.hide();
   }
 });

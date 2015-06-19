@@ -11,44 +11,12 @@
       <div class="profile-edit-title">教育信息</div>
       <form class="form form-horizontal profile-edit-edu">
         <div class="profile-edu-items">
-          <!-- show each edu items -start- -->
-          <div class="profile-edu-item">
-            <div class="form-group {{errorClass 'degree'}}">
-              <label class="col-sm-2 control-label" for="degree">学历</label>
-              <div class="col-sm-6 controls">
-                <select class="form-control" name="degree" value="{{currentUser.profile.degree}}">
-                  <!-- TODO: 抽取成为公共的helper -->
-                  <option value=""> - 请选择 - </option>
-                  <option value="postDoctor">博士后</option>
-                  <option value="doctor">博士</option>
-                  <option value="master">硕士</option>
-                  <option value="bachelor">本科</option>
-                  <option value="highSchool">高中</option>
-                  <!-- <option value="midSchool">初中</option>
-                  <option value="eleSchool">小学</option> -->
-                </select>
-                <span class="help-block">{{errorMessage 'degree'}}</span>
-              </div>
-            </div>
-
-            <div class="form-group {{errorClass 'college'}}">
-              <label class="col-sm-2 control-label" for="college">毕业院校</label>
-              <div class="col-sm-6 controls">
-                <input class="form-control" name="college" type="text" value="{{currentUser.profile.college}}" placeholder="输入您的大学名称"/>
-                <span class="help-block">{{errorMessage 'college'}}</span>
-              </div>
-            </div>
-
-            <div class="form-group {{errorClass 'major'}}">
-              <label class="col-sm-2 control-label" for="major">专业</label>
-              <div class="col-sm-6 controls">
-                <input class="form-control" name="major" type="text" value="{{currentUser.profile.major}}" placeholder="输入您所学的专业"/>
-                <span class="help-block">{{errorMessage 'major'}}</span>
-              </div>
-            </div>
-            <hr>
-          </div>
-          <!-- show each edu items -end- -->
+          {{#each eduItems}}
+            {{>eduItem}}
+          {{/each}}
+          {{#if eduItemsEmpty}}
+            {{>eduItem}}
+          {{/if}}
         </div>
 
         <div class="form-group">
@@ -62,5 +30,51 @@
       </form>
     </div>
   </div>
+</div>
+</template>
+
+<template name="eduItem">
+<div class="profile-edu-item">
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="degree">学历</label>
+    <div class="col-sm-6 controls">
+      <select class="form-control" name="degree" value="{{degree}}">
+        <!-- TODO: 抽取成为公共的helper -->
+        <option value=""> - 请选择 - </option>
+        <option value="postDoctor">博士后</option>
+        <option value="doctor">博士</option>
+        <option value="master">硕士</option>
+        <option value="bachelor">本科</option>
+        <option value="vocational">专科</option>
+        <option value="highSchool">高中</option>
+        <!-- <option value="midSchool">初中</option>
+        <option value="eleSchool">小学</option> -->
+      </select>
+      <span class="help-block"></span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="college">毕业院校</label>
+    <div class="col-sm-6 controls">
+      <input class="form-control" name="college" type="text" value="{{college}}" placeholder="输入您的大学名称"/>
+      <span class="help-block"></span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="major">专业</label>
+    <div class="col-sm-6 controls">
+      <input class="form-control" name="major" type="text" value="{{major}}" placeholder="输入您所学的专业"/>
+      <span class="help-block"></span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-6">
+      <a class="btn-delete-item"><span class="glyphicon glyphicon-minus"></span> 删除此项</a>
+    </div>
+  </div>
+  <hr>
 </div>
 </template>
