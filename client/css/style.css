@@ -10,9 +10,13 @@
 body {
   color: #7d7d7d;
 }
+.container>.navbar,.container>.collapse{
+  margin:0 -15px;
+}
 .navbar{
   border:none;
   margin-bottom:0;
+  min-height:0;
 }
 .navbar.navbar-inverse{
   margin-bottom:20px;
