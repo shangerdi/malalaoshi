@@ -23,7 +23,7 @@ body {
 .navbar.navbar-inverse ul.navbar-nav{
   overflow:hidden;
 }
-.navbar ul.nav > li.active{
+.navbar.navbar-inverse ul.nav > li.active{
   margin-top:-2px;
   border-bottom:2px solid #db3e00;
 }
