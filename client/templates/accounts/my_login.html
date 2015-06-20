@@ -1,27 +1,24 @@
 <template name="mylogin">
-<form class="main form page form-horizontal">
-  <div class="col-sm-offset-4 col-sm-4">
-    <h3 class="text-center">手机登录</h3>
+  <form class="row main form page form-horizontal">
+    <div class="col-sm-offset-4 col-sm-4">
+      <h3 class="text-center">手机登录</h3>
 
-    <div class="form-group {{errorClass 'cellphone'}}">
-      <label for="cellphone">手机号：</label>
-      <input class="form-control" id="cellphone" name="cellphone" type="text" placeholder="请输入有效的手机号"/>
-      <span class="help-block">{{errorMessage 'cellphone'}}</span>
-    </div>
-
-    <div class="form-group {{errorClass 'checkCode'}}">
-      <input class="btn btn-success col-sm-4" id="getCheckCode" type="button" value="免费获取验证码" />
-      <div class="col-sm-8" style="padding-right:0">
-        <input class="form-control" id="checkCode" name="checkCode" type="text" placeholder="输入您收到的短信验证码"/>
+      <div class="form-group {{errorClass 'cellphone'}}">
+        <label for="cellphone">手机号：</label>
+        <input class="form-control" id="cellphone" name="cellphone" type="text" placeholder="请输入有效的手机号"/>
+        <span class="help-block">{{errorMessage 'cellphone'}}</span>
       </div>
-      <span class="help-block">{{errorMessage 'checkCode'}}</span>
-    </div>
-    <div class="form-group">
+
+      <div class="form-group {{errorClass 'checkCode'}}">
+        <input class="btn btn-success col-sm-4" id="getCheckCode" type="button" value="免费获取验证码" />
+        <div class="col-sm-8" style="padding-right:0">
+          <input class="form-control" id="checkCode" name="checkCode" type="text" placeholder="输入您收到的短信验证码"/>
+        </div>
+        <span class="help-block">{{errorMessage 'checkCode'}}</span>
+      </div>
+      <div class="form-group">
         <input class="btn btn-warning col-sm-12" id="doLogin" type="button" value="登录" />
+      </div>
     </div>
-    <br />
-    <br />
-    <br />
-  </div>
-</form>
+  </form>
 </template>
