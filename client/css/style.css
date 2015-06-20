@@ -202,8 +202,10 @@ background: rgba(0, 0, 0, 0.1); }
   border: 1px solid black;
 }
 .footer{
-  color:#797979;
   padding:50px 0;
+}
+.footer,.footer a{
+  color:#797979;
 }
 .red{
   color:#db3e00;
