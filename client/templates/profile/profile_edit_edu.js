@@ -96,7 +96,8 @@ Template.profileEditEdu.events({
     Meteor.call('updateEducation', eduItems, function(error, result) {
       if (error)
         return throwError(error.reason);
-      alert("保存成功");
+
+      Router.go('profileEditCert');
       $(".profile-edu-item.man-insert").remove();
       $(".profile-edu-item.man-delete").show();
     });
