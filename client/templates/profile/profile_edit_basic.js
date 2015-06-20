@@ -1,8 +1,8 @@
 var areaOfChina = new AreaOfChina();
-Template.profileForm.onCreated(function() {
+Template.profileEditBasic.onCreated(function() {
   Session.set('settingsErrors', {});
 });
-Template.profileForm.onRendered(function() {
+Template.profileEditBasic.onRendered(function() {
   // init area province list
   var cur = areaOfChina.getProvince();
   if (cur) {
@@ -63,7 +63,7 @@ Template.profileForm.onRendered(function() {
     }
   }
 });
-Template.profileForm.helpers({
+Template.profileEditBasic.helpers({
   errorMessage: function(field) {
     return Session.get('settingsErrors')[field];
   },
@@ -111,7 +111,7 @@ getDaysArray = function() {
   }
   return a;
 }
-Template.profileForm.events({
+Template.profileEditBasic.events({
   'submit form': function(e) {
     e.preventDefault();
     var curForm = e.target;
@@ -149,7 +149,7 @@ Template.profileForm.events({
       if (error)
         return throwError(error.reason);
 
-      Router.go('profile');  
+      Router.go('profileEditEdu');  
     });
   },
   'change select.birthday': function(e) {
