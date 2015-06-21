@@ -1,10 +1,11 @@
+@import "custom.bootstrap.import.less";
 .grid-block, .post, .comments li, .comment-form {
   background: #fff;
   padding: 10px;
   margin-bottom: 10px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15); 
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 }
 
 body {
@@ -42,13 +43,13 @@ body {
 }
 #main {
   position: relative;
+  min-height:430px;
 }
 .container{
   width:100%;
   max-width:930px;
 }
 .page {
-  position: absolute;
   top: 0px;
   width: 100%;
 }
@@ -202,8 +203,10 @@ background: rgba(0, 0, 0, 0.1); }
   border: 1px solid black;
 }
 .footer{
-  color:#797979;
   padding:50px 0;
+}
+.footer,.footer a{
+  color:#797979;
 }
 .red{
   color:#db3e00;

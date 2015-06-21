@@ -34,8 +34,8 @@
           <a href="{{pathFor 'dashboard'}}">首页</a>
         </li>
         {{#if currentUser}}
-        <li class="{{activeRouteClass  'profileForm'}}">
-          <a href="{{pathFor 'profileForm'}}">个人资料</a>
+        <li class="{{activeRouteClass  'profileEditBasic'}}">
+          <a href="{{pathFor 'profileEditBasic'}}">个人资料</a>
         </li>
         {{/if}}
         <li class="{{activeRouteClass  'messages'}}">
@@ -47,8 +47,7 @@
         <li class="{{activeRouteClass  'feedback'}}">
           <a href="{{pathFor 'feedback'}}">意见与建议</a>
         </li>
-
-        {{#if role = 'admin'}}
+        {{#if isAdmin}}
         <li class="{{activeRouteClass  'teachers'}}">
           <a href="{{pathFor 'teachers'}}">审核老师</a>
         </li>
