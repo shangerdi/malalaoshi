@@ -8,6 +8,13 @@ Template.profileEditCert.helpers({
       return [];
     }
     return certInfo.professionItems;
+  },
+  proItemsEmpty: function () {
+    var certInfo = UserCertification.findOne({userId: Meteor.userId()});
+    if (!certInfo || !certInfo.professionItems || certInfo.professionItems.length==0) {
+      return true;
+    }
+    return false;
   }
 });
 var clearUploadBoxErr = function($uploadBox) {
@@ -92,7 +99,8 @@ Template.profileEditCert.events({
       clearUploadBox($uploadBox);
       return;
     }
-    $uploadBox.remove();
+    $uploadBox.addClass('man-delete');
+    $uploadBox.hide();
   },
   'click .btn-save': function(e) {
     var teacherCertImgUrl = $('.cert-upload-box').first().find('.cert-img-box img')[0].src;
@@ -100,6 +108,9 @@ Template.profileEditCert.events({
     var professionItems = [];
     $('.cert-profession-items .cert-upload-box').each(function(){
       $proItem = $(this);
+      if (!$proItem.is(":visible")) {
+        return;
+      }
       var certImgUrl = $proItem.find('.cert-img-box img')[0].src;
       if (certImgUrl) {
         professionItems.push({'certImgUrl': certImgUrl});
@@ -112,6 +123,7 @@ Template.profileEditCert.events({
         return throwError(error.reason);
       alert("保存成功");
       $(".cert-upload-box.man-insert").remove();
+      $(".cert-upload-box.man-delete").show();
       $(".cert-profession-items .cert-upload-box:gt("+professionItems.length+")").remove();
       if ($(".cert-profession-items").children().length>professionItems.length) {
         $lastBox = $(".cert-profession-items .cert-upload-box").last();

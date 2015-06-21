@@ -37,6 +37,7 @@
               </div>
             </div>
           {{/each}}
+          {{#if proItemsEmpty}}
           <div class="row cert-upload-box">
             <div class="col-sm-3 cert-img-box">
               <div class="img-box"><img src={{certImgUrl}}></div>
@@ -48,6 +49,7 @@
               <span class="help-block"></span>
             </div>
           </div>
+          {{/if}}
         </div>
 
         <div class="row">
