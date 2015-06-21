@@ -20,6 +20,6 @@ Template.header.helpers({
     return '';
   },
   isAdmin: function() {
-    return Meteor.user().role === 'admin';
+    return Meteor.user() && Meteor.user().role === 'admin';
   }
 });
