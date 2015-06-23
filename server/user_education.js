@@ -9,5 +9,8 @@ Meteor.methods({
       }
     });
     UserEducation.update({userId:Meteor.userId()},{$set:{'eduItems':eduItems}},{upsert:true});
+    var now = Date.now();
+    UserAudit.update({userId:Meteor.userId()},{$set:{submitTime:now,eduInfo:{submitTime:now, status: 'submited'}}},{upsert:true});
+    // TODO：用户操作日志 UserOpLogs
   }
 })

@@ -9,5 +9,8 @@ Meteor.methods({
       }
     });
     UserCertification.update({userId:Meteor.userId()},{$set:{'teacherCertImgUrl':teacherCertImgUrl,'professionItems':professionItems}},{upsert:true});
+    var now = Date.now();
+    UserAudit.update({userId:Meteor.userId()},{$set:{submitTime:now,certInfo:{submitTime:now, status: 'submited'}}},{upsert:true});
+    // TODO：用户操作日志 UserOpLogs
   }
 })

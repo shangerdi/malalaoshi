@@ -26,3 +26,6 @@ Meteor.publish('curUserCertification', function() {
   return UserCertification.find({userId: this.userId});
 });
 
+Meteor.publish('userAudits', function(options) {
+  return UserAudit.find({}, options);
+});
