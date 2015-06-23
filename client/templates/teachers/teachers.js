@@ -22,10 +22,6 @@ Template.userAuditItem.helpers({
   submitTime: function() {
     return moment(this.submitTime, 'x').fromNow();
   },
-  name: function() {
-    console.log(Meteor.users.findOne(this.userId));
-    return this.userId;
-  },
   basicInfoAuditStatus: function() {
     if (this.basicInfo && this.basicInfo.status) {
       return convStatus2Str(this.basicInfo.status);
@@ -52,5 +48,10 @@ Template.userAuditItem.helpers({
       return "-";
     }
     return moment(this.auditTime, 'x').fromNow();
+  }
+});
+Template.userAuditItem.events({
+  'click .btn-audit': function(e) {
+    Router.go('auditTeacher', {_userId: Template.instance().data.userId});
   }
 });

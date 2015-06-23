@@ -27,5 +27,18 @@ Meteor.publish('curUserCertification', function() {
 });
 
 Meteor.publish('userAudits', function(options) {
-  return UserAudit.find({}, options);
+  var curUser = Meteor.users.findOne(this.userId);
+  if (curUser.role=='admin'||curUser.role=='manager') {
+    return UserAudit.find({}, options);
+  } else {
+    return [];
+  }
+});
+Meteor.publish("auditOneTeacher", function (userId) {
+  check(userId, String);
+  return [
+    Meteor.users.find({_id: userId}, {fields: {'profile': 1}}),
+    UserEducation.find({'userId': userId}),
+    UserCertification.find({'userId': userId})
+  ];
 });
