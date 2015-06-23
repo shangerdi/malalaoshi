@@ -48,6 +48,9 @@
           <a href="{{pathFor 'feedback'}}">意见与建议</a>
         </li>
         {{#if isAdmin}}
+        <li class="{{activeRouteClass  'users'}}">
+          <a href="{{pathFor 'users'}}">用户管理</a>
+        </li>
         <li class="{{activeRouteClass  'teachers'}}">
           <a href="{{pathFor 'teachers'}}">审核老师</a>
         </li>
