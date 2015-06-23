@@ -22,3 +22,7 @@ Meteor.publish('allusers', function() {
 Meteor.publish('curUserEducation', function() {
   return UserEducation.find({userId: this.userId});
 });
+Meteor.publish('curUserCertification', function() {
+  return UserCertification.find({userId: this.userId});
+});
+
