@@ -69,7 +69,7 @@ Template.mylogin.events({
           $theButton.removeAttr("disabled");
           return;
         }
-        $theButton.val("还有"+countdown+"秒重新获取");
+        $theButton.val("("+countdown+")");
         countdown--;
       },999);
     });
