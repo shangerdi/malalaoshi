@@ -15,6 +15,10 @@ Meteor.publish('messages', function() {
 Meteor.publish('feedbacks', function() {
   return Feedbacks.find();
 });
+Meteor.publish('allusers', function() {
+  return Meteor.users.find({}, {fields:{role:1,username:1}});
+});
+
 Meteor.publish('curUserEducation', function() {
   return UserEducation.find({userId: this.userId});
 });
