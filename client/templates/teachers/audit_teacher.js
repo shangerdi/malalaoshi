@@ -1,4 +1,34 @@
 Template.auditTeacher.helpers({
+  auditInfo: function() {
+    var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
+    return auditInfo;
+  },
+  getSubmitTime: function(part) {
+    var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
+    if (part=='basic') {
+      submitDate = new Date(auditInfo.basicInfo.submitTime);
+    }
+    if (part=='edu') {
+      submitDate = new Date(auditInfo.eduInfo.submitTime);
+    }
+    if (part=='cert') {
+      submitDate = new Date(auditInfo.certInfo.submitTime);
+    }
+    return submitDate.getFullYear()+'-'+(submitDate.getMonth()+1)+'-'+submitDate.getDate()+' '+submitDate.getHours()+':'+submitDate.getMinutes();
+  },
+  isTodoAudit: function(part) {
+    var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
+    if (part=='basic') {
+      status = auditInfo.basicInfo.status;
+    }
+    if (part=='edu') {
+      status = auditInfo.eduInfo.status;
+    }
+    if (part=='cert') {
+      status = auditInfo.certInfo.status;
+    }
+    return (status=='submited');
+  },
   basicInfo: function() {
     var user = Meteor.users.findOne(Router.current().params._userId);
     return user.profile;
