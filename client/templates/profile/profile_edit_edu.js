@@ -103,11 +103,6 @@ Template.profileEditEdu.events({
     });
   }
 });
-Template.eduItem.onRendered(function() {
-  if (this.data && this.data.degree) {
-    this.$("select[name=degree]").val(this.data.degree);
-  }
-});
 Template.eduItem.events({
   'click .btn-delete-item': function(e) {
     $profileEduItem = $(e.target).closest(".profile-edu-item");
