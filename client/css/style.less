@@ -202,8 +202,40 @@ background: rgba(0, 0, 0, 0.1); }
   z-index: 9999;
   border: 1px solid black;
 }
+#avatarUploadForm .avatar-edit-box {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+#avatarUploadForm .avatar-edit-box.have-img .inner {
+  display: block;
+}
+#avatarUploadForm .avatar-edit-box .inner{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-size: 0;
+  overflow: hidden;
+  display: none;
+}
+#avatarUploadForm .avatar-edit-box .clip-window{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 180px;
+  border: 1px solid black;
+  cursor: move;
+  outline: rgba(0, 0, 0, 0.3) solid 10000px;
+}
+#avatarUploadForm .avatar-edit-box img {
+  max-width: 100%;
+  max-height: 100%;
+}
 .footer{
   padding:50px 0;
+  text-align: center;
+  font-size: 12px;
 }
 .footer,.footer a{
   color:#797979;
@@ -225,4 +257,39 @@ background: rgba(0, 0, 0, 0.1); }
 }
 #login-buttons-open-change-password{
   display:none;
+}
+.audit-teacher .part-title {
+  padding: 10px 0;
+  font-size: 20px;
+}
+.audit-teacher .part {
+  margin: 10px 0;
+}
+.audit-teacher .part-audit {
+  padding: 10px 0;
+  border-bottom: 1px dotted black;
+}
+.audit-teacher .part-audit .audit-action {
+  float: right;
+}
+.audit-teacher .part-audit .audit-action .audit-status-unsubmit{
+  color: gray;
+}
+.audit-teacher .part-audit .audit-action .audit-status-submited{
+  color: blue;
+}
+.audit-teacher .part-audit .audit-action .audit-status-approved{
+  color: green;
+}
+.audit-teacher .part-audit .audit-action .audit-status-rejected{
+  color: red;
+}
+.audit-teacher .cert-info .section-title:first-child {
+  border-top: 0;
+}
+.audit-teacher .cert-info .section-title {
+  padding: 10px 0;
+  border-top: 1px dotted black;
+  font-size: 16px;
+  color: black;
 }

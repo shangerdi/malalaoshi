@@ -26,3 +26,24 @@ Meteor.publish('curUserCertification', function() {
   return UserCertification.find({userId: this.userId});
 });
 
+Meteor.publish('userAudits', function(options) {
+  var curUser = Meteor.users.findOne(this.userId);
+  if (curUser.role=='admin'||curUser.role=='manager') {
+    return UserAudit.find({}, options);
+  } else {
+    return [];
+  }
+});
+Meteor.publish("auditOneTeacher", function (userId) {
+  var curUser = Meteor.users.findOne(this.userId);
+  if (curUser.role!='admin'&&curUser.role!='manager') {
+    return [];
+  }
+  check(userId, String);
+  return [
+    Meteor.users.find({_id: userId}, {fields: {'profile': 1}}),
+    UserEducation.find({'userId': userId}),
+    UserCertification.find({'userId': userId}),
+    UserAudit.find({'userId': userId})
+  ];
+});
