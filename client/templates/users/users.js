@@ -8,7 +8,7 @@ Template.users.helpers({
 });
 Template.userItem.helpers({
   created: function() {
-    return moment(this.created, 'x').fromNow();
+    return moment(this.createdAt).fromNow();
   }
 });
 
