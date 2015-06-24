@@ -62,16 +62,20 @@ Template.auditTeacher.helpers({
     return user.profile;
   },
   state: function() {
+    var basicInfo = Meteor.users.findOne(Router.current().params._userId).profile;
+    if (!basicInfo || !basicInfo.state) {
+      return "";
+    }
     var stateMap = {
       1: "在职教师",
       2: "准教师"
     };
-    var stateStr = stateMap[Meteor.users.findOne(Router.current().params._userId).profile.state];
+    var stateStr = stateMap[basicInfo.state];
     return stateStr;
   },
   address: function() {
     var basicInfo = Meteor.users.findOne(Router.current().params._userId).profile;
-    if (!basicInfo.address) {
+    if (!basicInfo || !basicInfo.address) {
       return "";
     }
     var addressStr = "", addrObj = basicInfo.address;
