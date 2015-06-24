@@ -7,14 +7,10 @@ var convStatus2Str = function(status) {
   if (!status) {
     return "未提交";
   }
-  if (status == 'approved') {
-    return "通过";
-  }
-  if (status == 'submited') {
-    return "待审核";
-  }
-  if (status == 'rejected') {
-    return "被驳回";
+  var statusDict = {'approved':"通过",'submited':"待审核",'rejected':"被驳回"};
+  var str = statusDict[status];
+  if (str) {
+    return str;
   }
   return "-";
 }

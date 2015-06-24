@@ -2,16 +2,22 @@ var convStatus2Str = function(status) {
   if (!status) {
     return "未提交";
   }
-  if (status == 'approved') {
-    return "通过";
-  }
-  if (status == 'submited') {
-    return "待审核";
-  }
-  if (status == 'rejected') {
-    return "被驳回";
+  var statusDict = {'approved':"通过",'submited':"待审核",'rejected':"被驳回"};
+  var str = statusDict[status];
+  if (str) {
+    return str;
   }
   return "-";
+}
+var getPartAuditInfo = function(auditInfo, part) {
+  return auditInfo[part+'Info'];
+}
+var getAuditStatus = function(auditInfo, part) {
+  var partInfo = getPartAuditInfo(auditInfo, part);
+  if (partInfo) {
+    return partInfo.status;
+  }
+  return "";
 }
 Template.auditTeacher.helpers({
   auditInfo: function() {
@@ -20,67 +26,35 @@ Template.auditTeacher.helpers({
   },
   getSubmitTime: function(part) {
     var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
-    if (part=='basic') {
-      submitDate = new Date(auditInfo.basicInfo.submitTime);
+    var partInfo = getPartAuditInfo(auditInfo, part);
+    if (!partInfo || !partInfo.submitTime) {
+      return "";
     }
-    if (part=='edu') {
-      submitDate = new Date(auditInfo.eduInfo.submitTime);
-    }
-    if (part=='cert') {
-      submitDate = new Date(auditInfo.certInfo.submitTime);
-    }
+    var submitDate = new Date(partInfo.submitTime);
     return submitDate.getFullYear()+'-'+(submitDate.getMonth()+1)+'-'+submitDate.getDate()+' '+submitDate.getHours()+':'+submitDate.getMinutes();
   },
   isTodoAudit: function(part) {
     var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
-    if (part=='basic') {
-      status = auditInfo.basicInfo.status;
-    }
-    if (part=='edu') {
-      status = auditInfo.eduInfo.status;
-    }
-    if (part=='cert') {
-      status = auditInfo.certInfo.status;
-    }
+    var status = getAuditStatus(auditInfo, part);
     return (status=='submited');
   },
   getAuditStatus: function(part) {
     var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
-    if (part=='basic') {
-      status = auditInfo.basicInfo.status;
-    }
-    if (part=='edu') {
-      status = auditInfo.eduInfo.status;
-    }
-    if (part=='cert') {
-      status = auditInfo.certInfo.status;
-    }
+    var status = getAuditStatus(auditInfo, part);
     return status;
   },
   getAuditStatusStr: function(part) {
     var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
-    if (part=='basic') {
-      status = auditInfo.basicInfo.status;
-    }
-    if (part=='edu') {
-      status = auditInfo.eduInfo.status;
-    }
-    if (part=='cert') {
-      status = auditInfo.certInfo.status;
-    }
+    var status = getAuditStatus(auditInfo, part);
     return convStatus2Str(status);
   },
   getAuditTime: function(part) {
     var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
-    if (part=='basic') {
-      dateObj = new Date(auditInfo.basicInfo.auditTime);
+    var partInfo = getPartAuditInfo(auditInfo, part);
+    if (!partInfo || !partInfo.auditTime) {
+      return "";
     }
-    if (part=='edu') {
-      dateObj = new Date(auditInfo.eduInfo.auditTime);
-    }
-    if (part=='cert') {
-      dateObj = new Date(auditInfo.certInfo.auditTime);
-    }
+    var dateObj = new Date(partInfo.auditTime);
     return dateObj.getFullYear()+'-'+(dateObj.getMonth()+1)+'-'+dateObj.getDate()+' '+dateObj.getHours()+':'+dateObj.getMinutes();
   },
   basicInfo: function() {
@@ -150,5 +124,10 @@ Template.auditTeacher.events({
       if (error)
         return throwError(error.reason);
     });
+  },
+  'click .btn-reject': function(e) {
+    var ele = e.target, $ele = $(ele);
+    var part = $ele.data('part');
+    var userId = Router.current().params._userId;
   }
 });
