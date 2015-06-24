@@ -142,11 +142,25 @@ Template.auditTeacher.events({
     $rejectPart = $("."+part+"-info-reject");
     $rejectPart.removeClass("has-error");
     $rejectPart.find(".help-block").text("");
+    
     var msg = $rejectPart.find("[name=rejectMsg]").val();
     if (!msg) {
       $rejectPart.addClass("has-error");
       $rejectPart.find(".help-block").text("驳回原因不能为空");
       return;
     }
+    var params = {
+      'userId': userId,
+      'part': part,
+      'msg': msg
+    }
+
+    // do reject
+    Meteor.call('auditReject', params, function(error, result) {
+      if (error) {
+        return throwError(error.reason);
+      }
+      $("."+part+"-info-reject").hide();
+    });
   }
 });
