@@ -8,9 +8,6 @@ Template.registerHelper('pluralize', function(n, thing) {
 });
 
 Template.registerHelper('isEqual', function(a, b) {
-  if (!b) {
-    return false;
-  }
   return a==b;
 });
 
