@@ -62,16 +62,20 @@ Template.auditTeacher.helpers({
     return user.profile;
   },
   state: function() {
+    var basicInfo = Meteor.users.findOne(Router.current().params._userId).profile;
+    if (!basicInfo || !basicInfo.state) {
+      return "";
+    }
     var stateMap = {
       1: "在职教师",
       2: "准教师"
     };
-    var stateStr = stateMap[Meteor.users.findOne(Router.current().params._userId).profile.state];
+    var stateStr = stateMap[basicInfo.state];
     return stateStr;
   },
   address: function() {
     var basicInfo = Meteor.users.findOne(Router.current().params._userId).profile;
-    if (!basicInfo.address) {
+    if (!basicInfo || !basicInfo.address) {
       return "";
     }
     var addressStr = "", addrObj = basicInfo.address;
@@ -124,10 +128,39 @@ Template.auditTeacher.events({
       if (error)
         return throwError(error.reason);
     });
+    $("."+part+"-info-reject").hide();
   },
   'click .btn-reject': function(e) {
     var ele = e.target, $ele = $(ele);
     var part = $ele.data('part');
+    $("."+part+"-info-reject").show();
+  },
+  'click .btn-reject-confirm': function(e) {
+    var ele = e.target, $ele = $(ele);
+    var part = $ele.data('part');
     var userId = Router.current().params._userId;
+    $rejectPart = $("."+part+"-info-reject");
+    $rejectPart.removeClass("has-error");
+    $rejectPart.find(".help-block").text("");
+    
+    var msg = $rejectPart.find("[name=rejectMsg]").val();
+    if (!msg) {
+      $rejectPart.addClass("has-error");
+      $rejectPart.find(".help-block").text("驳回原因不能为空");
+      return;
+    }
+    var params = {
+      'userId': userId,
+      'part': part,
+      'msg': msg
+    }
+
+    // do reject
+    Meteor.call('auditReject', params, function(error, result) {
+      if (error) {
+        return throwError(error.reason);
+      }
+      $("."+part+"-info-reject").hide();
+    });
   }
 });
