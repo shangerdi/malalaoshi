@@ -38,16 +38,12 @@
   border-top: 1px solid #eee;
 }
 .profile-nav .items li .flag {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  margin-right: 10px;
-  border-radius: 50%;
-  background-color: #7d7d7d;
-  color: #fff;
+  background-color: transparent;
+  margin-right:10px;
+  font-size:14px;
 }
-.profile-nav .items li .fulfill {
-  background-color: #0a0;
+.profile-nav .items li .success{
+  color: #0a0;
 }
 .profile-nav .items .base-info {
   
