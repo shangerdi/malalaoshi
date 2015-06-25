@@ -28,9 +28,14 @@ body {
 .navbar.navbar-inverse ul.navbar-nav{
   overflow:hidden;
 }
-.navbar.navbar-inverse ul.nav > li.active a{
-  margin-top:-2px;
-  border-bottom:2px solid #db3e00;
+.navbar.navbar-inverse ul.nav > li.active a:before{
+  position:absolute;
+  content:'';
+  bottom:0;
+  left:0;
+  right:0;
+  height:3px;
+  background:#db3e00;
 }
 .nav>li>a{
   padding-left:0;
