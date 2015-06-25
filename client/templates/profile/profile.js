@@ -26,5 +26,12 @@ Template.profile.helpers({
       return curUser.profile.avatarUrl;
     }
     return "/images/head.png";
+  },
+  degreeText: function() {
+    var curUser = Meteor.user();
+    if (curUser && curUser.profile && curUser.profile.degree) {
+      return getEduDegreeText(curUser.profile.degree);
+    }
+    return "";
   }
 });
