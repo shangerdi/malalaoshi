@@ -101,6 +101,21 @@ Template.avatar.onRendered(function(){
         console.log(this.offset)
         return width>height?height:width;
     };
+
+    resizer.resizeFrames=function(x, y) {
+      var top=this.frames.offset.top,
+          left=this.frames.offset.left,
+          size=this.frames.offset.size,
+          width=this.offset.width,
+          height=this.offset.height;
+      if(x+size+left>width){
+        return;
+      }
+      if(y+size+top>height){
+        return;
+      }
+      this.setFrameSize(x+size);
+    };
     
     resizer.moveFrames=function(offset){
         var x=offset.x,
@@ -150,18 +165,11 @@ Template.avatar.onRendered(function(){
     })();
     
     (function(){
-        var lastPoint=null;
+        var lastPoint=null, action=null;
         function getOffset(event){
-            event=event.originalEvent;
-            var x,y;
-            if(event.touches){
-                var touch=event.touches[0];
-                x=touch.clientX;
-                y=touch.clientY;
-            }else{
-                x=event.clientX;
-                y=event.clientY;
-            }
+            var loc = getLocByEvent(event),
+                x=loc.x,
+                y=loc.y;
             
             if(!lastPoint){
                 lastPoint={
@@ -180,16 +188,71 @@ Template.avatar.onRendered(function(){
             };
             return offset;
         };
+        function decideAction(event) {
+          if(lastPoint) { // action is started
+            return;
+          }
+          var loc = getLocByEvent(event),
+              x=loc.x,
+              y=loc.y;
+          var offset = $(resizer.frames).offset(),
+              w = x - offset.left,
+              h = y - offset.top;
+          var size = resizer.frames.offset.size,
+              dx = size - w,
+              dy = size - h,
+              tolerance = 7,
+              blindWidth = 4;
+          // console.log("loc: x: "+x+", y: "+y+" diff x:"+dx+", diff y:"+dy);
+          if (Math.abs(dx)<blindWidth || Math.abs(dy)<blindWidth) {
+            resizer.frames.css("cursor", "default");
+            action = "";
+            return;
+          }
+          if (Math.abs(dx)<tolerance) {
+            resizer.frames.css("cursor", "e-resize");
+            action = 'xResize';
+          } else if (Math.abs(dy)<tolerance) {
+            resizer.frames.css("cursor", "s-resize");
+            action = 'yResize';
+          } else {
+            resizer.frames.css("cursor", "move");
+            action = "move";
+          }
+        };
+        function getLocByEvent(event) {
+          event=event.originalEvent;
+          var x,y;
+          if(event.touches){
+            var touch=event.touches[0];
+            x=touch.clientX;
+            y=touch.clientY;
+          }else{
+            x=event.clientX;
+            y=event.clientY;
+          }
+          return {x:x,y:y};
+        }
         resizer.frames.on('touchstart mousedown',function(event){
             getOffset(event);
         });
         resizer.frames.on('touchmove mousemove',function(event){
-            if(!lastPoint)return;
+            if(!lastPoint) {
+              decideAction(event);
+              return;
+            }
             var offset=getOffset(event);
-            resizer.moveFrames(offset);
+            console.log(offset);
+            if (action=="xResize") {
+              resizer.resizeFrames(offset.x, offset.x);
+            } else if(action=="yResize") {
+              resizer.resizeFrames(offset.y, offset.y);
+            } else if(action=="move") {
+              resizer.moveFrames(offset);
+            }
             resizer.clipImage();
         });
-        resizer.frames.on('touchend mouseup',function(event){
+        resizer.frames.on('touchend mouseup mouseover mouseout',function(event){
             lastPoint=null;
         });
     })();
@@ -206,16 +269,16 @@ Template.avatar.events({
     if (!flag) {
       return false;
     }
-    var imtUrl = getObjectURL(ele.files[0]);
-    var resizer = Template.instance().resizer;
+    var resizer = Template.instance().resizer, origFile = ele.files[0], filename = origFile.name, extName=filename.substr(filename.lastIndexOf(".")+1);
     if (resizer) {
       resizer.resize(ele.files[0],function(file){
-        file.name = ele.files[0].name;
+        file.name = Date.now()+"."+extName;
         // console.log(file);
         resizer.resizedImage=file;
       });
     }
 
+    // var imtUrl = getObjectURL(ele.files[0]);
     // $("#imgFilePreview1").attr("src", imtUrl);
     // $("#imgFilePreview2").attr("src", imtUrl);
     // $("#imgFilePreview3").attr("src", imtUrl);
