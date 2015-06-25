@@ -30,13 +30,13 @@ Template.avatar.onRendered(function(){
             h=this.frames.offset.size*scale;
         ctx.drawImage(this.image,x,y,w,h,0,0,size,size);
 
-        var canvas180 = $("#imgPreviewCanvas180")[0],
-          ctx180 = canvas180.getContext('2d');
-        ctx180.drawImage(this.image,x,y,w,h,0,0,180,180);
+        var $canvasBig = $("#imgPreviewCanvasBig"), widthBig = $canvasBig.width(), heightBig = $canvasBig.height(),
+          ctxBig = $canvasBig[0].getContext('2d');
+        ctxBig.drawImage(this.image,x,y,w,h,0,0,widthBig,heightBig);
 
-        var canvas80 = $("#imgPreviewCanvas80")[0],
-          ctx80 = canvas80.getContext('2d');
-        ctx80.drawImage(this.image,x,y,w,h,0,0,80,80);
+        var $canvasSmall = $("#imgPreviewCanvasSmall"), widthSmall = $canvasSmall.width(), heightSmall = $canvasSmall.height(),
+          ctxSmall = $canvasSmall[0].getContext('2d');
+        ctxSmall.drawImage(this.image,x,y,w,h,0,0,widthSmall,heightSmall);
 
         var src=canvas.toDataURL();
         if (!(this.find('canvas')&&this.find('canvas')[0])) {
