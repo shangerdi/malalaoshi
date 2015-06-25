@@ -259,6 +259,20 @@ Template.avatar.onRendered(function(){
     return resizer;
   };
   this.resizer=initImageResizer();
+
+  // draw orig avatar
+  var curUser = Meteor.user();
+  if (curUser && curUser.profile && curUser.profile.avatarUrl) {
+    var img=new Image()
+    img.src=curUser.profile.avatarUrl;
+    var $canvasBig = $("#imgPreviewCanvasBig"), widthBig = $canvasBig.width(), heightBig = $canvasBig.height(),
+      ctxBig = $canvasBig[0].getContext('2d');
+    ctxBig.drawImage(img,0,0,widthBig,heightBig);
+
+    var $canvasSmall = $("#imgPreviewCanvasSmall"), widthSmall = $canvasSmall.width(), heightSmall = $canvasSmall.height(),
+      ctxSmall = $canvasSmall[0].getContext('2d');
+    ctxSmall.drawImage(img,0,0,widthSmall,heightSmall);
+  }
 });
 
 Template.avatar.events({
