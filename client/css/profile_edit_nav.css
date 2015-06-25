@@ -55,6 +55,7 @@
   color: #db3e00;
   font-size: 18px;
   line-height: 18px;
+  padding-left:0;
 }
 .btn-add-edu-item .mark-plus {
   position: relative;
