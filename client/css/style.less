@@ -198,17 +198,12 @@ background: rgba(0, 0, 0, 0.1); }
   height: 240px;
   background:#999;
 }
-#avatarUploadFormBox {
-  width: 800px;
-  position: fixed;
-  top: 50px;
-  left: 200px;
-  z-index: 9999;
-  border: 1px solid black;
+#avatarUploadForm {
+  padding-top: 20px;
 }
 #avatarUploadForm .avatar-edit-box {
-  width: 300px;
-  height: 300px;
+  width: 307px;
+  height: 307px;
   overflow: hidden;
 }
 #avatarUploadForm .avatar-edit-box.have-img .inner {
@@ -235,6 +230,53 @@ background: rgba(0, 0, 0, 0.1); }
 #avatarUploadForm .avatar-edit-box img {
   max-width: 100%;
   max-height: 100%;
+}
+#avatarUploadForm .avatar-edit-box .loading-hint-box{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 0;
+  overflow: hidden;
+  text-align: center;
+  line-height: 307px;
+  z-index: 9999;
+  display: none;
+}
+#avatarUploadForm .avatar-edit-box .loading-hint-box img{
+  vertical-align: middle;
+}
+#avatarUploadForm .img-preview {
+  padding-left: 0;
+}
+#avatarUploadForm .img-preview div:first-child{
+  margin-top: 0;
+}
+#avatarUploadForm .img-preview div{
+  margin-top: 10px;
+}
+#avatarUploadForm .btns-box {
+  font-size: 16px;
+}
+#avatarUploadForm .select-file-box .btn-select-file {
+  position: relative;
+  overflow: hidden;
+}
+#avatarUploadForm .select-file-box .btn-select-file input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  height: 180px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  transform: translate(-300px,0) scale(4);
+  direction: ltr;
+  cursor: pointer;
+}
+#avatarUploadForm .btns-box .action-btn-box {
+  display: none;
 }
 .footer{
   padding:50px 0;
