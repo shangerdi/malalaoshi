@@ -9,11 +9,14 @@ Template.avatar.onRendered(function(){
     
     resizer.image=resizer.find('img')[0];
     resizer.inner=resizer.find('.inner');
-    resizer.frames=resizer.find('.clip-window');
-    resizer.frames.offset={
+    resizer.clipWindow=resizer.find('.clip-window');
+    resizer.clipWindowMask=resizer.find('.clip-window-mask');
+    resizer.clipWindow.rect={
         top:0,
         left:0
     };
+    resizer.imageRect={top:0,left:0};
+    resizer.minSize={width:20,height:20};
     
     resizer.clipImage=function(){
         var nh=this.image.naturalHeight,
@@ -23,11 +26,11 @@ Template.avatar.onRendered(function(){
         
         var canvas=(this.find('canvas')&&this.find('canvas')[0])?this.canvas:$('<canvas width="'+size+'" height="'+size+'" style="display:none;"></canvas>')[0],
             ctx=canvas.getContext('2d'),
-            scale=nw/this.offset.width,
-            x=this.frames.offset.left*scale,
-            y=this.frames.offset.top*scale,
-            w=this.frames.offset.size*scale,
-            h=this.frames.offset.size*scale;
+            scale=nw/this.imageRect.width,
+            x=(this.clipWindow.rect.left-this.imageRect.left)*scale,
+            y=(this.clipWindow.rect.top-this.imageRect.top)*scale,
+            w=this.clipWindow.rect.size*scale,
+            h=this.clipWindow.rect.size*scale;
         ctx.clearRect(0,0,size,size);
         ctx.drawImage(this.image,x,y,w,h,0,0,size,size);
 
@@ -41,14 +44,14 @@ Template.avatar.onRendered(function(){
         ctxSmall.clearRect(0,0,widthSmall,heightSmall);
         ctxSmall.drawImage(this.image,x,y,w,h,0,0,widthSmall,heightSmall);
 
-        var src=canvas.toDataURL();
         if (!(this.find('canvas')&&this.find('canvas')[0])) {
           this.canvas=canvas;
           this.append(canvas);
         }
         
+        var src=canvas.toDataURL();
         src=src.split(',')[1];
-        if(!src)return this.doneCallback(null);
+        if(!src)return this.doneCallback(new Meteor.Error("-1","处理失败，请稍后重试"));
         src=window.atob(src);
 
         var ia = new Uint8Array(src.length);
@@ -56,17 +59,14 @@ Template.avatar.onRendered(function(){
             ia[i] = src.charCodeAt(i);
         };
         
-        this.doneCallback(new Blob([ia], {type:"image/png"}));
+        this.doneCallback(false, new Blob([ia], {type:"image/png"}));
     };
     
     resizer.resize=function(file,done){
         this.reset();
         this.doneCallback=done;
         this.setFrameSize(0);
-        this.frames.css({
-            top:0,
-            left:0
-        });
+        this.setFrameLocation(0,0);
         this.inner.show();
         var reader=new FileReader();
         reader.onload=function(){
@@ -84,35 +84,59 @@ Template.avatar.onRendered(function(){
         this.removeClass('have-img');
         this.inner.hide();
         this.find('canvas').detach();
+        this.canvas=null;
     };
     
+    resizer.setFrameLocation=function(x,y){
+      this.clipWindow.rect.top=y;
+      this.clipWindow.rect.left=x;
+      return this.clipWindow.css({
+        top:y+'px',
+        left:x+'px'
+      });
+    };
+
     resizer.setFrameSize=function(size){
-        this.frames.offset.size=size;
-        return this.frames.css({
+        this.clipWindow.rect.size=size;
+        return this.clipWindow.css({
             width:size+'px',
             height:size+'px'
         });
     };
     
     resizer.getDefaultSize=function(){
-        // var width=this.inner.width(),
-        //     height=this.inner.height();
-        var width=$(this.image).width(),
+        var boxWidth=this.inner.width(),
+            boxHeight=this.inner.height(),
+            width=$(this.image).width(),
             height=$(this.image).height();
-        this.offset={
+        this.imageRect={
+            left: Math.floor((boxWidth - width)/2),
+            top: Math.floor((boxHeight - height)/2),
             width:width,
             height:height
         };
-        console.log(this.offset)
+        // console.log(this.imageRect)
         return width>height?height:width;
     };
 
+    resizer.setFrames=function(){
+      var size=this.getDefaultSize();
+      this.setFrameSize(size);
+      this.setFrameLocation(this.imageRect.left, this.imageRect.top);
+    };
+
     resizer.resizeFrames=function(x, y) {
-      var top=this.frames.offset.top,
-          left=this.frames.offset.left,
-          size=this.frames.offset.size,
-          width=this.offset.width,
-          height=this.offset.height;
+      var top=this.clipWindow.rect.top-this.imageRect.top,
+          left=this.clipWindow.rect.left-this.imageRect.left,
+          size=this.clipWindow.rect.size,
+          width=this.imageRect.width,
+          height=this.imageRect.height;
+      if (x+size<this.minSize.width) {
+        return;
+      }
+      if (y+size<this.minSize.height) {
+        return;
+      }
       if(x+size+left>width){
         return;
       }
@@ -125,11 +149,11 @@ Template.avatar.onRendered(function(){
     resizer.moveFrames=function(offset){
         var x=offset.x,
             y=offset.y,
-            top=this.frames.offset.top,
-            left=this.frames.offset.left,
-            size=this.frames.offset.size,
-            width=this.offset.width,
-            height=this.offset.height;
+            top=this.clipWindow.rect.top-this.imageRect.top,
+            left=this.clipWindow.rect.left-this.imageRect.left,
+            size=this.clipWindow.rect.size,
+            width=this.imageRect.width,
+            height=this.imageRect.height;
         
         if(x+size+left>width){
             x=width-size;
@@ -144,85 +168,67 @@ Template.avatar.onRendered(function(){
         };
         x=x<0?0:x;
         y=y<0?0:y;
-        this.frames.css({
-            top:y+'px',
-            left:x+'px'
-        });
+        x += this.imageRect.left;
+        y += this.imageRect.top;
+        this.setFrameLocation(x,y);
         
-        this.frames.offset.top=y;
-        this.frames.offset.left=x;
+        this.clipWindow.rect.top=y;
+        this.clipWindow.rect.left=x;
     };
-    (function(){
-        var time;
-        function setFrames(){
-            var size=resizer.getDefaultSize();
-            resizer.setFrameSize(size);
-        };
-        
-        // window.onresize=function(){
-        //     clearTimeout(time)
-        //     time=setTimeout(function(){
-        //         setFrames();
-        //     },1000);
-        // };
-        
-        resizer.setFrames=setFrames;
-    })();
     
-    (function(){
+    (function(){ // this code block init the handler of mouse event
         var lastPoint=null, action=null;
         function getOffset(event){
-            var loc = getLocByEvent(event),
-                x=loc.x,
-                y=loc.y;
-            
-            if(!lastPoint){
-                lastPoint={
-                    x:x,
-                    y:y
-                };
-            };
-            
-            var offset={
-                x:x-lastPoint.x,
-                y:y-lastPoint.y
-            }
-            lastPoint={
-                x:x,
-                y:y
-            };
-            return offset;
-        };
-        function decideAction(event) {
-          if(lastPoint) { // action is started
+          if (!action) {
             return;
           }
           var loc = getLocByEvent(event),
               x=loc.x,
               y=loc.y;
-          var offset = $(resizer.frames).offset(),
+          
+          if(!lastPoint){
+              lastPoint={
+                  x:x,
+                  y:y
+              };
+          };
+          
+          var offset={
+              x:x-lastPoint.x,
+              y:y-lastPoint.y
+          }
+          lastPoint={
+              x:x,
+              y:y
+          };
+          return offset;
+        };
+        function decideAction(event) {
+          var loc = getLocByEvent(event),
+              x=loc.x,
+              y=loc.y;
+          var offset = resizer.clipWindow.offset(),
               w = x - offset.left,
               h = y - offset.top;
-          var size = resizer.frames.offset.size,
+          var size = resizer.clipWindow.rect.size,
               dx = size - w,
               dy = size - h,
-              tolerance = 7,
-              blindWidth = 4;
-          // console.log("loc: x: "+x+", y: "+y+" diff x:"+dx+", diff y:"+dy);
-          if (Math.abs(dx)<blindWidth || Math.abs(dy)<blindWidth) {
-            resizer.frames.css("cursor", "default");
-            action = "";
-            return;
-          }
+              tolerance = 4;
+          // console.log("loc: x: "+x+", y: "+y+"; size: w: "+w+", h: "+h+"; dx:"+dx+", dy:"+dy);
           if (Math.abs(dx)<tolerance) {
-            resizer.frames.css("cursor", "e-resize");
+            resizer.clipWindowMask.css("cursor", "e-resize");
             action = 'xResize';
           } else if (Math.abs(dy)<tolerance) {
-            resizer.frames.css("cursor", "s-resize");
+            resizer.clipWindowMask.css("cursor", "s-resize");
             action = 'yResize';
           } else {
-            resizer.frames.css("cursor", "move");
-            action = "move";
+            if (w>0 && h>0 && dx>0 && dy>0) {
+              resizer.clipWindowMask.css("cursor", "move");
+              action = "move";
+            } else {
+              resizer.clipWindowMask.css("cursor", "default");
+              action = null;
+            }
           }
         };
         function getLocByEvent(event) {
@@ -238,27 +244,30 @@ Template.avatar.onRendered(function(){
           }
           return {x:x,y:y};
         }
-        resizer.frames.on('touchstart mousedown',function(event){
-            getOffset(event);
+        function moveClipWindow(event) {
+          if(!lastPoint) {
+            decideAction(event);
+            return;
+          }
+          var offset=getOffset(event);
+          // console.log(offset);
+          if (action=="xResize") {
+            resizer.resizeFrames(offset.x, offset.x);
+          } else if(action=="yResize") {
+            resizer.resizeFrames(offset.y, offset.y);
+          } else if(action=="move") {
+            resizer.moveFrames(offset);
+          }
+          resizer.clipImage();
+        }
+        resizer.clipWindowMask.on('touchstart mousedown',function(event){
+          getOffset(event);
         });
-        resizer.frames.on('touchmove mousemove',function(event){
-            if(!lastPoint) {
-              decideAction(event);
-              return;
-            }
-            var offset=getOffset(event);
-            // console.log(offset);
-            if (action=="xResize") {
-              resizer.resizeFrames(offset.x, offset.x);
-            } else if(action=="yResize") {
-              resizer.resizeFrames(offset.y, offset.y);
-            } else if(action=="move") {
-              resizer.moveFrames(offset);
-            }
-            resizer.clipImage();
+        resizer.clipWindowMask.on('touchmove mousemove',function(event){
+          moveClipWindow(event);
         });
-        resizer.frames.on('touchend mouseup mouseover mouseout',function(event){
-            lastPoint=null;
+        resizer.clipWindowMask.on('touchend mouseup',function(event){
+          lastPoint=null;
         });
     })();
     return resizer;
@@ -286,10 +295,20 @@ Template.avatar.onRendered(function(){
   };
   this.initOrigAvatar();
 });
-
+var showError = function(msg) {
+  $box = $(".avatar-box");
+  $box.addClass('has-error');
+  $box.find(".help-block").text(msg);
+};
+var clearError = function() {
+  $box = $(".avatar-box");
+  $box.removeClass('has-error');
+  $box.find(".help-block").text("");
+}
 Template.avatar.events({
   'change #imgFile': function(e) {
     var ele = e.target;
+    clearError();
     var imgType = ["gif", "jpeg", "jpg", "bmp", "png"];
     var flag = validImgFile();
     if (!flag) {
@@ -299,7 +318,11 @@ Template.avatar.events({
     $('.btns-box .action-btn-box').show();
     var resizer = Template.instance().resizer, origFile = ele.files[0], filename = origFile.name, extName=filename.substr(filename.lastIndexOf(".")+1);
     if (resizer) {
-      resizer.resize(ele.files[0],function(file){
+      resizer.resize(ele.files[0],function(error, file){
+        if (error) {
+          showError(error.reason);
+          return throwError(error.reason);
+        }
         file.name = Date.now()+"."+extName;
         // console.log(file);
         resizer.resizedImage=file;
@@ -320,7 +343,7 @@ Template.avatar.events({
 
       //验证上传文件格式是否正确   
       if (!RegExp("\.(" + imgType.join("|") + ")$", "i").test(ele.value.toLowerCase())) {
-        alert("选择图片类型错误");
+        showError("选择图片类型错误");
         this.value = "";
         return false;
       }
@@ -348,16 +371,23 @@ Template.avatar.events({
   },
   'submit #avatarUploadForm': function(e) {
     e.preventDefault();
+    clearError();
     var uploader = new Slingshot.Upload("myHeadImgUploads");
 
-    var error = uploader.validate(document.getElementById('imgFile').files[0]);
-    if (error) {
-      console.error(error);
-    }
     var toUploadfile = document.getElementById('imgFile').files[0];
     var resizer = Template.instance().resizer;
     if (resizer && resizer.resizedImage) {
       toUploadfile = resizer.resizedImage;
+    }
+    if (!toUploadfile) {
+      showError("找不到图片文件");
+      return throwError("找不到图片文件");
+    }
+    var error = uploader.validate(toUploadfile);
+    if (error) {
+      console.error(error);
+      showError(error.reason);
+      return throwError(error.reason);
     }
 
     $('.btns-box .action-btn-box .btn').attr("disabled", true);
@@ -369,18 +399,22 @@ Template.avatar.events({
         // Log service detailed response
         // console.error('Error uploading', uploader.xhr.response);
         console.error(error);
-        alert(error.reason);
+        showError(error.reason);
+        return throwError(error.reason);
       } else {
         console.log(downloadUrl);
         Meteor.users.update(Meteor.userId(), {$set: {"profile.avatarUrl": downloadUrl}});
+        showError("上传成功");
       }
     });
   },
   'click #avatarUploadForm .btn-cancel': function(e) {
+    clearError();
     $('.btns-box .select-file-box').show();
     $('.btns-box .action-btn-box').hide();
     var inst = Template.instance();
     inst.resizer.reset();
     inst.initOrigAvatar();
+    $('#imgFile').val("");
   }
 });

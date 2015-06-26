@@ -214,6 +214,8 @@ background: rgba(0, 0, 0, 0.1); }
   width: 100%;
   height: 100%;
   font-size: 0;
+  text-align: center;
+  line-height: 307px;
   overflow: hidden;
   display: none;
 }
@@ -226,6 +228,13 @@ background: rgba(0, 0, 0, 0.1); }
   border: 1px solid black;
   cursor: move;
   outline: rgba(0, 0, 0, 0.3) solid 10000px;
+}
+#avatarUploadForm .avatar-edit-box .clip-window-mask{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 #avatarUploadForm .avatar-edit-box img {
   max-width: 100%;
@@ -247,13 +256,13 @@ background: rgba(0, 0, 0, 0.1); }
 #avatarUploadForm .avatar-edit-box .loading-hint-box img{
   vertical-align: middle;
 }
-#avatarUploadForm .img-preview {
+#avatarUploadForm .avatar-preview {
   padding-left: 0;
 }
-#avatarUploadForm .img-preview div:first-child{
+#avatarUploadForm .avatar-preview div:first-child{
   margin-top: 0;
 }
-#avatarUploadForm .img-preview div{
+#avatarUploadForm .avatar-preview div{
   margin-top: 10px;
 }
 #avatarUploadForm .btns-box {
