@@ -48,6 +48,9 @@ Template.profileEditCert.events({
       $uploadBox.find('.help-block').text(error.reason);
       return false;
     }
+    $uploadBox.find(".uploading-hint-box").show();
+    $ele.attr("disabled", true);
+    $ele.css("cursor", "wait");
     uploader.send(ele.files[0], function(error, downloadUrl) {
       if (error) {
         console.error(error);
@@ -57,6 +60,9 @@ Template.profileEditCert.events({
         console.log(downloadUrl);
         $ele.closest(".cert-img-box").find('img').attr("src", downloadUrl);
       }
+      $uploadBox.find(".uploading-hint-box").hide();
+      $ele.removeAttr("disabled");
+      $ele.css("cursor", "pointer");
     });
 
     // valid image properties

@@ -80,14 +80,24 @@
 .profile-edit-cert .cert-upload-box {
   margin-top: 15px;
 }
+.profile-edit-cert .cert-upload-box .uploading-hint-box{
+  display: none;
+}
 .profile-edit-cert .cert-img-box {
   padding-left: 0;
 }
 .profile-edit-cert .cert-img-box .img-box {
   width: 180px;
   height: 180px;
+  line-height: 180px;
   overflow: hidden;
   background: #ddd;
+  text-align: center;
+}
+.profile-edit-cert .cert-img-box .img-box img{
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
 }
 .profile-edit-cert .cert-img-box .file-input-mask{
   position: absolute;
