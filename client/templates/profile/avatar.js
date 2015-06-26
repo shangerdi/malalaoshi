@@ -21,21 +21,24 @@ Template.avatar.onRendered(function(){
             size=nw>nh?nh:nw;
         size=size>1000?1000:size;
         
-        var canvas=(this.find('canvas')&&this.find('canvas')[0])?this.canvas:$('<canvas width="'+size+'" height="'+size+'"></canvas>')[0],
+        var canvas=(this.find('canvas')&&this.find('canvas')[0])?this.canvas:$('<canvas width="'+size+'" height="'+size+'" style="display:none;"></canvas>')[0],
             ctx=canvas.getContext('2d'),
             scale=nw/this.offset.width,
             x=this.frames.offset.left*scale,
             y=this.frames.offset.top*scale,
             w=this.frames.offset.size*scale,
             h=this.frames.offset.size*scale;
+        ctx.clearRect(0,0,size,size);
         ctx.drawImage(this.image,x,y,w,h,0,0,size,size);
 
         var $canvasBig = $("#imgPreviewCanvasBig"), widthBig = $canvasBig.width(), heightBig = $canvasBig.height(),
           ctxBig = $canvasBig[0].getContext('2d');
+        ctxBig.clearRect(0,0,widthBig,heightBig);
         ctxBig.drawImage(this.image,x,y,w,h,0,0,widthBig,heightBig);
 
         var $canvasSmall = $("#imgPreviewCanvasSmall"), widthSmall = $canvasSmall.width(), heightSmall = $canvasSmall.height(),
           ctxSmall = $canvasSmall[0].getContext('2d');
+        ctxSmall.clearRect(0,0,widthSmall,heightSmall);
         ctxSmall.drawImage(this.image,x,y,w,h,0,0,widthSmall,heightSmall);
 
         var src=canvas.toDataURL();
@@ -64,6 +67,7 @@ Template.avatar.onRendered(function(){
             top:0,
             left:0
         });
+        this.inner.show();
         var reader=new FileReader();
         reader.onload=function(){
             resizer.image.src=reader.result;
@@ -78,6 +82,7 @@ Template.avatar.onRendered(function(){
     resizer.reset=function(){
         this.image.src='';
         this.removeClass('have-img');
+        this.inner.hide();
         this.find('canvas').detach();
     };
     
@@ -242,7 +247,7 @@ Template.avatar.onRendered(function(){
               return;
             }
             var offset=getOffset(event);
-            console.log(offset);
+            // console.log(offset);
             if (action=="xResize") {
               resizer.resizeFrames(offset.x, offset.x);
             } else if(action=="yResize") {
@@ -261,18 +266,25 @@ Template.avatar.onRendered(function(){
   this.resizer=initImageResizer();
 
   // draw orig avatar
-  var curUser = Meteor.user();
-  if (curUser && curUser.profile && curUser.profile.avatarUrl) {
-    var img=new Image()
-    img.src=curUser.profile.avatarUrl;
-    var $canvasBig = $("#imgPreviewCanvasBig"), widthBig = $canvasBig.width(), heightBig = $canvasBig.height(),
-      ctxBig = $canvasBig[0].getContext('2d');
-    ctxBig.drawImage(img,0,0,widthBig,heightBig);
+  this.initOrigAvatar = function() {
+    var curUser = Meteor.user();
+    if (curUser && curUser.profile && curUser.profile.avatarUrl) {
+      var img=new Image()
+      img.src=curUser.profile.avatarUrl;
+      img.onload = function() {
+        var $canvasBig = $("#imgPreviewCanvasBig"), widthBig = $canvasBig.width(), heightBig = $canvasBig.height(),
+          ctxBig = $canvasBig[0].getContext('2d');
+        ctxBig.clearRect(0,0,widthBig,heightBig);
+        ctxBig.drawImage(img,0,0,widthBig,heightBig);
 
-    var $canvasSmall = $("#imgPreviewCanvasSmall"), widthSmall = $canvasSmall.width(), heightSmall = $canvasSmall.height(),
-      ctxSmall = $canvasSmall[0].getContext('2d');
-    ctxSmall.drawImage(img,0,0,widthSmall,heightSmall);
-  }
+        var $canvasSmall = $("#imgPreviewCanvasSmall"), widthSmall = $canvasSmall.width(), heightSmall = $canvasSmall.height(),
+          ctxSmall = $canvasSmall[0].getContext('2d');
+        ctxSmall.clearRect(0,0,widthSmall,heightSmall);
+        ctxSmall.drawImage(img,0,0,widthSmall,heightSmall);
+      }
+    }
+  };
+  this.initOrigAvatar();
 });
 
 Template.avatar.events({
@@ -283,6 +295,8 @@ Template.avatar.events({
     if (!flag) {
       return false;
     }
+    $('.btns-box .select-file-box').hide();
+    $('.btns-box .action-btn-box').show();
     var resizer = Template.instance().resizer, origFile = ele.files[0], filename = origFile.name, extName=filename.substr(filename.lastIndexOf(".")+1);
     if (resizer) {
       resizer.resize(ele.files[0],function(file){
@@ -346,7 +360,11 @@ Template.avatar.events({
       toUploadfile = resizer.resizedImage;
     }
 
+    $('.btns-box .action-btn-box .btn').attr("disabled", true);
+    $(".avatar-edit-box .loading-hint-box").show();
     uploader.send(toUploadfile, function(error, downloadUrl) {
+      $('.btns-box .action-btn-box .btn').removeAttr("disabled");
+      $(".avatar-edit-box .loading-hint-box").hide();
       if (error) {
         // Log service detailed response
         // console.error('Error uploading', uploader.xhr.response);
@@ -355,10 +373,14 @@ Template.avatar.events({
       } else {
         console.log(downloadUrl);
         Meteor.users.update(Meteor.userId(), {$set: {"profile.avatarUrl": downloadUrl}});
-        // $('.avatar').find("img").attr("src", downloadUrl);
-        // $("#avatarUrl").val(downloadUrl);
-        // $("#avatarUploadFormBox").addClass('hide');
       }
     });
+  },
+  'click #avatarUploadForm .btn-cancel': function(e) {
+    $('.btns-box .select-file-box').show();
+    $('.btns-box .action-btn-box').hide();
+    var inst = Template.instance();
+    inst.resizer.reset();
+    inst.initOrigAvatar();
   }
 });
