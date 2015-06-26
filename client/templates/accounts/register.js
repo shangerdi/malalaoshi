@@ -14,7 +14,7 @@ validateRegister = function (param, step) {
   if (!param.cellphone) {
     errors.cellphone = "请输入手机号";
     hasError = true;
-  } else if (!/^((\+86)|(86))?(1)\d{10}$/.test(param.cellphone)) {
+  } else if (!CELLPHONE_REG.test(param.cellphone)) {
     errors.cellphone = "手机号格式错误";
     hasError = true;
   }

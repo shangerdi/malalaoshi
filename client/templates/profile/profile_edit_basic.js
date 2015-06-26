@@ -198,7 +198,7 @@ Template.profileEditBasic.events({
   },
   'click #checkCellphone': function(e) {
     var cellphoneNum = $("#cellphone").val();
-    if (!cellphoneNum || !/^((\+86)|(86))?(1)\d{10}$/.test(cellphoneNum)) {
+    if (!CELLPHONE_REG.test(cellphoneNum)) {
       alert("手机号错误");
       return;
     }
@@ -207,7 +207,7 @@ Template.profileEditBasic.events({
   'click #confirmCheckCode': function(e) {
     var cellphoneNum = $("#cellphone").val();
     var cellphoneCheckCode = $("#cellphoneCheckCode").val();
-    if (!cellphoneNum || !/^((\+86)|(86))?(1)\d{10}$/.test(cellphoneNum)) {
+    if (!CELLPHONE_REG.test(cellphoneNum)) {
       alert("手机号错误");
       return;
     }
