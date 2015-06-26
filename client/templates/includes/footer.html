@@ -1,7 +1,11 @@
 <template name="footer">
   <div class="footer">
-    Copyright &copy; 2015 非常老师 &nbsp; | &nbsp; 京ICP备00000号
-    &nbsp; | &nbsp; <a href="/about">关于</a> &nbsp; | &nbsp;
-    <a href="/jobs">加入我们</a>
+    Copyright &copy; 2015 非常老师
+    {{# if currentUser}}
+    {{else}}
+    &nbsp; | &nbsp; 京ICP备00000号
+    {{/if}}
+    &nbsp; | &nbsp; <a href="/about">关于</a>
+    &nbsp; | &nbsp; <a href="/jobs">加入我们</a>
   </div>
 </template>

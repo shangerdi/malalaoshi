@@ -4,7 +4,7 @@ CheckCodeCache = new Mongo.Collection('checkCodeCache');
 Meteor.methods({
   sendPhoneCheckCode: function(regParams) {
     var cellphone = regParams.cellphone;
-    if (!cellphone || !/^((\+86)|(86))?(1)\d{10}$/.test(cellphone)) {
+    if (!CELLPHONE_REG.test(cellphone)) {
       throw new Meteor.Error('参数错误', "手机号错误");
     }
     if (cellphone.length>11) {
@@ -28,12 +28,16 @@ Meteor.methods({
         checkCode = cacheData.checkCode;
       }
     }
-
     // generate one 6 numbers checkcode
     if (!checkCode) {
-      checkCode = parseInt(Math.random()*1000000);
-      if (checkCode<100000) {// 保证验证码是六位数
-        checkCode += parseInt(Math.random()*10)*100000;
+      if (TEST_CELLPHONE_REG.test(cellphone)) {
+        checkCode = 111111;
+      }
+      else{
+        checkCode = parseInt(Math.random()*1000000);
+        if (checkCode<100000) {// 保证验证码是六位数
+          checkCode += parseInt(Math.random()*10)*100000;
+        }
       }
       CheckCodeCache.update({_id:cellphone}, {$set:{checkCode:checkCode, createTime:new Date().getTime()}}, {upsert: true});
     }
@@ -42,7 +46,7 @@ Meteor.methods({
     var apikey = "4094d66bedf5ef7cb3134b4da6c12a0e";
     var smsMsg = "【"+companyName+"】您的验证码是"+checkCode;
     var params = {apikey: apikey, mobile: cellphone, text: smsMsg};
-    console.log(params);
+    console.log('Mobile num: <' + cellphone + '>, Check code: <' + checkCode + '>');
     try {
       if (regParams.dev) {
         // the following 4 lines are testing statement
@@ -66,7 +70,7 @@ Meteor.methods({
   },
   verifyPhoneCheckCode: function(params) {
     var cellphone=params.cellphone, checkCode=params.checkCode
-    if (!cellphone || !/^((\+86)|(86))?(1)\d{10}$/.test(cellphone)) {
+    if (!CELLPHONE_REG.test(cellphone)) {
       throw new Meteor.Error('参数错误', "手机号错误");
     }
     if (!checkCode || !/^\d{6}$/.test(checkCode)) {
@@ -81,7 +85,7 @@ Meteor.methods({
   },
   doRegisterViaPhone: function(params) {
     var cellphone=params.cellphone, checkCode=params.checkCode, password=params.password;
-    if (!cellphone || !/^((\+86)|(86))?(1)\d{10}$/.test(cellphone)) {
+    if (!CELLPHONE_REG.test(cellphone)) {
       throw new Meteor.Error('参数错误', "手机号错误");
     }
     if (!checkCode || !/^\d{6}$/.test(checkCode)) {
@@ -130,7 +134,7 @@ Meteor.methods({
   loginWithPhone: function(params) {
     var methodInvocation = this;
     var cellphone=params.cellphone, checkCode=params.checkCode;
-    if (!cellphone || !/^((\+86)|(86))?(1)\d{10}$/.test(cellphone)) {
+    if (!CELLPHONE_REG.test(cellphone)) {
       throw new Meteor.Error('参数错误', "手机号错误");
     }
     if (!checkCode || !/^\d{6}$/.test(checkCode)) {

@@ -31,7 +31,7 @@ Meteor.publish('userAudits', function(options) {
   if (curUser.role=='admin'||curUser.role=='manager') {
     return UserAudit.find({}, options);
   } else {
-    return [];
+    return UserAudit.find({userId: this.userId});
   }
 });
 Meteor.publish("auditOneTeacher", function (userId) {
