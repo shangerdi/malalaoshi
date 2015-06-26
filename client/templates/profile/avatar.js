@@ -44,14 +44,14 @@ Template.avatar.onRendered(function(){
         ctxSmall.clearRect(0,0,widthSmall,heightSmall);
         ctxSmall.drawImage(this.image,x,y,w,h,0,0,widthSmall,heightSmall);
 
-        var src=canvas.toDataURL();
         if (!(this.find('canvas')&&this.find('canvas')[0])) {
           this.canvas=canvas;
           this.append(canvas);
         }
         
+        var src=canvas.toDataURL();
         src=src.split(',')[1];
-        if(!src)return this.doneCallback(null);
+        if(!src)return this.doneCallback(new Meteor.Error("-1","处理失败，请稍后重试"));
         src=window.atob(src);
 
         var ia = new Uint8Array(src.length);
@@ -59,7 +59,7 @@ Template.avatar.onRendered(function(){
             ia[i] = src.charCodeAt(i);
         };
         
-        this.doneCallback(new Blob([ia], {type:"image/png"}));
+        this.doneCallback(false, new Blob([ia], {type:"image/png"}));
     };
     
     resizer.resize=function(file,done){
@@ -115,7 +115,7 @@ Template.avatar.onRendered(function(){
             width:width,
             height:height
         };
-        console.log(this.imageRect)
+        // console.log(this.imageRect)
         return width>height?height:width;
     };
 
@@ -214,7 +214,7 @@ Template.avatar.onRendered(function(){
               dx = size - w,
               dy = size - h,
               tolerance = 4;
-          console.log("loc: x: "+x+", y: "+y+"; size: w: "+w+", h: "+h+"; dx:"+dx+", dy:"+dy);
+          // console.log("loc: x: "+x+", y: "+y+"; size: w: "+w+", h: "+h+"; dx:"+dx+", dy:"+dy);
           if (Math.abs(dx)<tolerance) {
             resizer.clipWindowMask.css("cursor", "e-resize");
             action = 'xResize';
@@ -250,7 +250,7 @@ Template.avatar.onRendered(function(){
             return;
           }
           var offset=getOffset(event);
-          console.log(offset);
+          // console.log(offset);
           if (action=="xResize") {
             resizer.resizeFrames(offset.x, offset.x);
           } else if(action=="yResize") {
@@ -295,10 +295,20 @@ Template.avatar.onRendered(function(){
   };
   this.initOrigAvatar();
 });
-
+var showError = function(msg) {
+  $box = $(".avatar-box");
+  $box.addClass('has-error');
+  $box.find(".help-block").text(msg);
+};
+var clearError = function() {
+  $box = $(".avatar-box");
+  $box.removeClass('has-error');
+  $box.find(".help-block").text("");
+}
 Template.avatar.events({
   'change #imgFile': function(e) {
     var ele = e.target;
+    clearError();
     var imgType = ["gif", "jpeg", "jpg", "bmp", "png"];
     var flag = validImgFile();
     if (!flag) {
@@ -308,7 +318,11 @@ Template.avatar.events({
     $('.btns-box .action-btn-box').show();
     var resizer = Template.instance().resizer, origFile = ele.files[0], filename = origFile.name, extName=filename.substr(filename.lastIndexOf(".")+1);
     if (resizer) {
-      resizer.resize(ele.files[0],function(file){
+      resizer.resize(ele.files[0],function(error, file){
+        if (error) {
+          showError(error.reason);
+          return throwError(error.reason);
+        }
         file.name = Date.now()+"."+extName;
         // console.log(file);
         resizer.resizedImage=file;
@@ -329,7 +343,7 @@ Template.avatar.events({
 
       //验证上传文件格式是否正确   
       if (!RegExp("\.(" + imgType.join("|") + ")$", "i").test(ele.value.toLowerCase())) {
-        alert("选择图片类型错误");
+        showError("选择图片类型错误");
         this.value = "";
         return false;
       }
@@ -357,6 +371,7 @@ Template.avatar.events({
   },
   'submit #avatarUploadForm': function(e) {
     e.preventDefault();
+    clearError();
     var uploader = new Slingshot.Upload("myHeadImgUploads");
 
     var toUploadfile = document.getElementById('imgFile').files[0];
@@ -365,11 +380,13 @@ Template.avatar.events({
       toUploadfile = resizer.resizedImage;
     }
     if (!toUploadfile) {
+      showError("找不到图片文件");
       return throwError("找不到图片文件");
     }
     var error = uploader.validate(toUploadfile);
     if (error) {
       console.error(error);
+      showError(error.reason);
       return throwError(error.reason);
     }
 
@@ -382,14 +399,17 @@ Template.avatar.events({
         // Log service detailed response
         // console.error('Error uploading', uploader.xhr.response);
         console.error(error);
+        showError(error.reason);
         return throwError(error.reason);
       } else {
         console.log(downloadUrl);
         Meteor.users.update(Meteor.userId(), {$set: {"profile.avatarUrl": downloadUrl}});
+        showError("上传成功");
       }
     });
   },
   'click #avatarUploadForm .btn-cancel': function(e) {
+    clearError();
     $('.btns-box .select-file-box').show();
     $('.btns-box .action-btn-box').hide();
     var inst = Template.instance();
