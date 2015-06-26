@@ -1,0 +1,15 @@
+<template name="columnDetail">
+    <form class="form form-horizontal">
+        <input type="hidden" name="columnId" value="{{_id}}"/>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="profile-edit-title">{{{columnName}}}
+                <a href="/column/edit/{{columnId}}"><input class="btn btn-success col-sm-offset-10" aria-label="Right Align" type="button" value="编辑" /></a>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>{{{editorTextArea}}}</div>
+            </div>
+        </div>
+    </form>
+</template>

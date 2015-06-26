@@ -47,3 +47,12 @@ Meteor.publish("auditOneTeacher", function (userId) {
     UserAudit.find({'userId': userId})
   ];
 });
+Meteor.publish('singleColumnByColumnId', function(id) {
+  var curUser = Meteor.users.findOne(this.userId);
+  if(curUser.role != 'admin'){
+    return [];
+  }
+  check(id, String)
+  var clm = Column.find({columnId: id});
+  return clm;
+});
