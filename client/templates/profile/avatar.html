@@ -3,36 +3,39 @@
 
   <div class="form-group">
     <div class="form-inline">
-      <div class="col-sm-6 img-preview">
+      <div class="col-sm-6">
         <div class="bg-info avatar-edit-box">
           <div class="inner">
             <div class="clip-window"></div>
             <img id="imgFilePreview1" />
           </div>
+          <div class="loading-hint-box">
+            {{>loading}}
+          </div>
         </div>
       </div>
-      <div class="img-preview">
+      <div class="col-sm-6 img-preview">
         <!-- <div><img class="bg-info" id="imgFilePreview2" width="100" height="100" /></div>
         <div>100 × 100</div>
         <div><img class="img-circle bg-info" id="imgFilePreview3" width="50" height="50" /></div>
         <div>50 × 50</div> -->
-        <div><canvas class="bg-info" id="imgPreviewCanvas180" width="180" height="180"></canvas></div>
-        <div>180 × 180</div>
-        <div><canvas class="bg-info img-circle" id="imgPreviewCanvas80" width="80" height="80"></canvas></div>
+        <div><canvas class="bg-info" id="imgPreviewCanvasBig" width="150" height="150"></canvas></div>
+        <div>150 × 150</div>
+        <div><canvas class="bg-info" id="imgPreviewCanvasSmall" width="80" height="80"></canvas></div>
         <div>80 × 80</div>
       </div>
     </div>
   </div>
 
-  <div class="form-group">
-    <!-- <label class="col-sm-2 control-label" for="name">上传头像</label> -->
-    <input type="hidden" id="curUserId" name="curUserId" value="{{currentUser._id}}">
-    <input type="file" id="imgFile" name="imgFile" value="选择图片" >
-  </div>
-
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <input class="col-sm-2 btn btn-warning" id="uploadHeadImgBtn" type="submit" value="保存头像" />
+  <div class="form-group col-sm-12 btns-box">
+    <div class="select-file-box">
+      <a class="btn btn-success btn-select-file"><span>上传图片</span>
+        <input type="file" id="imgFile" name="imgFile" value="选择图片" >
+      </a>
+    </div>
+    <div class="action-btn-box">
+      <input class="col-sm-2 btn btn-success btn-confirm" id="uploadHeadImgBtn" type="submit" value="确定" />
+      <input class="col-sm-offset-1 col-sm-2 btn btn-default btn-cancel" id="uploadHeadImgCancelBtn" type="button" value="取消" />
     </div>
   </div>
 

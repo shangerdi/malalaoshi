@@ -21,22 +21,25 @@ Template.avatar.onRendered(function(){
             size=nw>nh?nh:nw;
         size=size>1000?1000:size;
         
-        var canvas=(this.find('canvas')&&this.find('canvas')[0])?this.canvas:$('<canvas width="'+size+'" height="'+size+'"></canvas>')[0],
+        var canvas=(this.find('canvas')&&this.find('canvas')[0])?this.canvas:$('<canvas width="'+size+'" height="'+size+'" style="display:none;"></canvas>')[0],
             ctx=canvas.getContext('2d'),
             scale=nw/this.offset.width,
             x=this.frames.offset.left*scale,
             y=this.frames.offset.top*scale,
             w=this.frames.offset.size*scale,
             h=this.frames.offset.size*scale;
+        ctx.clearRect(0,0,size,size);
         ctx.drawImage(this.image,x,y,w,h,0,0,size,size);
 
-        var canvas180 = $("#imgPreviewCanvas180")[0],
-          ctx180 = canvas180.getContext('2d');
-        ctx180.drawImage(this.image,x,y,w,h,0,0,180,180);
+        var $canvasBig = $("#imgPreviewCanvasBig"), widthBig = $canvasBig.width(), heightBig = $canvasBig.height(),
+          ctxBig = $canvasBig[0].getContext('2d');
+        ctxBig.clearRect(0,0,widthBig,heightBig);
+        ctxBig.drawImage(this.image,x,y,w,h,0,0,widthBig,heightBig);
 
-        var canvas80 = $("#imgPreviewCanvas80")[0],
-          ctx80 = canvas80.getContext('2d');
-        ctx80.drawImage(this.image,x,y,w,h,0,0,80,80);
+        var $canvasSmall = $("#imgPreviewCanvasSmall"), widthSmall = $canvasSmall.width(), heightSmall = $canvasSmall.height(),
+          ctxSmall = $canvasSmall[0].getContext('2d');
+        ctxSmall.clearRect(0,0,widthSmall,heightSmall);
+        ctxSmall.drawImage(this.image,x,y,w,h,0,0,widthSmall,heightSmall);
 
         var src=canvas.toDataURL();
         if (!(this.find('canvas')&&this.find('canvas')[0])) {
@@ -64,6 +67,7 @@ Template.avatar.onRendered(function(){
             top:0,
             left:0
         });
+        this.inner.show();
         var reader=new FileReader();
         reader.onload=function(){
             resizer.image.src=reader.result;
@@ -78,6 +82,7 @@ Template.avatar.onRendered(function(){
     resizer.reset=function(){
         this.image.src='';
         this.removeClass('have-img');
+        this.inner.hide();
         this.find('canvas').detach();
     };
     
@@ -100,6 +105,21 @@ Template.avatar.onRendered(function(){
         };
         console.log(this.offset)
         return width>height?height:width;
+    };
+
+    resizer.resizeFrames=function(x, y) {
+      var top=this.frames.offset.top,
+          left=this.frames.offset.left,
+          size=this.frames.offset.size,
+          width=this.offset.width,
+          height=this.offset.height;
+      if(x+size+left>width){
+        return;
+      }
+      if(y+size+top>height){
+        return;
+      }
+      this.setFrameSize(x+size);
     };
     
     resizer.moveFrames=function(offset){
@@ -150,18 +170,11 @@ Template.avatar.onRendered(function(){
     })();
     
     (function(){
-        var lastPoint=null;
+        var lastPoint=null, action=null;
         function getOffset(event){
-            event=event.originalEvent;
-            var x,y;
-            if(event.touches){
-                var touch=event.touches[0];
-                x=touch.clientX;
-                y=touch.clientY;
-            }else{
-                x=event.clientX;
-                y=event.clientY;
-            }
+            var loc = getLocByEvent(event),
+                x=loc.x,
+                y=loc.y;
             
             if(!lastPoint){
                 lastPoint={
@@ -180,22 +193,98 @@ Template.avatar.onRendered(function(){
             };
             return offset;
         };
+        function decideAction(event) {
+          if(lastPoint) { // action is started
+            return;
+          }
+          var loc = getLocByEvent(event),
+              x=loc.x,
+              y=loc.y;
+          var offset = $(resizer.frames).offset(),
+              w = x - offset.left,
+              h = y - offset.top;
+          var size = resizer.frames.offset.size,
+              dx = size - w,
+              dy = size - h,
+              tolerance = 7,
+              blindWidth = 4;
+          // console.log("loc: x: "+x+", y: "+y+" diff x:"+dx+", diff y:"+dy);
+          if (Math.abs(dx)<blindWidth || Math.abs(dy)<blindWidth) {
+            resizer.frames.css("cursor", "default");
+            action = "";
+            return;
+          }
+          if (Math.abs(dx)<tolerance) {
+            resizer.frames.css("cursor", "e-resize");
+            action = 'xResize';
+          } else if (Math.abs(dy)<tolerance) {
+            resizer.frames.css("cursor", "s-resize");
+            action = 'yResize';
+          } else {
+            resizer.frames.css("cursor", "move");
+            action = "move";
+          }
+        };
+        function getLocByEvent(event) {
+          event=event.originalEvent;
+          var x,y;
+          if(event.touches){
+            var touch=event.touches[0];
+            x=touch.clientX;
+            y=touch.clientY;
+          }else{
+            x=event.clientX;
+            y=event.clientY;
+          }
+          return {x:x,y:y};
+        }
         resizer.frames.on('touchstart mousedown',function(event){
             getOffset(event);
         });
         resizer.frames.on('touchmove mousemove',function(event){
-            if(!lastPoint)return;
+            if(!lastPoint) {
+              decideAction(event);
+              return;
+            }
             var offset=getOffset(event);
-            resizer.moveFrames(offset);
+            // console.log(offset);
+            if (action=="xResize") {
+              resizer.resizeFrames(offset.x, offset.x);
+            } else if(action=="yResize") {
+              resizer.resizeFrames(offset.y, offset.y);
+            } else if(action=="move") {
+              resizer.moveFrames(offset);
+            }
             resizer.clipImage();
         });
-        resizer.frames.on('touchend mouseup',function(event){
+        resizer.frames.on('touchend mouseup mouseover mouseout',function(event){
             lastPoint=null;
         });
     })();
     return resizer;
   };
   this.resizer=initImageResizer();
+
+  // draw orig avatar
+  this.initOrigAvatar = function() {
+    var curUser = Meteor.user();
+    if (curUser && curUser.profile && curUser.profile.avatarUrl) {
+      var img=new Image()
+      img.src=curUser.profile.avatarUrl;
+      img.onload = function() {
+        var $canvasBig = $("#imgPreviewCanvasBig"), widthBig = $canvasBig.width(), heightBig = $canvasBig.height(),
+          ctxBig = $canvasBig[0].getContext('2d');
+        ctxBig.clearRect(0,0,widthBig,heightBig);
+        ctxBig.drawImage(img,0,0,widthBig,heightBig);
+
+        var $canvasSmall = $("#imgPreviewCanvasSmall"), widthSmall = $canvasSmall.width(), heightSmall = $canvasSmall.height(),
+          ctxSmall = $canvasSmall[0].getContext('2d');
+        ctxSmall.clearRect(0,0,widthSmall,heightSmall);
+        ctxSmall.drawImage(img,0,0,widthSmall,heightSmall);
+      }
+    }
+  };
+  this.initOrigAvatar();
 });
 
 Template.avatar.events({
@@ -206,16 +295,18 @@ Template.avatar.events({
     if (!flag) {
       return false;
     }
-    var imtUrl = getObjectURL(ele.files[0]);
-    var resizer = Template.instance().resizer;
+    $('.btns-box .select-file-box').hide();
+    $('.btns-box .action-btn-box').show();
+    var resizer = Template.instance().resizer, origFile = ele.files[0], filename = origFile.name, extName=filename.substr(filename.lastIndexOf(".")+1);
     if (resizer) {
       resizer.resize(ele.files[0],function(file){
-        file.name = ele.files[0].name;
+        file.name = Date.now()+"."+extName;
         // console.log(file);
         resizer.resizedImage=file;
       });
     }
 
+    // var imtUrl = getObjectURL(ele.files[0]);
     // $("#imgFilePreview1").attr("src", imtUrl);
     // $("#imgFilePreview2").attr("src", imtUrl);
     // $("#imgFilePreview3").attr("src", imtUrl);
@@ -269,7 +360,11 @@ Template.avatar.events({
       toUploadfile = resizer.resizedImage;
     }
 
+    $('.btns-box .action-btn-box .btn').attr("disabled", true);
+    $(".avatar-edit-box .loading-hint-box").show();
     uploader.send(toUploadfile, function(error, downloadUrl) {
+      $('.btns-box .action-btn-box .btn').removeAttr("disabled");
+      $(".avatar-edit-box .loading-hint-box").hide();
       if (error) {
         // Log service detailed response
         // console.error('Error uploading', uploader.xhr.response);
@@ -278,10 +373,14 @@ Template.avatar.events({
       } else {
         console.log(downloadUrl);
         Meteor.users.update(Meteor.userId(), {$set: {"profile.avatarUrl": downloadUrl}});
-        // $('.avatar').find("img").attr("src", downloadUrl);
-        // $("#avatarUrl").val(downloadUrl);
-        // $("#avatarUploadFormBox").addClass('hide');
       }
     });
+  },
+  'click #avatarUploadForm .btn-cancel': function(e) {
+    $('.btns-box .select-file-box').show();
+    $('.btns-box .action-btn-box').hide();
+    var inst = Template.instance();
+    inst.resizer.reset();
+    inst.initOrigAvatar();
   }
 });
