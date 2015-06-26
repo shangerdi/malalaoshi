@@ -1,14 +1,14 @@
-<template name="columnEdit">
+<template name="pageEdit">
     <form class="form form-horizontal">
-        <input type="hidden" name="columnId" value="{{columnId}}"/>
+        <input type="hidden" name="pageId" value="{{pageId}}"/>
         <div class="col-sm-12">
-            <div class="form-group {{errorClass 'columnName'}} {{errorClass 'columnId'}}">
+            <div class="form-group {{errorClass 'pageName'}} {{errorClass 'pageId'}}">
                 <label class="control-label" for="name">栏目名称</label>
-                <span class="help-block">{{errorMessage 'columnName'}}</span>
-                <span class="help-block">{{errorMessage 'columnId'}}</span>
+                <span class="help-block">{{errorMessage 'pageName'}}</span>
+                <span class="help-block">{{errorMessage 'pageId'}}</span>
             </div>
             <div class="form-group">
-                <input name="columnName" id="columnName" type="text"  placeholder="请输入栏目名称" class="form-control" value="{{columnName}}"/>
+                <input name="pageName" id="pageName" type="text"  placeholder="请输入栏目名称" class="form-control" value="{{pageName}}"/>
             </div>
             <div class="form-group {{errorClass 'editorTextArea'}}">
                 <label class="control-label" for="name">正文</label>

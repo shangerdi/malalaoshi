@@ -1,12 +1,12 @@
-Template.columnEdit.onCreated(function() {
+Template.pageEdit.onCreated(function() {
   var curUser = Meteor.user();
   if (!curUser || !(curUser.role === 'admin')){
       throw new Meteor.Error('权限不足', "当前用户权限不足");
   }
-  Session.set('columnEditErrors', {});
+  Session.set('pageEditErrors', {});
 });
 
-Template.columnEdit.rendered=function(){
+Template.pageEdit.rendered=function(){
   var template=this;
   window.CKEDITOR_BASEPATH = "/ckeditor/";
 
@@ -23,35 +23,35 @@ Template.columnEdit.rendered=function(){
     });
 };
 
-Template.columnEdit.events({
+Template.pageEdit.events({
   'submit form': function(e) {
     e.preventDefault();
     var curForm = e.target;
-    var column = {
+    var page = {
       editorTextArea: CKEDITOR.instances.editorTextArea.getData(),
-      columnName: $(curForm).find('[name=columnName]').val(),
-      columnId: $(curForm).find('[name=columnId]').val()
+      pageName: $(curForm).find('[name=pageName]').val(),
+      pageId: $(curForm).find('[name=pageId]').val()
     }
 
-    var errors = validateColumn(column);
+    var errors = validatePage(page);
     if (errors.hasError) {
-      return Session.set('columnEditErrors', errors);
+      return Session.set('pageEditErrors', errors);
     }
 
-    Meteor.call('updateColumn', column, function(error, result) {
+    Meteor.call('updatePage', page, function(error, result) {
       if (error)
         return throwError(error.reason);
 
-      Router.go('/column/'+result);
+      Router.go('/page/'+result);
     });
   }
 });
 
-Template.columnEdit.helpers({
+Template.pageEdit.helpers({
   errorMessage: function(field) {
-    return Session.get('columnEditErrors')[field];
+    return Session.get('pageEditErrors')[field];
   },
   errorClass: function (field) {
-    return !!Session.get('columnEditErrors')[field] ? 'has-error' : '';
+    return !!Session.get('pageEditErrors')[field] ? 'has-error' : '';
   }
 });
