@@ -17,7 +17,7 @@ Template.header.helpers({
     else if (host.match('stage\..*')) {
       return 'Stage';
     }
-    return '';
+    return 'Beta';
   },
   isAdmin: function() {
     return Meteor.user() && Meteor.user().role === 'admin';
