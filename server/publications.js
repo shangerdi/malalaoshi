@@ -47,8 +47,7 @@ Meteor.publish("auditOneTeacher", function (userId) {
     UserAudit.find({'userId': userId})
   ];
 });
-Meteor.publish('singlePageByPageId', function(id) {s
-  check(id, String)
-  var clm = Pages.find({pageId: id});
+Meteor.publish('pages', function() {
+  var clm = Pages.find();
   return clm;
 });
