@@ -162,5 +162,18 @@ Template.auditTeacher.events({
       }
       $("."+part+"-info-reject").hide();
     });
+  },
+  'click .img-box img':function(e) {
+    var src = e.target.src;
+    var $previewBox = $(".img-fullsize-view-box");
+    $previewBox.find("img")[0].src=src;
+    $previewBox.show();
+  },
+  'click .img-fullsize-view-box': function(e) {
+    var ele = e.target, $ele = $(ele);
+    if (ele.tagName.toLowerCase()=='img') {
+      $ele = $ele.closest('.img-fullsize-view-box');
+    }
+    $ele.hide();
   }
 });
