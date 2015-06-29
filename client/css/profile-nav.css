@@ -40,7 +40,8 @@
 .profile-nav .items li .flag {
   background-color: transparent;
   margin-right:10px;
-  font-size:14px;
+  font-size:16px;
+  text-align:top;
 }
 .profile-nav .items li .success{
   color: #0a0;
