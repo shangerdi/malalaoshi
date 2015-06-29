@@ -6,9 +6,3 @@ Template.users.helpers({
     return Meteor.users.find().count();
   }
 });
-Template.userItem.helpers({
-  created: function() {
-    return moment(this.createdAt).fromNow();
-  }
-});
-

@@ -3,7 +3,7 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>ID</th><th>用户名</th><th>注册时间</th><th>角色</th>
+        <th>ID</th><th>用户名</th><th>注册时间</th><th>角色</th><th></th>
       </tr>
     </thead>
     <tbody>
@@ -20,4 +20,7 @@
   <td>{{username}}</td>
   <td>{{created}}</td>
   <td>{{role}}</td>
+  <td style="text-align:center;">
+    <a href="/user/{{_id}}/edit" class="btn btn-audit">编辑</a>
+  </td>
 </template>
