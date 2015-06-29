@@ -1,11 +1,11 @@
 <template name="pageDetail">
     <form class="form form-horizontal">
-        <input type="hidden" name="pageCode" value="{{pageCode}}"/>
+        <input type="hidden" name="name" value="{{name}}"/>
         <div class="col-sm-12">
             {{#if isAdmin}}
             <div class="form-group">
-                <div class="profile-edit-title">{{{pageName}}}
-                <a href="/page/edit/{{pageCode}}"><input class="btn btn-success col-sm-offset-10" aria-label="Right Align" type="button" value="编辑" /></a>
+                <div class="profile-edit-title">{{{title}}}
+                <a href="/page/edit/{{name}}"><input class="btn btn-success col-sm-offset-10" aria-label="Right Align" type="button" value="编辑" /></a>
                 </div>
             </div>
             {{/if}}

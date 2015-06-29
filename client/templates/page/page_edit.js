@@ -29,8 +29,8 @@ Template.pageEdit.events({
     var curForm = e.target;
     var page = {
       editorTextArea: CKEDITOR.instances.editorTextArea.getData(),
-      pageName: $(curForm).find('[name=pageName]').val(),
-      pageCode: $(curForm).find('[name=pageCode]').val()
+      title: $(curForm).find('[name=title]').val(),
+      name: $(curForm).find('[name=name]').val()
     }
 
     var errors = validatePage(page);
@@ -55,4 +55,3 @@ Template.pageEdit.helpers({
     return !!Session.get('pageEditErrors')[field] ? 'has-error' : '';
   }
 });
-

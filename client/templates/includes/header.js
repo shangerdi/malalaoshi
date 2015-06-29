@@ -18,8 +18,5 @@ Template.header.helpers({
       return 'Stage';
     }
     return 'Beta';
-  },
-  isAdmin: function() {
-    return Meteor.user() && Meteor.user().role === 'admin';
   }
 });
