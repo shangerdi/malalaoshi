@@ -30,7 +30,7 @@ Template.pageEdit.events({
     var page = {
       editorTextArea: CKEDITOR.instances.editorTextArea.getData(),
       pageName: $(curForm).find('[name=pageName]').val(),
-      pageId: $(curForm).find('[name=pageId]').val()
+      pageCode: $(curForm).find('[name=pageCode]').val()
     }
 
     var errors = validatePage(page);

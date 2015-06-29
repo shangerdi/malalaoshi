@@ -3,7 +3,7 @@ Meteor.methods({
     check(page, {
       editorTextArea: String,
       pageName: String,
-      pageId: String
+      pageCode: String
     });
 
     var errors = validatePage(page);
@@ -20,13 +20,13 @@ Meteor.methods({
 	  submitted: new Date()
 	});
 
-    var oldPage = Pages.findOne({pageId: page.pageId});
+    var oldPage = Pages.findOne({pageCode: page.pageCode});
     if (oldPage) {
-        Pages.update({pageId: page.pageId}, {$set: updatePage});
+        Pages.update({pageCode: page.pageCode}, {$set: updatePage});
     }else{
-        page._id = Pages.insert(page);
+        Pages.insert(page);
     }
 
-    return page.pageId;
+    return page.pageCode;
   }
 });
