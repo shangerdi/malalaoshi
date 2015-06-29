@@ -25,39 +25,43 @@ var clearUploadBox = function($uploadBox) {
   $uploadBox.find('.cert-img-box img').removeAttr('src');
   clearUploadBoxErr($uploadBox);
 }
+var showSuccessInfo = function(msg, $context) {
+  $hintBox = $(".success-hint-box");
+  if ($context) {
+    $hintBox = $hintBox.clone();
+    $context.append($hintBox);
+  }
+  if (msg) {
+    $hintBox.find('.text').text(msg);
+  }
+  $hintBox.show();
+  setTimeout(function() {
+    $hintBox.slideUp('normal');
+    if ($context) {
+      $hintBox.remove();
+    }
+  }, 1200);
+}
 Template.profileEditCert.events({
-  'change .cert-img-box input[type=file]': function(e) {
+  'change input[type=file]': function(e) {
     var ele = e.target, $ele = $(ele);
     var $uploadBox = $ele.closest(".cert-upload-box");
+    var changed = $uploadBox.data("changed");
     clearUploadBoxErr($uploadBox);
     var imgType = ["gif", "jpeg", "jpg", "bmp", "png"];
     var flag = validImgFile();
     if (!flag) {
       return false;
     }
-    // var imtUrl = getObjectURL(ele.files[0]);
-    // $ele.closest(".cert-img-box").find('img').attr("src", imtUrl);
-    // return;
-
-    // upload the picture to server
-    var uploader = new Slingshot.Upload("myHeadImgUploads");
-    var error = uploader.validate(ele.files[0]);
-    if (error) {
-      console.error(error);
-      $uploadBox.addClass('has-error');
-      $uploadBox.find('.help-block').text(error.reason);
-      return false;
+    if (!changed) {
+      $uploadBox.data("changed", true);
+      $uploadBox.data("oldImgSrc", $uploadBox.find(".cert-img-box img").attr("src"));
     }
-    uploader.send(ele.files[0], function(error, downloadUrl) {
-      if (error) {
-        console.error(error);
-        $uploadBox.addClass('has-error');
-        $uploadBox.find('.help-block').text(error.reason);
-      } else {
-        console.log(downloadUrl);
-        $ele.closest(".cert-img-box").find('img').attr("src", downloadUrl);
-      }
-    });
+    var imtUrl = getObjectURL(ele.files[0]);
+    $uploadBox.find(".cert-img-box img").attr("src", imtUrl);
+    $uploadBox.find('.btns-box .select-file-box').hide();
+    $uploadBox.find('.btns-box .action-btn-box').show();
+    return;
 
     // valid image properties
     function validImgFile() {
@@ -85,6 +89,52 @@ Template.profileEditCert.events({
       }
       return url;
     }
+  },
+  'click .action-btn-box .btn-confirm': function(e) {
+    var ele = e.target, $ele = $(ele);
+    var $uploadBox = $ele.closest(".cert-upload-box");
+    var file = $uploadBox.find("input[type=file]")[0].files[0];
+
+    // upload the picture to server
+    var uploader = new Slingshot.Upload("myHeadImgUploads");
+    var error = uploader.validate(file);
+    if (error) {
+      console.error(error);
+      $uploadBox.addClass('has-error');
+      $uploadBox.find('.help-block').text(error.reason);
+      return false;
+    }
+    $uploadBox.find(".uploading-hint-box").show();
+    $ele.attr("disabled", true);
+    $ele.css("cursor", "wait");
+    uploader.send(file, function(error, downloadUrl) {
+      if (error) {
+        console.error(error);
+        $uploadBox.addClass('has-error');
+        $uploadBox.find('.help-block').text(error.reason);
+      } else {
+        console.log(downloadUrl);
+        $uploadBox.data("changed", false);
+        $uploadBox.find(".cert-img-box img").attr("src", downloadUrl);
+        showSuccessInfo("保存成功", $uploadBox);
+        $uploadBox.find('.btns-box .select-file-box').show();
+        $uploadBox.find('.btns-box .action-btn-box').hide();
+      }
+      $uploadBox.find(".uploading-hint-box").hide();
+      $ele.removeAttr("disabled");
+      $ele.css("cursor", "pointer");
+    });
+  },
+  'click .action-btn-box .btn-cancel': function(e) {
+    var ele = e.target, $ele = $(ele);
+    var $uploadBox = $ele.closest(".cert-upload-box");
+
+    // cancel change cert image, restore to orig
+    $uploadBox.find('.btns-box .select-file-box').show();
+    $uploadBox.find('.btns-box .action-btn-box').hide();
+    $uploadBox.data("changed", false);
+    $uploadBox.find(".cert-img-box img").attr("src", $uploadBox.data("oldImgSrc"));
+    $uploadBox.find("input[type=file]")[0].value="";
   },
   'click .btn-add-edu-item': function(e) {
     $proItem = $(".cert-profession-items .cert-upload-box").last().clone();

@@ -49,7 +49,7 @@ Template.avatar.onRendered(function(){
           this.append(canvas);
         }
         
-        var src=canvas.toDataURL();
+        var src=canvas.toDataURL("image/jpeg");
         src=src.split(',')[1];
         if(!src)return this.doneCallback(new Meteor.Error("-1","处理失败，请稍后重试"));
         src=window.atob(src);
@@ -59,7 +59,7 @@ Template.avatar.onRendered(function(){
             ia[i] = src.charCodeAt(i);
         };
         
-        this.doneCallback(false, new Blob([ia], {type:"image/png"}));
+        this.doneCallback(false, new Blob([ia], {type:"image/jpeg"}));
     };
     
     resizer.resize=function(file,done){
@@ -305,6 +305,16 @@ var clearError = function() {
   $box.removeClass('has-error');
   $box.find(".help-block").text("");
 }
+var showSuccessInfo = function(msg) {
+  $hintBox = $(".success-hint-box");
+  if (msg) {
+    $hintBox.find('.text').text(msg);
+  }
+  $hintBox.show();
+  setTimeout(function() {
+    $(".success-hint-box").slideUp('normal');
+  }, 1200);
+}
 Template.avatar.events({
   'change #imgFile': function(e) {
     var ele = e.target;
@@ -402,9 +412,11 @@ Template.avatar.events({
         showError(error.reason);
         return throwError(error.reason);
       } else {
-        console.log(downloadUrl);
+        // console.log(downloadUrl);
         Meteor.users.update(Meteor.userId(), {$set: {"profile.avatarUrl": downloadUrl}});
-        showError("上传成功");
+        showSuccessInfo("保存成功");
+        $('.btns-box .select-file-box').show();
+        $('.btns-box .action-btn-box').hide();
       }
     });
   },
