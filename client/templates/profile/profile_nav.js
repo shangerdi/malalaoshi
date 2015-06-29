@@ -1,7 +1,8 @@
 Template.profileNav.helpers({
   isApproved: function(part) {
     var userAudit = UserAudit.findOne({'userId': Meteor.userId()});
-    return userAudit && userAudit[part + 'Info'].status === 'approved';
+    return userAudit && userAudit[part + 'Info'] &&
+      userAudit[part + 'Info'].status === 'approved';
   }
 });
 Template.profileNav.events({
