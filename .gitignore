@@ -1,2 +1,4 @@
 custom.bootstrap.less
 custom.bootstrap.mixins.import.less
+/.project
+.DS_Store

@@ -47,3 +47,7 @@ Meteor.publish("auditOneTeacher", function (userId) {
     UserAudit.find({'userId': userId})
   ];
 });
+Meteor.publish('pages', function() {
+  var clm = Pages.find();
+  return clm;
+});
