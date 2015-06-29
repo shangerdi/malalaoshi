@@ -21,3 +21,7 @@ markdown
 momentjs:moment
 rzymek:moment-locale-zh-cn
 lsun:linearicons
+fourseven:scss@2.0.0
+meteoric:ionic-sass
+meteoric:ionicons-sass
+meteoric:ionic
