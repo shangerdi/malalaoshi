@@ -20,7 +20,7 @@ Meteor.methods({
        submitted: new Date()
     });
 
-    Pages.update({name: page.name}, {$set: updatePage}, {upsert:true});
+    Pages.update({name: updatePage.name}, {$set: updatePage}, {upsert: true});
 
     return page.name;
   }
