@@ -42,7 +42,7 @@ Template.pageEdit.events({
       if (error)
         return throwError(error.reason);
 
-      Router.go('/page/'+result);
+      Router.go(result);
     });
   }
 });
@@ -55,3 +55,4 @@ Template.pageEdit.helpers({
     return !!Session.get('pageEditErrors')[field] ? 'has-error' : '';
   }
 });
+

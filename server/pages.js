@@ -22,11 +22,8 @@ Meteor.methods({
 
     var oldPage = Pages.findOne({pageId: page.pageId});
     if (oldPage) {
-      //console.log(".............更新。。。。。。。。。。");
-        //Pages.update({_id: page.pageId}, {$set:{editorTextArea:page.editorTextArea,pageName:page.pageName}});
-        Pages.update({_id: oldPage._id}, {$set: updatePage});
+        Pages.update({pageId: page.pageId}, {$set: updatePage});
     }else{
-      //console.log(".............插入。。。。。。。。。。");
         page._id = Pages.insert(page);
     }
 
