@@ -18,5 +18,8 @@ Template.header.helpers({
       return 'Stage';
     }
     return 'Beta';
+  },
+  messageCount: function(){
+    return Messages.find({userId: Meteor.userId(), read: {$ne: true}}).count();
   }
 });
