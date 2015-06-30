@@ -20,6 +20,10 @@ Template.header.helpers({
     return 'Beta';
   },
   messageCount: function(){
-    return Messages.find({userId: Meteor.userId(), read: {$ne: true}}).count();
+    var cnt = Messages.find({userId: Meteor.userId(), read: {$ne: true}}).count();
+    if (cnt > 999) {
+      return "···";
+    }
+    return cnt;
   }
 });
