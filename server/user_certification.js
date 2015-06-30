@@ -11,7 +11,7 @@ Meteor.methods({
     UserCertification.update({userId:Meteor.userId()},{$set:{'teacherCertImgUrl':teacherCertImgUrl,'professionItems':professionItems}},{upsert:true});
     var now = Date.now(), curUserProfile = Meteor.user().profile;
     var name = curUserProfile?curUserProfile.name:"";
-    UserAudit.update({userId:Meteor.userId()},{$set:{'name':name,submitTime:now,certInfo:{submitTime:now, status: 'submited'}}},{upsert:true});
+    TeacherAudit.update({userId:Meteor.userId()},{$set:{'name':name,submitTime:now,certInfo:{submitTime:now, status: 'submited'}}},{upsert:true});
     // TODO：用户操作日志 UserOpLogs
   }
 })

@@ -174,8 +174,10 @@ Meteor.methods({
         var userOptions = {"username": cellphone, "phoneNo": cellphone, "role": role};
         userId = Accounts.insertUserDoc(userOptions, userOptions);
         // ont new teacher, to do audit
-        var nowTime = Date.now();
-        UserAudit.update({'userId':userId},{$set:{'submitTime':nowTime}},{'upsert':true});
+        if (role=='teacher') {
+          var nowTime = Date.now();
+          TeacherAudit.update({'userId':userId},{$set:{'submitTime':nowTime}},{'upsert':true});
+        }
       }
     } catch (ex) {
       console.log(ex);
