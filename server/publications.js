@@ -28,6 +28,10 @@ Meteor.publish('curUserCertification', function() {
 
 Meteor.publish('teacherAudits', function(options) {
   var curUser = Meteor.users.findOne(this.userId);
+  if (!curUser) {
+    this.ready();
+    return;
+  }
   if (curUser.role=='admin'||curUser.role=='manager') {
     return TeacherAudit.find({}, options);
   } else {
