@@ -1,6 +1,6 @@
 Template.teachers.helpers({
   teachers: function() {
-    return UserAudit.find({}, {sort: {submitTime: 1}});
+    return TeacherAudit.find({}, {sort: {submitTime: 1}});
   }
 });
 var convStatus2Str = function(status) {

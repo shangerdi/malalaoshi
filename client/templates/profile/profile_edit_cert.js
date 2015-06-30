@@ -42,6 +42,46 @@ var showSuccessInfo = function(msg, $context) {
     }
   }, 1200);
 }
+var saveCertData = function(callback) {
+  $teacherCertBox = $('.cert-upload-box').first();
+  var teacherCertImgUrl = $teacherCertBox.find('.cert-img-box img')[0].src;
+  if ($teacherCertBox.data("changed")) {
+    teacherCertImgUrl = $teacherCertBox.data("oldImgSrc");
+  }
+  // console.log(teacherCertImgUrl);
+  var professionItems = [];
+  $('.cert-profession-items .cert-upload-box').each(function(){
+    $proItem = $(this);
+    if (!$proItem.is(":visible")) {
+      return;
+    }
+    var certImgUrl = $proItem.find('.cert-img-box img')[0].src;
+    if ($proItem.data("changed")) {
+      certImgUrl = $proItem.data("oldImgSrc");
+    }
+    if (certImgUrl) {
+      professionItems.push({'certImgUrl': certImgUrl});
+    }
+  });
+  // console.log(professionItems);
+  // do save
+  Meteor.call('updateCertification', teacherCertImgUrl, professionItems, function(error, result) {
+    if (error)
+      return throwError(error.reason);
+    if (callback) {
+      callback();
+      return;
+    }
+    alert("保存成功");
+    $(".cert-upload-box.man-insert").remove();
+    $(".cert-upload-box.man-delete").show();
+    $(".cert-profession-items .cert-upload-box:gt("+professionItems.length+")").remove();
+    if ($(".cert-profession-items").children().length>professionItems.length) {
+      $lastBox = $(".cert-profession-items .cert-upload-box").last();
+      clearUploadBox($lastBox);
+    }
+  });
+}
 Template.profileEditCert.events({
   'change input[type=file]': function(e) {
     var ele = e.target, $ele = $(ele);
@@ -113,12 +153,14 @@ Template.profileEditCert.events({
         $uploadBox.addClass('has-error');
         $uploadBox.find('.help-block').text(error.reason);
       } else {
-        console.log(downloadUrl);
+        // console.log(downloadUrl);
         $uploadBox.data("changed", false);
         $uploadBox.find(".cert-img-box img").attr("src", downloadUrl);
-        showSuccessInfo("保存成功", $uploadBox);
-        $uploadBox.find('.btns-box .select-file-box').show();
-        $uploadBox.find('.btns-box .action-btn-box').hide();
+        saveCertData(function() {
+          showSuccessInfo("保存成功", $uploadBox);
+          $uploadBox.find('.btns-box .select-file-box').show();
+          $uploadBox.find('.btns-box .action-btn-box').hide();
+        });
       }
       $uploadBox.find(".uploading-hint-box").hide();
       $ele.removeAttr("disabled");
@@ -153,32 +195,6 @@ Template.profileEditCert.events({
     $uploadBox.hide();
   },
   'click .btn-save': function(e) {
-    var teacherCertImgUrl = $('.cert-upload-box').first().find('.cert-img-box img')[0].src;
-    console.log(teacherCertImgUrl);
-    var professionItems = [];
-    $('.cert-profession-items .cert-upload-box').each(function(){
-      $proItem = $(this);
-      if (!$proItem.is(":visible")) {
-        return;
-      }
-      var certImgUrl = $proItem.find('.cert-img-box img')[0].src;
-      if (certImgUrl) {
-        professionItems.push({'certImgUrl': certImgUrl});
-      }
-    });
-    console.log(professionItems);
-    // do save
-    Meteor.call('updateCertification', teacherCertImgUrl, professionItems, function(error, result) {
-      if (error)
-        return throwError(error.reason);
-      alert("保存成功");
-      $(".cert-upload-box.man-insert").remove();
-      $(".cert-upload-box.man-delete").show();
-      $(".cert-profession-items .cert-upload-box:gt("+professionItems.length+")").remove();
-      if ($(".cert-profession-items").children().length>professionItems.length) {
-        $lastBox = $(".cert-profession-items .cert-upload-box").last();
-        clearUploadBox($lastBox);
-      }
-    });
+    saveCertData();
   }
 });
