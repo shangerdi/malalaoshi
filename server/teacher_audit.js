@@ -18,14 +18,14 @@ Meteor.methods({
     updateSet[part+'Info.status'] = newStatus; // NOTE: the update $set object is diff from common js object, it's like "{auditTime:now, auditUserId:this.userId, 'basicInfo.status':newStatus, 'basicInfo.auditTime':now, 'basicInfo.auditUserId':this.userId}"
     updateSet[part+'Info.auditTime'] = now;
     updateSet[part+'Info.auditUserId'] = this.userId;
-    UserAudit.update({'userId':todoUserId},{$set:updateSet});
+    TeacherAudit.update({'userId':todoUserId},{$set:updateSet});
     // op logs
     var logObj = {'userId':todoUserId,auditTime:now, auditUserId:this.userId,'part':part};
     logObj[part+'Info'] = {};
     logObj[part+'Info'].status = newStatus;
     logObj[part+'Info'].auditTime = now;
     logObj[part+'Info'].auditUserId = this.userId;
-    UserAuditLogs.insert(logObj);
+    TeacherAuditLogs.insert(logObj);
     // notify the user
     var partName = {'basic':"个人资料基本信息",'edu':"教育信息",'cert':"教学资质"}[part];
     var noticeObj = {
@@ -56,7 +56,7 @@ Meteor.methods({
     updateSet[part+'Info.msg'] = msg;
     updateSet[part+'Info.auditTime'] = now;
     updateSet[part+'Info.auditUserId'] = this.userId;
-    UserAudit.update({'userId':todoUserId},{$set:updateSet});
+    TeacherAudit.update({'userId':todoUserId},{$set:updateSet});
     // op logs
     var logObj = {'userId':todoUserId,auditTime:now, auditUserId:this.userId,'part':part};
     logObj[part+'Info'] = {};
@@ -64,7 +64,7 @@ Meteor.methods({
     logObj[part+'Info'].msg = msg;
     logObj[part+'Info'].auditTime = now;
     logObj[part+'Info'].auditUserId = this.userId;
-    UserAuditLogs.insert(logObj);
+    TeacherAuditLogs.insert(logObj);
     // notify the user
     var partName = {'basic':"个人资料基本信息",'edu':"教育信息",'cert':"教学资质"}[part];
     var noticeObj = {

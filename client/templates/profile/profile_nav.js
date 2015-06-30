@@ -1,6 +1,6 @@
 Template.profileNav.helpers({
   isApproved: function(part) {
-    var userAudit = UserAudit.findOne({'userId': Meteor.userId()});
+    var userAudit = TeacherAudit.findOne({'userId': Meteor.userId()});
     return userAudit && userAudit[part + 'Info'] &&
       userAudit[part + 'Info'].status === 'approved';
   }
