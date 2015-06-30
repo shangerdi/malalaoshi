@@ -1,10 +1,8 @@
 <template name="home">
-  <ul>
-    <li>
-      <a>我是家长</a>
-    </li>
-    <li>
-      <a>我是老师</a>
-    </li>
-  </ul>
+  <div class="listbox">
+    <div class="list-group">
+      <a href="{{pathFor 'mylogin'}}?role=parent" class="list-group-item">我是家长</a>
+      <a href="{{pathFor 'mylogin'}}?role=teacher" class="list-group-item">我是老师</a>
+    </div>
+  </div>
 </template>
