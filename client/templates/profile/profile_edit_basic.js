@@ -86,6 +86,24 @@ Template.profileEditBasic.helpers({
   },
   days: function() {
     return getDaysArray();
+  },
+  teacherStateList: function(val) {
+    var arr = getTeacherStateList();
+    var a = [];
+    _.each(arr, function(obj){
+      var newObj = {key:obj.key};
+      var text = obj.name;
+      if (obj.hint) {
+        text+="("+obj.hint+")"
+      }
+      newObj.text=text;
+      if (obj.key==val){
+        newObj.selected=true;
+      }
+      a.push(newObj);
+    });
+    console.log(a);
+    return a;
   }
 });
 getDaysArray = function() {
