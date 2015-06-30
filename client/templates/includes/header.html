@@ -13,7 +13,7 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <li class="hidden-xs {{activeRouteClass  'messages'}}">
-            <a href="{{pathFor 'messages'}}">消息</a>
+            <a href="{{pathFor 'messages'}}"><span class="glyphicon-envelope"></span><sup><span class="message-cnt badge">{{#if messageCount}}{{messageCount}}{{/if}}</span></sup></a>
           </li>
           {{# if currentUser}}
           {{> loginButtons}}
