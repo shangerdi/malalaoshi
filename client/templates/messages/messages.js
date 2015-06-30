@@ -1,4 +1,3 @@
-Meteor.subscribe('messages');
 Template.messages.helpers({
   messages: function() {
     return Messages.find({userId: Meteor.userId(), read: {$ne: true}}, {sort: {createTime: -1}});
