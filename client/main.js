@@ -1,3 +1,3 @@
 Meteor.subscribe('userData');
-Meteor.subscribe('userAudits');
+Meteor.subscribe('teacherAudits');
 moment.locale('zh-cn');

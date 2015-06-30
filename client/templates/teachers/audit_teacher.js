@@ -21,11 +21,11 @@ var getAuditStatus = function(auditInfo, part) {
 }
 Template.auditTeacher.helpers({
   auditInfo: function() {
-    var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
     return auditInfo;
   },
   getSubmitTime: function(part) {
-    var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
     var partInfo = getPartAuditInfo(auditInfo, part);
     if (!partInfo || !partInfo.submitTime) {
       return "";
@@ -34,22 +34,22 @@ Template.auditTeacher.helpers({
     return submitDate.getFullYear()+'-'+(submitDate.getMonth()+1)+'-'+submitDate.getDate()+' '+submitDate.getHours()+':'+submitDate.getMinutes();
   },
   isTodoAudit: function(part) {
-    var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
     var status = getAuditStatus(auditInfo, part);
     return (status=='submited');
   },
   getAuditStatus: function(part) {
-    var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
     var status = getAuditStatus(auditInfo, part);
     return status;
   },
   getAuditStatusStr: function(part) {
-    var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
     var status = getAuditStatus(auditInfo, part);
     return convStatus2Str(status);
   },
   getAuditTime: function(part) {
-    var auditInfo = UserAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
     var partInfo = getPartAuditInfo(auditInfo, part);
     if (!partInfo || !partInfo.auditTime) {
       return "";
