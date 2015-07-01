@@ -103,6 +103,30 @@ Template.profileEditBasic.helpers({
       a.push(newObj);
     });
     return a;
+  },
+  eduSubjectList: function(val) {
+    var a = getEduSubjectList(), optionList=[];
+    optionList.push({key:"",text:"请选择科目"});
+    _.each(a, function(obj){
+      var newObj = {key:obj.key, text:obj.text};
+      if (obj.key==val) {
+        newObj.selected=true;
+      }
+      optionList.push(newObj);
+    });
+    return optionList;
+  },
+  eduGradeList: function(val) {
+    var a = getEduGradeList(), optionList=[];
+    optionList.push({key:"",text:"请选择年级"});
+    _.each(a, function(obj){
+      var newObj = {key:obj.key, text:obj.text};
+      if (obj.key==val) {
+        newObj.selected=true;
+      }
+      optionList.push(newObj);
+    });
+    return optionList;
   }
 });
 getDaysArray = function() {
