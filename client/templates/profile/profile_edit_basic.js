@@ -86,6 +86,23 @@ Template.profileEditBasic.helpers({
   },
   days: function() {
     return getDaysArray();
+  },
+  teacherStateList: function(val) {
+    var arr = getTeacherStateList();
+    var a = [];
+    _.each(arr, function(obj){
+      var newObj = {key:obj.key};
+      var text = obj.name;
+      if (obj.hint) {
+        text+="("+obj.hint+")"
+      }
+      newObj.text=text;
+      if (obj.key==val){
+        newObj.selected=true;
+      }
+      a.push(newObj);
+    });
+    return a;
   }
 });
 getDaysArray = function() {
@@ -117,7 +134,7 @@ Template.profileEditBasic.events({
     var curForm = e.target;
     var gender = $(curForm).find('input[name="gender"]:checked').val();
     var birthday = parseInt($('#birthdayYear').val())+'-'+parseInt($('#birthdayMonth').val())+'-'+parseInt($('#birthdayDay').val());
-    var state = $(curForm).find('input[name="state"]:checked').val();
+    var state = $(curForm).find('[name="state"]').val();
     var address = {
       province:{"code":$("#addressProvince").val(), "name":$("#addressProvince").find("option:selected").text(), "type":$("#addressProvince").find("option:selected").attr('type')},
       city:{"code":$("#addressCity").val(), "name":$("#addressCity").find("option:selected").text()},
@@ -127,18 +144,13 @@ Template.profileEditBasic.events({
     // console.log(address);
     var profile = {
       name: $(curForm).find('[name=name]').val(),
-      nickname: $(curForm).find('[name=nickname]').val(),
       gender: gender,
       birthday: birthday,
       state: state,
-      college: $(curForm).find('[name=college]').val(),
-      degree: $(curForm).find('[name=degree]').val(),
-      major: $(curForm).find('[name=major]').val(),
       address: address,
-      selfIntro: $(curForm).find('[name=selfIntro]').val(),
-      motto: $(curForm).find('[name=motto]').val()
+      selfIntro: $(curForm).find('[name=selfIntro]').val()
     }
-    // console.log(profile);
+    console.log(profile);
 
     var errors = validateProfile(profile);
     if (errors.hasError) {
@@ -195,26 +207,5 @@ Template.profileEditBasic.events({
         $distSelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
       });
     }
-  },
-  'click #checkCellphone': function(e) {
-    var cellphoneNum = $("#cellphone").val();
-    if (!CELLPHONE_REG.test(cellphoneNum)) {
-      alert("手机号错误");
-      return;
-    }
-
-  },
-  'click #confirmCheckCode': function(e) {
-    var cellphoneNum = $("#cellphone").val();
-    var cellphoneCheckCode = $("#cellphoneCheckCode").val();
-    if (!CELLPHONE_REG.test(cellphoneNum)) {
-      alert("手机号错误");
-      return;
-    }
-    if (!cellphoneCheckCode || !/^\d{6}$/.test(cellphoneCheckCode)) {
-      alert("验证码错误");
-      return;
-    }
-
   }
 });

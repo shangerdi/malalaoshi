@@ -42,10 +42,12 @@
 .profile-edit .birthday {
   width: 100px;
   margin-right: 10px;
+  float: left;
 }
 .profile-edit .address {
   width: 110px;
   margin-right: 10px;
+  float: left;
 }
 .profile-edit-edu {
   margin-top: 20px;
