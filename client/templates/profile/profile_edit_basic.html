@@ -78,13 +78,13 @@
                 <label class="col-sm-2 control-label" for="subjects">擅长科目</label>
                 <div class="col-sm-10 controls subjects-list">
                   <div class="clearfix subject-item">
-                    <select class="form-control address" name="subject" value="{{subject}}">
-                      {{#each eduSubjectList subject}}
+                    <select class="form-control address" name="subject" value="{{currentUser.profile.subjects.subject}}">
+                      {{#each eduSubjectList currentUser.profile.subjects.subject}}
                         <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                       {{/each}}
                     </select>
-                    <select class="form-control address" name="grade" value="{{grade}}">
-                      {{#each eduGradeList grade}}
+                    <select class="form-control address" name="grade" value="{{currentUser.profile.subjects.grade}}" multiple="true">
+                      {{#each eduGradeList currentUser.profile.subjects.grade}}
                         <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                       {{/each}}
                     </select>

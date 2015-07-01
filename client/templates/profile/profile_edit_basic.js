@@ -121,8 +121,14 @@ Template.profileEditBasic.helpers({
     optionList.push({key:"",text:"请选择年级"});
     _.each(a, function(obj){
       var newObj = {key:obj.key, text:obj.text};
-      if (obj.key==val) {
-        newObj.selected=true;
+      if (_.isArray(val)) {
+        if (_.contains(val, obj.key)){
+          newObj.selected=true;
+        }
+      } else {
+       if (obj.key==val) {
+          newObj.selected=true;
+        }
       }
       optionList.push(newObj);
     });
@@ -155,10 +161,11 @@ getDaysArray = function() {
 Template.profileEditBasic.events({
   'submit form': function(e) {
     e.preventDefault();
-    var curForm = e.target;
+    var curForm = e.target, $curForm = $(curForm);
     var gender = $(curForm).find('input[name="gender"]:checked').val();
     var birthday = parseInt($('#birthdayYear').val())+'-'+parseInt($('#birthdayMonth').val())+'-'+parseInt($('#birthdayDay').val());
     var state = $(curForm).find('[name="state"]').val();
+    var subject = $curForm.find('[name=subject]').val(), grade=$curForm.find('[name=grade]').val();
     var address = {
       province:{"code":$("#addressProvince").val(), "name":$("#addressProvince").find("option:selected").text(), "type":$("#addressProvince").find("option:selected").attr('type')},
       city:{"code":$("#addressCity").val(), "name":$("#addressCity").find("option:selected").text()},
@@ -171,6 +178,7 @@ Template.profileEditBasic.events({
       gender: gender,
       birthday: birthday,
       state: state,
+      subjects:{subject:subject,grade:grade},
       address: address,
       selfIntro: $(curForm).find('[name=selfIntro]').val()
     }
