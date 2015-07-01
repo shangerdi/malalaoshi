@@ -18,6 +18,17 @@
       </li>
     {{/if}}
   </ul>
+  <br>
+  {{#if viewedMessageCount}}
+  <div class="hist-message">
+    <a>历史消息 &nbsp;<i class="lnr lnr-chevron-right"></i></a>
+    <ul class="list-unstyled viewed message-list">
+      {{#each viewedMessages}}
+      {{> viewedMessageItem}}
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
 </div>
 </template>
 
@@ -29,6 +40,17 @@
       <span class="pull-right">
         <span class="datetime">{{createTimeStr}}</span>
         <a class="action" title="删除"><span class="lnr lnr-cross"></span></a>
+      </span>
+    </div>
+  </li>
+</template>
+<template name="viewedMessageItem">
+  <li>
+    <div class="content">
+      <input type="hidden" value="{{_id}}" />
+      <span class="text">{{content}}</span>
+      <span class="pull-right">
+        <span class="datetime">{{createTimeStr}}</span>
       </span>
     </div>
   </li>
