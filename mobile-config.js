@@ -10,3 +10,8 @@ App.icons({
   'android_hdpi': 'resources/icons/icon.png',
   'android_xhdpi': 'resources/icons/icon.png'
 });
+
+App.launchScreens({
+  'iphone': 'resources/icons/icon.png',
+  'iphone_2x': 'resources/icons/icon.png'
+});
