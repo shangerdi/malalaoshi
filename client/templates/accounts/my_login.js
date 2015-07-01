@@ -42,7 +42,7 @@ Template.mylogin.events({
       Session.set('myloginErrors', {});
     }
     var host = window.location.hostname;
-    if (host.match('(localhost|127.0.0.1)') || cellphane.match('^test_')) {
+    if (host.match('(localhost|127.0.0.1)') || cellphone.match('^test_')) {
       params.dev = true;
     }
     params.purpose = "login";
