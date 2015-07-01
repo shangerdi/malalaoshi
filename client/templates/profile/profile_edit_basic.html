@@ -9,7 +9,7 @@
     </div>
     <div class="col-sm-9">
       <div class="profile-edit-title">基本信息</div>
-      <form class="form form-horizontal">
+      <form class="form form-horizontal profile-edit-basic">
         <div class="col-sm-12">
             <div class="form-group {{errorClass 'name'}}">
               <label class="col-sm-2 control-label" for="name">姓名</label>
@@ -74,22 +74,56 @@
                 </div>
               </div>
 
-              <div class="form-group {{errorClass 'subjects'}}">
+              <div class="form-group">
                 <label class="col-sm-2 control-label" for="subjects">擅长科目</label>
-                <div class="col-sm-10 controls subjects-list">
-                  <div class="clearfix subject-item">
-                    <select class="form-control address" name="subject" value="{{currentUser.profile.subjects.subject}}">
-                      {{#each eduSubjectList currentUser.profile.subjects.subject}}
-                        <option value="{{key}}" selected="{{selected}}">{{text}}</option>
+                <div class="col-sm-10 controls">
+                  <div class="subjects-list">
+                    {{#if currentUser.profile.subjects.length}}
+                      {{#each currentUser.profile.subjects}}
+                        <div class="subject-item clearfix">
+                            <select class="form-control address" name="school" value="{{school}}">
+                              {{#each eduSchoolList school}}
+                                <option value="{{key}}" selected="{{selected}}">{{text}}</option>
+                              {{/each}}
+                            </select>
+                            <select class="form-control address" name="subject" value="{{subject}}">
+                              {{#each eduSubjectList school subject}}
+                                <option value="{{key}}" selected="{{selected}}">{{text}}</option>
+                              {{/each}}
+                            </select>
+                            <select class="form-control address" name="grade" value="{{grade}}">
+                              {{#each eduGradeList school grade}}
+                                <option value="{{key}}" selected="{{selected}}">{{text}}</option>
+                              {{/each}}
+                            </select>
+                          <a class="btn-delete-item"><span class="glyphicon glyphicon-minus"></span> 删除此项</a>
+                        </div>
                       {{/each}}
-                    </select>
-                    <select class="form-control address" name="grade" value="{{currentUser.profile.subjects.grade}}" multiple="true">
-                      {{#each eduGradeList currentUser.profile.subjects.grade}}
-                        <option value="{{key}}" selected="{{selected}}">{{text}}</option>
-                      {{/each}}
-                    </select>
+                    {{else}}
+                      <div class="subject-item clearfix">
+                          <select class="form-control address" name="school" value="{{school}}">
+                            {{#each eduSchoolList school}}
+                              <option value="{{key}}" selected="{{selected}}">{{text}}</option>
+                            {{/each}}
+                          </select>
+                          <select class="form-control address" name="subject" value="{{subject}}">
+                            {{#each eduSubjectList school subject}}
+                              <option value="{{key}}" selected="{{selected}}">{{text}}</option>
+                            {{/each}}
+                          </select>
+                          <select class="form-control address" name="grade" value="{{grade}}">
+                            {{#each eduGradeList school grade}}
+                              <option value="{{key}}" selected="{{selected}}">{{text}}</option>
+                            {{/each}}
+                          </select>
+                        <a class="btn-delete-item"><span class="glyphicon glyphicon-minus"></span> 删除此项</a>
+                      </div>
+                    {{/if}}
                   </div>
-                  <span class="help-block">{{errorMessage 'subjects'}}</span>
+                  <div>
+                    <span class="help-block">{{errorMessage 'subjects'}}</span>
+                    <a class="btn btn-add-edu-item"><i class="lnr lnr-plus-circle"></i> 添加擅长科目</a>
+                  </div>
                 </div>
               </div>
 

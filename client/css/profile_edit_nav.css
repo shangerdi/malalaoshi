@@ -49,6 +49,12 @@
   margin-right: 10px;
   float: left;
 }
+.profile-edit .subject-item {
+  padding: 5px 0;
+}
+.profile-edit-basic .btn-add-edu-item {
+  margin: 0;
+}
 .profile-edit-edu {
   margin-top: 20px;
 }
