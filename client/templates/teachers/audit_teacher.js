@@ -66,11 +66,7 @@ Template.auditTeacher.helpers({
     if (!basicInfo || !basicInfo.state) {
       return "";
     }
-    var stateMap = {
-      1: "在职教师",
-      2: "准教师"
-    };
-    var stateStr = stateMap[basicInfo.state];
+    var stateStr = getTeacherStateText(basicInfo.state);
     return stateStr;
   },
   address: function() {
