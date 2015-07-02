@@ -61,13 +61,20 @@ Template.auditTeacher.helpers({
     var user = Meteor.users.findOne(Router.current().params._userId);
     return user.profile;
   },
-  state: function() {
-    var basicInfo = Meteor.users.findOne(Router.current().params._userId).profile;
-    if (!basicInfo || !basicInfo.state) {
-      return "";
+  getStateStr: function(state) {
+    return getTeacherStateText(state);
+  },
+  getSchoolStr: function(v) {
+    return getEduSchoolText(v);
+  },
+  getSubjectStr: function(v) {
+    return getEduSubjectText(v);
+  },
+  getGradeStr: function(v) {
+    if(v==="all") {
+      return "全部";
     }
-    var stateStr = getTeacherStateText(basicInfo.state);
-    return stateStr;
+    return getEduGradeText(v);
   },
   address: function() {
     var basicInfo = Meteor.users.findOne(Router.current().params._userId).profile;
@@ -95,15 +102,7 @@ Template.auditTeacher.helpers({
     return UserEducation.findOne({userId: Router.current().params._userId});
   },
   getDegreeStr: function(degree) {
-    var degreeMap = {
-      "postDoctor":"博士后",
-      "doctor":"博士",
-      "master":"硕士",
-      "bachelor":"本科",
-      "vocational":"专科",
-      "highSchool":"高中"
-    };
-    return degreeMap[degree];
+    return getEduDegreeText(degree);
   },
   certInfo: function() {
     return UserCertification.findOne({userId: Router.current().params._userId});
