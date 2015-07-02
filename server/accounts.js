@@ -123,8 +123,8 @@ Meteor.methods({
     CheckCodeCache.remove({_id: cellphone});
     // do create user
     try {
-      var role = params.role?params.role:'teacher';
-      var userOptions = {"username": cellphone, "phoneNo": cellphone, "role": role};
+      var role = params.role?params.role:'teacher', name=params.name;
+      var userOptions = {"username": cellphone, "phoneNo": cellphone, "role": role, profile:{name:name}};
       userId = Accounts.insertUserDoc(userOptions, userOptions);
       // ont new teacher, to do audit
       if (role=='teacher') {

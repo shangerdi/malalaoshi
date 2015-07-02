@@ -7,6 +7,9 @@ Template.register.helpers({
   },
   errorClass: function (field) {
     return !!Session.get('registerErrors')[field] ? 'has-error' : '';
+  },
+  role: function() {
+    return Router.current().params.query.role;
   }
 });
 validateRegister = function (param, step) {
