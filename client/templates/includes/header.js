@@ -11,7 +11,7 @@ Template.header.helpers({
   },
   sup: function() {
     var host = window.location.hostname;
-    if (host.match('(localhost|127.0.0.1)')) {
+    if (host.match('(localhost|127\.0\.0\.1|.*\.local)')) {
       return 'Dev';
     }
     else if (host.match('stage\..*')) {

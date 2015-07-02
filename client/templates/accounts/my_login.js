@@ -41,10 +41,7 @@ Template.mylogin.events({
     } else {
       Session.set('myloginErrors', {});
     }
-    var host = window.location.hostname;
-    if (host.match('(localhost|127.0.0.1)') || cellphone.match('^test_')) {
-      params.dev = true;
-    }
+
     params.purpose = "login";
     var $theButton = $(e.target), countdown = 60;
     $theButton.attr("disabled",true);
