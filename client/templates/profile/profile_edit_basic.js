@@ -64,14 +64,14 @@ Template.profileEditBasic.onRendered(function() {
   }
 });
 var getEduSubjectOptionList = function(school, val) {
-  var a = getEduSubjectList(), optionList=[];
+  var a = getEduSubjectDict(), optionList=[];
   optionList.push({key:"",text:" - 科目 - "});
-  _.each(a, function(obj, i){
-    if (school=='elementary' && i>=3) {
+  _.each(a, function(obj, key){
+    if (school=='elementary' && !obj.only_elementary) {
       return false;
     }
-    var newObj = {key:obj.key, text:obj.text};
-    if (obj.key==val) {
+    var newObj = {key:key, text:obj.text};
+    if (key==val) {
       newObj.selected=true;
     }
     optionList.push(newObj);
@@ -79,7 +79,7 @@ var getEduSubjectOptionList = function(school, val) {
   return optionList;
 }
 var getEduGradeOptionList = function(school, val) {
-  var a = getEduGradeList(), optionList=[];
+  var a = getEduGradeDict(), optionList=[];
   optionList.push({key:"",text:" - 年级 - "});
   if (!school) {
     return optionList;
@@ -89,17 +89,17 @@ var getEduGradeOptionList = function(school, val) {
     newObj.selected=true;
   }
   optionList.push(newObj);
-  _.each(a, function(obj){
-    if (!school || obj.key.indexOf(school)<0) {
+  _.each(a, function(obj, key){
+    if (!school || key.indexOf(school)<0) {
       return false;
     }
-    var newObj = {key:obj.key, text:obj.text};
+    var newObj = {key:key, text:obj.text};
     if (_.isArray(val)) {
       if (_.contains(val, obj.key)){
         newObj.selected=true;
       }
     } else {
-     if (obj.key==val) {
+     if (key==val) {
         newObj.selected=true;
       }
     }
@@ -149,11 +149,11 @@ Template.profileEditBasic.helpers({
     return a;
   },
   eduSchoolList: function(val) {
-    var a = getEduSchoolList(), optionList=[];
+    var a = getEduSchoolDict(), optionList=[];
     optionList.push({key:"", text:" - 学校 - "});
-    _.each(a, function(obj){
-      var newObj = {key:obj.key, text:obj.text};
-      if (obj.key==val) {
+    _.each(a, function(obj, key){
+      var newObj = {key:key, text:obj.text};
+      if (key==val) {
         newObj.selected=true;
       }
       optionList.push(newObj);
