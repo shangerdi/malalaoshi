@@ -4,6 +4,9 @@ Template.registerHelper('isAdmin', function(){
 Template.registerHelper('isParent', function(){
   return Meteor.user() && Meteor.user().role === 'parent';
 });
+Template.registerHelper('isParentOrAdmin', function(){
+  return Meteor.user() && (Meteor.user().role === 'admin' || Meteor.user().role === 'parent');
+});
 Template.registerHelper('created', function(){
   return moment(this.createdAt).fromNow();
 });

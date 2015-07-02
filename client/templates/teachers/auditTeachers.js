@@ -1,4 +1,4 @@
-Template.teachers.helpers({
+Template.auditTeachers.helpers({
   teachers: function() {
     return TeacherAudit.find({}, {sort: {submitTime: 1}});
   }
