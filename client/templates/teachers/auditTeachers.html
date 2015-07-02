@@ -1,0 +1,32 @@
+<template name="auditTeachers">
+  <h2>审核老师</h2>
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>提交时间</th>
+        <th>姓名</th>
+        <th>基本信息</th>
+        <th>学历信息</th>
+        <th>教学资质</th>
+        <th>最后审核时间</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each teachers}}
+      {{> userAuditItem}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+<template name="userAuditItem">
+  <tr>
+    <td>{{submitTime}}</td>
+    <td>{{name}}</td>
+    <td>{{basicInfoAuditStatus}}</td>
+    <td>{{eduInfoAuditStatus}}</td>
+    <td>{{certInfoAuditStatus}}</td>
+    <td>{{auditTime}}</td>
+    <td><a class="btn-audit">审核</a></td>
+  </tr>
+</template>
