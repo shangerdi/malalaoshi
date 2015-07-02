@@ -91,9 +91,9 @@ Meteor.methods({
     if (!checkCode || !/^\d{6}$/.test(checkCode)) {
       return new Meteor.Error('registerErrors', {checkCode:"验证码错误"});
     }
-    if (!password || !/^\S{6,16}$/.test(password)) {
-      throw new Meteor.Error('参数错误', "密码格式错误");
-    }
+    // if (!password || !/^\S{6,16}$/.test(password)) {
+    //   throw new Meteor.Error('参数错误', "密码格式错误");
+    // }
     if (cellphone.length>11) {
       cellphone = cellphone.substr(cellphone.length-11);
     }
@@ -123,13 +123,33 @@ Meteor.methods({
     CheckCodeCache.remove({_id: cellphone});
     // do create user
     try {
-      var userOptions = {username: cellphone, "password": password, "phoneNo": cellphone};
-      Accounts.insertUserDoc(userOptions);
+      var role = params.role?params.role:'teacher';
+      var userOptions = {"username": cellphone, "phoneNo": cellphone, "role": role};
+      userId = Accounts.insertUserDoc(userOptions, userOptions);
+      // ont new teacher, to do audit
+      if (role=='teacher') {
+        var nowTime = Date.now();
+        TeacherAudit.update({'userId':userId},{$set:{'submitTime':nowTime}},{'upsert':true});
+      }
     } catch (ex) {
       console.log(ex);
       throw new Meteor.Error('系统提示', "处理失败，请稍后重试！");
     }
-    return {code:0, msg: "注册成功"};
+    var methodInvocation = this;
+    var stampedLoginToken = Accounts._getAccountData(methodInvocation.connection.id, 'loginToken');
+    if (methodInvocation.userId==userId && stampedLoginToken) {
+      return {code:1, msg: "Already Login"};
+    }
+    // return login token
+    var stampedLoginToken = Accounts._generateStampedLoginToken();
+    Accounts._insertLoginToken(userId, stampedLoginToken);
+    Accounts._setLoginToken(userId, methodInvocation.connection, Accounts._hashLoginToken(stampedLoginToken.token));
+    methodInvocation.userId=userId;
+    var result = {id: userId,
+      token: stampedLoginToken.token,
+      tokenExpires: Accounts._tokenExpiration(stampedLoginToken.when)
+    };
+    return {code:0, msg: "注册成功", result: result};
   },
   loginWithPhone: function(params) {
     var methodInvocation = this;
