@@ -63,6 +63,50 @@ Template.profileEditBasic.onRendered(function() {
     }
   }
 });
+var getEduSubjectOptionList = function(school, val) {
+  var a = getEduSubjectDict(), optionList=[];
+  optionList.push({key:"",text:" - 科目 - "});
+  _.each(a, function(obj){
+    if (school=='elementary' && !obj.only_elementary) {
+      return false;
+    }
+    var newObj = {key:obj.key, text:obj.text};
+    if (obj.key==val) {
+      newObj.selected=true;
+    }
+    optionList.push(newObj);
+  });
+  return optionList;
+}
+var getEduGradeOptionList = function(school, val) {
+  var a = getEduGradeDict(), optionList=[];
+  optionList.push({key:"",text:" - 年级 - "});
+  if (!school) {
+    return optionList;
+  }
+  var newObj = {key:"all", text:"全部"};
+  if (val==="all") {
+    newObj.selected=true;
+  }
+  optionList.push(newObj);
+  _.each(a, function(obj){
+    if (!school || obj.key.indexOf(school)<0) {
+      return false;
+    }
+    var newObj = {key:obj.key, text:obj.text};
+    if (_.isArray(val)) {
+      if (_.contains(val, obj.key)){
+        newObj.selected=true;
+      }
+    } else {
+     if (obj.key==val) {
+        newObj.selected=true;
+      }
+    }
+    optionList.push(newObj);
+  });
+  return optionList;
+}
 Template.profileEditBasic.helpers({
   errorMessage: function(field) {
     return Session.get('settingsErrors')[field];
@@ -88,7 +132,7 @@ Template.profileEditBasic.helpers({
     return getDaysArray();
   },
   teacherStateList: function(val) {
-    var arr = getTeacherStateList();
+    var arr = getTeacherStateDict();
     var a = [];
     _.each(arr, function(obj){
       var newObj = {key:obj.key};
@@ -103,6 +147,24 @@ Template.profileEditBasic.helpers({
       a.push(newObj);
     });
     return a;
+  },
+  eduSchoolList: function(val) {
+    var a = getEduSchoolDict(), optionList=[];
+    optionList.push({key:"", text:" - 学校 - "});
+    _.each(a, function(obj){
+      var newObj = {key:obj.key, text:obj.text};
+      if (obj.key==val) {
+        newObj.selected=true;
+      }
+      optionList.push(newObj);
+    });
+    return optionList;
+  },
+  eduSubjectList: function(school, val) {
+    return getEduSubjectOptionList(school, val);
+  },
+  eduGradeList: function(school, val) {
+    return getEduGradeOptionList(school, val);
   }
 });
 getDaysArray = function() {
@@ -128,13 +190,28 @@ getDaysArray = function() {
   }
   return a;
 }
+getSubjectsInput = function($form) {
+  $items = $form.find(".subject-item");
+  var subjects=[];
+  $items.each(function(i){
+    if (!$(this).is(":visible")) {
+      return;
+    }
+    var school = $(this).find('[name=school]').val();
+    var subject = $(this).find('[name=subject]').val();
+    var grade = $(this).find('[name=grade]').val();
+    subjects.push({school:school,subject:subject,grade:grade});
+  });
+  return subjects;
+}
 Template.profileEditBasic.events({
   'submit form': function(e) {
     e.preventDefault();
-    var curForm = e.target;
+    var curForm = e.target, $curForm = $(curForm);
     var gender = $(curForm).find('input[name="gender"]:checked').val();
     var birthday = parseInt($('#birthdayYear').val())+'-'+parseInt($('#birthdayMonth').val())+'-'+parseInt($('#birthdayDay').val());
     var state = $(curForm).find('[name="state"]').val();
+    var subjects = getSubjectsInput($curForm);
     var address = {
       province:{"code":$("#addressProvince").val(), "name":$("#addressProvince").find("option:selected").text(), "type":$("#addressProvince").find("option:selected").attr('type')},
       city:{"code":$("#addressCity").val(), "name":$("#addressCity").find("option:selected").text()},
@@ -147,13 +224,19 @@ Template.profileEditBasic.events({
       gender: gender,
       birthday: birthday,
       state: state,
+      subjects: subjects,
       address: address,
       selfIntro: $(curForm).find('[name=selfIntro]').val()
     }
     console.log(profile);
 
+    $('.subject-item').removeClass('has-error');
     var errors = validateProfile(profile);
     if (errors.hasError) {
+      if (errors.subjects) {
+        var i = errors.subjects_seq;
+        $('.subject-item'+(i?':eq('+(i-1)+')':'')).addClass('has-error');
+      }
       return Session.set('settingsErrors', errors);
     }
 
@@ -190,13 +273,13 @@ Template.profileEditBasic.events({
       var cur = areaOfChina.getSubAreas(code);
       var $citySelect = $("#addressCity");
       $citySelect.children(":gt(0)").remove();
+      var $distSelect = $("#addressDistrict");
+      $distSelect.children(":gt(0)").remove();
       if (!cur){return;}
       var arrCity = cur.fetch();
       $.each(arrCity, function(i,obj) {
         $citySelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
       });
-      var $distSelect = $("#addressDistrict");
-      $distSelect.children(":gt(0)").remove();
     } else if (t.id=='addressCity') {
       var cur = areaOfChina.getSubAreas(code);
       var $distSelect = $("#addressDistrict");
@@ -207,5 +290,32 @@ Template.profileEditBasic.events({
         $distSelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
       });
     }
+  },
+  'click .btn-add-edu-item': function(e) {
+    $item = $(".subject-item").last().clone();
+    $item.show();
+    $item.find("input[type=checkbox]").removeAttr('checked');
+    $item.find("select").val("");
+    $item.addClass('man-insert');
+    $(".subjects-list").append($item);
+  },
+  'click .btn-delete-item': function(e){
+    $item = $(e.target).closest(".subject-item");
+    $item.addClass('man-delete');
+    $item.hide();
+  },
+  'change .subject-item select[name=school]': function(e) {
+    var ele = e.target, $school = $(e.target), $item = $school.closest(".subject-item");
+    var school = $school.val(), $subjectSelect = $item.find('select[name=subject]'), $gradeSelect = $item.find('select[name=grade]');
+    var subjectOpList = getEduSubjectOptionList(school, $subjectSelect.val());
+    $subjectSelect.children().remove();
+    _.each(subjectOpList, function(obj) {
+      $subjectSelect.append('<option value="'+obj.key+'" '+(obj.selected?'selected="true"':'')+'>'+obj.text+'</option>');
+    });
+    var gradeOpList = getEduGradeOptionList(school, $gradeSelect.val());
+    $gradeSelect.children().remove();
+    _.each(gradeOpList, function(obj) {
+      $gradeSelect.append('<option value="'+obj.key+'" '+(obj.selected?'selected="true"':'')+'>'+obj.text+'</option>');
+    });
   }
 });
