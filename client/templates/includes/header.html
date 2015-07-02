@@ -33,6 +33,14 @@
         <li class="{{activeRouteClass  'dashboard'}}">
           <a href="{{pathFor 'dashboard'}}">首页</a>
         </li>
+        {{#if isParentOrAdmin}}
+        <li class="{{activeRouteClass  'teachersList'}}">
+          <a href="{{pathFor 'teachersList'}}">老师列表</a>
+        </li>
+        <li class="{{activeRouteClass  'order'}}">
+          <a href="{{pathFor 'order'}}">我的订单</a>
+        </li>
+        {{/if}}
         {{#if currentUser}}
         <li class="{{activeRouteClass  'profileEditBasic'}}">
           <a href="{{pathFor 'profileEditBasic'}}">个人资料</a>
