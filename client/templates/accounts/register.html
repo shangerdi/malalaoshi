@@ -8,6 +8,13 @@
       <div align="center" class="bg-success img-circle role-sign">√</div>
     </div>
 
+    <div class="grom-group role-select">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="tab-parent"><a name="parent">我是家长</a></li>
+        <li role="presentation" class="tab-teacher"><a name="teacher">我是老师</a></li>
+      </ul>
+    </div>
+
     <div class="form-group {{errorClass 'name'}}">
       <label for="name">姓名</label>
       <input class="form-control" id="name" name="name" type="text" placeholder="请输入您的姓名"/>
@@ -34,7 +41,7 @@
       <span class="help-block">{{errorMessage 'checkCode'}}</span>
     </div>
     <div class="form-group">
-        <input class="btn btn-success col-sm-12" id="doRegister" type="button" value="注册" />
+        <a class="btn btn-success col-sm-12" id="doRegister" type="button" value="注册">注册</a>
     </div>
     <div class="form-group">
         <a class="text-primary" href="{{pathFor 'mylogin'}}"><strong>快速登录</strong></a>

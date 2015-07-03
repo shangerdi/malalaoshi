@@ -1,15 +1,21 @@
 Template.register.onCreated(function() {
   Session.set('registerErrors', {});
 });
+Template.register.onRendered(function() {
+  var role = Router.current().params.query.role;
+  if (!role) {
+    role = 'parent';
+  }
+  $("input[name=role]").val(role);
+  $(".role-select li.active").removeClass('active');
+  $(".role-select li.tab-"+role).addClass('active');
+});
 Template.register.helpers({
   errorMessage: function(field) {
     return Session.get('registerErrors')[field];
   },
   errorClass: function (field) {
     return !!Session.get('registerErrors')[field] ? 'has-error' : '';
-  },
-  role: function() {
-    return Router.current().params.query.role;
   }
 });
 validateRegister = function (param, step) {
@@ -45,6 +51,12 @@ validateRegister = function (param, step) {
   return errors;
 }
 Template.register.events({
+  'click .role-select li>a': function(e) {
+    var ele = e.target, role = $(ele).attr("name");
+    $("input[name=role]").val(role);
+    $(".role-select li.active").removeClass('active');
+    $(".role-select li.tab-"+role).addClass('active');
+  },
 	'click #getCheckCode': function(e) {
     var name = $("#name").val();
     var cellphone = $("#cellphone").val();
