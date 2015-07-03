@@ -39,4 +39,5 @@ App.launchScreens({
   'android_xhdpi_portrait': 'resources/icons/icon.png',
   'android_xhdpi_landscape': 'resources/icons/icon.png'
 });
+App.accessRule("*");
 
