@@ -1,0 +1,31 @@
+<template name="teachers">
+  <div class="teachers page">
+    <div class="wrapper">
+      {{#each teachers}}
+        {{> teacherItem}}
+      {{/each}}
+    </div>
+
+    {{#if nextPath}}
+      <a class="load-more" href="{{nextPath}}">Load more</a>
+    {{else}}
+      {{#unless ready}}
+        {{> spinner}}
+      {{/unless}}
+    {{/if}}
+  </div>
+</template>
+
+<template name="teacherItem">
+  <div class="teacher">
+    <div class="teacherAvatar">
+      <img src="{{user.profile.avatarUrl}}" class="img-responsive" >
+    </div>
+    <div class="teacher-content">
+      <h3>{{user.profile.name}}<span>{{subject}}</span></h3>
+		<p>
+		  基本认证 {{eduAudit}} {{cert}}
+		</p>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,72 @@
+.teacherAvatar{
+  width: 50px;
+  margin: 0 auto;
+  height: 50px;
+  background: #FFF;
+  float: left;
+}
+.teacher{
+  background: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+.teacher {
+  /* For modern browsers */
+  /* For IE 6/7 (trigger hasLayout) */
+  *zoom: 1;
+  position: relative;
+  opacity: 1;
+}
+.teacher:before, .teacher:after {
+  content: "";
+display: table; }
+.teacher:after {
+clear: both; }
+.teacher.invisible {
+opacity: 0; }
+.teacher.instant {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+transition: none; }
+.teacher.animate{
+  -webkit-transition: all 300ms 0ms;
+  -moz-transition: all 300ms 0ms ease-in;
+  -o-transition: all 300ms 0ms ease-in;
+transition: all 300ms 0ms ease-in; }
+.teacher .upvote {
+  display: block;
+  margin: 7px 12px 0 0;
+float: left; }
+.teacher .teacher-content {
+  float: left;
+  margin-left: 10px;
+}
+.teacher .teacher-content h3 {
+  margin: 0;
+  line-height: 1.4;
+font-size: 18px; }
+.teacher .teacher-content h3 a {
+  display: inline-block;
+margin-right: 5px; }
+.teacher .teacher-content h3 span {
+  font-weight: normal;
+  font-size: 14px;
+  display: inline-block;
+color: #aaaaaa; }
+.teacher .teacher-content p {
+margin: 0; }
+.teacher .discuss {
+  display: block;
+  float: right;
+margin-top: 7px; }
+.teachers .spinner-container{
+  position: relative;
+  height: 100px;
+}
+.teacher-content span{
+  margin-left: 3px;
+}

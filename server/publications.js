@@ -55,3 +55,29 @@ Meteor.publish('pages', function() {
   var clm = Pages.find();
   return clm;
 });
+Meteor.publish('teachers', function(parameters) {
+  if (this.userId) {
+    this.relations({
+      collection: TeacherAudit,
+      filter: parameters.find,
+      options: parameters.options,
+      mappings: [
+        {
+          foreign_key: 'userId',
+          collection: Meteor.users,
+          options: "{'createdAt': 1, 'username': 1, 'service': 1, 'profile.name': 1, " +
+            "'profile.gender': 1, 'profile.birthday': 1, 'profile.avatarUrl': 1}"
+        },
+        {
+          foreign_key: 'userId',
+          collection: UserEducation
+        },
+        {
+          foreign_key: 'userId',
+          collection: UserCertification
+        }
+      ]
+    });
+  }
+  return this.ready();
+});
