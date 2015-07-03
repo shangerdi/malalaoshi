@@ -1,0 +1,11 @@
+<template name="homeLayout">
+  <div class="container">
+    {{> errors}}
+    <div id="main">
+      {{> yield}}
+    </div>
+    {{#if isNotCordova}}
+    {{> footer}}
+    {{/if}}
+  </div>
+</template>
