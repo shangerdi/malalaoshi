@@ -6,10 +6,19 @@ Template.register.onRendered(function() {
   if (!role) {
     role = 'parent';
   }
+  selectRole(role);
+});
+var selectRole = function(role) {
   $("input[name=role]").val(role);
   $(".role-select li.active").removeClass('active');
   $(".role-select li.tab-"+role).addClass('active');
-});
+  if (role=="parent") {
+    text = "家长姓名";
+  } else {
+    text = "老师姓名";
+  }
+  $("label[for=name]").text(text);
+}
 Template.register.helpers({
   errorMessage: function(field) {
     return Session.get('registerErrors')[field];
@@ -53,9 +62,7 @@ validateRegister = function (param, step) {
 Template.register.events({
   'click .role-select li>a': function(e) {
     var ele = e.target, role = $(ele).attr("name");
-    $("input[name=role]").val(role);
-    $(".role-select li.active").removeClass('active');
-    $(".role-select li.tab-"+role).addClass('active');
+    selectRole(role);
   },
 	'click #getCheckCode': function(e) {
     var name = $("#name").val();

@@ -1,11 +1,20 @@
 <template name="mylogin">
-  <form class="main form page form-horizontal">
+  <form class="main form page form-horizontal login-form">
     <div class="col-sm-offset-4 col-sm-4">
-      <h3 class="text-center">手机登录</h3>
+      <div class="form-group">
+        <div class="login-top">
+          <div class="login-top-box">
+            <a class="btn btn-back" href="{{pathFor 'home'}}"><span class="lnr lnr-chevron-left"></span></a>
+          </div>
+          <div class="login-top-box-mask">
+          </div>
+          <div class="role-sign text-center"><span class="glyphicon glyphicon-ok"></span></div>
+        </div>
+      </div>
 
       <div class="form-group {{errorClass 'cellphone'}}">
         <label for="cellphone">手机号：</label>
-        <input class="form-control" id="cellphone" name="cellphone" type="text" placeholder="请输入有效的手机号"/>
+        <input class="form-control" id="cellphone" name="cellphone" type="text" hint="请输入有效的手机号"/>
         <span class="help-block">{{errorMessage 'cellphone'}}</span>
       </div>
 
@@ -14,14 +23,14 @@
         <input class="btn-get-checkcode pull-right" id="getCheckCode" type="button" value="获取验证码">
       </div>
       <div class="form-group {{errorClass 'checkCode'}}">
-        <input class="form-control" id="checkCode" name="checkCode" type="text" placeholder="输入您收到的短信验证码"/>
+        <input class="form-control" id="checkCode" name="checkCode" type="text" hint="输入您收到的短信验证码"/>
         <span class="help-block">{{errorMessage 'checkCode'}}</span>
       </div>
       <div class="form-group">
         <a class="btn btn-success col-sm-12" id="doLogin" type="button" value="登录">登录</a>
       </div>
       <div class="form-group">
-          <a class="text-primary" href="{{pathFor 'register0'}}"><strong>快速注册</strong></a>
+          <a class="text-primary" href="{{pathFor 'register'}}"><strong>快速注册</strong></a>
       </div>
     </div>
   </form>
