@@ -67,14 +67,6 @@ Meteor.publish('teachers', function(parameters) {
           collection: Meteor.users,
           options: "{'createdAt': 1, 'username': 1, 'service': 1, 'profile.name': 1, " +
             "'profile.gender': 1, 'profile.birthday': 1, 'profile.avatarUrl': 1}"
-        },
-        {
-          foreign_key: 'userId',
-          collection: UserEducation
-        },
-        {
-          foreign_key: 'userId',
-          collection: UserCertification
         }
       ]
     });
