@@ -18,14 +18,28 @@
 
 <template name="teacherItem">
   <div class="teacher">
-    <div class="teacherAvatar">
-      <img src="{{user.profile.avatarUrl}}" class="img-responsive" >
-    </div>
     <div class="teacher-content">
       <h3>{{user.profile.name}}<span>{{subject}}</span></h3>
-		<p>
-		  基本认证 {{eduAudit}} {{cert}}
-		</p>
+      <div class="teacherCert">
+        <div>
+          <label>
+            <input type="checkbox" checked> 基本信息
+          </label>
+        </div>
+         <div>
+          <label>
+            <input type="checkbox" {{eduAudit}}> 教育信息
+          </label>
+        </div>
+        <div>
+          <label>
+            <input type="checkbox" {{cert}}> 教学资质
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="teacherAvatar">
+      <img src="{{user.profile.avatarUrl}}" class="img-responsive img-circle" >
     </div>
   </div>
 </template>
