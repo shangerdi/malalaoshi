@@ -1,8 +1,10 @@
 <template name="home">
-  <div class="listbox">
-    <div class="list-group">
-      <a href="{{pathFor 'mylogin' query='role=parent'}}" class="list-group-item">我是家长</a>
-      <a href="{{pathFor 'dashboard'}}" class="list-group-item">我是老师</a>
+  <div class="home-box">
+    <div class="listbox">
+      <div class="list-group">
+        <a href="{{pathFor 'mylogin'}}" class="list-group-item btn-login">登录</a>
+        <a href="{{pathFor 'register'}}" class="list-group-item btn-register">注册</a>
+      </div>
     </div>
   </div>
 </template>

@@ -1,6 +1,24 @@
 Template.register.onCreated(function() {
   Session.set('registerErrors', {});
 });
+Template.register.onRendered(function() {
+  var role = Router.current().params.query.role;
+  if (!role) {
+    role = 'parent';
+  }
+  selectRole(role);
+});
+var selectRole = function(role) {
+  $("input[name=role]").val(role);
+  $(".role-select li.active").removeClass('active');
+  $(".role-select li.tab-"+role).addClass('active');
+  if (role=="parent") {
+    text = "家长姓名";
+  } else {
+    text = "老师姓名";
+  }
+  $("label[for=name]").text(text);
+}
 Template.register.helpers({
   errorMessage: function(field) {
     return Session.get('registerErrors')[field];
@@ -11,6 +29,10 @@ Template.register.helpers({
 });
 validateRegister = function (param, step) {
   var errors = {}, hasError = false;
+  if (!param.name) {
+    errors.name = "请输入姓名";
+    hasError = true;
+  }
   if (!param.cellphone) {
     errors.cellphone = "请输入手机号";
     hasError = true;
@@ -18,13 +40,13 @@ validateRegister = function (param, step) {
     errors.cellphone = "手机号格式错误";
     hasError = true;
   }
-  if (!param.password) {
-    errors.password = "请输入密码";
-    hasError = true;
-  } else if (!/^\S{6,16}$/.test(param.password)) {
-    errors.password = "密码格式错误";
-    hasError = true;
-  }
+  // if (!param.password) {
+  //   errors.password = "请输入密码";
+  //   hasError = true;
+  // } else if (!/^\S{6,16}$/.test(param.password)) {
+  //   errors.password = "密码格式错误";
+  //   hasError = true;
+  // }
   if (step=='reg') {
     if (!param.checkCode) {
       errors.checkCode = "请输入验证码";
@@ -38,10 +60,15 @@ validateRegister = function (param, step) {
   return errors;
 }
 Template.register.events({
+  'click .role-select li>a': function(e) {
+    var ele = e.target, role = $(ele).attr("name");
+    selectRole(role);
+  },
 	'click #getCheckCode': function(e) {
+    var name = $("#name").val();
     var cellphone = $("#cellphone").val();
     var password = $("#password").val();
-    var params = {cellphone: cellphone, password:password};
+    var params = {name:name, cellphone: cellphone, password:password};
     var errors = validateRegister(params);
     if (errors.hasError) {
       return Session.set('registerErrors', errors);
@@ -57,12 +84,12 @@ Template.register.events({
       console.log(result);
       if (error) {
         // return throwError(error.reason);
-        return Session.set('registerErrors', {cellphone: error.reason});
         $theButton.removeAttr("disabled");
+        return Session.set('registerErrors', {cellphone: error.reason});
       }
       if (result && result.code!=0) {
-        alert(result.msg);
         $theButton.removeAttr("disabled");
+        return Session.set('registerErrors', {cellphone: result.msg});
       }
       // build a timer, after {countdown} seconds, the user can click this button again
       timer = window.setInterval(function(){
@@ -78,10 +105,12 @@ Template.register.events({
     });
   },
   'click #doRegister': function(e) {
+    var role = $("#role").val();
+    var name = $("#name").val();
     var cellphone = $("#cellphone").val();
     var password = $("#password").val();
     var checkCode = $("#checkCode").val();
-    var params = {cellphone:cellphone, checkCode:checkCode, password:password};
+    var params = {name:name, role:role, cellphone:cellphone, checkCode:checkCode, password:password};
     var errors = validateRegister(params, 'reg');
     if (errors.hasError) {
       return Session.set('registerErrors', errors);
@@ -99,14 +128,24 @@ Template.register.events({
       if (result) {
         if (result.code==0) {
           // alert("验证通过");
-          Meteor.loginWithPassword(cellphone, password, function(error){
-            if (error) {
-              return Session.set('registerErrors', {checkCode: error.reason});
-            }
-            Router.go('settings');
-          });
+          result = result.result;
+          var loginTokenKey = "Meteor.loginToken";
+          var loginTokenExpiresKey = "Meteor.loginTokenExpires";
+          var userIdKey = "Meteor.userId";
+          var userId = result.id, token = result.token, tokenExpires = result.tokenExpires;
+          Meteor._localStorage.setItem(userIdKey, userId);
+          Meteor._localStorage.setItem(loginTokenKey, token);
+          if (! tokenExpires)
+            tokenExpires = Accounts._tokenExpiration(new Date());
+          Meteor._localStorage.setItem(loginTokenExpiresKey, tokenExpires);
+          Accounts.connection.setUserId(userId);
+          if (role=="parent") {
+            Router.go('teachers');
+          } else {
+            Router.go('dashboard');
+          }
         } else {
-          alert(result.msg);
+          return Session.set('registerErrors', {checkCode: result.msg});
         }
       }
     });
