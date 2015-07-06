@@ -73,3 +73,10 @@ margin-top: 7px; }
 .teacher-content .checkbox{
   margin: 0;
 }
+.teacherCert div{
+  float: left;
+  margin-left: 5px;
+}
+.teacherCert div:first-child{
+  margin-left: 0;
+}
