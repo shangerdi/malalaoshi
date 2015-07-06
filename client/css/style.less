@@ -402,7 +402,81 @@ background: rgba(0, 0, 0, 0.1); }
 .audit-teacher .part-reject {
   display: none;
 }
+.home-box{
+  margin: 0;
+  height: 806px;
+  background: url('/images/home_bg.png') 50% 0%;
+  text-align: center;
+}
 .listbox{
   max-width:500px;
-  margin:50px auto;
+  margin:0 auto;
+}
+.listbox .list-group .list-group-item{
+  margin-bottom: 10px;
+  border: 0;
+  color: #fff;
+}
+.listbox a.btn-login {
+  background-color: red;
+  border-color: red;
+}
+.listbox a.btn-register {
+  background-color: green;
+  border-color: green;
+}
+.login-top {
+  position:relative;
+  overflow:hidden;
+  width:100%;
+}
+.login-top-box {
+  height: 150px;
+  background-color: gray;
+}
+.login-top-box-mask {
+  transform: rotate(-5deg);
+  height: 40px;
+  width: 200%;
+  position: absolute;
+  top: 114px;
+  left: -40px;
+  background-color: #f1f1f1;
+}
+.login-top .role-sign {
+  position: absolute;
+  width: 100%;
+  top: 95px;
+}
+.login-top .role-sign span {
+  width: 50px;
+  height: 50px;
+  background-color: green;
+  border-radius: 50%;
+  line-height: 50px;
+  font-size: 26px;
+  color: white;
+}
+.role-select {
+  margin: 10px auto;
+}
+.role-select li {
+  padding: 0;
+}
+.role-select li a {
+  color: red;
+  border: 1px red solid;
+  background-color: white;
+}
+.role-select li.active a {
+  color: white;
+  background-color: red;
+}
+.login-form input {
+  border: 0;
+  box-shadow: none;
+  background-color: transparent;
+}
+.login-form input[type=text] {
+  border-bottom: 1px #aaa solid;
 }
