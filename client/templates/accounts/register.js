@@ -64,6 +64,14 @@ Template.register.events({
     var ele = e.target, role = $(ele).attr("name");
     selectRole(role);
   },
+  'keyup #cellphone': function(e) {
+    var val = e.target.value, $getCodeButton = $("#getCheckCode");
+    if (CELLPHONE_REG.test(val)) {
+      $getCodeButton.removeAttr('disabled');
+    } else {
+      $getCodeButton.attr("disabled",true);
+    }
+  },
 	'click #getCheckCode': function(e) {
     var name = $("#name").val();
     var cellphone = $("#cellphone").val();
@@ -99,7 +107,7 @@ Template.register.events({
           $theButton.removeAttr("disabled");
           return;
         }
-        $theButton.val("还有"+countdown+"秒重新获取");
+        $theButton.val("重新获取("+countdown+")");
         countdown--;
       },999);
     });
@@ -118,16 +126,19 @@ Template.register.events({
       Session.set('registerErrors', {});
     }
 
+    var $regBtn = $(e.target);
+    $regBtn.text("注册中...");
     // do register
     Meteor.call('doRegisterViaPhone', params, function(error, result) {
       console.log(result);
       if (error) {
         // return throwError(error.reason);
+        $regBtn.text("注册");
         return Session.set('registerErrors', {checkCode: error.reason});
       }
       if (result) {
         if (result.code==0) {
-          // alert("验证通过");
+          // ("验证通过");
           result = result.result;
           var loginTokenKey = "Meteor.loginToken";
           var loginTokenExpiresKey = "Meteor.loginTokenExpires";
@@ -145,6 +156,7 @@ Template.register.events({
             Router.go('dashboard');
           }
         } else {
+          $regBtn.text("注册");
           return Session.set('registerErrors', {checkCode: result.msg});
         }
       }
