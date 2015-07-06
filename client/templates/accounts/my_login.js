@@ -32,12 +32,20 @@ validateLogin = function (param, step) {
 }
 var timer = 0;
 Template.mylogin.events({
-  'keyup #cellphone': function(e) {
+  'keyup #cellphone, change #cellphone': function(e) {
     var val = e.target.value, $getCodeButton = $("#getCheckCode");
     if (CELLPHONE_REG.test(val)) {
       $getCodeButton.removeAttr('disabled');
     } else {
       $getCodeButton.attr("disabled",true);
+    }
+  },
+  'keyup #checkCode, change #checkCode': function(e) {
+    var val = e.target.value, $destBtn = $("#doLogin");
+    if (/^\d{6}$/.test(val)) {
+      $destBtn.removeAttr('disabled');
+    } else {
+      $destBtn.attr("disabled",true);
     }
   },
 	'click #getCheckCode': function(e) {
@@ -91,7 +99,7 @@ Template.mylogin.events({
     }
 
     var $loginBtn = $(e.target);
-    $loginBtn.text("登录中...");
+    $loginBtn.val("登录中...");
     var $getCodeButton = $("#getCheckCode");
     // do login
     Meteor.call('loginWithPhone', params, function(error, result) {
@@ -101,7 +109,7 @@ Template.mylogin.events({
       $getCodeButton.removeAttr("disabled");
       if (error) {
         // return throwError(error.reason);
-        $loginBtn.text("登录");
+        $loginBtn.val("登录");
         return Session.set('myloginErrors', {checkCode: error.reason});
       }
       if (result) {
@@ -121,7 +129,7 @@ Template.mylogin.events({
         } else if (result.code==1) {
           Router.go('profile');
         } else {
-          $loginBtn.text("登录");
+          $loginBtn.val("登录");
           return Session.set('myloginErrors', {checkCode: result.msg});
         }
       }

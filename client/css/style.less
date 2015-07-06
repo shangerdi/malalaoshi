@@ -408,47 +408,47 @@ background: rgba(0, 0, 0, 0.1); }
   background: url('/images/home_bg.png') 50% 0%;
   text-align: center;
 }
-.listbox{
+.home-box .listbox{
   max-width:500px;
   margin:0 auto;
 }
-.listbox .list-group .list-group-item{
+.home-box .listbox .list-group .list-group-item{
   margin-bottom: 10px;
   border: 0;
   color: #fff;
 }
-.listbox a.btn-login {
+.home-box .listbox a.btn-login {
   background-color: red;
   border-color: red;
 }
-.listbox a.btn-register {
+.home-box .listbox a.btn-register {
   background-color: green;
   border-color: green;
 }
-.login-top {
+.login-form .login-top {
   position:relative;
   overflow:hidden;
   width:100%;
 }
-.login-top-box {
+.login-form .login-top-box {
   height: 150px;
   background-color: gray;
 }
-.login-top-box-mask {
-  transform: rotate(-5deg);
-  height: 40px;
-  width: 200%;
+.login-form .login-top-box-mask {
   position: absolute;
-  top: 114px;
-  left: -40px;
+  transform: rotate(-5deg);
+  height: 80px;
+  width: 300%;
+  bottom: -50px;
+  left: -100%;
   background-color: #f1f1f1;
 }
-.login-top .role-sign {
+.login-form .login-top .role-sign {
   position: absolute;
   width: 100%;
   top: 95px;
 }
-.login-top .role-sign span {
+.login-form .login-top .role-sign span {
   width: 50px;
   height: 50px;
   background-color: green;
@@ -457,18 +457,20 @@ background: rgba(0, 0, 0, 0.1); }
   font-size: 26px;
   color: white;
 }
-.role-select {
+.login-form .role-select {
   margin: 10px auto;
 }
-.role-select li {
+.login-form .role-select li {
   padding: 0;
+  width: 50%;
+  float: left;
 }
-.role-select li a {
+.login-form .role-select li a {
   color: red;
   border: 1px red solid;
   background-color: white;
 }
-.role-select li.active a {
+.login-form .role-select li.active a {
   color: white;
   background-color: red;
 }
@@ -479,4 +481,16 @@ background: rgba(0, 0, 0, 0.1); }
 }
 .login-form input[type=text] {
   border-bottom: 1px #aaa solid;
+}
+.login-form input.btn-get-checkcode {
+  color: #000;
+}
+.login-form input.btn-get-checkcode[disabled] {
+  color: #7d7d7d;
+}
+.login-form input.btn-login {
+  width: 100%;
+  background-color: @brand-success;
+  border-color: @brand-success;
+  color: #fff;
 }

@@ -64,12 +64,20 @@ Template.register.events({
     var ele = e.target, role = $(ele).attr("name");
     selectRole(role);
   },
-  'keyup #cellphone': function(e) {
+  'keyup #cellphone, change #cellphone': function(e) {
     var val = e.target.value, $getCodeButton = $("#getCheckCode");
     if (CELLPHONE_REG.test(val)) {
       $getCodeButton.removeAttr('disabled');
     } else {
       $getCodeButton.attr("disabled",true);
+    }
+  },
+  'keyup #checkCode, change #checkCode': function(e) {
+    var val = e.target.value, $destBtn = $("#doRegister");
+    if (/^\d{6}$/.test(val)) {
+      $destBtn.removeAttr('disabled');
+    } else {
+      $destBtn.attr("disabled",true);
     }
   },
 	'click #getCheckCode': function(e) {
@@ -127,13 +135,13 @@ Template.register.events({
     }
 
     var $regBtn = $(e.target);
-    $regBtn.text("注册中...");
+    $regBtn.val("注册中...");
     // do register
     Meteor.call('doRegisterViaPhone', params, function(error, result) {
       console.log(result);
       if (error) {
         // return throwError(error.reason);
-        $regBtn.text("注册");
+        $regBtn.val("注册");
         return Session.set('registerErrors', {checkCode: error.reason});
       }
       if (result) {
@@ -156,7 +164,7 @@ Template.register.events({
             Router.go('dashboard');
           }
         } else {
-          $regBtn.text("注册");
+          $regBtn.val("注册");
           return Session.set('registerErrors', {checkCode: result.msg});
         }
       }
