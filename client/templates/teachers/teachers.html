@@ -1,4 +1,11 @@
 <template name="teachers">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-positive" text=false}}
+  {{/contentFor}}
+
+
+  {{#ionView}}
+    {{#ionContent}}
   <div class="teachers page">
     <div class="wrapper">
       {{#each teachers}}
@@ -14,6 +21,9 @@
       {{/unless}}
     {{/if}}
   </div>
+
+    {{/ionContent}}
+  {{/ionView}}
 </template>
 
 <template name="teacherItem">
