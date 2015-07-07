@@ -1,41 +1,33 @@
 <template name="teachers">
-  <div class="teachers page">
-    <div class="wrapper">
-      {{#each teachers}}
-        {{> teacherItem}}
-      {{/each}}
-    </div>
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear button-light icon ion-search"></button>
+  {{/contentFor}}
 
-    {{#if nextPath}}
-      <a class="load-more" href="{{nextPath}}">加载更多</a>
-    {{else}}
-      {{#unless ready}}
-        {{> spinner}}
-      {{/unless}}
-    {{/if}}
-  </div>
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">麻辣老师</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#each teachers}}
+          {{> teacherItem}}
+        {{/each}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
 </template>
 
 <template name="teacherItem">
   <div class="teacher">
     <div class="teacher-content">
-      <h3>{{user.profile.name}}<span>{{subject}}</span></h3>
+      <div class="teacherHead">
+        <h3>{{user.profile.name}}<span>{{subject}}</span></h3>
+      </div>
       <div class="teacherCert">
-        <div>
-          <label>
-            <input type="checkbox" checked> 基本信息
-          </label>
-        </div>
-         <div>
-          <label>
-            <input type="checkbox" {{eduAudit}}> 教育信息
-          </label>
-        </div>
-        <div>
-          <label>
-            <input type="checkbox" {{cert}}> 教学资质
-          </label>
-        </div>
+        <div><i class="icon ionChecked ion-checkmark-circled"></i> <span>基本信息</span></div>
+        <div><i class="icon ionChecked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教育信息</span></div>
+        <div><i class="icon ionChecked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教学资质</span></div>
       </div>
     </div>
     <div class="teacherAvatar">
