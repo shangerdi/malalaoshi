@@ -39,5 +39,5 @@ App.launchScreens({
   'android_xhdpi_portrait': 'resources/icons/icon.png',
   'android_xhdpi_landscape': 'resources/icons/icon.png'
 });
-App.accessRule("*");
-
+App.accessRule("*s3.cn-north-1.amazonaws.com.cn*");
+App.accessRule("*s3-ap-southeast-1.amazonaws.com*");
