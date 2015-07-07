@@ -53,20 +53,27 @@ Template.teacherItem.onCreated(function() {
 Template.teacherItem.helpers({
   eduAudit: function(){
     if(this.eduInfo && this.eduInfo.status && this.eduInfo.status == "approved"){
-      return "教育认证";
+      return "checked";
     }
   },
   cert: function(){
     if(this.certInfo && this.certInfo.status && this.certInfo.status == "approved"){
-      return "资质认证";
+      return "checked";
     }
   },
   subject: function(){
+    var school = "", subject = "";
     if(this.user && this.user.profile && this.user.profile.subjects){
-      var subject = this.user.profile.subjects[0];
-      if(subject && subject.subject){
-        return getEduSubjectText(subject.subject);
+      var subjects = this.user.profile.subjects[0];
+      if(subjects){
+        if(subjects.subject){
+          subject = getEduSubjectText(subjects.subject);
+        }
+        if(subjects.school){
+          school = getEduSchoolText(subjects.school);
+        }
       }
     }
+    return school + subject;
   }
 });

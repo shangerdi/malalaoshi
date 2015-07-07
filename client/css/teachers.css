@@ -3,7 +3,7 @@
   margin: 0 auto;
   height: 50px;
   background: #FFF;
-  float: left;
+  float: right;
 }
 .teacher{
   background: #fff;
@@ -68,5 +68,15 @@ margin-top: 7px; }
   height: 100px;
 }
 .teacher-content span{
-  margin-left: 3px;
+  margin-left: 5px;
+}
+.teacher-content .checkbox{
+  margin: 0;
+}
+.teacherCert div{
+  float: left;
+  margin-left: 5px;
+}
+.teacherCert div:first-child{
+  margin-left: 0;
 }
