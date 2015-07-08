@@ -95,7 +95,8 @@ Template.profileEditCert.events({
     }
     if (!changed) {
       $uploadBox.data("changed", true);
-      $uploadBox.data("oldImgSrc", $uploadBox.find(".cert-img-box img").attr("src"));
+      var oldImgSrc = $uploadBox.find(".cert-img-box img").attr("src");
+      $uploadBox.data("oldImgSrc", oldImgSrc?oldImgSrc:"");
     }
     var imtUrl = getObjectURL(ele.files[0]);
     $uploadBox.find(".cert-img-box img").attr("src", imtUrl);
