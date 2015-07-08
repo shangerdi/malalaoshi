@@ -92,9 +92,10 @@
 }
 .profile-edit-cert .cert-img-box {
   padding-left: 0;
+  min-width: 161px;
 }
 .profile-edit-cert .cert-img-box .img-box {
-  width: 200px;
+  width: 100%;
   height: 192px;
   line-height: 192px;
   overflow: hidden;
