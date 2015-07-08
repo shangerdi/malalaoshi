@@ -1,4 +1,3 @@
-Meteor.subscribe('areas');
 AreaOfChina = function (options) {
 	findArea = function(code) {
 		return Areas.findOne({"code":code});
