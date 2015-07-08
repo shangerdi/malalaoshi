@@ -48,7 +48,7 @@ Meteor.methods({
     var params = {apikey: apikey, mobile: cellphone, text: smsMsg};
     console.log('Mobile num: <' + cellphone + '>, Check code: <' + checkCode + '>');
     try {
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === 'development' || TEST_CELLPHONE_REG.test(cellphone)) {
         // the following 4 lines are testing statement
         var ctText = '{"code":0,"msg":"OK","result":{"count":1,"fee":1,"sid":2029448147}}';
         console.log(ctText);
