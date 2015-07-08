@@ -49,6 +49,10 @@ Template.avatar.onRendered(function(){
           this.append(canvas);
         }
         
+        if (!canvas.toDataURL) {
+          this.clipWindow.hide();
+          return this.doneCallback(new Meteor.Error("-100","Your device does not support clip image"));
+        }
         var src=canvas.toDataURL("image/jpeg");
         src=src.split(',')[1];
         if(!src)return this.doneCallback(new Meteor.Error("-1","处理失败，请稍后重试"));
@@ -70,11 +74,13 @@ Template.avatar.onRendered(function(){
         this.inner.show();
         var reader=new FileReader();
         reader.onload=function(){
-            resizer.image.src=reader.result;
-            reader=null;
+          resizer.image.src=reader.result;
+          reader=null;
+          resizer.image.onload=function() {
             resizer.addClass('have-img');
             resizer.setFrames();
             resizer.clipImage();
+          }
         };
         reader.readAsDataURL(file);
     };
