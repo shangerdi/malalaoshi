@@ -45,14 +45,14 @@
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVQYV2NkIALMnDlTkpGQOpCi9PT053gVwhSBDMOpEFkRToXoirAqxKYIQyEuRSgK8SmCKySkCKyQGEUghQC5OyXvW/4BHwAAAABJRU5ErkJggg==');
 }
 
-.teacherHead h3 {
+.teacher-head h3 {
   font-weight: normal;
   font-size: 18px;
   font-style: normal;
   color: #3f3f3f;
 }
 
-.teacherHead span {
+.teacher-head span {
   margin-left: 10px;
   font-weight: normal;
   font-size: 14px;
@@ -194,24 +194,24 @@
 .teacher-content .checkbox{
   margin: 0;
 }
-.teacherCert div{
+.teacher-cert div{
   float: left;
   margin-left: 8px;
 }
-.teacherCert div:first-child{
+.teacher-cert div:first-child{
   margin-left: 0;
 }
-.teacherAvatar{
+.teacher-avatar{
   width: 50px;
   height: 50px;
   margin-right: 7px;
   vertical-align: middle;
   float: right;
 }
-.teacherCert span{
+.teacher-cert span{
   color: #b8b8b8;
 }
-.ionChecked{
+.ion-checked{
   color: #59e3c3;
   font-size: 20px;
 }
@@ -306,6 +306,6 @@
 .modal h2{
   font-style: normal;
 }
-.teachersTitle{
+.teachers-title{
   font-style: normal;
 }

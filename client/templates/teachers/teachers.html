@@ -6,7 +6,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title teachersTitle">麻辣老师</h1>
+    <h1 class="title teachers-title">麻辣老师</h1>
   {{/contentFor}}
 
   {{#ionView}}
@@ -23,16 +23,16 @@
 <template name="teacherItem">
   <div class="teacher">
     <div class="teacher-content">
-      <div class="teacherHead">
+      <div class="teacher-head">
         <h3>{{profile.name}}<span>{{subject}}</span></h3>
       </div>
-      <div class="teacherCert">
-        <div><i class="icon ionChecked ion-checkmark-circled"></i> <span>基本信息</span></div>
-        <div><i class="icon ionChecked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教育信息</span></div>
-        <div><i class="icon ionChecked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教学资质</span></div>
+      <div class="teacher-cert">
+        <div><i class="icon ion-checked ion-checkmark-circled"></i> <span>基本信息</span></div>
+        <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教育信息</span></div>
+        <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教学资质</span></div>
       </div>
     </div>
-    <div class="teacherAvatar">
+    <div class="teacher-avatar">
       <img src="{{profile.avatarUrl}}" class="img-responsive img-circle" >
     </div>
   </div>
@@ -46,7 +46,7 @@
         <h2 class="title">精准筛选</h2>
         <button type="submit" id="selectSubjectBtn" class="button button-clear ion-checkmark"></button>
       </div>
-      <div class="content has-header overflow-scroll" style="text-align: center;margin:0 auto;">
+      <div class="content overflow-scroll" style="text-align: center;margin:0 auto;">
         <div class="list">
           <label class="item item-input item-select">
             <div class="input-label">
