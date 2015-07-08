@@ -1,70 +1,23 @@
-Template.teachers.onRendered(function () {
-  this.find('.wrapper')._uihooks = {
-    insertElement: function (node, next) {
-      $(node)
-        .hide()
-        .insertBefore(next)
-        .fadeIn();
-    },
-    moveElement: function (node, next) {
-      var $node = $(node), $next = $(next);
-      var oldTop = $node.offset().top;
-      var height = $node.outerHeight(true);
-
-      // 找出 next 与 node 之间所有的元素
-      var $inBetween = $next.nextUntil(node);
-      if ($inBetween.length === 0)
-        $inBetween = $node.nextUntil(next);
-
-      // 把 node 放在预订位置
-      $node.insertBefore(next);
-
-      // 测量新 top 偏移坐标
-      var newTop = $node.offset().top;
-
-      // 将 node *移回*至原始所在位置
-      $node
-        .removeClass('animate')
-        .css('top', oldTop - newTop);
-
-      // push every other element down (or up) to put them back
-      $inBetween
-        .removeClass('animate')
-        .css('top', oldTop < newTop ? height : -1 * height);
-
-      // 强制重绘
-      $node.offset();
-
-      // 动画，重置所有元素的 top 坐标为 0
-      $node.addClass('animate').css('top', 0);
-      $inBetween.addClass('animate').css('top', 0);
-    },
-    removeElement: function(node) {
-      $(node).fadeOut(function() {
-        $(this).remove();
-      });
-    }
-  }
-});
-
 Template.teacherItem.onCreated(function() {
   this.data.user = Meteor.users.findOne({_id: this.data.userId});
 });
 Template.teacherItem.helpers({
   eduAudit: function(){
-    if(this.eduInfo && this.eduInfo.status && this.eduInfo.status == "approved"){
-      return "checked";
+    if(this.status && this.status.edu == "approved"){
+      return true;
     }
+    return false;
   },
   cert: function(){
-    if(this.certInfo && this.certInfo.status && this.certInfo.status == "approved"){
-      return "checked";
+    if(this.status && this.status.cert == "approved"){
+      return true;
     }
+    return false;
   },
   subject: function(){
     var school = "", subject = "";
-    if(this.user && this.user.profile && this.user.profile.subjects){
-      var subjects = this.user.profile.subjects[0];
+    if(this.profile && this.profile.subjects){
+      var subjects = this.profile.subjects[0];
       if(subjects){
         if(subjects.subject){
           subject = getEduSubjectText(subjects.subject);
@@ -75,5 +28,68 @@ Template.teacherItem.helpers({
       }
     }
     return school + subject;
+  }
+});
+
+Template.selectTeachSubject.events({
+  'submit form': function(e){
+    e.preventDefault();
+    var curForm = e.target;
+    var subject = $(curForm).find('[name=subject]').val();
+    var grade = $(curForm).find('[name=grade]').val();
+    Session.set('teachersSubject', subject);
+    Session.set('teachersGrade', grade);
+    IonModal.close();
+    IonKeyboard.close();
+  }
+});
+Template.selectTeachSubject.helpers({
+  subject: function(){
+    var subject = Session.get('teachersSubject');
+    if(!subject){
+      subject = "all";
+    }
+    return subject;
+  },
+  grade: function(){
+    var grade = Session.get('teachersGrade');
+    if(!grade){
+      grade = "all";
+    }
+    return grade;
+  },
+  eduSubjectList: function(val) {
+    var a = getEduSubjectDict(), optionList=[];
+    optionList.push({key:"all",text:" - 全部 - "});
+    _.each(a, function(obj){
+      var newObj = {key:obj.key, text:obj.text};
+      if (obj.key==val) {
+        newObj.selected=true;
+      }
+      optionList.push(newObj);
+    });
+    return optionList;
+  },
+  eduGradeList: function(val) {
+    var a = getEduGradeDict(), optionList=[];
+    var newObj = {key:"all", text:"- 全部 -"};
+    if (val==="all") {
+      newObj.selected=true;
+    }
+    optionList.push(newObj);
+    _.each(a, function(obj){
+      var newObj = {key:obj.key, text:obj.text};
+      if (_.isArray(val)) {
+        if (_.contains(val, obj.key)){
+          newObj.selected=true;
+        }
+      } else {
+       if (obj.key==val) {
+          newObj.selected=true;
+        }
+      }
+      optionList.push(newObj);
+    });
+    return optionList;
   }
 });

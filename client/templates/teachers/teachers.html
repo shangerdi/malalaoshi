@@ -1,27 +1,21 @@
 <template name="teachers">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton class="button-positive" text=false}}
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear pull-right button-light" data-ion-modal="selectTeachSubject">
+      {{> ionIcon icon='ios-search'}}
+    </button>
   {{/contentFor}}
 
+  {{#contentFor "headerTitle"}}
+    <h1 class="title teachers-title">麻辣老师</h1>
+  {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent}}
-  <div class="teachers page">
-    <div class="wrapper">
-      {{#each teachers}}
-        {{> teacherItem}}
-      {{/each}}
-    </div>
-
-    {{#if nextPath}}
-      <a class="load-more" href="{{nextPath}}">加载更多</a>
-    {{else}}
-      {{#unless ready}}
-        {{> spinner}}
-      {{/unless}}
-    {{/if}}
-  </div>
-
+      {{#ionList}}
+        {{#each teachers}}
+          {{> teacherItem}}
+        {{/each}}
+      {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
 </template>
@@ -29,27 +23,53 @@
 <template name="teacherItem">
   <div class="teacher">
     <div class="teacher-content">
-      <h3>{{user.profile.name}}<span>{{subject}}</span></h3>
-      <div class="teacherCert">
-        <div>
-          <label>
-            <input type="checkbox" checked> 基本信息
+      <div class="teacher-head">
+        <h3>{{profile.name}}<span>{{subject}}</span></h3>
+      </div>
+      <div class="teacher-cert">
+        <div><i class="icon ion-checked ion-checkmark-circled"></i> <span>基本信息</span></div>
+        <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教育信息</span></div>
+        <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教学资质</span></div>
+      </div>
+    </div>
+    <div class="teacher-avatar">
+      <img src="{{profile.avatarUrl}}" class="img-responsive img-circle" >
+    </div>
+  </div>
+</template>
+
+<template name="selectTeachSubject">
+  {{#ionModal customTemplate=true}}
+    <form>
+      <div class="bar bar-header bar-stable">
+        <button data-dismiss="modal" type="button" class="button button-clear ion-close"></button>
+        <h2 class="title">精准筛选</h2>
+        <button type="submit" id="selectSubjectBtn" class="button button-clear ion-checkmark"></button>
+      </div>
+      <div class="content has-header overflow-scroll" style="text-align: center;margin:0 auto;">
+        <div class="list">
+          <label class="item item-input item-select">
+            <div class="input-label">
+              科目：
+            </div>
+            <select value="{{subject}}" name="subject" id="subject">
+              {{#each eduSubjectList subject}}
+                <option value="{{key}}" selected="{{selected}}">{{text}}</option>
+              {{/each}}
+            </select>
           </label>
-        </div>
-         <div>
-          <label>
-            <input type="checkbox" {{eduAudit}}> 教育信息
-          </label>
-        </div>
-        <div>
-          <label>
-            <input type="checkbox" {{cert}}> 教学资质
+          <label class="item item-input item-select">
+            <div class="input-label">
+              年级：
+            </div>
+            <select value="{{grade}}" name="grade">
+              {{#each eduGradeList grade}}
+                <option value="{{key}}" selected="{{selected}}">{{text}}</option>
+              {{/each}}
+            </select>
           </label>
         </div>
       </div>
-    </div>
-    <div class="teacherAvatar">
-      <img src="{{user.profile.avatarUrl}}" class="img-responsive img-circle" >
-    </div>
-  </div>
+    </form>
+  {{/ionModal}}
 </template>
