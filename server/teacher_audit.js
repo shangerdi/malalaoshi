@@ -19,6 +19,8 @@ Meteor.methods({
     updateSet[part+'Info.auditTime'] = now;
     updateSet[part+'Info.auditUserId'] = this.userId;
     TeacherAudit.update({'userId':todoUserId},{$set:updateSet});
+    var statusPart = "status."+part;
+    Meteor.users.update({_id: todoUserId}, {$set: {statusPart: newStatus}});
     // op logs
     var logObj = {'userId':todoUserId,auditTime:now, auditUserId:this.userId,'part':part};
     logObj[part+'Info'] = {};
@@ -57,6 +59,8 @@ Meteor.methods({
     updateSet[part+'Info.auditTime'] = now;
     updateSet[part+'Info.auditUserId'] = this.userId;
     TeacherAudit.update({'userId':todoUserId},{$set:updateSet});
+    var statusPart = "status."+part;
+    Meteor.users.update({_id: todoUserId}, {$set: {statusPart: newStatus}});
     // op logs
     var logObj = {'userId':todoUserId,auditTime:now, auditUserId:this.userId,'part':part};
     logObj[part+'Info'] = {};
