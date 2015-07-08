@@ -282,19 +282,19 @@ Template.avatar.onRendered(function(){
 
   // draw orig avatar
   this.initOrigAvatar = function() {
+    // first clear
+    var $canvasBig = $("#imgPreviewCanvasBig"), widthBig = $canvasBig.width(), heightBig = $canvasBig.height(),
+      ctxBig = $canvasBig[0].getContext('2d');
+    ctxBig.clearRect(0,0,widthBig,heightBig);
+    var $canvasSmall = $("#imgPreviewCanvasSmall"), widthSmall = $canvasSmall.width(), heightSmall = $canvasSmall.height(),
+      ctxSmall = $canvasSmall[0].getContext('2d');
+    ctxSmall.clearRect(0,0,widthSmall,heightSmall);
     var curUser = Meteor.user();
     if (curUser && curUser.profile && curUser.profile.avatarUrl) {
       var img=new Image()
       img.src=curUser.profile.avatarUrl;
       img.onload = function() {
-        var $canvasBig = $("#imgPreviewCanvasBig"), widthBig = $canvasBig.width(), heightBig = $canvasBig.height(),
-          ctxBig = $canvasBig[0].getContext('2d');
-        ctxBig.clearRect(0,0,widthBig,heightBig);
         ctxBig.drawImage(img,0,0,widthBig,heightBig);
-
-        var $canvasSmall = $("#imgPreviewCanvasSmall"), widthSmall = $canvasSmall.width(), heightSmall = $canvasSmall.height(),
-          ctxSmall = $canvasSmall[0].getContext('2d');
-        ctxSmall.clearRect(0,0,widthSmall,heightSmall);
         ctxSmall.drawImage(img,0,0,widthSmall,heightSmall);
       }
     }
