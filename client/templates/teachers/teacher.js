@@ -1,0 +1,2 @@
+Template.teacher.onCreated(function() {
+});

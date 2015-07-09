@@ -1,3 +1,19 @@
 <template name="teacher">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="teachers" class="button-clear button-light" text=" "}}
+  {{/contentFor}}
 
+  {{#contentFor "headerTitle"}}
+    <h1 class="title teacher-title">{{user.profile.name}}_a</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      <div style="text-align: center; position: relative; height: 100px; margin: 0 auto; vertical-align: bottom;">
+        <div style="position: absolute; bottom: 0; display: -webkit-inline-box; margin-left: -25px;">
+          <img src="{{user.profile.avatarUrl}}" class="img-responsive img-circle" style="height: 50px; width: 50px;">
+        </div>
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
 </template>
