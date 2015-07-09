@@ -1,6 +1,7 @@
 Template.teacherItem.onCreated(function() {
   this.data.user = Meteor.users.findOne({_id: this.data.userId});
 });
+
 Template.teacherItem.helpers({
   eduAudit: function(){
     if(this.status && this.status.edu == "approved"){
