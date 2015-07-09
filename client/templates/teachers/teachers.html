@@ -13,7 +13,9 @@
     {{#ionContent}}
       {{#ionList}}
         {{#each teachers}}
+          <div class="teacher-item-out">
           {{> teacherItem}}
+          </div>
         {{/each}}
       {{/ionList}}
     {{/ionContent}}
@@ -21,6 +23,7 @@
 </template>
 
 <template name="teacherItem">
+  <a class="item teacher-item" href="{{pathFor 'teacher' id=this._id}}">
   <div class="teacher">
     <div class="teacher-content">
       <div class="teacher-head">
@@ -29,13 +32,14 @@
       <div class="teacher-cert">
         <div><i class="icon ion-checked ion-checkmark-circled"></i> <span>基本信息</span></div>
         <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教育信息</span></div>
-        <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教学资质</span></div>
+        <div><i class="icon ion-checked {{#if cert}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教学资质</span></div>
       </div>
     </div>
     <div class="teacher-avatar">
       <img src="{{profile.avatarUrl}}" class="img-responsive img-circle" >
     </div>
   </div>
+  </a>
 </template>
 
 <template name="selectTeachSubject">
