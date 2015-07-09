@@ -40,7 +40,7 @@
   color: #a4a4a4;
 }
 .profile-edit .birthday {
-  width: 100px;
+  width: 86px;
   margin-right: 10px;
   float: left;
 }
@@ -51,6 +51,11 @@
 }
 .profile-edit .subject-item {
   padding: 5px 0;
+}
+.profile-edit-basic .btn-delete-item {
+  display: inline-block;
+  float: left;
+  line-height: 34px;
 }
 .profile-edit-basic .btn-add-edu-item {
   margin: 0;
@@ -87,6 +92,7 @@
 }
 .profile-edit-cert .cert-img-box {
   padding-left: 0;
+  min-width: 161px;
 }
 .profile-edit-cert .cert-img-box .img-box {
   width: 100%;

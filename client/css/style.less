@@ -76,9 +76,7 @@ body {
 height: 300px; }
 
 .post {
-  /* For modern browsers */
-  /* For IE 6/7 (trigger hasLayout) */
-  *zoom: 1;
+  zoom: 1;
   position: relative;
 opacity: 1; }
 .post:before, .post:after {
@@ -283,9 +281,6 @@ background: rgba(0, 0, 0, 0.1); }
 }
 #avatarUploadForm .avatar-edit-box .loading-hint-box img{
   vertical-align: middle;
-}
-#avatarUploadForm .avatar-preview {
-  padding-left: 0;
 }
 #avatarUploadForm .avatar-preview div:first-child{
   margin-top: 0;
@@ -493,8 +488,4 @@ background: rgba(0, 0, 0, 0.1); }
   background-color: @brand-success;
   border-color: @brand-success;
   color: #fff;
-}
-
-.pane, .view{
-  background-color:#f1f1f1;
 }
