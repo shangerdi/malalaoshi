@@ -42,23 +42,9 @@ Template.teacher.helpers({
     return ret;
   },
   eduAudit: function(){
-    if(this.user && this.user.status && this.user.status.edu == "approved"){
-      return true;
-    }
-    return false;
+    return this.user && this.user.status && this.user.status.edu == "approved";
   },
   cert: function(){
-    if(this.user && this.user.status && this.user.status.cert == "approved"){
-      return true;
-    }
-    return false;
-  }
-});
-
-Template.teacher.events({
-  'click #submitBtnTiYan': function(e) {
-    e.preventDefault();
-    var curForm = e.target;
-    alert("clikc");
+    return this.user && this.user.status && this.user.status.cert == "approved";
   }
 });
