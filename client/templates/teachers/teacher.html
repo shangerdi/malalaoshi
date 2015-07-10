@@ -4,15 +4,70 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title teacher-title">{{user.profile.name}}_a</h1>
+    <h1 class="title teacher-title">{{user.profile.name}}</h1>
   {{/contentFor}}
 
   {{#ionView}}
-    {{#ionContent}}
-      <div style="text-align: center; position: relative; height: 100px; margin: 0 auto; vertical-align: bottom;">
-        <div style="position: absolute; bottom: 0; display: -webkit-inline-box; margin-left: -25px;">
-          <img src="{{user.profile.avatarUrl}}" class="img-responsive img-circle" style="height: 50px; width: 50px;">
+    {{#ionContent class="teacher-detail"}}
+      <div class="teacher-detail-head">
+        <div>
+          <img src="{{user.profile.avatarUrl}}" class="img-responsive img-circle">
         </div>
+      </div>
+      <div>
+        <div class="teacher-detail-item-head  teacher-detail-item-head-float">
+          <span class="teacher-detail-item-name">
+            {{user.profile.name}} {{#if genderMale}}<i class="icon ion-male"></i>{{else}}{{#if genderFemale}}<i class="icon ion-female"></i>{{/if}}{{/if}}
+          </span>
+        </div>
+        <div>asdfasdfas</div>
+      </div>
+      <div>
+        <div class="teacher-detail-item-head teacher-detail-item-head-float">
+          <span class="teacher-detail-item-span">
+            个人简介：
+          </span>
+        </div>
+        <div>{{user.profile.selfIntro}}</div>
+      </div>
+      <div>
+        <div class="teacher-detail-item-head">
+          <span class="teacher-detail-item-span">
+            教授科目
+          </span>
+        </div>
+        <div>{{subject}}</div>
+      </div>
+      <div>
+        <div clas="teacher-detail-item-head">
+          <span class="teacher-detail-item-span">
+            毕业院校/学历
+          </span>
+        </div>
+        <div>
+          {{#each colleges}}
+            <p>{{.}}</p>
+          {{/each}}
+        </div>
+      </div>
+      <div>
+        <div clas="teacher-detail-item-head">
+          <span class="teacher-detail-item-span">
+            资质认证
+          </span>
+        </div>
+        <div>
+          <div class="teacher-cert">
+            <div><i class="icon ion-checked ion-checkmark-circled"></i> <span>基本信息</span></div>
+            <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教育信息</span></div>
+            <div><i class="icon ion-checked {{#if cert}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教学资质</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="teacher-detail-submit">
+        <button id="submitBtnTiYan" class="button button-full button-assertive">
+          一元预约体验课
+        </button>
       </div>
     {{/ionContent}}
   {{/ionView}}

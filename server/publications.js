@@ -65,8 +65,7 @@ Meteor.publish('teacher', function(userId) {
   if (this.userId) {
     return [
       Meteor.users.find(userId),
-      UserEducation.find({'userId': userId}),
-      UserCertification.find({'userId': userId})
+      UserEducation.find({'userId': userId})
     ];
   }
   return [];
