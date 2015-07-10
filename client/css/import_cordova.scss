@@ -1,2 +1,9 @@
 @import '.meteor/local/build/programs/server/assets/packages/meteoric_ionic-sass/_ionic';
 @import '.meteor/local/build/programs/server/assets/packages/meteoric_ionicons-sass/_ionicons';
+
+html,body {
+    overflow-y:initial;
+}
+.pane, .view{
+    background-color:#f1f1f1;
+}
