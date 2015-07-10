@@ -1,0 +1,25 @@
+<template name="parentSettingsEdit">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-positive" path="parentSettings" text=false}}
+  {{/contentFor}}
+
+
+{{#ionView}}
+  {{#ionContent}}
+
+<form class="main form page form-horizontal parent-settings-box">
+  <div class="col-sm-offset-4 col-sm-4">
+    <div class="form-group">
+      <label for="name">姓名</label>
+      <input class="form-control" id="name" name="name" value="{{currentUser.profile.name}}"/>
+    </div>
+
+    <div class="form-group">
+      <input class="btn btn-success btn-save" type="button" value="保存"/>
+    </div>
+  </div>
+</form>
+
+  {{/ionContent}}
+{{/ionView}}
+</template>
