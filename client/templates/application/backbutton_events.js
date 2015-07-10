@@ -12,7 +12,10 @@ if (Meteor.isCordova) {
     var curRouter = Router.current();
     var curRouterName = curRouter.route.getName();
     console.log("curRouterName is: "+curRouterName);
-    if (curRouterName==="dashboard" || curRouterName==="teachers" || curRouterName==="home") {
+    var parentRouterName = navStack && navStack.findParent(curRouterName);
+    // TODO: rewrite navigation stack, ps: path router's data
+    console.log("parentRouterName is: "+parentRouterName);
+    if (!parentRouterName) {
       IonPopup.confirm({
         title: 'Exit hint?',
         template: 'Are you sure to exit app!?',
@@ -23,15 +26,7 @@ if (Meteor.isCordova) {
         onCancel: function() {}
       });
     } else {
-      if (Meteor.user()) {
-        if (Meteor.user().role=='parent') {
-          Router.go('teachers');
-        } else {
-          Router.go('dashboard');
-        }
-      } else {
-        Router.go('home');
-      }
+      Router.go(parentRouterName);
     }
   };
   document.addEventListener("backbutton", onBackButtonPressed, false);
