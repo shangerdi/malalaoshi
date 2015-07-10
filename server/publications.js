@@ -61,3 +61,12 @@ Meteor.publish('teachers', function(parameters) {
   }
   return [];
 });
+Meteor.publish('teacher', function(userId) {
+  if (this.userId) {
+    return [
+      Meteor.users.find(userId),
+      UserEducation.find({'userId': userId})
+    ];
+  }
+  return [];
+});
