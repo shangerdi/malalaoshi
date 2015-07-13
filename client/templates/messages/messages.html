@@ -36,9 +36,9 @@
   <li>
     <div class="content">
       <input type="hidden" value="{{_id}}" />
-      <span class="text {{#if unread}}unread{{/if}}">{{content}}</span>
+      <span class="text {{#if $not read}}unread{{/if}}">{{content}}</span>
       <span class="pull-right">
-        <span class="datetime">{{createTimeStr}}</span>
+        <span class="datetime">{{created}}</span>
         <a class="action" title="删除"><span class="lnr lnr-cross"></span></a>
       </span>
     </div>
@@ -50,7 +50,7 @@
       <input type="hidden" value="{{_id}}" />
       <span class="text">{{content}}</span>
       <span class="pull-right">
-        <span class="datetime">{{createTimeStr}}</span>
+        <span class="datetime">{{created}}</span>
       </span>
     </div>
   </li>
