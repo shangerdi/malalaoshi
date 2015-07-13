@@ -44,7 +44,7 @@ Template.teacher.helpers({
 });
 
 Template.teacher.events({
-  'click #submitBtnTiYan': function(e) {
+  'click #parentSettingsEdit': function(e) {
     e.preventDefault();
 
     var user = Meteor.user();
