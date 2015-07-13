@@ -33,7 +33,8 @@
         <li class="{{activeRouteClass  'dashboard'}}">
           <a href="{{pathFor 'dashboard'}}">首页</a>
         </li>
-        {{#if isParentOrAdmin}}
+        {{#if currentUser}}
+        {{#if $in currentUser.role 'parent' 'admin'}}
         <li class="{{activeRouteClass  'teachers'}}">
           <a href="{{pathFor 'teachers'}}">老师列表</a>
         </li>
@@ -41,11 +42,9 @@
           <a href="{{pathFor 'orders'}}">我的订单</a>
         </li>
         {{/if}}
-        {{#if currentUser}}
         <li class="{{activeRouteClass  'profileEditBasic'}}">
           <a href="{{pathFor 'profileEditBasic'}}">个人资料</a>
         </li>
-        {{/if}}
         <li class="{{activeRouteClass  'messages'}}">
           <a href="{{pathFor 'messages'}}">消息</a>
         </li>
@@ -55,7 +54,7 @@
         <li class="{{activeRouteClass  'feedback'}}">
           <a href="{{pathFor 'feedback'}}">意见与建议</a>
         </li>
-        {{#if isAdmin}}
+        {{#if $eq currentUser.role 'admin'}}
         <li class="{{activeRouteClass  'users'}}">
           <a href="{{pathFor 'users'}}">用户管理</a>
         </li>
@@ -68,6 +67,7 @@
         <li class="{{activeRouteClass  'pages'}}">
           <a href="{{pathFor 'pages'}}">栏目管理</a>
         </li>
+        {{/if}}
         {{/if}}
       </ul>
     </div>
