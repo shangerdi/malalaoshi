@@ -7,9 +7,7 @@ Meteor.methods({
     var obj = {
       userId: this.userId,
       phoneNo: user.phoneNo,
-      content: content,
-      created: Date.now(),
-      read: false
+      content: content
     };
     Feedbacks.insert(obj);
   }

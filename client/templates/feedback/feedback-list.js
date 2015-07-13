@@ -1,11 +1,5 @@
 Template.feedbacks.helpers({
   feedbacks: function() {
-    return Feedbacks.find();
+    return Feedbacks.find({}, {sort: {createdAt:-1}});
   }
 });
-Template.feedbackItem.helpers({
-  created: function() {
-    return moment(this.created, 'x').fromNow();
-  }
-});
-
