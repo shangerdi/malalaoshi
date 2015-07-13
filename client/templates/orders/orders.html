@@ -1,0 +1,27 @@
+<template name="orders">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">我的订单</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList class="orders-detail"}}
+        {{#each orders}}
+        <a class="" href="{{pathFor 'order' id=this._id}}">
+        {{#ionItem buttonRight=true avatar=true class="item-icon-right"}}
+          <div class="order-detail-avatar">
+            <span class="order-detail-head">
+              {{className}}
+            </span>
+            <div class="order-detail-detail">
+              {{teacher.name}} | {{teacher.subject}}
+            </div>
+          </div>
+          {{> ionIcon icon="ios-arrow-forward" class="button-light"}}
+        {{/ionItem}}
+        </a>
+        {{/each}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

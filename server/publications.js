@@ -70,3 +70,19 @@ Meteor.publish('teacher', function(userId) {
   }
   return [];
 });
+Meteor.publish('order', function(parameters) {
+  if (this.userId) {
+    return [
+      Meteor.users.find({_id: {"$in": parameters.userIds}}),
+      Orders.find({_id: parameters.orderId})
+    ];
+  }
+  return [];
+});
+
+Meteor.publish('orders', function(parameters) {
+  if (this.userId) {
+    return Orders.find(parameters.find, parameters.options);
+  }
+  return [];
+});

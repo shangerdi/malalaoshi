@@ -1,15 +1,9 @@
 Template.teacher.helpers({
   genderFemale: function(v){
-    if(this.user.profile && this.user.profile.gender == '女'){
-      return true;
-    }
-    return false;
+    return this.user.profile && this.user.profile.gender == '女';
   },
   genderMale: function(){
-    if(this.user && this.user.profile && this.user.profile.gender == '男'){
-      return true;
-    }
-    return false;
+    return this.user && this.user.profile && this.user.profile.gender == '男';
   },
   subject: function(){
     var school = "", subject = "";
@@ -46,5 +40,28 @@ Template.teacher.helpers({
   },
   cert: function(){
     return this.user && this.user.status && this.user.status.cert == "approved";
+  }
+});
+
+Template.teacher.events({
+  'click #submitBtnTiYan': function(e) {
+    e.preventDefault();
+
+    var user = Meteor.user();
+    var teacher = this.user;
+
+    var className = "体验课程";
+    var hour = "1";
+    var unitCost = "1";
+    var cost = "1";
+
+    var queryObj = 'userId=' + user._id +
+                   '&teacherId=' + teacher._id +
+                   '&className=' + className +
+                   '&hour=' + hour +
+                   '&unitCost=' + unitCost +
+                   '&cost=' + cost;
+
+    Router.go('order', {}, {query: queryObj});
   }
 });
