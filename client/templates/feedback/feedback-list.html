@@ -9,15 +9,12 @@
     </thead>
     <tbody>
       {{#each feedbacks}}
-      {{> feedbackItem}}
+      <tr>
+        <td>{{phoneNo}}</td>
+        <td>{{content}}</td>
+        <td>{{created}}</td>
+      </tr>
       {{/each}}
     </tbody>
   </table>
-</template>
-<template name="feedbackItem">
-  <tr>
-    <td>{{phoneNo}}</td>
-    <td>{{content}}</td>
-    <td>{{created}}</td>
-  </tr>
 </template>
