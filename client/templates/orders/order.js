@@ -20,7 +20,7 @@ Template.order.helpers({
 });
 
 Template.order.events({
-  'click #submitBtnSaveOrderPayfor': function(e) {
+  'click #btnSaveAndPay': function(e) {
     e.preventDefault();
 
     Meteor.call('updateOrder', this.order, function(error, result) {
