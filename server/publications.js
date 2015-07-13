@@ -71,13 +71,17 @@ Meteor.publish('teacher', function(userId) {
   return [];
 });
 Meteor.publish('order', function(parameters) {
-  if (this.userId) {
-    return [
-      Meteor.users.find({_id: {"$in": parameters.userIds}}),
-      Orders.find({_id: parameters.orderId})
-    ];
+  if (this.userId && parameters) {
+    var ret = [];
+    if(parameters.userIds && parameters.userIds.length > 0){
+      ret[ret.length] = Meteor.users.find({_id: {"$in": parameters.userIds}});
+    }
+    if(parameters.orderId){
+      ret[ret.length] = Orders.find({_id: parameters.orderId});
+    }
+    return ret;
   }
-  return [];
+  return null;
 });
 
 Meteor.publish('orders', function(parameters) {

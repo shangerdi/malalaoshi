@@ -4,7 +4,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title">订单确认</h1>
+    <h1 class="title normal-title">{{#if order._id}}订单详情{{else}}订单确认{{/if}}</h1>
   {{/contentFor}}
 
   {{#ionView}}
@@ -19,7 +19,7 @@
             </span>
           </div>
           <div class="order-detail-detail">
-            {{student.profile.name}} | {{phoneNum}}
+            {{order.student.name}} | {{phoneNum}}
           </div>
         </div>
         {{/ionItem}}
@@ -30,7 +30,7 @@
               {{order.className}}
             </span>
             <div class="order-detail-detail">
-              {{teacher.profile.name}} | {{subject}}
+              {{order.teacher.name}} | {{subject}}
             </div>
           </div>
           <div class="teacher-avatar">
@@ -77,14 +77,15 @@
         {{#ionItem}}
         <div class="teacher-detail-submit">
           {{#if order._id}}
-            {{#if $eq order.status "paid"}}
-            支付成功
-            {{else}}
-            取消订单 付款
+            {{#if $neq order.status "paid"}}
+            <div class="button-bar">
+              <a class="button">取消订单</a>
+              <a class="button button-assertive">付款</a>
+            </div>
             {{/if}}
           {{else}}
           <button id="submitBtnSaveOrderPayfor" class="button button-full button-assertive">
-            前往支付
+            确认并支付
           </button>
           {{/if}}
         </div>

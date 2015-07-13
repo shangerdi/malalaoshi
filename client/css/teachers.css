@@ -463,3 +463,15 @@
 .orders-detail .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
   padding-left: 0;
 }
+
+.teacher-detail-submit .button-bar > .button{
+  border-width: 1px 1px 1px 1px;
+  border-color: #ef473a;
+}
+.teacher-detail-submit .button-bar > .button:last-child{
+  margin-left: 12px;
+}
+.teacher-detail-submit .button-bar > .button:first-child {
+  border-radius: 2px 0px 0px 2px;
+  color: #ef473a;
+}

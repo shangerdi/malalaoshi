@@ -1,7 +1,7 @@
 Template.order.helpers({
   phoneNum: function(){
-    if(this.student && this.student.phoneNo){
-      var pn = this.student.phoneNo.toString();
+    if(this.order && this.order.student && this.order.student.phoneNo){
+      var pn = this.order.student.phoneNo.toString();
       var lth = pn.length;
       var a = lth < 3 ? lth : 3;
       var b = lth < 7 ? lth : 7;
@@ -9,19 +9,7 @@ Template.order.helpers({
     }
   },
   subject: function(){
-    var school = "", subject = "";
-    if(this.teacher && this.teacher.profile && this.teacher.profile.subjects){
-      var subjects = this.teacher.profile.subjects[0];
-      if(subjects){
-        if(subjects.subject){
-          subject = getEduSubjectText(subjects.subject);
-        }
-        if(subjects.school){
-          school = getEduSchoolText(subjects.school);
-        }
-      }
-    }
-    return school + subject;
+    return this.order && this.order.teacher ? this.order.teacher.subject : "";
   },
   money: function(val){
     return accounting.formatMoney(val, '');
