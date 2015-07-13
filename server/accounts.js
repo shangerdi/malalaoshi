@@ -30,7 +30,7 @@ Meteor.methods({
     }
     // generate one 6 numbers checkcode
     if (!checkCode) {
-      if (TEST_CELLPHONE_REG.test(cellphone)) {
+      if (process.env.NODE_ENV === 'development' || TEST_CELLPHONE_REG.test(cellphone)) {
         checkCode = 111111;
       }
       else{
