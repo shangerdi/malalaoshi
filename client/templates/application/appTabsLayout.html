@@ -1,0 +1,21 @@
+<template name="appTabsLayout">
+  {{#ionBody}}
+    {{> ionNavBar}}
+
+    {{#ionNavView}}
+      {{> yield}}
+    {{/ionNavView}}
+
+    {{#if isAndroid}}
+      {{#ionTabs style="android"}}
+        {{> ionTab title="麻辣老师" path="teachers" icon="android-star"}}
+        {{> ionTab title="我的订单" path="orders" icon="android-time"}}
+      {{/ionTabs}}
+    {{else}}
+      {{#ionTabs style="ios"}}
+        {{> ionTab title="麻辣老师" path="teachers" iconOff="ios-bolt-outline" iconOn="ios-bolt" class="tab-item-positive"}}
+        {{> ionTab title="我的订单" path="orders" iconOff="ios-clock-outline" iconOn="ios-clock" class="tab-item-positive"}}
+      {{/ionTabs}}
+    {{/if}}
+  {{/ionBody}}
+</template>

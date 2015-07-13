@@ -13,26 +13,9 @@ Template.messages.helpers({
   }
 });
 
-Template.messageItem.helpers({
-  'unread': function() {
-    return (!this.read);
-  },
-  'createTimeStr': function() {
-    var theTime = this.createTime;
-    return moment(theTime).fromNow();
-  }
-});
-
 Template.messageItem.events({
   'click a': function() {
     Messages.update(this._id,{$set:{read:true}});
-  }
-});
-
-Template.viewedMessageItem.helpers({
-  'createTimeStr': function() {
-    var theTime = this.createTime;
-    return moment(theTime).fromNow();
   }
 });
 

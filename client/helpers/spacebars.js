@@ -7,10 +7,6 @@ Template.registerHelper('pluralize', function(n, thing) {
   }
 });
 
-Template.registerHelper('isEqual', function(a, b) {
-  return a==b;
-});
-
 Template.registerHelper('eduDegreeList', function(a, b) {
   var list = getEduDegreeList(a);
   if (b) {

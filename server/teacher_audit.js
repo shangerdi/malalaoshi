@@ -34,7 +34,6 @@ Meteor.methods({
     var noticeObj = {
       'userId':todoUserId,
       'content':"亲，您提交的【"+partName+"】已通过审核。非常感谢您对我们的信赖和支持！",
-      'createTime':now
     };
     Messages.insert(noticeObj);
   },
@@ -76,7 +75,6 @@ Meteor.methods({
     var noticeObj = {
       'userId':todoUserId,
       'content':"亲，您提交的【"+partName+"】没有通过审核，(原因是："+msg+")，请您再修改一下吧",
-      'createTime':now
     };
     Messages.insert(noticeObj);
   }
