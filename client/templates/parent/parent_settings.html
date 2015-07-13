@@ -13,18 +13,17 @@
 <form class="main form page form-horizontal parent-settings-box">
   <div class="col-sm-offset-4 col-sm-4">
     <div class="form-group">
-      <label for="name">姓名</label><br>
-      {{currentUser.profile.name}}
-      <a class="pull-right" href="{{pathFor 'parentSettingsEdit'}}"><span>{{> ionIcon icon="ios-arrow-right"}}</span></a>
+      <label class="input-label" for="name">姓名</label><br>
+      {{currentUser.profile.name}} <a class="pull-right" href="{{pathFor 'parentSettingsEdit'}}"><span>{{> ionIcon icon="ios-arrow-right"}}</span></a>
     </div>
 
     <div class="form-group">
-      <label for="name">电话</label><br>
+      <label class="input-label" for="name">电话</label><br>
       {{currentUser.phoneNo}}
     </div>
 
     <div class="form-group">
-      <input class="btn btn-success btn-logout" type="button" value="退出登录"/>
+      <input class="btn btn-success button button-block button-assertive btn-logout" type="button" value="退出登录"/>
     </div>
   </div>
 </form>
