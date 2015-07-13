@@ -19,7 +19,10 @@ var toggleIonActionSheet = function() {
     },
     buttonClicked: function(index) {
       if (index === 0) {
-        Router.go("parentSettings");
+        IonActionSheet.close(function(){
+          Router.go("parentSettings");
+        });
+        return false;
       }
       return true;
     },
