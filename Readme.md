@@ -1,5 +1,12 @@
 # Malalaoshi
 
+### Preparation
+
+- Learn `Html`, `CSS`, `JS`, `LESS`, `SCSS`
+- Learn `MongoDB`
+- Learn `Git` and `Pull Request`
+- Read book `Discover Meteor`
+
 ### Getting Started
 
 1. Fork this repository
