@@ -3,6 +3,10 @@
     {{>ionNavBackButton class="button-positive" path="parentSettings" text=false}}
   {{/contentFor}}
 
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">修改姓名</h1>
+  {{/contentFor}}
+
 
 {{#ionView}}
   {{#ionContent}}
@@ -10,7 +14,7 @@
 <form class="main form page form-horizontal parent-settings-box">
   <div class="col-sm-offset-4 col-sm-4">
     <div class="form-group">
-      <label for="name">姓名</label>
+      <label class="input-label" for="name">姓名</label>
       <input class="form-control" id="name" name="name" value="{{currentUser.profile.name}}"/>
     </div>
 
