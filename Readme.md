@@ -6,6 +6,7 @@
 - Learn `MongoDB`
 - Learn `Git` and `Pull Request`
 - Read book `Discover Meteor`
+- Learn `Ionic`
 
 ### Getting Started
 
