@@ -321,10 +321,7 @@
 .modal h2{
   font-style: normal;
 }
-.teachers-title{
-  font-style: normal;
-}
-.teacher-title{
+.normal-title{
   font-style: normal;
 }
 .teacher-detail{
@@ -398,4 +395,83 @@
 }
 .teacher-detail-submit{
   padding-bottom: 50px;
+}
+.order-detail{
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+  float: left;
+}
+.order-detail > div{
+  background-color: #f1f1f1;
+  border-left: none;
+  border-right: none;
+  padding-left: 0;
+  padding-right: 0;
+}.order-detail > div:last-child{
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+}
+.order-detail > div > div:nth-child(1){
+  color: #b8b8b8;
+  font-size: 15px;
+  font-weight: bolder;
+}
+.order-detail-head{
+  font-size: 17px;
+  color: #000;
+  font-weight: normal;
+}
+.order-detail-avatar{
+  display: table;
+  float: left;
+}
+.order-detail-detail{
+  margin-top: 10px;
+  color: #b8b8b8;
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+.orders-detail{
+  width: 100%;
+  padding-right: 14px;
+  padding-left: 20px;
+  float: left;
+}
+.orders-detail > div{
+  background-color: #f1f1f1;
+  border-left: none;
+  border-right: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.orders-detail > div > div:nth-child(1){
+  color: #b8b8b8;
+  font-size: 15px;
+  font-weight: bolder;
+}
+.orders-detail .item-icon-right .icon{
+  right: 0;
+}
+.orders-detail .item{
+  background-color: #f1f1f1;
+  border-right: none;
+  border-left: none;
+}
+.orders-detail .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
+  padding-left: 0;
+}
+
+.teacher-detail-submit .button-bar > .button{
+  border-width: 1px 1px 1px 1px;
+  border-color: #ef473a;
+}
+.teacher-detail-submit .button-bar > .button:last-child{
+  margin-left: 12px;
+}
+.teacher-detail-submit .button-bar > .button:first-child {
+  border-radius: 2px 0px 0px 2px;
+  color: #ef473a;
 }
