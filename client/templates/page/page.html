@@ -5,7 +5,7 @@
             {{#if $eq currentUser.role 'admin'}}
             <div class="form-group">
                 <div class="profile-edit-title">{{{title}}}
-                <a href="/page/edit/{{name}}"><input class="btn btn-success col-sm-offset-10" aria-label="Right Align" type="button" value="编辑" /></a>
+                  <a href="{{pathFor 'adminPage'}}"><input class="btn btn-success col-sm-offset-10" aria-label="Right Align" type="button" value="编辑" /></a>
                 </div>
             </div>
             {{/if}}

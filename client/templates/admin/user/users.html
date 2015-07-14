@@ -9,18 +9,15 @@
     <tbody>
       {{#each users}}
       <tr>
-        {{> userItem}}
+        <td>{{_id}}</td>
+        <td>{{username}}</td>
+        <td>{{created}}</td>
+        <td>{{role}}</td>
+        <td>
+          <a href="{{pathFor 'adminUser'}}"><i class="lnr lnr-pencil"></i></a>
+        </td>
       </tr>
       {{/each}}
     </tbody>
   </table>
-</template>
-<template name="userItem">
-  <td>{{_id}}</td>
-  <td>{{username}}</td>
-  <td>{{created}}</td>
-  <td>{{role}}</td>
-  <td style="text-align:center;">
-    <a href="{{pathFor 'adminUser'}}"><i class="lnr lnr-pencil"></i></a>
-  </td>
 </template>
