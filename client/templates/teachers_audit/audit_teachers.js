@@ -1,7 +1,7 @@
 Template.auditTeachers.helpers({
-  teachers: function() {
-    return TeacherAudit.find({}, {sort: {submitTime: 1}});
-  }
+  // teachers: function() {
+  //   return TeacherAudit.find({}, {sort: {submitTime: 1}});
+  // }
 });
 var convStatus2Str = function(status) {
   if (!status) {
