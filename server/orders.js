@@ -1,10 +1,10 @@
 Meteor.methods({
   updateOrder: function(order) {
     var curUser = Meteor.user();
-    if (!curUser && curUser.role != "admin"){
+    if (!curUser){
       throw new Meteor.Error('权限不足', "当前用户权限不足");
     }
-    if(order.student.id != curUser._id){
+    if(curUser.role != "admin" && order.student.id != curUser._id){
       throw new Meteor.Error('权限不足', "不能操作别人的订单");
     }
     order = _.extend(order, {
@@ -24,9 +24,9 @@ Meteor.methods({
       return Orders.insert(order);
     }
   },
-  delete: function(id){
+  deleteOrder: function(id){
     var curUser = Meteor.user();
-    if (!curUser && curUser.role != "admin"){
+    if (!curUser){
       throw new Meteor.Error('权限不足', "当前用户权限不足");
     }
 
