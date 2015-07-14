@@ -79,7 +79,7 @@
           {{#if order._id}}
             {{#if $neq order.status "paid"}}
             <div class="button-bar">
-              <a class="button">取消订单</a>
+              <a class="button" id="btnDelete">取消订单</a>
               <a class="button button-assertive">付款</a>
             </div>
             {{/if}}

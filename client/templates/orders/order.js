@@ -9,7 +9,7 @@ Template.order.helpers({
     }
   },
   subject: function(){
-    return this.order && this.order.teacher ? this.order.teacher.subject : "";
+    return this.order ? this.order.subject : "";
   },
   money: function(val){
     return accounting.formatMoney(val, '');
@@ -27,7 +27,19 @@ Template.order.events({
       if (error)
         return throwError(error.reason);
 
-      Router.go("teachers");
+      Router.go("orders");
     });
+  },
+  'click #btnDelete': function(e){
+    e.preventDefault();
+
+    if(this.order && this.order._id){
+      Meteor.call('deleteOrder', this.order._id, function(error, result) {
+        if (error)
+          return throwError(error.reason);
+
+        Router.go("orders");
+      });
+    }
   }
 });

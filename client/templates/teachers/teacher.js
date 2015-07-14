@@ -44,7 +44,7 @@ Template.teacher.helpers({
 });
 
 Template.teacher.events({
-  'click #parentSettingsEdit': function(e) {
+  'click #tryExperienceCourse': function(e) {
     e.preventDefault();
 
     var user = Meteor.user();
