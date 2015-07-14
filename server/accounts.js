@@ -129,7 +129,7 @@ Meteor.methods({
       // ont new teacher, to do audit
       if (role=='teacher') {
         var nowTime = Date.now();
-        TeacherAudit.update({'userId':userId},{$set:{'submitTime':nowTime}},{'upsert':true});
+        TeacherAudit.update({'userId':userId},{$set:{'name':name,'submitTime':nowTime}},{'upsert':true});
       }
     } catch (ex) {
       console.log(ex);
@@ -196,7 +196,7 @@ Meteor.methods({
         // ont new teacher, to do audit
         if (role=='teacher') {
           var nowTime = Date.now();
-          TeacherAudit.update({'userId':userId},{$set:{'submitTime':nowTime}},{'upsert':true});
+          TeacherAudit.update({'userId':userId},{$set:{'name':name,'submitTime':nowTime}},{'upsert':true});
         }
       }
     } catch (ex) {
