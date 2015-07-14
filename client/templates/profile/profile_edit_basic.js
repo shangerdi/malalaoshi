@@ -3,17 +3,21 @@ Template.profileEditBasic.onCreated(function() {
   Session.set('settingsErrors', {});
 });
 Template.profileEditBasic.onRendered(function() {
+  var curUser = Meteor.user();
   // init area province list
-  var cur = areaOfChina.getProvince();
-  if (cur) {
-    var arrProv = cur.fetch();
-    var $proSelect = $("#addressProvince");
+  var $proSelect = $("#addressProvince");
+  var cur = areaOfChina.getProvince(function(error, arrProv){
     $.each(arrProv, function(i, obj) {
       $proSelect.append('<option value="'+obj.code+'" type="'+(obj.type?obj.type:0)+'">'+obj.name+'</option>');
     });
-  }
+    if (curUser && curUser.profile) {
+      var userAddress = curUser.profile.address;
+      if (userAddress && userAddress.province && userAddress.province.code) {
+        $proSelect.val(userAddress.province.code);
+      }
+    }
+  });
 
-  var curUser = Meteor.user();
   if (!curUser || !curUser.profile) {
     return;
   }
@@ -38,28 +42,26 @@ Template.profileEditBasic.onRendered(function() {
       this.checked = false;
     }
   });
+
   var userAddress = curUser.profile.address;
   if (userAddress && userAddress.province) {
-    if (userAddress.province.code) {
-      $("#addressProvince").val(userAddress.province.code);
-    }
     if (userAddress.city && userAddress.city.code) {
-      var cur = areaOfChina.getSubAreas(userAddress.province.code);
-      var $citySelect = $("#addressCity");
-      var arrCity = cur.fetch();
-      $.each(arrCity, function(i,obj) {
-        $citySelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+      var cur = areaOfChina.getSubAreas(userAddress.province.code, function(error, arrCity){
+        var $citySelect = $("#addressCity");
+        $.each(arrCity, function(i,obj) {
+          $citySelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+        });
+        $citySelect.val(userAddress.city.code);
       });
-      $citySelect.val(userAddress.city.code);
     }
     if (userAddress.district && userAddress.district.code) {
-      var cur = areaOfChina.getSubAreas(userAddress.city.code);
-      var $distSelect = $("#addressDistrict");
-      var arrDist = cur.fetch();
-      $.each(arrDist, function(i,obj) {
-        $distSelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+      var cur = areaOfChina.getSubAreas(userAddress.city.code, function(error, arrDist){
+        var $distSelect = $("#addressDistrict");
+        $.each(arrDist, function(i,obj) {
+          $distSelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+        });
+        $distSelect.val(userAddress.district.code);
       });
-      $distSelect.val(userAddress.district.code);
     }
   }
 });
@@ -270,24 +272,22 @@ Template.profileEditBasic.events({
     }
     var code = t.value;
     if (t.id=='addressProvince') {
-      var cur = areaOfChina.getSubAreas(code);
       var $citySelect = $("#addressCity");
       $citySelect.children(":gt(0)").remove();
       var $distSelect = $("#addressDistrict");
       $distSelect.children(":gt(0)").remove();
-      if (!cur){return;}
-      var arrCity = cur.fetch();
-      $.each(arrCity, function(i,obj) {
-        $citySelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+      var cur = areaOfChina.getSubAreas(code, function(error, arrCity){
+        $.each(arrCity, function(i,obj) {
+          $citySelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+        });
       });
     } else if (t.id=='addressCity') {
-      var cur = areaOfChina.getSubAreas(code);
       var $distSelect = $("#addressDistrict");
       $distSelect.children(":gt(0)").remove();
-      if (!cur){return;}
-      var arrDist = cur.fetch();
-      $.each(arrDist, function(i,obj) {
-        $distSelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+      var cur = areaOfChina.getSubAreas(code, function(error, arrDist){
+        $.each(arrDist, function(i,obj) {
+          $distSelect.append('<option value="'+obj.code+'">'+obj.name+'</option>');
+        });
       });
     }
   },
