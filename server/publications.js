@@ -70,12 +70,21 @@ Meteor.publish('teacher', function(userId) {
 Meteor.publish('order', function(parameters) {
   if (this.userId && parameters) {
     var ret = [];
+    if(parameters.orderId){
+      ret[ret.length] = Orders.find({_id: parameters.orderId});
+      if(!parameters.userIds){
+        parameters.userIds = [];
+      }
+      ret[ret.length-1].forEach(function (item) {
+        parameters.userIds[parameters.userIds.length] = item.teacher.id;
+        parameters.userIds[parameters.userIds.length] = item.student.id;
+      });
+      parameters.userIds = _.compact(parameters.userIds);
+    }
     if(parameters.userIds && parameters.userIds.length > 0){
       ret[ret.length] = Meteor.users.find({_id: {"$in": parameters.userIds}});
     }
-    if(parameters.orderId){
-      ret[ret.length] = Orders.find({_id: parameters.orderId});
-    }
+
     return ret;
   }
   return null;
