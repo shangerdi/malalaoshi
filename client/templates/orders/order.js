@@ -9,7 +9,7 @@ Template.order.helpers({
     }
   },
   subject: function(){
-    return this.order && this.order.teacher ? this.order.teacher.subject : "";
+    return this.order ? this.order.subject : "";
   },
   money: function(val){
     return accounting.formatMoney(val, '');
