@@ -81,7 +81,7 @@ Template.register.events({
     }
   },
 	'click #getCheckCode': function(e) {
-    var name = $("#name").val();
+    var name = $.trim($("#name").val());
     var cellphone = $("#cellphone").val();
     var password = $("#password").val();
     var params = {name:name, cellphone: cellphone, password:password};
@@ -122,7 +122,7 @@ Template.register.events({
   },
   'click #doRegister': function(e) {
     var role = $("#role").val();
-    var name = $("#name").val();
+    var name = $.trim($("#name").val());
     var cellphone = $("#cellphone").val();
     var password = $("#password").val();
     var checkCode = $("#checkCode").val();
@@ -158,6 +158,7 @@ Template.register.events({
             tokenExpires = Accounts._tokenExpiration(new Date());
           Meteor._localStorage.setItem(loginTokenExpiresKey, tokenExpires);
           Accounts.connection.setUserId(userId);
+          Accounts._setLoggingIn(true);
           if (role=="parent") {
             Router.go('teachers');
           } else {

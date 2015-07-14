@@ -125,6 +125,7 @@ Template.mylogin.events({
             tokenExpires = Accounts._tokenExpiration(new Date());
           Meteor._localStorage.setItem(loginTokenExpiresKey, tokenExpires);
           Accounts.connection.setUserId(userId);
+          Accounts._setLoggingIn(true);
           Router.go('dashboard');
         } else if (result.code==1) {
           Router.go('profile');

@@ -1,3 +1,7 @@
 <template name="directLayout">
-    {{> yield}}
+  {{#ionBody}}
+    {{#ionNavView}}
+      {{> yield}}
+    {{/ionNavView}}
+  {{/ionBody}}
 </template>
