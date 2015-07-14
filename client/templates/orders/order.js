@@ -27,7 +27,19 @@ Template.order.events({
       if (error)
         return throwError(error.reason);
 
-      Router.go("teachers");
+      Router.go("orders");
     });
+  },
+  'click #btnDelete': function(e){
+    e.preventDefault();
+
+    if(this.order && this.order._id){
+      Meteor.call('delete', this.order._id, function(error, result) {
+        if (error)
+          return throwError(error.reason);
+
+        Router.go("orders");
+      });
+    }
   }
 });
