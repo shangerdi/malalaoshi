@@ -158,6 +158,7 @@ Template.register.events({
             tokenExpires = Accounts._tokenExpiration(new Date());
           Meteor._localStorage.setItem(loginTokenExpiresKey, tokenExpires);
           Accounts.connection.setUserId(userId);
+          Accounts._setLoggingIn(true);
           if (role=="parent") {
             Router.go('teachers');
           } else {
