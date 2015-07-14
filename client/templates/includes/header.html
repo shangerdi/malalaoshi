@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{pathFor 'home'}}"><span class="title"><span class="red">非常</span>公会 <sup>{{sup}}</sup></span> &nbsp; &nbsp; <span class="subtitle">青年老师自学习社团</span></a>
+        <a class="navbar-brand" href="{{pathFor 'home'}}"><span class="title"><span class="red">{{site}}</span> <sup>{{sup}}</sup></span> &nbsp; &nbsp; <span class="subtitle">青年老师自学习社团</span></a>
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
@@ -42,7 +42,7 @@
           <a href="{{pathFor 'orders'}}">我的订单</a>
         </li>
         {{/if}}
-        <li class="{{activeRouteClass  'profileEditBasic'}}">
+        <li class="{{activeRouteClass  'profileEditBasic' 'profileEditEdu' 'profileEditCert' 'profileEditAvatar' 'profile'}}">
           <a href="{{pathFor 'profileEditBasic'}}">个人资料</a>
         </li>
         <li class="{{activeRouteClass  'messages'}}">
