@@ -1,4 +1,4 @@
-<template name="pages">
+<template name="adminPages">
   <h2>栏目管理</h2>
   <table class="table table-hover">
     <thead>
@@ -10,15 +10,15 @@
     <tbody>
       <tr>
         <td>会员权益</td>
-        <td><a href="{{pathFor 'pageEdit' name='rights'}}" class="btn btn-sm btn-audit">编辑</a></td>
+        <td><a href="{{pathFor 'adminPage' name='rights'}}" class="btn btn-sm btn-audit">编辑</a></td>
       </tr>
       <tr>
         <td>关于</td>
-        <td><a href="{{pathFor 'pageEdit' name='about'}}" class="btn btn-sm btn-audit">编辑</a></td>
+        <td><a href="{{pathFor 'adminPage' name='about'}}" class="btn btn-sm btn-audit">编辑</a></td>
       </tr>
       <tr>
         <td>加入我们</td>
-        <td><a href="{{pathFor 'pageEdit' name='jobs'}}" class="btn btn-sm btn-audit">编辑</a></td>
+        <td><a href="{{pathFor 'adminPage' name='jobs'}}" class="btn btn-sm btn-audit">编辑</a></td>
       </tr>
     </tbody>
   </table>

@@ -1,4 +1,4 @@
-Template.userEdit.events({
+Template.adminUser.events({
   'submit form': function(e) {
     e.preventDefault();
     var curForm = e.target;

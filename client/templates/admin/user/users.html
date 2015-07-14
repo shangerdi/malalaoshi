@@ -1,4 +1,4 @@
-<template name="users">
+<template name="adminUsers">
   <h5>总用户数：{{userCount}}</h5>
   <table class="table table-hover">
     <thead>
@@ -21,6 +21,6 @@
   <td>{{created}}</td>
   <td>{{role}}</td>
   <td style="text-align:center;">
-    <a href="/user/{{_id}}/edit"><i class="lnr lnr-pencil"></i></a>
+    <a href="{{pathFor 'adminUser'}}"><i class="lnr lnr-pencil"></i></a>
   </td>
 </template>

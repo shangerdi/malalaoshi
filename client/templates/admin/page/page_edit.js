@@ -1,29 +1,27 @@
-Template.pageEdit.onCreated(function() {
+Template.adminPage.onCreated(function() {
   var curUser = Meteor.user();
   if (!curUser || !(curUser.role === 'admin')){
       throw new Meteor.Error('权限不足', "当前用户权限不足");
   }
-  Session.set('pageEditErrors', {});
+  Session.set('adminPageErrors', {});
 });
 
-Template.pageEdit.rendered=function(){
+Template.adminPage.rendered=function(){
   var template=this;
   window.CKEDITOR_BASEPATH = "/ckeditor/";
 
-    $.when(
-        $.getScript("/ckeditor/ckeditor.js")
-    ).done(function(){
-        CKEDITOR.replace('editorTextArea');
-    }).fail(function(e){
-        if (console) {
-            console.log("...加载失败");
-            console.log(e);
-            console.log("..................");
-        }
-    });
+  $.when(
+    $.getScript("/ckeditor/ckeditor.js")
+  ).done(function(){
+    CKEDITOR.replace('editorTextArea');
+  }).fail(function(e){
+    if (console) {
+      console.log(e);
+    }
+  });
 };
 
-Template.pageEdit.events({
+Template.adminPage.events({
   'submit form': function(e) {
     e.preventDefault();
     var curForm = e.target;
@@ -35,7 +33,7 @@ Template.pageEdit.events({
 
     var errors = validatePage(page);
     if (errors.hasError) {
-      return Session.set('pageEditErrors', errors);
+      return Session.set('adminPageErrors', errors);
     }
 
     Meteor.call('updatePage', page, function(error, result) {
@@ -47,11 +45,11 @@ Template.pageEdit.events({
   }
 });
 
-Template.pageEdit.helpers({
+Template.adminPage.helpers({
   errorMessage: function(field) {
-    return Session.get('pageEditErrors')[field];
+    return Session.get('adminPageErrors')[field];
   },
   errorClass: function (field) {
-    return !!Session.get('pageEditErrors')[field] ? 'has-error' : '';
+    return !!Session.get('adminPageErrors')[field] ? 'has-error' : '';
   }
 });
