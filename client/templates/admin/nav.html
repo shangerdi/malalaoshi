@@ -1,0 +1,20 @@
+<template name="adminNav">
+  <div class="profile-edit-nav">
+    <div class="items">
+      <ul class="list-unstyled">
+        <li class="{{activeRouteClass 'adminUsers'}}">
+          <a href="{{pathFor 'adminUsers'}}">用户管理</a>
+        </li>
+        <li class="{{activeRouteClass 'auditTeachers' 'auditTeacher'}}">
+          <a href="{{pathFor 'auditTeachers'}}">审核老师</a>
+        </li>
+        <li class="{{activeRouteClass 'adminFeedbacks'}}">
+          <a href="{{pathFor 'adminFeedbacks'}}">用户反馈</a>
+        </li>
+        <li class="{{activeRouteClass 'adminPages' 'adminPage'}}">
+          <a href="{{pathFor 'adminPages'}}">栏目管理</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>

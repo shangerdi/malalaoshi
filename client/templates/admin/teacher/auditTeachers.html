@@ -1,23 +1,29 @@
 <template name="auditTeachers">
-  <h2>审核老师</h2>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>提交时间</th>
-        <th>姓名</th>
-        <th>基本信息</th>
-        <th>学历信息</th>
-        <th>教学资质</th>
-        <th>最后审核时间</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each teachers}}
-      {{> userAuditItem}}
-      {{/each}}
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-sm-3">
+      {{> adminNav}}
+    </div>
+    <div class="col-sm-9">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>提交时间</th>
+            <th>姓名</th>
+            <th>基本信息</th>
+            <th>学历信息</th>
+            <th>教学资质</th>
+            <th>最后审核时间</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each teachers}}
+          {{> userAuditItem}}
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 <template name="userAuditItem">
   <tr>

@@ -55,17 +55,8 @@
           <a href="{{pathFor 'feedback'}}">意见与建议</a>
         </li>
         {{#if $eq currentUser.role 'admin'}}
-        <li class="{{activeRouteClass  'adminUsers'}}">
-          <a href="{{pathFor 'adminUsers'}}">用户管理</a>
-        </li>
-        <li class="{{activeRouteClass  'auditTeachers'}}">
-          <a href="{{pathFor 'auditTeachers'}}">审核老师</a>
-        </li>
-        <li class="{{activeRouteClass  'adminFeedbacks'}}">
-          <a href="{{pathFor 'adminFeedbacks'}}">用户反馈</a>
-        </li>
-        <li class="{{activeRouteClass  'adminPages'}}">
-          <a href="{{pathFor 'adminPages'}}">栏目管理</a>
+        <li class="{{activeRouteClass  'adminUsers' 'adminUser' 'auditTeachers' 'auditTeacher' 'adminFeedbacks' 'adminPages' 'adminPage'}}">
+          <a href="{{pathFor 'adminUsers'}}">后台管理</a>
         </li>
         {{/if}}
         {{/if}}
