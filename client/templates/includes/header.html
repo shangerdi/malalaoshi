@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{pathFor 'home'}}"><span class="title"><span class="red">非常</span>公会 <sup>{{sup}}</sup></span> &nbsp; &nbsp; <span class="subtitle">青年老师自学习社团</span></a>
+        <a class="navbar-brand" href="{{pathFor 'home'}}"><span class="title"><span class="red">{{site}}</span> <sup>{{sup}}</sup></span> &nbsp; &nbsp; <span class="subtitle">青年老师自学习社团</span></a>
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
@@ -42,7 +42,7 @@
           <a href="{{pathFor 'orders'}}">我的订单</a>
         </li>
         {{/if}}
-        <li class="{{activeRouteClass  'profileEditBasic'}}">
+        <li class="{{activeRouteClass  'profileEditBasic' 'profileEditEdu' 'profileEditCert' 'profileEditAvatar' 'profile'}}">
           <a href="{{pathFor 'profileEditBasic'}}">个人资料</a>
         </li>
         <li class="{{activeRouteClass  'messages'}}">
@@ -55,17 +55,8 @@
           <a href="{{pathFor 'feedback'}}">意见与建议</a>
         </li>
         {{#if $eq currentUser.role 'admin'}}
-        <li class="{{activeRouteClass  'users'}}">
-          <a href="{{pathFor 'users'}}">用户管理</a>
-        </li>
-        <li class="{{activeRouteClass  'auditTeachers'}}">
-          <a href="{{pathFor 'auditTeachers'}}">审核老师</a>
-        </li>
-        <li class="{{activeRouteClass  'feedbacks'}}">
-          <a href="{{pathFor 'feedbacks'}}">用户反馈</a>
-        </li>
-        <li class="{{activeRouteClass  'pages'}}">
-          <a href="{{pathFor 'pages'}}">栏目管理</a>
+        <li class="{{activeRouteClass  'adminUsers' 'adminUser' 'auditTeachers' 'auditTeacher' 'adminFeedbacks' 'adminPages' 'adminPage'}}">
+          <a href="{{pathFor 'adminUsers'}}">后台管理</a>
         </li>
         {{/if}}
         {{/if}}
