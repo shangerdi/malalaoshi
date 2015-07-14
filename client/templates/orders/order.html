@@ -1,0 +1,97 @@
+<template name="order">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">{{#if order._id}}订单详情{{else}}订单确认{{/if}}</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList class="order-detail"}}
+
+        {{#ionItem}}
+        <div>
+          <div>
+            <span class="order-detail-head">
+              上课人
+            </span>
+          </div>
+          <div class="order-detail-detail">
+            {{order.student.name}} | {{phoneNum}}
+          </div>
+        </div>
+        {{/ionItem}}
+        {{#ionItem}}
+        <div>
+          <div class="order-detail-avatar">
+            <span class="order-detail-head">
+              {{order.className}}
+            </span>
+            <div class="order-detail-detail">
+              {{order.teacher.name}} | {{subject}}
+            </div>
+          </div>
+          <div class="teacher-avatar">
+            <img src="{{teacher.profile.avatarUrl}}" class="img-responsive img-circle" >
+          </div>
+        </div>
+        {{/ionItem}}
+        {{#ionItem}}
+        <div>
+          <div>
+            <span class="order-detail-head">
+              课时
+            </span>
+          </div>
+          <div class="order-detail-detail">
+            {{formatNum order.hour}}小时
+          </div>
+        </div>
+        {{/ionItem}}
+        {{#ionItem}}
+        <div>
+          <div>
+            <span class="order-detail-head">
+              课程单价
+            </span>
+          </div>
+          <div class="order-detail-detail">
+            ￥{{money order.unitCost}}
+          </div>
+        </div>
+        {{/ionItem}}
+        {{#ionItem}}
+        <div>
+          <div>
+            <span class="order-detail-head">
+              课程总价
+            </span>
+          </div>
+          <div class="order-detail-detail">
+            ￥{{money order.cost}}
+          </div>
+        </div>
+        {{/ionItem}}
+        {{#ionItem}}
+        <div class="teacher-detail-submit">
+          {{#if order._id}}
+            {{#if $neq order.status "paid"}}
+            <div class="button-bar">
+              <a class="button">取消订单</a>
+              <a class="button button-assertive">付款</a>
+            </div>
+            {{/if}}
+          {{else}}
+          <button id="btnSaveAndPay" class="button button-full button-assertive">
+            确认并支付
+          </button>
+          {{/if}}
+        </div>
+        {{/ionItem}}
+
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>
