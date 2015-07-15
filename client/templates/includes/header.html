@@ -48,12 +48,6 @@
         <li class="{{activeRouteClass  'messages'}}">
           <a href="{{pathFor 'messages'}}">消息</a>
         </li>
-        <li class="{{activeRouteClass  'rights'}}">
-          <a href="{{pathFor 'rights'}}">会员权益</a>
-        </li>
-        <li class="{{activeRouteClass  'feedback'}}">
-          <a href="{{pathFor 'feedback'}}">意见与建议</a>
-        </li>
         {{#if $eq currentUser.role 'admin'}}
         <li class="{{activeRouteClass  'adminUsers' 'adminUser' 'auditTeachers' 'auditTeacher' 'adminFeedbacks' 'adminPages' 'adminPage'}}">
           <a href="{{pathFor 'adminUsers'}}">后台管理</a>
