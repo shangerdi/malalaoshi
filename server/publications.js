@@ -23,14 +23,14 @@ Meteor.publish('curUserCertification', function() {
   return UserCertification.find({userId: this.userId});
 });
 
-Meteor.publish('teacherAudits', function(options) {
+Meteor.publish('teacherAudits', function(param) {
   var curUser = Meteor.users.findOne(this.userId);
   if (!curUser) {
     this.ready();
     return;
   }
   if (curUser.role=='admin'||curUser.role=='manager') {
-    return TeacherAudit.find({}, options);
+    return TeacherAudit.find(param.find, param.options);
   } else {
     return TeacherAudit.find({userId: this.userId});
   }

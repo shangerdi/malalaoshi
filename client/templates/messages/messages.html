@@ -21,7 +21,7 @@
   <br>
   {{#if viewedMessageCount}}
   <div class="hist-message">
-    <a>历史消息 &nbsp;<i class="lnr lnr-chevron-down"></i></a>
+    <a>历史消息 &nbsp;<i class="mala mala-chevron-down"></i></a>
     <ul class="list-unstyled viewed message-list">
       {{#each viewedMessages}}
       {{> viewedMessageItem}}
@@ -39,7 +39,7 @@
       <span class="text {{#if $not read}}unread{{/if}}">{{content}}</span>
       <span class="pull-right">
         <span class="datetime">{{created}}</span>
-        <a class="action" title="删除"><span class="lnr lnr-cross"></span></a>
+        <a class="action" title="删除"><span class="mala mala-cross"></span></a>
       </span>
     </div>
   </li>

@@ -4,6 +4,18 @@
       {{> adminNav}}
     </div>
     <div class="col-sm-9">
+      <div>
+        <label>状态筛选：</label>
+        <select name="state">
+          <option value="">全部</option>
+          <option value="new">新注册</option>
+          <option value="todo">待处理</option>
+          <option value="partOk">部分通过</option>
+          <option value="allOk">已通过</option>
+        </select>
+        <a class="btn btn-search"><span class="ion-search"></span></a>
+      </div>
+      <h5><span>总数: {{totalCount}}</span> <span>未提交数: {{unsubmitCount}}</span> <span>待处理数: {{todoCount}}</span> <span>通过数: {{approvedCount}}</span></h5>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -36,9 +48,9 @@
   <tr>
     <td>{{submitTime}}</td>
     <td>{{name}}</td>
-    <td>{{auditStatus 'basic'}}</td>
-    <td>{{auditStatus 'edu'}}</td>
-    <td>{{auditStatus 'cert'}}</td>
+    <td class="audit-status-{{auditStatus 'basic'}}">{{auditStatusStr 'basic'}}</td>
+    <td class="audit-status-{{auditStatus 'edu'}}">{{auditStatusStr 'edu'}}</td>
+    <td class="audit-status-{{auditStatus 'cert'}}">{{auditStatusStr 'cert'}}</td>
     <td>{{auditTime}}</td>
     <td><a class="btn-audit">{{actionText}}</a></td>
   </tr>

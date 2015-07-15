@@ -10,8 +10,7 @@ Template.adminUser.events({
     Meteor.call('updateUserRole', user, function(error, result) {
       if (error)
         return throwError(error.reason);
-
-      Router.go('users');
+      Router.go('adminUsers');
     });
 
   }

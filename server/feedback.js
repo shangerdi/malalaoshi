@@ -6,6 +6,7 @@ Meteor.methods({
     var user = Meteor.user();
     var obj = {
       userId: this.userId,
+      name: user.profile.name,
       phoneNo: user.phoneNo,
       content: content
     };
