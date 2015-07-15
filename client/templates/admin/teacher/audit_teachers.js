@@ -18,32 +18,36 @@ Template.userAuditItem.helpers({
   submitTime: function() {
     return moment(this.submitTime, 'x').fromNow();
   },
-  basicInfoAuditStatus: function() {
-    if (this.basicInfo && this.basicInfo.status) {
-      return convStatus2Str(this.basicInfo.status);
-    } else {
-      return convStatus2Str(false);
+  auditStatus: function(part) {
+    var partInfo = this[part+'Info'];
+    if (partInfo) {
+      return convStatus2Str(partInfo.status);
     }
-  },
-  eduInfoAuditStatus: function() {
-    if (this.eduInfo && this.eduInfo.status) {
-      return convStatus2Str(this.eduInfo.status);
-    } else {
-      return convStatus2Str(false);
-    }
-  },
-  certInfoAuditStatus: function() {
-    if (this.certInfo && this.certInfo.status) {
-      return convStatus2Str(this.certInfo.status);
-    } else {
-      return convStatus2Str(false);
-    }
+    return convStatus2Str(false);
   },
   auditTime: function() {
     if (!this.auditTime) {
       return "-";
     }
     return moment(this.auditTime, 'x').fromNow();
+  },
+  actionText: function() {
+    var unsubmitCount=0, auditedCount = 0, _selfData=this;
+    _.each(TeacherAuditParts, function(part){
+      var partInfo = _selfData[part+'Info'];
+      if (!partInfo || !partInfo.status) {
+        unsubmitCount++;
+      } else if (partInfo.status!=='submited') {
+        auditedCount++;
+      }
+    });
+    if (unsubmitCount===3) {
+      return "-";
+    }
+    if (auditedCount===3) {
+      return "查看";
+    }
+    return "审核";
   }
 });
 Template.userAuditItem.events({

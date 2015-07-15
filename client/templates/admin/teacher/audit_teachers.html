@@ -36,10 +36,10 @@
   <tr>
     <td>{{submitTime}}</td>
     <td>{{name}}</td>
-    <td>{{basicInfoAuditStatus}}</td>
-    <td>{{eduInfoAuditStatus}}</td>
-    <td>{{certInfoAuditStatus}}</td>
+    <td>{{auditStatus 'basic'}}</td>
+    <td>{{auditStatus 'edu'}}</td>
+    <td>{{auditStatus 'cert'}}</td>
     <td>{{auditTime}}</td>
-    <td><a class="btn-audit">审核</a></td>
+    <td><a class="btn-audit">{{actionText}}</a></td>
   </tr>
 </template>
