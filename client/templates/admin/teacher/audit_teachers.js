@@ -1,7 +1,10 @@
 Template.auditTeachers.helpers({
-  // teachers: function() {
-  //   return TeacherAudit.find({}, {sort: {submitTime: 1}});
-  // }
+});
+Template.auditTeachers.events({
+  'click .btn.btn-search': function(e){
+    var state = $('[name=state]').val();
+    Session.set('state', state);
+  }
 });
 var convStatus2Str = function(status) {
   if (!status) {
