@@ -20,7 +20,6 @@ nemo64:bootstrap
 markdown
 momentjs:moment
 rzymek:moment-locale-zh-cn
-lsun:linearicons
 fourseven:scss@2.0.0
 meteoric:ionic-sass
 meteoric:ionicons-sass
@@ -32,3 +31,4 @@ meteorhacks:kadira-profiler
 lepozepo:accounting
 raix:handlebar-helpers
 meteoric:autoform-ionic
+malaicon

@@ -22,12 +22,12 @@ Template.messageItem.events({
 Template.messages.events({
   'click a': function() {
     $('.viewed.message-list').toggle();
-    $('.hist-message i.lnr').toggleClass(function(){
-      if ($(this).hasClass('lnr-chevron-down')) {
-        return 'lnr-chevron-right';
+    $('.hist-message i.mala').toggleClass(function(){
+      if ($(this).hasClass('mala-chevron-down')) {
+        return 'mala-chevron-right';
       }
       else {
-        return 'lnr-chevron-down';
+        return 'mala-chevron-down';
       }
     });
   }
