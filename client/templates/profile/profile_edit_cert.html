@@ -16,7 +16,7 @@
       </div>
       <div class="profile-edit-title">教学资质</div>
       <div class="profile-edit-cert">
-        <div class="row cert-upload-box">
+        <div class="clearfix cert-upload-box">
           <div class="col-sm-5 cert-img-box">
             <div class="img-box"><img src={{certInfo.teacherCertImgUrl}}></div>
             <div class="uploading-hint-box">{{>loading}}</div>
@@ -39,7 +39,7 @@
 
         <div class="cert-profession-items">
           {{#each professionItems}}
-            <div class="row cert-upload-box">
+            <div class="clearfix cert-upload-box">
               <div class="col-sm-5 cert-img-box">
                 <div class="img-box"><img src={{certImgUrl}}></div>
                 <div class="uploading-hint-box">{{>loading}}</div>
@@ -62,7 +62,7 @@
             </div>
           {{/each}}
           {{#if proItemsEmpty}}
-          <div class="row cert-upload-box">
+          <div class="clearfix cert-upload-box">
             <div class="col-sm-5 cert-img-box">
               <div class="img-box"><img src={{certImgUrl}}></div>
               <div class="uploading-hint-box">{{>loading}}</div>
@@ -90,6 +90,8 @@
           <div>
             <a class="btn btn-add-edu-item"><span class="mala mala-plus-circle"></span> 添加专业资质认证</a>
           </div>
+        </div>
+        <div class="row">
           <div>
             <input class="btn btn-success btn-save" type="button" value="保存">
           </div>
