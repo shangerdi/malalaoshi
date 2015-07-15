@@ -8,6 +8,10 @@ Template.parentSettingsEdit.events({
     if (newname!==Meteor.user().profile.name) {
       Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.name':newname}});
     }
-    Router.go('parentSettings');
+    if (Meteor.isCordova) {
+      Router.go('parentSettings');
+    } else {
+      Router.go('parentDashboard');
+    }
   }
 });
