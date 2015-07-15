@@ -21,6 +21,13 @@ Template.userAuditItem.helpers({
   auditStatus: function(part) {
     var partInfo = this[part+'Info'];
     if (partInfo) {
+      return partInfo.status;
+    }
+    return 'unsubmit';
+  },
+  auditStatusStr: function(part) {
+    var partInfo = this[part+'Info'];
+    if (partInfo) {
       return convStatus2Str(partInfo.status);
     }
     return convStatus2Str(false);
@@ -32,22 +39,22 @@ Template.userAuditItem.helpers({
     return moment(this.auditTime, 'x').fromNow();
   },
   actionText: function() {
-    var unsubmitCount=0, auditedCount = 0, _selfData=this;
+    var unsubmitCount=0, todo=false, _selfData=this;
     _.each(TeacherAuditParts, function(part){
       var partInfo = _selfData[part+'Info'];
       if (!partInfo || !partInfo.status) {
         unsubmitCount++;
-      } else if (partInfo.status!=='submited') {
-        auditedCount++;
+      } else if (partInfo.status==='submited') {
+        todo=true;
       }
     });
     if (unsubmitCount===3) {
       return "-";
     }
-    if (auditedCount===3) {
-      return "查看";
+    if (todo) {
+      return "审核";
     }
-    return "审核";
+    return "查看";
   }
 });
 Template.userAuditItem.events({
