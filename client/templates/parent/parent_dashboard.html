@@ -1,0 +1,21 @@
+<template name="parentDashboard">
+{{#ionView}}
+  {{#ionContent}}
+
+  <div class="main profile-dashboard">
+    <div class="row">
+      {{>parentBanner}}
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        {{>parentLeft}}
+      </div>
+      <div class="col-sm-9">
+        {{>messages}}
+      </div>
+    </div>
+  </div>
+
+  {{/ionContent}}
+{{/ionView}}
+</template>
