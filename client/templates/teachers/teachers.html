@@ -9,36 +9,37 @@
     <h1 class="title normal-title">麻辣老师</h1>
   {{/contentFor}}
 
-  {{#ionView}}
+  {{#ionView class="teachers-grid-view"}}
     {{#ionContent}}
       {{#ionList}}
+        <div class="teachers-grid">
         {{#each teachers}}
-          <div class="teacher-item-out">
           {{> teacherItem}}
-          </div>
         {{/each}}
+        </div>
       {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
 </template>
 
 <template name="teacherItem">
-  <a class="item teacher-item" href="{{pathFor 'teacher' id=this._id}}">
-  <div class="teacher">
-    <div class="teacher-content">
-      <div class="teacher-head">
-        <h3>{{profile.name}}<span>{{subject}}</span></h3>
+  <a href="{{pathFor 'teacher' id=this._id}}">
+    <div class="col col-50">
+      <div>
+        <img src="{{profile.avatarUrl}}" class="img-responsive">
+        <div>{{subject}}</div>
       </div>
-      <div class="teacher-cert">
-        <div><i class="icon ion-checked ion-checkmark-circled"></i> <span>基本信息</span></div>
-        <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教育信息</span></div>
-        <div><i class="icon ion-checked {{#if cert}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教学资质</span></div>
+      <div>
+        <div>
+          <h3>{{profile.name}}</h3>
+        </div>
+        <div>
+          <i class="mala mala-id teacher-icon-id-active"></i>
+          <i class="mala mala-edu {{#if eduAudit}}teacher-icon-edu-active{{else}}teacher-icon-inactive{{/if}}"></i>
+          <i class="mala mala-cert {{#if cert}}teacher-icon-cert-active{{else}}teacher-icon-inactive{{/if}}"></i>
+        </div>
       </div>
     </div>
-    <div class="teacher-avatar">
-      <img src="{{profile.avatarUrl}}" class="img-responsive img-circle" >
-    </div>
-  </div>
   </a>
 </template>
 
