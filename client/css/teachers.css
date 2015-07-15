@@ -475,3 +475,85 @@
   border-radius: 2px 0px 0px 2px;
   color: #ef473a;
 }
+.teachers-grid-view{
+  background-color: #ffffff;
+}
+.teachers-grid > a > div > div:first-child{
+  height: 100px;
+}
+.teachers-grid > a > div{
+  float: left;
+  padding: 8px 8px 0 8px;
+  border: solid #d2d2d2 1px;
+  border-top: none;
+}
+.teachers-grid > a > div:nth-child(2n+1){
+  border-left: none;
+}
+.teachers-grid > a > div:nth-child(2n){
+  border-left: none;
+  border-right: none;
+}
+.teachers-grid > a:first-child > div{
+  border-top: solid #d2d2d2 1px;
+}
+.teachers-grid > a:nth-child(2) > div{
+  border-top: solid #d2d2d2 1px;
+}
+.teachers-grid h3{
+  font-size: 17px;
+}
+.teachers-grid > a > div > div:first-child img{
+  width: 100%;
+  height: 100%;
+}
+.teachers-grid > a > div > div:first-child > div{
+  width: 80px;
+  height: 25px;
+  font-size: 17px;
+  font-weight: bold;
+  bottom: 30px;
+  display: -webkit-inline-box;
+  background-color: #303030;
+  color: #ffffff;
+  filter:alpha(opacity=20);
+  -moz-opacity:0.8;
+  opacity:0.8;
+  position:relative;
+  display:table-cell;
+  vertical-align:middle;
+  text-align: center;
+}
+.teachers-grid > a > div > div:last-child{
+  padding-top: 10px;
+}
+.teachers-grid > a > div > div:last-child > div:first-child{
+  float: left;
+  overflow: hidden;
+  white-space:nowrap;
+  width: 64%;
+}
+.teachers-grid > a > div > div:last-child > div:last-child{
+  float: right;
+  font-size: 18px;
+}
+.teacher-icon-inactive{
+  color: #cacaca;
+}
+.teacher-icon-id-active{
+  color: #fdc922;
+}
+.teacher-icon-edu-active{
+  color: #fc9a25;
+}
+.teacher-icon-cert-active{
+  color: #e65b0d;
+}
+.teachers-grid i{
+  display: block;
+  float: left;
+  margin-left: 3px;
+}
+.teachers-grid i:first-child{
+  margin-left: 0
+}
