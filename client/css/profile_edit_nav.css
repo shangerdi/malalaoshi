@@ -115,3 +115,9 @@
 .profile-edit-cert .btns-box .action-btn-box{
   display: none;
 }
+.parent-settings-box .settings-row {
+  border-bottom: 1px #ccc solid;
+}
+.parent-settings-box .settings-row .content{
+  line-height: 44px;
+}
