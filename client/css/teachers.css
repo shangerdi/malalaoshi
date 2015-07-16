@@ -503,10 +503,8 @@
 .teachers-grid h3{
   font-size: 17px;
 }
-.teachers-grid > a > div > div:first-child img{
-  width: 100%;
-}
-.teachers-grid > a > div > div:first-child > div{
+
+.teacher-subject{
   width: 80px;
   height: 25px;
   font-size: 17px;
@@ -523,16 +521,16 @@
   vertical-align:middle;
   text-align: center;
 }
-.teachers-grid > a > div > div:last-child{
+.teacher-profile{
   padding-top: 10px;
 }
-.teachers-grid > a > div > div:last-child > div:first-child{
+.teacher-profile > div:first-child{
   float: left;
   overflow: hidden;
   white-space:nowrap;
   width: 64%;
 }
-.teachers-grid > a > div > div:last-child > div:last-child{
+.teacher-profile > div:last-child{
   float: right;
   font-size: 18px;
 }
