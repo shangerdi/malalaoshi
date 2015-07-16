@@ -2,7 +2,7 @@ Template.registerHelper('created', function(){
   return moment(this.createdAt).fromNow();
 });
 Template.registerHelper('site', function(){
-  return '非常老师';
+  return SITE_NAME;
 });
 
 Template.registerHelper('isCordova', function(){
