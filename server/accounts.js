@@ -42,9 +42,8 @@ Meteor.methods({
       CheckCodeCache.update({_id:cellphone}, {$set:{checkCode:checkCode, createTime:new Date().getTime()}}, {upsert: true});
     }
     // build sms message
-    var companyName = "非常公会";
     var apikey = "4094d66bedf5ef7cb3134b4da6c12a0e";
-    var smsMsg = "【"+companyName+"】您的验证码是"+checkCode;
+    var smsMsg = "【"+SITE_NAME+"】您的验证码是"+checkCode;
     var params = {apikey: apikey, mobile: cellphone, text: smsMsg};
     console.log('Mobile num: <' + cellphone + '>, Check code: <' + checkCode + '>');
     try {

@@ -14,7 +14,6 @@ accounts-password
 joshowens:accounts-entry
 http
 anderson916:meteor-alipay
-edgee:slingshot
 less
 nemo64:bootstrap
 markdown
@@ -32,3 +31,4 @@ lepozepo:accounting
 raix:handlebar-helpers
 meteoric:autoform-ionic
 malaicon
+lsun:slingshot
