@@ -1,3 +1,6 @@
+Template.order.onRendered(function () {
+  IonNavigation.skipTransitions = true;
+});
 Template.order.helpers({
   phoneNum: function(){
     if(this.order && this.order.student && this.order.student.phoneNo){
