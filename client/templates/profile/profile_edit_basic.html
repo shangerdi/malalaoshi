@@ -17,7 +17,7 @@
             <div class="form-group {{errorClass 'name'}}">
               <label class="col-sm-2 control-label" for="name">姓名</label>
               <div class="col-sm-10 controls">
-                <input name="name" id="name" type="text" value="{{currentUser.profile.name}}" placeholder="输入您的真实姓名" class="form-control pc" />
+                <input name="name" id="name" type="text" value="{{currentUser.profile.name}}" placeholder="输入您的真实姓名" class="form-control {{#unless isCordova}}pc{{/unless}}" />
                 <span class="help-block">{{errorMessage 'name'}}</span>
               </div>
             </div>
@@ -43,17 +43,17 @@
                 <label class="col-sm-2 control-label" for="birthday">出生日期<span class="glyphicon glyphicon-lock" aria-hidden="true" title="受保护的信息"></span></label>
                 <div class="col-sm-10 controls form-inline">
                   <div class="clearfix">
-                    <select class="col-sm-2 form-control birthday" id="birthdayYear" name="birthdayYear" value="{{birthdayYear}}">
+                    <select class="form-control birthday" id="birthdayYear" name="birthdayYear" value="{{birthdayYear}}">
                       {{#each years}}
                       <option>{{y}}</option>
                       {{/each}}
                     </select>
-                    <select class="col-sm-2 form-control birthday" id="birthdayMonth" name="birthdayMonth" value="{{birthdayMonth}}">
+                    <select class="form-control birthday" id="birthdayMonth" name="birthdayMonth" value="{{birthdayMonth}}">
                       {{#each months}}
                       <option>{{m}}</option>
                       {{/each}}
                     </select>
-                    <select class="col-sm-2 form-control birthday" id="birthdayDay" name="birthdayDay" value="{{birthdayDay}}">
+                    <select class="form-control birthday" id="birthdayDay" name="birthdayDay" value="{{birthdayDay}}">
                       {{#each days}}
                       <option>{{d}}</option>
                       {{/each}}
@@ -84,17 +84,17 @@
                     {{#if currentUser.profile.subjects.length}}
                     {{#each currentUser.profile.subjects}}
                     <div class="subject-item clearfix">
-                      <select class="form-control address" name="school" value="{{school}}">
+                      <select class="form-control" name="school" value="{{school}}">
                         {{#each eduSchoolList school}}
                         <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                         {{/each}}
                       </select>
-                      <select class="form-control address" name="subject" value="{{subject}}">
+                      <select class="form-control" name="subject" value="{{subject}}">
                         {{#each eduSubjectList school subject}}
                         <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                         {{/each}}
                       </select>
-                      <select class="form-control address" name="grade" value="{{grade}}">
+                      <select class="form-control" name="grade" value="{{grade}}">
                         {{#each eduGradeList school grade}}
                         <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                         {{/each}}
@@ -104,17 +104,17 @@
                     {{/each}}
                     {{else}}
                     <div class="subject-item clearfix">
-                      <select class="form-control address" name="school" value="{{school}}">
+                      <select class="form-control" name="school" value="{{school}}">
                         {{#each eduSchoolList school}}
                         <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                         {{/each}}
                       </select>
-                      <select class="form-control address" name="subject" value="{{subject}}">
+                      <select class="form-control" name="subject" value="{{subject}}">
                         {{#each eduSubjectList school subject}}
                         <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                         {{/each}}
                       </select>
-                      <select class="form-control address" name="grade" value="{{grade}}">
+                      <select class="form-control" name="grade" value="{{grade}}">
                         {{#each eduGradeList school grade}}
                         <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                         {{/each}}
