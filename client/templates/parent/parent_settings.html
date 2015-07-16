@@ -11,18 +11,18 @@
   {{#ionContent}}
 
 <form class="main form page form-horizontal parent-settings-box">
-  <div class="col-sm-offset-4 col-sm-4">
-    <div class="form-group">
-      <label class="input-label" for="name">姓名</label><br>
-      {{currentUser.profile.name}} <a class="pull-right" href="{{pathFor 'parentSettingsEdit'}}"><span>{{> ionIcon icon="ios-arrow-right"}}</span></a>
+  <div class="col-xs-offset-0 col-xs-12 col-sm-offset-4 col-sm-4">
+    <div class="form-group settings-row">
+      <label class="input-label" for="name">姓名</label>
+      <div class="content">{{currentUser.profile.name}} <a class="btn pull-right" href="{{pathFor 'parentSettingsEdit'}}"><span>{{> ionIcon icon="ios-arrow-right"}}</span></a></div>
     </div>
 
-    <div class="form-group">
-      <label class="input-label" for="name">电话</label><br>
-      {{currentUser.phoneNo}}
+    <div class="form-group settings-row">
+      <label class="input-label" for="name">电话</label>
+      <div class="content">{{currentUser.phoneNo}}</div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group logout-btn-box">
       <input class="btn btn-success button button-block button-assertive btn-logout" type="button" value="退出登录"/>
     </div>
   </div>

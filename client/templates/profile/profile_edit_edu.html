@@ -6,11 +6,11 @@
   <div class="row">
     {{>profileBanner}}
   </div>
-  <div class="row">
-    <div class="col-sm-3">
+  <div class="mala-row">
+    <div class="col-xs-12 col-sm-3">
       {{>profileEditNav}}
     </div>
-    <div class="col-sm-9">
+    <div class="col-xs-12 col-sm-9">
       <div class="profile-edit-title">教育信息</div>
       <form class="form form-horizontal profile-edit-edu">
         <div class="profile-edu-items">
@@ -56,7 +56,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label" for="college">毕业院校</label>
     <div class="col-sm-6 controls">
-      <input class="form-control" name="college" type="text" value="{{college}}" placeholder="输入您的大学名称"/>
+      <input class="form-control {{platform}}" name="college" type="text" value="{{college}}" placeholder="输入您的大学名称"/>
       <span class="help-block"></span>
     </div>
   </div>
@@ -64,7 +64,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label" for="major">专业</label>
     <div class="col-sm-6 controls">
-      <input class="form-control" name="major" type="text" value="{{major}}" placeholder="输入您所学的专业"/>
+      <input class="form-control {{platform}}" name="major" type="text" value="{{major}}" placeholder="输入您所学的专业"/>
       <span class="help-block"></span>
     </div>
   </div>

@@ -237,7 +237,7 @@ Template.profileEditBasic.events({
     if (errors.hasError) {
       if (errors.subjects) {
         var i = errors.subjects_seq;
-        $('.subject-item'+(i?':eq('+(i-1)+')':'')).addClass('has-error');
+        $('.subject-item:visible'+(i?':eq('+(i-1)+')':'')).addClass('has-error');
       }
       return Session.set('settingsErrors', errors);
     }
@@ -293,6 +293,7 @@ Template.profileEditBasic.events({
   },
   'click .btn-add-edu-item': function(e) {
     $item = $(".subject-item").last().clone();
+    $item.removeClass('has-error');
     $item.show();
     $item.find("input[type=checkbox]").removeAttr('checked');
     $item.find("select").val("");

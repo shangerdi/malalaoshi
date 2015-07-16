@@ -8,6 +8,12 @@ Template.registerHelper('site', function(){
 Template.registerHelper('isCordova', function(){
   return Meteor.isCordova;
 });
+Template.registerHelper('platform', function(){
+  if (Meteor.isCordova) {
+    return 'cordova';
+  }
+  return 'browser';
+});
 Template.registerHelper('activeRouteClass', function(/* route names */) {
   var args = Array.prototype.slice.call(arguments, 0);
   args.pop();
