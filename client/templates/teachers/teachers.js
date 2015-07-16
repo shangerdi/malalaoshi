@@ -1,3 +1,6 @@
+Template.teachers.onRendered(function () {
+  IonNavigation.skipTransitions = true;
+});
 Template.teacherItem.onCreated(function() {
   this.data.user = Meteor.users.findOne({_id: this.data.userId});
 });

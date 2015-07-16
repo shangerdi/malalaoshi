@@ -1,3 +1,6 @@
+Template.teacher.onRendered(function () {
+  IonNavigation.skipTransitions = true;
+});
 Template.teacher.helpers({
   genderFemale: function(v){
     return this.user.profile && this.user.profile.gender == '女';
