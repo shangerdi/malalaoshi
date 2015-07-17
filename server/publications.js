@@ -13,7 +13,7 @@ Meteor.publish('feedbacks', function() {
   return Feedbacks.find();
 });
 Meteor.publish('allusers', function() {
-  return Meteor.users.find({}, {fields:{role:1,username:1,createdAt:1}});
+  return Meteor.users.find({}, {fields:{role:1,username:1,createdAt:1, profile:1}});
 });
 
 Meteor.publish('curUserEducation', function() {
