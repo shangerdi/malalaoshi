@@ -19,7 +19,7 @@ var convStatus2Str = function(status) {
 }
 Template.userAuditItem.helpers({
   submitTime: function() {
-    return moment(this.submitTime, 'x').fromNow();
+    return fromNowReactive(moment(this.submitTime, 'x'));
   },
   auditStatus: function(part) {
     var partInfo = this[part+'Info'];
@@ -39,7 +39,7 @@ Template.userAuditItem.helpers({
     if (!this.auditTime) {
       return "-";
     }
-    return moment(this.auditTime, 'x').fromNow();
+    return fromNowReactive(moment(this.auditTime, 'x'));
   },
   actionText: function() {
     var unsubmitCount=0, todo=false, _selfData=this;
