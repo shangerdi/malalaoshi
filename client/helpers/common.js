@@ -1,5 +1,13 @@
+var timeTick = new Tracker.Dependency();
+Meteor.setInterval(function () {
+    timeTick.changed();
+}, 20000);
+fromNowReactive = function (mmt) {
+  timeTick.depend();
+  return mmt.fromNow();
+}
 Template.registerHelper('created', function(){
-  return moment(this.createdAt).fromNow();
+  return fromNowReactive(moment(this.createdAt));
 });
 Template.registerHelper('site', function(){
   return SITE_NAME;
