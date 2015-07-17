@@ -478,7 +478,7 @@
 .teachers-grid-view{
   background-color: #ffffff;
 }
-.teachers-grid > a > div > div:first-child{
+.teacher-div > div:first-child{
   position:relative;
 }
 .teachers-grid > a > div{
@@ -487,19 +487,7 @@
   border: solid #d2d2d2 1px;
   border-top: none;
 }
-.teachers-grid > a > div:nth-child(2n+1){
-  border-left: none;
-}
-.teachers-grid > a > div:nth-child(2n){
-  border-left: none;
-  border-right: none;
-}
-.teachers-grid > a:first-child > div{
-  border-top: solid #d2d2d2 1px;
-}
-.teachers-grid > a:nth-child(2) > div{
-  border-top: solid #d2d2d2 1px;
-}
+
 .teachers-grid h3{
   font-size: 17px;
 }
@@ -507,6 +495,7 @@
 .teacher-subject{
   width: 80px;
   height: 25px;
+  line-height: 25px;
   font-size: 17px;
   font-weight: bold;
   bottom: 30px;

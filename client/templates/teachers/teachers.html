@@ -23,8 +23,8 @@
 </template>
 
 <template name="teacherItem">
-  <a href="{{pathFor 'teacher' id=this._id}}">
-    <div class="col col-50">
+  <a href="{{pathFor 'teacher' id=this._id}}" class="teacher-a">
+    <div class="col teacher-div">
       <div>
         <img src="{{profile.avatarUrl}}" class="img-responsive">
         <div class="teacher-subject">{{subject}}</div>
