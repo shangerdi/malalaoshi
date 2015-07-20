@@ -21,11 +21,11 @@ var getAuditStatus = function(auditInfo, part) {
 }
 Template.auditTeacher.helpers({
   auditInfo: function() {
-    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params.userId});
     return auditInfo;
   },
   getSubmitTime: function(part) {
-    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params.userId});
     var partInfo = getPartAuditInfo(auditInfo, part);
     if (!partInfo || !partInfo.submitTime) {
       return "";
@@ -34,22 +34,22 @@ Template.auditTeacher.helpers({
     return submitDate.getFullYear()+'-'+(submitDate.getMonth()+1)+'-'+submitDate.getDate()+' '+submitDate.getHours()+':'+submitDate.getMinutes();
   },
   isTodoAudit: function(part) {
-    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params.userId});
     var status = getAuditStatus(auditInfo, part);
     return (status=='submited');
   },
   getAuditStatus: function(part) {
-    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params.userId});
     var status = getAuditStatus(auditInfo, part);
     return status;
   },
   getAuditStatusStr: function(part) {
-    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params.userId});
     var status = getAuditStatus(auditInfo, part);
     return convStatus2Str(status);
   },
   getAuditTime: function(part) {
-    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params._userId});
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params.userId});
     var partInfo = getPartAuditInfo(auditInfo, part);
     if (!partInfo || !partInfo.auditTime) {
       return "";
@@ -58,7 +58,7 @@ Template.auditTeacher.helpers({
     return dateObj.getFullYear()+'-'+(dateObj.getMonth()+1)+'-'+dateObj.getDate()+' '+dateObj.getHours()+':'+dateObj.getMinutes();
   },
   basicInfo: function() {
-    var user = Meteor.users.findOne(Router.current().params._userId);
+    var user = Meteor.users.findOne(Router.current().params.userId);
     return user.profile;
   },
   getStateStr: function(state) {
@@ -77,7 +77,7 @@ Template.auditTeacher.helpers({
     return getEduGradeText(v);
   },
   address: function() {
-    var basicInfo = Meteor.users.findOne(Router.current().params._userId).profile;
+    var basicInfo = Meteor.users.findOne(Router.current().params.userId).profile;
     if (!basicInfo || !basicInfo.address) {
       return "";
     }
@@ -99,20 +99,20 @@ Template.auditTeacher.helpers({
     return addressStr;
   },
   eduInfo: function() {
-    return UserEducation.findOne({userId: Router.current().params._userId});
+    return UserEducation.findOne({userId: Router.current().params.userId});
   },
   getDegreeStr: function(degree) {
     return getEduDegreeText(degree);
   },
   certInfo: function() {
-    return UserCertification.findOne({userId: Router.current().params._userId});
+    return UserCertification.findOne({userId: Router.current().params.userId});
   }
 });
 Template.auditTeacher.events({
   'click .btn-approve': function(e) {
     var ele = e.target, $ele = $(ele);
     var part = $ele.data('part');
-    var userId = Router.current().params._userId;
+    var userId = Router.current().params.userId;
     var params = {
       'userId': userId,
       'part': part
@@ -133,7 +133,7 @@ Template.auditTeacher.events({
   'click .btn-reject-confirm': function(e) {
     var ele = e.target, $ele = $(ele);
     var part = $ele.data('part');
-    var userId = Router.current().params._userId;
+    var userId = Router.current().params.userId;
     $rejectPart = $("."+part+"-info-reject");
     $rejectPart.removeClass("has-error");
     $rejectPart.find(".help-block").text("");

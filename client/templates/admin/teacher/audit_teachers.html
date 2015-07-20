@@ -1,9 +1,9 @@
 <template name="auditTeachers">
   <div class="mala-row">
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       {{> adminNav}}
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-10">
       <div>
         <label>状态筛选：</label>
         <select name="state">
@@ -13,7 +13,6 @@
           <option value="partOk">部分通过</option>
           <option value="allOk">已通过</option>
         </select>
-        <a class="btn btn-search"><span class="ion-search"></span></a>
       </div>
       <h5><span>总数: {{totalCount}}</span> <span>未提交数: {{unsubmitCount}}</span> <span>待处理数: {{todoCount}}</span> <span>通过数: {{approvedCount}}</span></h5>
       <table class="table table-hover">
@@ -52,6 +51,6 @@
     <td class="audit-status-{{auditStatus 'edu'}}">{{auditStatusStr 'edu'}}</td>
     <td class="audit-status-{{auditStatus 'cert'}}">{{auditStatusStr 'cert'}}</td>
     <td>{{auditTime}}</td>
-    <td><a class="btn-audit">{{actionText}}</a></td>
+    <td><a class="btn-audit" href="{{pathFor 'auditTeacher'}}">{{actionText}}</a></td>
   </tr>
 </template>

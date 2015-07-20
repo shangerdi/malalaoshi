@@ -1,7 +1,7 @@
 Template.auditTeachers.helpers({
 });
 Template.auditTeachers.events({
-  'click .btn.btn-search': function(e){
+  'change select[name=state]': function(e){
     var state = $('[name=state]').val();
     Session.set('state', state);
   }
@@ -11,15 +11,12 @@ var convStatus2Str = function(status) {
     return "未提交";
   }
   var statusDict = {'approved':"通过",'submited':"待审核",'rejected':"被驳回"};
-  var str = statusDict[status];
-  if (str) {
-    return str;
-  }
-  return "-";
+  return statusDict[status] || '-';
 }
+
 Template.userAuditItem.helpers({
   submitTime: function() {
-    return moment(this.submitTime, 'x').fromNow();
+    return fromNowReactive(moment(this.submitTime, 'x'));
   },
   auditStatus: function(part) {
     var partInfo = this[part+'Info'];
@@ -39,7 +36,7 @@ Template.userAuditItem.helpers({
     if (!this.auditTime) {
       return "-";
     }
-    return moment(this.auditTime, 'x').fromNow();
+    return fromNowReactive(moment(this.auditTime, 'x'));
   },
   actionText: function() {
     var unsubmitCount=0, todo=false, _selfData=this;
@@ -58,10 +55,5 @@ Template.userAuditItem.helpers({
       return "审核";
     }
     return "查看";
-  }
-});
-Template.userAuditItem.events({
-  'click .btn-audit': function(e) {
-    Router.go('auditTeacher', {_userId: Template.instance().data.userId});
   }
 });
