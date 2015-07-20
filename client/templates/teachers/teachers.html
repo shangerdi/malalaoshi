@@ -45,34 +45,32 @@
 
 <template name="selectTeachSubject">
   {{#ionModal customTemplate=true}}
-    <form>
+    <form class="teach-subject-select">
       <div class="bar bar-header bar-stable">
         <button data-dismiss="modal" type="button" class="button button-clear ion-close"></button>
         <h2 class="title">精准筛选</h2>
         <button type="submit" id="selectSubjectBtn" class="button button-clear ion-checkmark"></button>
       </div>
-      <div class="content has-header overflow-scroll" style="text-align: center;margin:0 auto;">
-        <div class="list">
-          <label class="item item-input item-select">
-            <div class="input-label">
-              科目：
+      <div class="content has-header overflow-scroll">
+        <div>
+          <div>
+            <div class="swiper-container swiper-subject">
+                <div class="swiper-wrapper">
+                  {{#each eduSubjectList}}
+                    <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
+                  {{/each}}
+                </div>
             </div>
-            <select value="{{subject}}" name="subject" id="subject">
-              {{#each eduSubjectList subject}}
-                <option value="{{key}}" selected="{{selected}}">{{text}}</option>
-              {{/each}}
-            </select>
-          </label>
-          <label class="item item-input item-select">
-            <div class="input-label">
-              年级：
+          </div>
+          <div>
+            <div class="swiper-container swiper-grade">
+                <div class="swiper-wrapper">
+                  {{#each eduGradeList}}
+                    <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
+                  {{/each}}
+                </div>
             </div>
-            <select value="{{grade}}" name="grade">
-              {{#each eduGradeList grade}}
-                <option value="{{key}}" selected="{{selected}}">{{text}}</option>
-              {{/each}}
-            </select>
-          </label>
+          </div>
         </div>
       </div>
     </form>

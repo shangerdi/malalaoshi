@@ -1,3 +1,21 @@
+Template.selectTeachSubject.onCreated(function(){
+  var subjectDict = getEduSubjectDict(), subjectOptionList=[];
+  subjectOptionList.push({key:"all",text:" - 全部 - "});
+  _.each(subjectDict, function(obj){
+    subjectOptionList.push({key:obj.key, text:obj.text});
+  });
+
+  this.data.eduSubjectList = subjectOptionList;
+
+  var gradeDict = getEduGradeDict(), gradeOptionList=[];
+  gradeOptionList.push({key:"all",text:" - 全部 - "});
+  _.each(gradeDict, function(obj){
+    gradeOptionList.push({key:obj.key, text:obj.text});
+  });
+
+  this.data.eduGradeList = gradeOptionList;
+});
+
 Template.teachers.onRendered(function () {
   IonNavigation.skipTransitions = true;
 });
@@ -39,10 +57,15 @@ Template.selectTeachSubject.events({
   'submit form': function(e){
     e.preventDefault();
     var curForm = e.target;
-    var subject = $(curForm).find('[name=subject]').val();
-    var grade = $(curForm).find('[name=grade]').val();
-    Session.set('teachersSubject', subject);
-    Session.set('teachersGrade', grade);
+
+    var subject = this.eduSubjectList[this.swiperSubject.activeIndex];
+    if(subject){
+      Session.set('teachersSubject', subject.key);
+    }
+    var grade = this.eduGradeList[this.swiperGrade.activeIndex];
+    if(grade){
+      Session.set('teachersGrade', grade.key);
+    }
     IonModal.close();
     IonKeyboard.close();
   }
@@ -61,39 +84,41 @@ Template.selectTeachSubject.helpers({
       grade = "all";
     }
     return grade;
-  },
-  eduSubjectList: function(val) {
-    var a = getEduSubjectDict(), optionList=[];
-    optionList.push({key:"all",text:" - 全部 - "});
-    _.each(a, function(obj){
-      var newObj = {key:obj.key, text:obj.text};
-      if (obj.key==val) {
-        newObj.selected=true;
-      }
-      optionList.push(newObj);
-    });
-    return optionList;
-  },
-  eduGradeList: function(val) {
-    var a = getEduGradeDict(), optionList=[];
-    var newObj = {key:"all", text:"- 全部 -"};
-    if (val==="all") {
-      newObj.selected=true;
-    }
-    optionList.push(newObj);
-    _.each(a, function(obj){
-      var newObj = {key:obj.key, text:obj.text};
-      if (_.isArray(val)) {
-        if (_.contains(val, obj.key)){
-          newObj.selected=true;
-        }
-      } else {
-       if (obj.key==val) {
-          newObj.selected=true;
-        }
-      }
-      optionList.push(newObj);
-    });
-    return optionList;
   }
+});
+
+Template.selectTeachSubject.onRendered(function(){
+  this.data.swiperSubject = new Swiper('.swiper-subject', {
+    slidesPerView: 5,
+    centeredSlides: true,
+    spaceBetween: 2,
+    direction: 'vertical'
+  });
+  this.data.swiperGrade = new Swiper('.swiper-grade', {
+    slidesPerView: 5,
+    centeredSlides: true,
+    spaceBetween: 2,
+    direction: 'vertical'
+  });
+
+  var subject = Session.get('teachersSubject');
+  if(!subject){
+    subject = "all";
+  }
+  var swiperSubject = this.data.swiperSubject;
+  _.each(this.data.eduSubjectList, function(obj, ind){
+    if(obj.key == subject){
+      swiperSubject.slideTo(ind, 0, null);
+    }
+  });
+  var grade = Session.get('teachersGrade');
+  if(!grade){
+    grade = "all";
+  }
+  var gradeSubject = this.data.swiperGrade;
+  _.each(this.data.eduGradeList, function(obj, ind){
+    if(obj.key == grade){
+      gradeSubject.slideTo(ind, 0, null);
+    }
+  });
 });
