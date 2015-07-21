@@ -25,12 +25,12 @@ Template.order.helpers({
 Template.order.events({
   'click #btnSaveAndPay': function(e) {
     e.preventDefault();
-
-    Meteor.call('updateOrder', this.order, function(error, result) {
+    var curOrder = this.order;
+    Meteor.call('updateOrder', curOrder, function(error, result) {
       if (error)
         return throwError(error.reason);
-
-      Router.go("orders");
+      var orderId = (curOrder && curOrder._id)?curOrder._id:result;
+      Router.go("/create_direct_pay_by_user/"+orderId);
     });
   },
   'click #btnDelete': function(e){
