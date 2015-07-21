@@ -30,7 +30,7 @@ Template.order.events({
       if (error)
         return throwError(error.reason);
       var orderId = (curOrder && curOrder._id)?curOrder._id:result;
-      Router.go("/create_direct_pay_by_user/"+orderId);
+      window.location.href = ("/create_direct_pay_by_user/"+orderId);
     });
   },
   'click #btnDelete': function(e){
