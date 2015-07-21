@@ -3,7 +3,7 @@ Security.defineMethod("ifHasRole", {
   transform: null,
   deny: function (type, arg, userId, doc) {
     var curUser = Meteor.user();
-    return !curUser ? true : curUser.role !== arg;
+    return !curUser || _.isEmpty(arg) ? true : curUser.role !== arg;
   }
 });
 
