@@ -11,10 +11,10 @@ Security.defineMethod("userOwnOrder", {
   fetch: [],
   transform: null,
   deny: function (type, arg, userId, doc) {
-    return userId !== doc.student.id;
+    return !doc ? true : userId !== doc.student.id;
   }
 });
 
 
-Orders.permit(['insert', 'update', 'remove']).userOwnOrder().apply();
-Orders.permit(['insert', 'update', 'remove']).ifHasRole('admin').apply();
+Orders.permit(['insert', 'update']).userOwnOrder().apply();
+Orders.permit(['insert', 'update']).ifHasRole('admin').apply();
