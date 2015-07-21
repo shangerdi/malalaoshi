@@ -64,11 +64,13 @@
           </div>
         </div>
       </div>
+      {{# if $neq currentUser._id user._id }}
       <div class="teacher-detail-submit">
         <button id="tryExperienceCourse" class="button button-full button-assertive">
           一元预约体验课
         </button>
       </div>
+      {{/if}}
     {{/ionContent}}
   {{/ionView}}
 </template>
