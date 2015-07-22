@@ -25,7 +25,7 @@ Template.order.helpers({
     return accounting.formatNumber(val, 2);
   },
   error: function(){
-    return (this.student && this.teacher) ? "" : "button-disabled";
+    return (this.student && this.teacher) ? "" : "disabled";
   }
 });
 
