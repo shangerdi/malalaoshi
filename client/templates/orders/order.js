@@ -32,7 +32,7 @@ Template.order.helpers({
 Template.order.events({
   'click #btnSaveAndPay': function(e) {
     e.preventDefault();
-    $(e.currentTarget).addClass("button-disabled");
+    $(e.currentTarget).addClass("disabled");
     Session.set("orderShowLoading", true);
 
     Meteor.call('updateOrder', this.order, function(error, result) {
