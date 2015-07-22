@@ -43,6 +43,9 @@ Template.teacher.helpers({
   },
   cert: function(){
     return this.user && this.user.status && this.user.status.cert == "approved";
+  },
+  submitActiv: function(){
+    return !this.user;
   }
 });
 
@@ -52,6 +55,9 @@ Template.teacher.events({
 
     var user = Meteor.user();
     var teacher = this.user;
+    if(!teacher){
+      $(e.currentTarget).addClass("disabled");
+    }
 
     var className = "体验课程";
     var hour = "1";

@@ -66,7 +66,7 @@
       </div>
       {{# if $neq currentUser._id user._id }}
       <div class="teacher-detail-submit">
-        <button id="tryExperienceCourse" class="button button-full button-assertive">
+        <button id="tryExperienceCourse" class="button button-full button-assertive {{#if submitActiv}}disabled{{/if}}">
           一元预约体验课
         </button>
       </div>

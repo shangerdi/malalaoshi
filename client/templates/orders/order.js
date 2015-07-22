@@ -36,8 +36,10 @@ Template.order.events({
     Session.set("orderShowLoading", true);
 
     Meteor.call('updateOrder', this.order, function(error, result) {
-      if (error)
+      if(error){
+        Session.set("orderShowLoading", false);
         return throwError(error.reason);
+      }
 
       Router.go("orders");
     });
