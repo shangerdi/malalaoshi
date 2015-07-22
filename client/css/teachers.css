@@ -586,3 +586,11 @@
   height: 250px;
   background-color: #d1d6dd;
 }
+
+.button-disabled{
+  filter: Alpha(Opacity=30);
+  opacity: .3;
+  zoom: 1;
+  cursor: default !important;
+  pointer-events: none;
+}

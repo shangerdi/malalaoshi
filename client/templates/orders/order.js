@@ -1,7 +1,11 @@
 Template.order.onRendered(function () {
   IonNavigation.skipTransitions = true;
+  Session.set("orderShowLoading", false);
 });
 Template.order.helpers({
+  showLoading: function(){
+    return Session.get("orderShowLoading");
+  },
   phoneNum: function(){
     if(this.order && this.order.student && this.order.student.phoneNo){
       var pn = this.order.student.phoneNo.toString();
@@ -19,12 +23,17 @@ Template.order.helpers({
   },
   formatNum: function(val){
     return accounting.formatNumber(val, 2);
+  },
+  error: function(){
+    return (this.student && this.teacher) ? "" : "button-disabled";
   }
 });
 
 Template.order.events({
   'click #btnSaveAndPay': function(e) {
     e.preventDefault();
+    $(e.currentTarget).addClass("button-disabled");
+    Session.set("orderShowLoading", true);
 
     Meteor.call('updateOrder', this.order, function(error, result) {
       if (error)
