@@ -44,7 +44,7 @@ UserCertification.permit(['update']).ownsDocument().apply();
 
 UserEducation.permit(['insert', 'update']).ownsDocument().apply();
 
-Areas.permit(['insert', 'update', 'remove']).apply();
+Areas.permit(['insert', 'update', 'remove']).never().apply();
 
 Feedbacks.permit(['insert']).ownsDocument().apply();
 
