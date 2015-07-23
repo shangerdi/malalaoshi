@@ -42,7 +42,7 @@ Template.order.events({
         return throwError(error.reason);
       }
       var orderId = (curOrder && curOrder._id)?curOrder._id:result;
-      window.location.href = ("/create_direct_pay_by_user/"+orderId);
+      window.location.href = ("/create_direct_pay_by_user/"+orderId+"?isCordova="+Meteor.isCordova);
     });
   },
   'click #btnDelete': function(e){
