@@ -37,8 +37,10 @@ Template.order.events({
 
     var curOrder = this.order;
     Meteor.call('updateOrder', curOrder, function(error, result) {
-      if (error)
+      if(error){
+        Session.set("orderShowLoading", false);
         return throwError(error.reason);
+      }
       var orderId = (curOrder && curOrder._id)?curOrder._id:result;
       window.location.href = ("/create_direct_pay_by_user/"+orderId);
     });

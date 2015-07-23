@@ -21,6 +21,16 @@ Meteor.methods({
       }
       return Orders.update({_id: order._id}, {$set: order});
     }else{
+      var teacherCount = Meteor.users.find({"_id": order.teacher.id, "role": "teacher", "status.basic": "approved"}).count();
+      if(teacherCount == 0){
+        throw new Meteor.Error('老师错误', "所选老师状态发生变化，请返回！");
+      }
+
+      var count = Orders.find({"student.id": order.student.id, "teacher.id": order.teacher.id, "className": order.className, "subject": order.subject, "status": {$in: ['submited', 'paid']}}).count();
+      if(count > 0){
+        throw new Meteor.Error('订单错误', "同一老师相同课程只能预约一次！");
+      }
+
       return Orders.insert(order);
     }
   },
