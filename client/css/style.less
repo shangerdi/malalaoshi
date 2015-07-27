@@ -1,4 +1,5 @@
 @import "custom.bootstrap.import.less";
+@page-max-width: 930px;
 .grid-block, .post, .comments li, .comment-form {
   background: #fff;
   padding: 10px;
@@ -67,7 +68,7 @@ body {
 }
 .container{
   width:100%;
-  max-width:930px;
+  max-width: @page-max-width;
 }
 .page {
   top: 0px;
@@ -315,6 +316,11 @@ background: rgba(0, 0, 0, 0.1); }
 }
 .footer{
   padding:30px 0;
+  max-width: @page-max-width;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .footer,.footer a{
   color:#797979;
@@ -531,3 +537,56 @@ input[type=text].browser {
   font-weight: bold;
 }
 
+.web-display {
+  overflow-x: visible;
+  overflow-y: visible;
+}
+.web-display .view{
+  overflow: inherit;
+}
+.web-display .scroll-content{
+  overflow: inherit;
+  position: relative;
+  padding-top: 0;
+}
+.web-display .overflow-scroll{
+  overflow-x: visible;
+  overflow-y: visible;
+}
+.web-display .view {
+  position: relative;
+}
+.web-display .content {
+  position: relative;
+  padding-top: 0;
+}
+.web-display .list {
+  padding-top: 0;
+}
+#login-dropdown-list .dropdown-menu{
+  min-width: 110px;
+}
+
+#login-buttons-logout{
+  color: #333333;
+  background-color: #ffffff;
+  border: none;
+}
+
+#login-buttons-logout:focus,
+#login-buttons-logout.focus{
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+#login-buttons-logout:hover{
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+#login-buttons-logout:active{
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  background-image: none;
+}
