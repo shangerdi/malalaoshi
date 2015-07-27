@@ -1,6 +1,9 @@
 {
 	"public": {
-		"title":"非常公会"
+		"title":"非常公会",
+        "ga":{
+            "id":"UA-65644538-1"
+        }
 	},
   "AWSRegion": "ap-southeast-1",
   "AWSAccessKeyId": "AKIAJEMNQ4HCFMXWHZJA",
