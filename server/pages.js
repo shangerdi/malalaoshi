@@ -15,12 +15,8 @@ Meteor.methods({
     if (!curUser || !(curUser.role === 'admin')){
         throw new Meteor.Error('权限不足', "当前用户权限不足");
     }
-    var updatePage = _.extend(page, {
-	     userId: curUser._id,
-       submitted: new Date()
-    });
 
-    Pages.update({name: updatePage.name}, {$set: updatePage}, {upsert: true});
+    Pages.update({name: page.name}, {$set: page}, {upsert: true});
 
     return page.name;
   }
