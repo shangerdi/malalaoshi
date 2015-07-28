@@ -42,12 +42,14 @@
           <a href="{{pathFor 'orders'}}">我的订单</a>
         </li>
         {{/if}}
+        {{#if $in currentUser.role 'teacher' 'admin'}}
         <li class="{{activeRouteClass  'profileEditBasic' 'profileEditEdu' 'profileEditCert' 'profileEditAvatar' 'profile'}}">
           <a href="{{pathFor 'profileEditBasic'}}">个人资料</a>
         </li>
         <li class="{{activeRouteClass  'messages'}}">
           <a href="{{pathFor 'messages'}}">消息</a>
         </li>
+        {{/if}}
         {{#if $eq currentUser.role 'admin'}}
         <li class="{{activeRouteClass  'adminUsers' 'adminUser' 'auditTeachers' 'auditTeacher' 'adminFeedbacks' 'adminPages' 'adminPage' 'adminOrders' 'adminOrder'}}">
           <a href="{{pathFor 'adminFeedbacks'}}">后台管理</a>
