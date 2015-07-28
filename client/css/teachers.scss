@@ -35,6 +35,10 @@ $greyColor: #b8b8b8;
   .teacher-a:nth-child(2) > div{
     border-top: solid #d2d2d2 1px;
   }
+  .teacher-a:nth-child(2n) > div{
+    border-right: none;
+    padding-right: 9px;
+  }
 }
 @media screen and(min-width: 450px)and(max-width: 959px){
   .teacher-div{
@@ -64,6 +68,10 @@ $greyColor: #b8b8b8;
   }
   .teacher-a:nth-child(3) > div{
     border-top: solid #d2d2d2 1px;
+  }
+  .teacher-a:nth-child(3n) > div{
+    border-right: none;
+    padding-right: 9px;
   }
 }
 @media screen and(min-width: 960px)and(max-width: 1199px){
@@ -100,6 +108,10 @@ $greyColor: #b8b8b8;
   }
   .teacher-a:nth-child(4) > div{
     border-top: solid #d2d2d2 1px;
+  }
+  .teacher-a:nth-child(4n) > div{
+    border-right: none;
+    padding-right: 9px;
   }
 }
 @media screen and(min-width: 1200px){
@@ -142,6 +154,10 @@ $greyColor: #b8b8b8;
   }
   .teacher-a:nth-child(5) > div{
     border-top: solid #d2d2d2 1px;
+  }
+  .teacher-a:nth-child(5n) > div{
+    border-right: none;
+    padding-right: 9px;
   }
 }
 
