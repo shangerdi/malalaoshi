@@ -31,11 +31,6 @@ Template.adminPage.events({
       name: $(curForm).find('[name=name]').val()
     }
 
-    var errors = validatePage(page);
-    if (errors.hasError) {
-      return Session.set('adminPageErrors', errors);
-    }
-
     Meteor.call('updatePage', page, function(error, result) {
       if (error)
         return throwError(error.reason);
