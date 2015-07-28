@@ -44,3 +44,4 @@ App.accessRule("https://s3-ap-southeast-1.amazonaws.com");
 App.accessRule("https://api.pingxx.com");
 App.accessRule("http://sissi.pingxx.com");
 App.accessRule("http://wappaygw.alipay.com");
+App.accessRule("http://www.google-analytics.com");
