@@ -1,7 +1,7 @@
 Meteor.methods({
   updatePage: function(page) {
     check(page, {
-      editorTextArea: String,
+      content: String,
       name: String,
       title: String
     });

@@ -13,7 +13,7 @@ Template.adminPage.rendered=function(){
   $.when(
     $.getScript("/ckeditor/ckeditor.js")
   ).done(function(){
-    CKEDITOR.replace('editorTextArea');
+    CKEDITOR.replace('content');
   }).fail(function(e){
     if (console) {
       console.log(e);
@@ -26,7 +26,7 @@ Template.adminPage.events({
     e.preventDefault();
     var curForm = e.target;
     var page = {
-      editorTextArea: CKEDITOR.instances.editorTextArea.getData(),
+      content: CKEDITOR.instances.content.getData(),
       title: $(curForm).find('[name=title]').val(),
       name: $(curForm).find('[name=name]').val()
     }
