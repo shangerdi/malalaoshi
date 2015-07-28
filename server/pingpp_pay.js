@@ -8,11 +8,12 @@ Meteor.methods({
       throw new Meteor.Error('Data Not Found', "订单不存在了，呃呃！");
       return;
     }
-    var fiber = Fiber.current, result = null;
+    var fiber = Fiber.current, result = null, error = null;
     var callback = function(err, charge) {
         if (err) {
+          error = new Meteor.Error('500', err.message);
           fiber.run();
-          throw new Meteor.Error('500', err.message);
+          return;
         }
         result = charge;
         fiber.run();
@@ -29,6 +30,9 @@ Meteor.methods({
         app: {id: "app_4eXP8OfP0mzL4SmP"}
     }, callback);
     Fiber.yield();
+    if (error) {
+      throw error;
+    }
     return result;
   }
 });

@@ -46,6 +46,7 @@ Template.order.events({
       // window.location.href = ("/create_direct_pay_by_user/"+orderId+"?isCordova="+Meteor.isCordova);
       Meteor.call('pingpp_alipay', orderId, function(err, charge_obj) {
         if(err){
+          console.log(err);
           Session.set("orderShowLoading", false);
           $(e.currentTarget).removeClass("disabled");
           return throwError(err.reason);
