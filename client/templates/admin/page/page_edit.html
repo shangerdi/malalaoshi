@@ -16,14 +16,14 @@
           <div class="form-group">
             <input name="title" id="title" type="text"  placeholder="请输入栏目名称" class="form-control" value="{{title}}"/>
           </div>
-          <div class="form-group {{errorClass 'editorTextArea'}}">
+          <div class="form-group {{errorClass 'content'}}">
             <label class="control-label" for="name">正文</label>
-            <span class="help-block">{{errorMessage 'editorTextArea'}}</span>
+            <span class="help-block">{{errorMessage 'content'}}</span>
           </div>
           <div class="form-group">
             <div>
               <form>
-                <textarea name="editorTextArea" id="editorTextArea">{{editorTextArea}}</textarea>
+                <textarea name="content" id="content">{{content}}</textarea>
               </form>
             </div>
           </div>
