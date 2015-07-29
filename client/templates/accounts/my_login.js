@@ -126,12 +126,18 @@ Template.mylogin.events({
           Meteor._localStorage.setItem(loginTokenExpiresKey, tokenExpires);
           Accounts.connection.setUserId(userId);
           Accounts._setLoggingIn(true);
-          Router.go('dashboard');
-        } else if (result.code==1) {
-          Router.go('profile');
         } else {
           $loginBtn.val("登录");
           return Session.set('myloginErrors', {checkCode: result.msg});
+        }
+        if (Meteor.isCordova) {
+          if (role=="parent") {
+            Router.go('teachers');
+          } else {
+            Router.go('dashboard');
+          }
+        } else {
+          Router.go('dashboard');
         }
       }
     });

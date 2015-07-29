@@ -22,7 +22,6 @@ rzymek:moment-locale-zh-cn
 fourseven:scss@2.0.0
 meteoric:ionic-sass
 meteoric:ionicons-sass
-meteoric:ionic
 aldeed:collection2
 meteorhacks:kadira
 meteorhacks:zones
@@ -37,3 +36,4 @@ lacosta:swiper
 ongoworks:security
 zhonglijunyi:meteor-pingpp
 reywood:iron-router-ga
+zhonglijunyi:ionic
