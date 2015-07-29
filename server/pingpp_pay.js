@@ -23,15 +23,14 @@ Meteor.methods({
     switch (channel) {
       case 'alipay_wap':
         extra = {
-          'success_url': Meteor.absoluteUrl('pingpp/alipay_wap/result/success'),
-          'cancel_url': Meteor.absoluteUrl('order/'+orderId)
+          'success_url': Meteor.absoluteUrl('pingpp/alipay_wap/result/success')
         };
         break;
     }
     var fiber = Fiber.current, result = null, error = null;
     var callback = function(err, charge) {
         if (err) {
-          error = new Meteor.Error('500', err.message);
+          error = err;
           fiber.run();
           return;
         }
@@ -52,9 +51,30 @@ Meteor.methods({
     }, callback);
     Fiber.yield();
     if (error) {
-      throw error;
+      console.log(error);
+      throw new Meteor.Error('500', error.message);
     }
+    Orders.update({_id: orderId}, {$set: {"chargeId": result.id}});
     return result;
+  },
+  updateOrderPayStatus: function(orderId) {
+    var order = Orders.findOne(orderId);
+    if (!order) {
+      throw new Meteor.Error('Data Not Found', "订单不存在了，呃呃！");
+      return;
+    }
+    if (order.status==='submited' && order.chargeId) {
+      var fiber = Fiber.current, hasPaid = false;
+      pingpp.charges.retrieve(order.chargeId, function(err, charge) {
+        hasPaid = (charge && charge.paid);
+        fiber.run();
+      });
+      Fiber.yield();
+      if (hasPaid) {
+        Orders.update({_id: orderId, status: "submited"}, {$set: {"status": "paid"}});
+      }
+    }
+    return true;
   }
 });
 
@@ -82,7 +102,7 @@ Router.route('/pingpp/pay/result', function () {
     case "charge.succeeded": // 对支付异步通知的处理代码
       var orderNo = dataObj.order_no;
       if (eventObj.paid && orderNo) {
-        Orders.update({_id: orderNo}, {$set: {"status": "paid"}});
+        Orders.update({_id: orderNo, status: "submited"}, {$set: {"status": "paid"}});
       }
       res.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
       return res.end('OK');
