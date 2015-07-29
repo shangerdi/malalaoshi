@@ -12,7 +12,8 @@ var pingpp_public_key = '-----BEGIN PUBLIC KEY-----'
     +'-----END PUBLIC KEY-----';
 
 Meteor.methods({
-  pingpp_alipay: function(orderId) {
+  pingpp_alipay: function(params) {
+    var orderId =params.orderId, isCordova = params.isCordova;
     var order = Orders.findOne(orderId);
     if (!order || 'submited'!=order.status) {
       throw new Meteor.Error('Data Not Found', "订单不存在了，或已经完成支付，呃呃！");
@@ -23,7 +24,8 @@ Meteor.methods({
     switch (channel) {
       case 'alipay_wap':
         extra = {
-          'success_url': Meteor.absoluteUrl('pingpp/alipay_wap/result/success')
+          'success_url': ((isCordova?"http://meteor.local/":Meteor.absoluteUrl())+'pingpp/alipay_wap/result/success'),
+          'cancel_url': ((isCordova?"http://meteor.local/":Meteor.absoluteUrl())+'order/'+orderId)
         };
         break;
     }
