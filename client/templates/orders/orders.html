@@ -22,6 +22,21 @@
         </a>
         {{/each}}
       {{/ionList}}
+      {{#if empty}}
+        <div class="order-empty">
+          <div>
+            <i class="icon ion-checkmark-circled"></i>
+          </div>
+          <div>
+            你还没有课程，快去找老师吧
+          </div>
+          <div>
+            <button id="findTeachers" class="button button-full button-assertive">
+              找老师
+            </button>
+          </div>
+        </div>
+      {{/if}}
     {{/ionContent}}
   {{/ionView}}
 </template>
