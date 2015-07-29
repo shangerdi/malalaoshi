@@ -44,7 +44,7 @@ Template.order.events({
       }
       var orderId = (curOrder && curOrder._id)?curOrder._id:result;
       // window.location.href = ("/create_direct_pay_by_user/"+orderId+"?isCordova="+Meteor.isCordova);
-      Meteor.call('pingpp_alipay', orderId, function(err, charge_obj) {
+      Meteor.call('pingpp_alipay', {'orderId':orderId,'isCordova':Meteor.isCordova}, function(err, charge_obj) {
         if(err){
           console.log(err);
           Session.set("orderShowLoading", false);
