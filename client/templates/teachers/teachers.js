@@ -1,6 +1,6 @@
 Template.selectTeachSubject.onCreated(function(){
   var subjectDict = getEduSubjectDict(), subjectOptionList=[];
-  subjectOptionList.push({key:"all",text:" - 全部 - "});
+  subjectOptionList.push({key:"all",text:"-全部-"});
   _.each(subjectDict, function(obj){
     subjectOptionList.push({key:obj.key, text:obj.text});
   });
@@ -8,7 +8,7 @@ Template.selectTeachSubject.onCreated(function(){
   this.data.eduSubjectList = subjectOptionList;
 
   var gradeDict = getEduGradeDict(), gradeOptionList=[];
-  gradeOptionList.push({key:"all",text:" - 全部 - "});
+  gradeOptionList.push({key:"all",text:"-全部-"});
   _.each(gradeDict, function(obj){
     gradeOptionList.push({key:obj.key, text:obj.text});
   });

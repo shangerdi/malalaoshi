@@ -534,6 +534,8 @@ $greyColor: #b8b8b8;
 .teacher-detail-head > div > img{
   height: 50px;
   width: 50px;
+  vertical-align: middle;
+  display: inline;
 }
 .teacher-detail-item-head{
   width: 115px;
@@ -752,4 +754,26 @@ $greyColor: #b8b8b8;
   width: 50%;
   height: 250px;
   background-color: #d1d6dd;
+}
+
+.order-empty{
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+  display: inline;
+  text-align: center;
+}
+.order-empty button{
+  max-width: 150px;
+  display: inline;
+}
+.order-empty > div:first-child{
+  font-size: 217px;
+  color: #dbdbdb;
+}
+.order-empty > div:nth-child(2){
+  color: #9b9b9b;
+}
+.order-empty > div:last-child{
+  margin-top: 30px;
 }
