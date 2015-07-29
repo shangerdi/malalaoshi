@@ -58,21 +58,6 @@ Meteor.methods({
   }
 });
 
-// ping++ pay: alipay_wap success url
-Router.route('/pingpp/alipay_wap/result/success', function () {
-  console.log("debug: /pingpp/alipay_wap/result/success")
-  var req = this.request, res = this.response;
-  var payResult = req.query.result;
-  var orderNo = req.query.out_trade_no;
-  console.log("order:"+orderNo+", pay result:"+payResult);
-  if (payResult=='success') {
-    Orders.update({_id: orderNo}, {$set: {"status": "paid"}});
-  }
-  // redirect to order page
-  res.writeHead(301, {'Location': Router.path('order',{id:orderNo})});
-  res.end();
-}, {where: 'server'});
-
 // 验证 webhooks 签名
 var pingpp_verify_signature = function(raw_data, signature) {
   var verifier = crypto.createVerify('RSA-SHA256').update(raw_data, "utf8");
