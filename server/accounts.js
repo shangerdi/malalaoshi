@@ -11,11 +11,15 @@ Meteor.methods({
       cellphone = cellphone.substr(cellphone.length-11);
     }
     this.unblock();
+    // check if the phone is registered?
+    var oldUser = Meteor.users.findOne({"phoneNo": cellphone});
     if (regParams.purpose == "reg") {
-      // check if the phone is registered?
-      var oldUser = Meteor.users.findOne({"phoneNo": cellphone});
       if (oldUser) {
         return {code:1, msg: "该手机号已经注册过了！"};
+      }
+    } else if (regParams.purpose == "login") {
+      if (!oldUser) {
+        return {code:-1, msg: "您的手机号还未注册，请先注册！"};
       }
     }
     // firstly, query the checkcode cache data, maybe the checkcode for this phone already exists
@@ -163,6 +167,11 @@ Meteor.methods({
       cellphone = cellphone.substr(cellphone.length-11);
     }
     this.unblock();
+    // check if the phone is registered?
+    var oldUser = Meteor.users.findOne({"phoneNo": cellphone});
+    if (!oldUser) {
+      return {code:-1, msg: "您的手机号还未注册，请先注册！"};
+    }
 
     // query the checkcode cache data
     var isValid = false;
@@ -185,7 +194,6 @@ Meteor.methods({
     var userId;
     try {
       // check if the phone is registered?
-      var oldUser = Meteor.users.findOne({"phoneNo": cellphone});
       if (oldUser) {
         userId = oldUser._id;
       } else {
