@@ -23,7 +23,7 @@ Meteor.methods({
     switch (channel) {
       case 'alipay_wap':
         extra = {
-          'success_url': Meteor.absoluteUrl('pingpp/alipay_wap/result/success'),
+          'success_url': Meteor.absoluteUrl('pingpp/alipay_wap'),
           'cancel_url': Meteor.absoluteUrl('order/'+orderId)
         };
         break;
@@ -52,7 +52,8 @@ Meteor.methods({
     }, callback);
     Fiber.yield();
     if (error) {
-      throw error;
+      throw error;cmac
+
     }
     return result;
   }
@@ -64,8 +65,8 @@ var pingpp_verify_signature = function(raw_data, signature) {
   return verifier.verify(pingpp_public_key, signature, 'base64');
 }
 // ping++ pay: Webhooks
-Router.route('/pingpp/pay/result', function () {
-  console.log("debug: /pingpp/pay/result")
+Router.route('/pingpp/result', function () {
+  console.log("debug: /pingpp/result")
   var req = this.request, res = this.response;
   console.log(req.query);
   var raw_data = body; // 请求的原始数据
