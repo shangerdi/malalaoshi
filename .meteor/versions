@@ -49,6 +49,7 @@ logging@1.0.7
 lsun:slingshot@0.7.1_1
 malaicon@0.0.1
 markdown@1.0.4
+mdg:reload-on-resume@1.0.4
 meteor@1.1.6
 meteor-platform@1.2.2
 meteorhacks:inject-initial@1.0.2
