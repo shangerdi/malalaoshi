@@ -60,6 +60,7 @@ navStack.add('profileEditEdu', 'dashboard');
 navStack.add('profileEditCert', 'dashboard');
 navStack.add('profileEditAvatar', 'dashboard');
 navStack.add('teacher', 'teachers');
+navStack.add('order', 'orders');
 navStack.add('parentSettings', 'teachers');
 navStack.add('parentSettingsEdit', 'parentSettings');
 // test
