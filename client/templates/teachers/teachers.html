@@ -1,7 +1,11 @@
 <template name="teachers">
   {{#contentFor "headerButtonRight"}}
     <button class="button button-clear pull-right button-light" data-ion-modal="selectTeachSubject">
-      {{> ionIcon icon='ios-search'}}
+      {{#if isAndroid}}
+      {{> ionIcon icon="android-search"}}
+      {{else}}
+      {{> ionIcon icon="ios-search"}}
+      {{/if}}
     </button>
   {{/contentFor}}
 
