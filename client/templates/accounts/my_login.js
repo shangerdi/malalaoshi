@@ -63,7 +63,6 @@ Template.mylogin.events({
     $theButton.attr("disabled",true);
     // call server's method, send check code to this phone number
     Meteor.call('sendPhoneCheckCode', params, function(error, result) {
-      console.log(result);
       if (error) {
         $theButton.removeAttr("disabled");
         // return throwError(error.reason);
@@ -103,7 +102,6 @@ Template.mylogin.events({
     var $getCodeButton = $("#getCheckCode");
     // do login
     Meteor.call('loginWithPhone', params, function(error, result) {
-      console.log(result);
       window.clearInterval(timer);
       $getCodeButton.val("获取验证码");
       $getCodeButton.removeAttr("disabled");
@@ -113,6 +111,7 @@ Template.mylogin.events({
         return Session.set('myloginErrors', {checkCode: error.reason});
       }
       if (result) {
+        role = result.role;
         if (result.code==0) {
           result = result.result;
           var loginTokenKey = "Meteor.loginToken";
