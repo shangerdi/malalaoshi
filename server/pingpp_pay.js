@@ -98,31 +98,30 @@ Router.route('/pingpp/result', function () {
     res.end(msg);
   };
   // console.log(req);
-  var raw_data = req.body; // 请求的原始数据
+  var raw_data = req.bodyRawData; // 请求的原始数据
   var signature = req.headers['x-pingplusplus-signature']; // 签名在头部信息的 x-pingplusplus-signature 字段
   console.log('raw_data:'+raw_data);
   console.log('signature:'+signature);
   if (typeof raw_data !== 'string' || typeof signature !== 'string') {
-    return send('未知 Event 类型', 200);
+    return send('TODO', 200);
   }
 
-  if (pingpp_verify_signature(raw_data, signature)) {
-    console.log('verification succeeded');
-  } else {
-    console.log('verification failed');
-    return;
+  if (!pingpp_verify_signature(raw_data, signature)) {
+    console.log('verify fail');
+    return send('verify fail', 200);
   }
-  var eventObj = req.query, dataObj = eventObj.data.object;
+  var eventObj = req.body, dataObj = eventObj.data?eventObj.data.object||{}:{};
   switch (eventObj.type) {
     case "charge.succeeded": // 对支付异步通知的处理代码
       var orderNo = dataObj.order_no;
       if (eventObj.paid && orderNo) {
         Orders.update({_id: orderNo, status: "submited"}, {$set: {"status": "paid"}});
       }
+      console.log('Order paid: '+orderNo);
       return send('OK');
       break;
     default:
       return send('未知 Event 类型', 400);
       break;
   }
-}, {where: 'server'});
+}, {where: 'server', name: 'pingppWebhooks'});
