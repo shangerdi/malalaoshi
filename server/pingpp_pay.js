@@ -124,4 +124,4 @@ Router.route('/pingpp/result', function () {
       return send('未知 Event 类型', 400);
       break;
   }
-}, {where: 'server'});
+}, {where: 'server', name: 'pingppWebhooks'});
