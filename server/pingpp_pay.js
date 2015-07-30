@@ -89,9 +89,22 @@ var pingpp_verify_signature = function(raw_data, signature) {
 Router.route('/pingpp/result', function () {
   console.log("debug: /pingpp/result")
   var req = this.request, res = this.response;
-  console.log(req.query);
-  var raw_data = body; // 请求的原始数据
+  var send = function (msg, http_code) {
+    http_code = (typeof http_code === "undefined")?200:http_code;
+    res.writeHead(http_code, {"Content-Type":"text/plain;charset=utf-8"});
+    if (typeof msg !== "string") {
+      msg = JSON.stringify(msg);
+    }
+    res.end(msg);
+  };
+  // console.log(req);
+  var raw_data = req.body; // 请求的原始数据
   var signature = req.headers['x-pingplusplus-signature']; // 签名在头部信息的 x-pingplusplus-signature 字段
+  console.log('raw_data:'+raw_data);
+  console.log('signature:'+signature);
+  if (typeof raw_data !== 'string' || typeof signature !== 'string') {
+    return send('未知 Event 类型', 200);
+  }
 
   if (pingpp_verify_signature(raw_data, signature)) {
     console.log('verification succeeded');
@@ -106,12 +119,10 @@ Router.route('/pingpp/result', function () {
       if (eventObj.paid && orderNo) {
         Orders.update({_id: orderNo, status: "submited"}, {$set: {"status": "paid"}});
       }
-      res.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
-      return res.end('OK');
+      return send('OK');
       break;
     default:
-      res.writeHead(400, {"Content-Type": "text/plain; charset=utf-8"});
-      return res.end('未知 Event 类型');
+      return send('未知 Event 类型', 400);
       break;
   }
 }, {where: 'server'});
