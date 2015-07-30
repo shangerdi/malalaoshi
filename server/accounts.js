@@ -190,29 +190,10 @@ Meteor.methods({
       throw new Meteor.Error('参数错误', "验证码错误");
     }
     CheckCodeCache.remove({_id: cellphone});
-    // if the user does not exist, create user
-    var userId;
-    try {
-      // check if the phone is registered?
-      if (oldUser) {
-        userId = oldUser._id;
-      } else {
-        var role = params.role?params.role:'teacher', name=params.name?params.name:(cellphone.substr(0,3)+'****'+cellphone.substr(cellphone.length-4));
-        var userOptions = {"username": cellphone, "phoneNo": cellphone, "role": role, profile:{name:name}};
-        userId = Accounts.insertUserDoc(userOptions, userOptions);
-        // ont new teacher, to do audit
-        if (role=='teacher') {
-          var nowTime = Date.now();
-          TeacherAudit.update({'userId':userId},{$set:{'name':name,'submitTime':nowTime}},{'upsert':true});
-        }
-      }
-    } catch (ex) {
-      console.log(ex);
-      throw new Meteor.Error('系统提示', "处理失败，请稍后重试！");
-    }
+    var userId = oldUser._id;
     var stampedLoginToken = Accounts._getAccountData(methodInvocation.connection.id, 'loginToken');
     if (methodInvocation.userId==userId && stampedLoginToken) {
-      return {code:1, msg: "Already Login"};
+      return {code:1, msg: "Already Login", role:oldUser.role};
     }
     // return login token
     var stampedLoginToken = Accounts._generateStampedLoginToken();
@@ -223,6 +204,6 @@ Meteor.methods({
       token: stampedLoginToken.token,
       tokenExpires: Accounts._tokenExpiration(stampedLoginToken.when)
     };
-    return {code:0, msg: "OK", result: result};
+    return {code:0, msg: "OK", result: result, role:oldUser.role};
   }
 });
