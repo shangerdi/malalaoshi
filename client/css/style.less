@@ -437,6 +437,18 @@ background: rgba(0, 0, 0, 0.1); }
   background-color: green;
   border-color: green;
 }
+@lgRed: #f44;
+@lgLabelColor: #7d7d7d;
+@lgBolorColor: lighten(@lgLabelColor, 10%); 
+.login-form .form-group{
+  padding:0 20px;
+}
+.login-form .form-group:first-child{
+  padding:0;
+}
+.login-form label, .login-form a{
+  color: @lgLabelColor;
+}
 .login-form .login-top {
   position:relative;
   overflow:hidden;
@@ -478,13 +490,15 @@ background: rgba(0, 0, 0, 0.1); }
   float: left;
 }
 .login-form .role-select li a {
-  color: red;
-  border: 1px red solid;
+  line-height: 10px;
+  margin: 0 7px;
+  color: @lgRed;
+  border: 1px @lgRed solid;
   background-color: white;
 }
 .login-form .role-select li.active a {
   color: white;
-  background-color: red;
+  background-color: @lgRed;
 }
 .login-form input {
   border: 0;
@@ -492,18 +506,19 @@ background: rgba(0, 0, 0, 0.1); }
   background-color: transparent;
 }
 .login-form input[type=text] {
-  border-bottom: 1px #aaa solid;
+  border-bottom: 1px @lgBolorColor solid;
 }
 .login-form input.btn-get-checkcode {
-  color: #000;
+  color: #444;
 }
 .login-form input.btn-get-checkcode[disabled] {
-  color: #7d7d7d;
+  color: @lgLabelColor;
 }
 .login-form input.btn-login, .browser-login-form input.btn-login{
   width: 100%;
-  background-color: @brand-success;
-  border-color: @brand-success;
+  height: 40px;
+  background-color: @lgRed;
+  border-color: @lgRed;
   color: #fff;
 }
 .browser-login-form input.btn-get-checkcode {
