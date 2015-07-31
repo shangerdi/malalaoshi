@@ -19,7 +19,10 @@
           {{> loginButtons}}
           {{else}}
           <li>
-            <a href="{{pathFor 'mylogin'}}">登录 | 注册</a>
+          <a href="{{pathFor 'mylogin'}}">登录</a>
+          </li>
+          <li>
+          <a href="{{pathFor 'register'}}">注册</a>
           </li>
           {{/if}}
         </ul>
