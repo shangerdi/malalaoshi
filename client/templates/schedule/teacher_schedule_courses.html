@@ -9,8 +9,23 @@
     {{#ionContent}}
       {{#ionList class="schedule-courses"}}
         {{#each courses}}
-        {{#ionItem buttonRight=true avatar=true class="schedule-course-item"}}
-          {{this}}
+        {{#ionItem class="schedule-course-item"}}
+          <div class="course-time-info">
+            <div class="pull-left">
+              {{getCourseTime this.attendTime}} {{this.student.name}} {{getStateStr this._id}}
+            </div>
+            <div class="pull-right">
+              {{this.detail.subject}} {{convMinutes2Str this.phase.start}} - {{convMinutes2Str this.phase.end}}
+            </div>
+          </div>
+          <div class="course-addr-info">
+            <div class="pull-left">
+              上课地点
+            </div>
+            <div class="pull-right">
+              TODO
+            </div>
+          </div>
         {{/ionItem}}
         {{/each}}
       {{/ionList}}

@@ -1,4 +1,3 @@
-var convMinutes2Str = ScheduleTable.convMinutes2Str;
 var showToastInfo = function(msg) {
   var width=150, height=50, viewHeight = $(window).height(), viewWidth = $(window).width();
   var html = '<div class="toast-box" style="position: fixed;top:'+(viewHeight-height)/2+'px;left:'+(viewWidth-width)/2+'px;'
@@ -38,13 +37,14 @@ Template.studentScheduleCourses.onRendered(function(){
 Template.studentScheduleCourses.helpers({
   courses: function(){
     var param = findOptions();
+    if (!param) return null;
     return CourseAttendances.find(param.find, param.options);
   },
   getCourseTime: function(timestamp) {
     return moment(timestamp).format('YYYY年MM月DD日');
   },
   convMinutes2Str: function(mins) {
-    return convMinutes2Str(mins);
+    return ScheduleTable.convMinutes2Str(mins);
   },
   getAvatarUrl: function(userId) {
     var user = Meteor.users.findOne(userId);

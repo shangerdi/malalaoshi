@@ -73,7 +73,7 @@ Meteor.methods({
     if (!curUser) {
       throw new Meteor.Error('权限不足', "需要登录");
     }
-    CourseAttendances.update({'_id': itemId, 'student.id': curUser._id},{$set:{state:ScheduleTable.attendanceStateDict["attended"].value}});
+    CourseAttendances.update({'_id': itemId, 'student.id': curUser._id},{$set:{state:ScheduleTable.attendanceStateDict["attended"].value, 'detail.confirmType': 1}});
     return true;
   }
 });
