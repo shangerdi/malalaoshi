@@ -704,6 +704,7 @@ input[type=text].browser {
       a {
         display: inline-block;
         width: 40px;
+        color: #000;
         cursor: pointer;
       }
       &.cur-month a {
@@ -730,13 +731,6 @@ input[type=text].browser {
     border: 1px transparent solid;
     border-radius: 50%;
     cursor: pointer;
-  }
-  td.done > div{
-    background-color: @course-done-bgcolor;
-  }
-  td.todo > div{
-    background-color: @course-todo-bgcolor;
-    color: @course-todo-color;
   }
   td.today > div{
     border: 2px @today-color solid;
@@ -785,6 +779,11 @@ input[type=text].browser {
     border: 1px transparent solid;
     border-radius: 50%;
   }
+  td.today > div{
+    border: 1px @today-color solid;
+  }
+}
+.schedule-calendar {
   td.done > div{
     background-color: @course-done-bgcolor;
   }
@@ -792,8 +791,11 @@ input[type=text].browser {
     background-color: @course-todo-bgcolor;
     color: @course-todo-color;
   }
-  td.today > div{
-    border: 1px @today-color solid;
+  td.weekend {
+    color: #b83521;
+    > div {
+      color: #b83521;
+    }
   }
 }
 @media (max-width: @screen-sm-max) {
