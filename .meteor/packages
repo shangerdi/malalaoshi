@@ -38,3 +38,6 @@ zhonglijunyi:meteor-pingpp
 reywood:iron-router-ga
 zhonglijunyi:ionic
 browser-policy
+force-ssl
+mdg:reload-on-resume
+launch-screen
