@@ -17,8 +17,10 @@ if (Meteor.isCordova) {
     console.log("parentRouterName is: "+parentRouterName);
     if (!parentRouterName) {
       IonPopup.confirm({
-        title: 'Exit hint?',
-        template: 'Are you sure to exit app!?',
+        title: '退出提示',
+        template: '您确定要退出应用吗？',
+        okText: '确定',
+        cancelText: '取消',
         onOk: function() {
           console.log('Exit app!');
           navigator.app && navigator.app.exitApp && navigator.app.exitApp();
