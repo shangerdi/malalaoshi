@@ -32,6 +32,12 @@
 .profile-edit .subject-item {
   padding: 5px 0;
 }
+.profile-edit form, .profile-edit .profile-edit-edu, .profile-edit .profile-edit-cert {
+  background-color: #fff;
+}
+.profile-edit-basic {
+  padding: 20px;
+}
 .profile-edit-basic .btn-delete-item {
   display: inline-block;
   float: left;
@@ -41,18 +47,27 @@
   margin: 0;
 }
 .profile-edit-edu {
-  margin-top: 20px;
+  padding: 0 20px 20px 20px;
+}
+.profile-edit-edu .profile-edu-item {
+  padding-top: 20px;
+  border-bottom: 1px #eee solid;
+}
+.profile-edit-edu .profile-edu-item:last-child {
+  border-bottom: 0;
+}
+.profile-edit-edu .btn-add-edu-item {
+  margin: 28px 0 26px;
 }
 .btn-add-edu-item {
-  margin: 20px 0;
+  margin: 30px 0;
   color: #db3e00;
   font-size: 18px;
   line-height: 18px;
   padding-left:0;
 }
 .profile-edit-cert {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 0 20px;
 }
 .profile-edit-cert .cert-title {
   margin: 10px 0;
