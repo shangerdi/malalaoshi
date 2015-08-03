@@ -134,3 +134,11 @@
   position: fixed;
   bottom: 20px;
 }
+.parent-settings-box .item-input{
+  padding-left: 0;
+}
+.parent-settings-box input{
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #fff;
+}
