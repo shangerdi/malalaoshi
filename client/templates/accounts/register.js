@@ -97,7 +97,7 @@ Template.register.events({
     $theButton.attr("disabled",true);
     // call server's method, send check code to this phone number
     Meteor.call('sendPhoneCheckCode', params, function(error, result) {
-      console.log(result);
+      // console.log(result);
       if (error) {
         // return throwError(error.reason);
         $theButton.removeAttr("disabled");
@@ -138,7 +138,7 @@ Template.register.events({
     $regBtn.val("注册中...");
     // do register
     Meteor.call('doRegisterViaPhone', params, function(error, result) {
-      console.log(result);
+      // console.log(result);
       if (error) {
         // return throwError(error.reason);
         $regBtn.val("注册");

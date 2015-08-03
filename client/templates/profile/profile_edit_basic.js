@@ -230,7 +230,7 @@ Template.profileEditBasic.events({
       address: address,
       selfIntro: $(curForm).find('[name=selfIntro]').val()
     }
-    console.log(profile);
+    // console.log(profile);
 
     $('.subject-item').removeClass('has-error');
     var errors = validateProfile(profile);
