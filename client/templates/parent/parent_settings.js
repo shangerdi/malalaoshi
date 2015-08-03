@@ -6,11 +6,27 @@ Template.parentSettings.events({
       Router.go('home');
     };
     if (Meteor.isCordova) {
-      IonPopup.confirm({
-        title: 'Logout hint?',
-        template: 'Are you sure to logout!?',
-        onOk: doLogout,
-        onCancel: function() {}
+      IonActionSheet.show({
+        titleText: "确定要退出登录吗？",
+        buttons: [
+          { text: '确定' }
+        ],
+        destructiveText: false,
+        cancelText: '取消',
+        cancel: function() {
+        },
+        buttonClicked: function(index) {
+          if (index === 0) {
+            IonActionSheet.close(function(){
+              doLogout();
+            });
+            return false;
+          }
+          return true;
+        },
+        destructiveButtonClicked: function() {
+          return true;
+        }
       });
     } else {
       doLogout();
