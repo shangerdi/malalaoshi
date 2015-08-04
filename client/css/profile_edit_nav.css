@@ -32,6 +32,12 @@
 .profile-edit .subject-item {
   padding: 5px 0;
 }
+.profile-edit form, .profile-edit .profile-edit-edu, .profile-edit .profile-edit-cert {
+  background-color: #fff;
+}
+.profile-edit-basic {
+  padding: 20px;
+}
 .profile-edit-basic .btn-delete-item {
   display: inline-block;
   float: left;
@@ -41,18 +47,27 @@
   margin: 0;
 }
 .profile-edit-edu {
-  margin-top: 20px;
+  padding: 0 20px 20px 20px;
+}
+.profile-edit-edu .profile-edu-item {
+  padding-top: 20px;
+  border-bottom: 1px #eee solid;
+}
+.profile-edit-edu .profile-edu-item:last-child {
+  border-bottom: 0;
+}
+.profile-edit-edu .btn-add-edu-item {
+  margin: 28px 0 26px;
 }
 .btn-add-edu-item {
-  margin: 20px 0;
+  margin: 30px 0;
   color: #db3e00;
   font-size: 18px;
   line-height: 18px;
   padding-left:0;
 }
 .profile-edit-cert {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 0 20px;
 }
 .profile-edit-cert .cert-title {
   margin: 10px 0;
@@ -115,9 +130,30 @@
 .profile-edit-cert .btns-box .action-btn-box{
   display: none;
 }
-.parent-settings-box .settings-row {
-  border-bottom: 1px #ccc solid;
+.parent-settings-box {
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
 }
-.parent-settings-box .settings-row .content{
-  line-height: 44px;
+.parent-settings-box > div{
+  padding-left: 0;
+  padding-right: 0;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
+}
+.parent-settings-box > div:last-child{
+  border-bottom: none;
+}
+.parent-settings-box.logout-btn-box {
+  position: fixed;
+  bottom: 20px;
+}
+.parent-settings-box .item-input{
+  padding-left: 0;
+}
+.parent-settings-box input{
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #fff;
 }

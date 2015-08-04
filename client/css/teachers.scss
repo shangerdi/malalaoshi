@@ -1,5 +1,9 @@
 $greyColor: #b8b8b8;
 
+.teacher-div>div:first-child{
+  min-height:85px;
+}
+//TODO: teacher-div needs to be refactored by flex
 @media screen and(max-width: 199px){
   .teacher-div{
     border-left: none;

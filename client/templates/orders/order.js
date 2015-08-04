@@ -46,17 +46,17 @@ Template.order.events({
       // window.location.href = ("/create_direct_pay_by_user/"+orderId+"?isCordova="+Meteor.isCordova);
       Meteor.call('pingpp_alipay', {'orderId':orderId,'isCordova':Meteor.isCordova}, function(err, charge_obj) {
         if(err){
-          console.log(err);
+          // console.log(err);
           Session.set("orderShowLoading", false);
           $(e.currentTarget).removeClass("disabled");
           return throwError(err.reason);
         }
-        console.log(charge_obj);
+        // console.log(charge_obj);
         pingpp.createPayment(charge_obj, function(pay_result, pay_error){
           Session.set("orderShowLoading", false);
           $(e.currentTarget).removeClass("disabled");
-          console.log(pay_error);
-          console.log(pay_result);
+          // console.log(pay_error);
+          // console.log(pay_result);
           if (pay_result == "success") {
               // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的 wap 支付结果都是在 extra 中对应的 URL 跳转。
           } else if (pay_result == "fail") {

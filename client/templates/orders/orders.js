@@ -13,3 +13,8 @@ Template.orders.events({
     Router.go("teachers");
   }
 });
+Template.ionNavBar.events({
+  'click .btn-settings': function(e) {
+    Router.go("parentSettings");
+  }
+})

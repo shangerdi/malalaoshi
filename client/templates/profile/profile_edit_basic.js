@@ -152,7 +152,7 @@ Template.profileEditBasic.helpers({
   },
   eduSchoolList: function(val) {
     var a = getEduSchoolDict(), optionList=[];
-    optionList.push({key:"", text:" - 学校 - "});
+    optionList.push({key:"", text:" - 阶段 - "});
     _.each(a, function(obj){
       var newObj = {key:obj.key, text:obj.text};
       if (obj.key==val) {
@@ -230,7 +230,7 @@ Template.profileEditBasic.events({
       address: address,
       selfIntro: $(curForm).find('[name=selfIntro]').val()
     }
-    console.log(profile);
+    // console.log(profile);
 
     $('.subject-item').removeClass('has-error');
     var errors = validateProfile(profile);

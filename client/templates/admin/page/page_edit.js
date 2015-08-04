@@ -16,7 +16,7 @@ Template.adminPage.rendered=function(){
     CKEDITOR.replace('content');
   }).fail(function(e){
     if (console) {
-      console.log(e);
+      // console.log(e);
     }
   });
 };

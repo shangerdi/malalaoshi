@@ -1,8 +1,11 @@
 Template.parentSettingsEdit.events({
+  'click .ion-ios-close-empty': function(e) {
+    $("#name").val('');
+  },
   'click .btn-save': function(e) {
     var newname = $("#name").val();
     if (!newname) {
-      alert("Please!");
+      alert("不能为空！");
     }
     newname=$.trim(newname);
     if (newname!==Meteor.user().profile.name) {
