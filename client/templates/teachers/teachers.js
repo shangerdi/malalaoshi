@@ -89,17 +89,55 @@ Template.selectTeachSubject.helpers({
 
 Template.selectTeachSubject.onRendered(function(){
   this.data.swiperSubject = new Swiper('.swiper-subject', {
-    slidesPerView: 5,
+    slidesPerView: 9,
     centeredSlides: true,
     spaceBetween: 2,
+    paginationClickable: false,
+    freeMode: true,
+    freeModeMomentum: true,
+    freeModeMomentumRatio: 0.5,
+    freeModeMomentumBounceRatio: 0.01,
+    freeModeMomentumBounce: true,
+    freeModeSticky: true,
     direction: 'vertical'
   });
   this.data.swiperGrade = new Swiper('.swiper-grade', {
-    slidesPerView: 5,
+    slidesPerView: 9,
     centeredSlides: true,
     spaceBetween: 2,
-    direction: 'vertical'
+    paginationClickable: false,
+    freeMode: true,
+    freeModeMomentum: true,
+    freeModeMomentumRatio: 0.5,
+    freeModeMomentumBounceRatio: 0.01,
+    freeModeMomentumBounce: true,
+    freeModeSticky: true,
+    direction: 'vertical',
+    watchSlidesVisibility: true,
+    centeredSlides: true,
+    onSliderMove: function(swiper, event){
+      //console.log(swiper);
+    },
+    onTouchEnd: function(swiper, event){
+      console.log(swiper);
+    }
   });
+/**
+  this.data.swiperGrade.on("sliderMove", function(a, b, c, d, e, f, g){
+    console.log("....................a...............");
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    console.log(d);
+    console.log(e);
+    console.log(f);
+    console.log(g);
+    console.log("....................b...............");
+  });
+*/
+
+
+
 
   var subject = Session.get('teachersSubject');
   if(!subject){
