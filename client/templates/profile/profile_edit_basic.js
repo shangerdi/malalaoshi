@@ -28,20 +28,7 @@ Template.profileEditBasic.onRendered(function() {
     $('#birthdayMonth').val(a[1]+'月');
     $('#birthdayDay').val(a[2]+'日');
   }
-  $("input[type=radio][name=gender]").each(function(){
-    if(this.value==curUser.profile.gender) {
-      this.checked = 'checked';
-    } else {
-      this.checked = false;
-    }
-  });
-  $("input[type=radio][name=state]").each(function(){
-    if(this.value==curUser.profile.state) {
-      this.checked = 'checked';
-    } else {
-      this.checked = false;
-    }
-  });
+  $("select[name=gender]").val(curUser.profile.gender);
 
   var userAddress = curUser.profile.address;
   if (userAddress && userAddress.province) {
@@ -210,7 +197,7 @@ Template.profileEditBasic.events({
   'submit form': function(e) {
     e.preventDefault();
     var curForm = e.target, $curForm = $(curForm);
-    var gender = $(curForm).find('input[name="gender"]:checked').val();
+    var gender = $(curForm).find('[name="gender"]').val();
     var birthday = parseInt($('#birthdayYear').val())+'-'+parseInt($('#birthdayMonth').val())+'-'+parseInt($('#birthdayDay').val());
     var state = $(curForm).find('[name="state"]').val();
     var subjects = getSubjectsInput($curForm);

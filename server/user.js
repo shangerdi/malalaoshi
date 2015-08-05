@@ -66,6 +66,16 @@ ProfileSchema = new SimpleSchema({
     optional: true,
     allowedValues: ['男', '女']
   },
+  birthday: {
+    type: String,
+    label: 'Birthday',
+    optional: true
+  },
+  state: {
+    type: String,
+    label: 'State',
+    optional: true
+  },
   selfIntro: {
     type: String,
     optional: true,

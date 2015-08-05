@@ -66,12 +66,22 @@ Template.profileEditEdu.events({
       if (college=="") {
         err = true;
         showError(prop, "请填写学校名字");
+      } else {
+        if (college.length>12) {
+          err = true;
+          showError(prop, "学校名字不能超过12个字");
+        }
       }
       prop = $item.find("input[name=major]");
       var major = prop.val();
       if (major=="") {
         err = true;
         showError(prop, "请填写专业");
+      } else {
+        if (major.length>12) {
+          err = true;
+          showError(prop, "专业名字不能超过12个字");
+        }
       }
       if (err) {
         hasError = true;
