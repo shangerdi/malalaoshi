@@ -86,21 +86,76 @@ Template.selectTeachSubject.helpers({
     return grade;
   }
 });
+function getSwiperSlideInWindow(swiper, translate){
+  var all = swiper.snapGrid;
+  if(all.length === 0){
+    return null;
+  }
+  var preDist = Infinity, cuttentDist = null, nextDist = null, notGetCurent = true, checkDist = 0;
+  if(all.length >= 2){
+    checkDist = all[0] - all[1];
+    checkDist = checkDist < 0 ? (checkDist * -1 - 16) : (checkDist - 16);
+  }
+  var refDist = checkDist <= 44 ? 44 : checkDist - 44;
+  for(var i=0; i<all.length-1; i++){
+    cuttentDist = all[i] + translate;
+    cuttentDist = cuttentDist < 0 ? cuttentDist * -1 : cuttentDist;
 
+    nextDist = all[i+1] + translate;
+    nextDist = nextDist < 0 ? nextDist * -1 : nextDist;
+
+    if(preDist < cuttentDist){
+      return preDist <= refDist ? (i-1) : null;
+    }else if(cuttentDist < nextDist){
+      return cuttentDist <= refDist ? i : null;
+    }
+    preDist = cuttentDist;
+  }
+  return nextDist <= refDist ? i : null;
+}
 Template.selectTeachSubject.onRendered(function(){
   this.data.swiperSubject = new Swiper('.swiper-subject', {
-    slidesPerView: 5,
+    slidesPerView: 9,
     centeredSlides: true,
     spaceBetween: 2,
+    paginationClickable: false,
+    freeMode: true,
+    freeModeMomentum: true,
+    freeModeMomentumRatio: 0.5,
+    freeModeMomentumBounceRatio: 0.01,
+    freeModeMomentumBounce: true,
+    freeModeSticky: true,
     direction: 'vertical'
   });
   this.data.swiperGrade = new Swiper('.swiper-grade', {
-    slidesPerView: 5,
+    slidesPerView: 9,
     centeredSlides: true,
     spaceBetween: 2,
-    direction: 'vertical'
+    paginationClickable: false,
+    freeMode: true,
+    freeModeMomentum: true,
+    freeModeMomentumRatio: 0.5,
+    freeModeMomentumBounceRatio: 0.01,
+    freeModeMomentumBounce: true,
+    freeModeSticky: true,
+    direction: 'vertical',
+    watchSlidesVisibility: true,
+    centeredSlides: true
   });
-
+  this.data.swiperSubject.on("setTranslate", function(swiper, translate){
+    var select = getSwiperSlideInWindow(swiper, translate);
+    swiper.container.find("div>div").removeClass("swiper-slide-in");
+    if(select != null){
+      swiper.container.find("div>div:eq("+select+")").addClass("swiper-slide-in");
+    }
+  });
+  this.data.swiperGrade.on("setTranslate", function(swiper, translate){
+    var select = getSwiperSlideInWindow(swiper, translate);
+    swiper.container.find("div>div").removeClass("swiper-slide-in");
+    if(select != null){
+      swiper.container.find("div>div:eq("+select+")").addClass("swiper-slide-in");
+    }
+  });
   var subject = Session.get('teachersSubject');
   if(!subject){
     subject = "all";
