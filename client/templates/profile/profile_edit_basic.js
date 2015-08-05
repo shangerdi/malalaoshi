@@ -28,20 +28,7 @@ Template.profileEditBasic.onRendered(function() {
     $('#birthdayMonth').val(a[1]+'月');
     $('#birthdayDay').val(a[2]+'日');
   }
-  $("input[type=radio][name=gender]").each(function(){
-    if(this.value==curUser.profile.gender) {
-      this.checked = 'checked';
-    } else {
-      this.checked = false;
-    }
-  });
-  $("input[type=radio][name=state]").each(function(){
-    if(this.value==curUser.profile.state) {
-      this.checked = 'checked';
-    } else {
-      this.checked = false;
-    }
-  });
+  $("select[name=gender]").val(curUser.profile.gender);
 
   var userAddress = curUser.profile.address;
   if (userAddress && userAddress.province) {
@@ -206,11 +193,12 @@ getSubjectsInput = function($form) {
   });
   return subjects;
 }
+var maxSubjectItems = 3;
 Template.profileEditBasic.events({
   'submit form': function(e) {
     e.preventDefault();
     var curForm = e.target, $curForm = $(curForm);
-    var gender = $(curForm).find('input[name="gender"]:checked').val();
+    var gender = $(curForm).find('[name="gender"]').val();
     var birthday = parseInt($('#birthdayYear').val())+'-'+parseInt($('#birthdayMonth').val())+'-'+parseInt($('#birthdayDay').val());
     var state = $(curForm).find('[name="state"]').val();
     var subjects = getSubjectsInput($curForm);
@@ -299,11 +287,17 @@ Template.profileEditBasic.events({
     $item.find("select").val("");
     $item.addClass('man-insert');
     $(".subjects-list").append($item);
+    if ($('.subject-item:visible').length>=maxSubjectItems) {
+      $(e.target).hide();
+    }
   },
   'click .btn-delete-item': function(e){
     $item = $(e.target).closest(".subject-item");
     $item.addClass('man-delete');
     $item.hide();
+    if ($('.subject-item:visible').length<maxSubjectItems) {
+      $('.btn-add-edu-item').show();
+    }
   },
   'change .subject-item select[name=school]': function(e) {
     var ele = e.target, $school = $(e.target), $item = $school.closest(".subject-item");

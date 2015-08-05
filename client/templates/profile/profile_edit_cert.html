@@ -27,7 +27,7 @@
             <span class="help-block"></span>
             <div class="btns-box">
               <div class="select-file-box">
-                <a class="btn btn-success file-input-mask">上传图片<input title="请选择图片" type="file" name="photo" multiple=""></a>
+                <a class="btn btn-success file-input-mask"><span>{{#if certInfo.teacherCertImgUrl}}重新上传{{else}}上传图片{{/if}}</span><input title="请选择图片" type="file" name="photo" multiple=""></a>
               </div>
               <div class="action-btn-box">
                 <input class="btn btn-success btn-confirm" type="button" value="保存图片" />
@@ -51,7 +51,7 @@
                 <span class="help-block"></span>
                 <div class="btns-box">
                   <div class="select-file-box">
-                    <a class="btn btn-success file-input-mask">上传图片<input title="请选择图片" type="file" name="photo" multiple=""></a>
+                    <a class="btn btn-success file-input-mask"><span>{{#if certImgUrl}}重新上传{{else}}上传图片{{/if}}</span><input title="请选择图片" type="file" name="photo" multiple=""></a>
                   </div>
                   <div class="action-btn-box">
                     <input class="btn btn-success btn-confirm" type="button" value="保存图片" />
@@ -74,7 +74,7 @@
               <span class="help-block"></span>
               <div class="btns-box">
                 <div class="select-file-box">
-                  <a class="btn btn-success file-input-mask">上传图片<input title="请选择图片" type="file" name="photo" multiple=""></a>
+                  <a class="btn btn-success file-input-mask"><span>上传图片</span><input title="请选择图片" type="file" name="photo" multiple=""></a>
                 </div>
                 <div class="action-btn-box">
                   <input class="btn btn-success btn-confirm" type="button" value="保存图片" />
