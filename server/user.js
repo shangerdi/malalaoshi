@@ -34,6 +34,12 @@ UserAddressSchema = new SimpleSchema({
   },
   district: {
     type: UserAddressDetailSchema
+  },
+  road: {
+    type: String,
+    label: 'Road',
+    optional: true,
+    max: 300
   }
 });
 UserSubjectsSchema = new SimpleSchema({
@@ -53,7 +59,8 @@ UserSubjectsSchema = new SimpleSchema({
 ProfileSchema = new SimpleSchema({
   name:{
     type: String,
-    label: 'User name'
+    label: 'User name',
+    max: 20
   },
   avatarUrl: {
     type: String,
@@ -79,7 +86,8 @@ ProfileSchema = new SimpleSchema({
   selfIntro: {
     type: String,
     optional: true,
-    label: 'Self intro'
+    label: 'Self intro',
+    max: 500
   },
   subjects: {
     optional: true,
