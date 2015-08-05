@@ -17,6 +17,7 @@ Template.profileEditEdu.helpers({
     return false;
   }
 });
+var maxEduItems = 2;
 Template.profileEditEdu.events({
   'click .btn-add-edu-item': function(e) {
     $profileEduItem = $(".profile-edu-item").last().clone();
@@ -29,9 +30,15 @@ Template.profileEditEdu.events({
       $item = $(e.target).closest(".profile-edu-item");
       $item.addClass('man-delete');
       $item.hide();
+      if ($('.profile-edu-item:visible').length<maxEduItems) {
+        $('.btn-add-edu-item').show();
+      }
     });
     $profileEduItem.addClass('man-insert');
     $(".profile-edu-items").append($profileEduItem);
+    if ($('.profile-edu-item:visible').length>=maxEduItems) {
+      $(e.target).hide();
+    }
   },
   'click .btn-save-edu': function (e) {
     var hasError;
@@ -118,5 +125,8 @@ Template.eduItem.events({
     $profileEduItem = $(e.target).closest(".profile-edu-item");
     $profileEduItem.addClass('man-delete');
     $profileEduItem.hide();
+    if ($('.profile-edu-item:visible').length<maxEduItems) {
+      $('.btn-add-edu-item').show();
+    }
   }
 });

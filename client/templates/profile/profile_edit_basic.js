@@ -193,6 +193,7 @@ getSubjectsInput = function($form) {
   });
   return subjects;
 }
+var maxSubjectItems = 3;
 Template.profileEditBasic.events({
   'submit form': function(e) {
     e.preventDefault();
@@ -286,11 +287,17 @@ Template.profileEditBasic.events({
     $item.find("select").val("");
     $item.addClass('man-insert');
     $(".subjects-list").append($item);
+    if ($('.subject-item:visible').length>=maxSubjectItems) {
+      $(e.target).hide();
+    }
   },
   'click .btn-delete-item': function(e){
     $item = $(e.target).closest(".subject-item");
     $item.addClass('man-delete');
     $item.hide();
+    if ($('.subject-item:visible').length<maxSubjectItems) {
+      $('.btn-add-edu-item').show();
+    }
   },
   'change .subject-item select[name=school]': function(e) {
     var ele = e.target, $school = $(e.target), $item = $school.closest(".subject-item");

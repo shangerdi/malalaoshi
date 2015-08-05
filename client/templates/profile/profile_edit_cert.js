@@ -83,6 +83,7 @@ var saveCertData = function(callback) {
     }
   });
 }
+var maxProfessionItems = 5;
 Template.profileEditCert.events({
   'change input[type=file]': function(e) {
     var ele = e.target, $ele = $(ele);
@@ -186,6 +187,9 @@ Template.profileEditCert.events({
     $proItem.addClass('man-insert');
     $proItem.show();
     $(".cert-profession-items").append($proItem);
+    if ($(".cert-profession-items").children().length>=maxProfessionItems) {
+      $(e.target).hide();
+    }
   },
   'click .btn-delete-item': function(e) {
     if (!confirm("您确定要删除该认证信息吗，删除后不可恢复?")) {
@@ -201,6 +205,9 @@ Template.profileEditCert.events({
     saveCertData(function() {
       showSuccessInfo("删除成功", $uploadBox);
     });
+    if ($(".cert-profession-items").children(":visible").length<maxProfessionItems) {
+      $('.btn-add-edu-item').show();
+    }
   },
   'click .btn-save': function(e) {
     saveCertData();
