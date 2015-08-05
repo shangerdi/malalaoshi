@@ -16,7 +16,7 @@ Template.avatar.onRendered(function(){
         left:0
     };
     resizer.imageRect={top:0,left:0};
-    resizer.minSize={width:20,height:20};
+    resizer.minSize={width:150,height:150};
     
     resizer.clipImage=function(){
         var nh=this.image.naturalHeight,
@@ -77,6 +77,9 @@ Template.avatar.onRendered(function(){
           resizer.image.src=reader.result;
           reader=null;
           resizer.image.onload=function() {
+            if (resizer.image.naturalHeight < resizer.minSize.height || resizer.image.naturalWidth<resizer.minSize.width) {
+              return resizer.doneCallback(new Meteor.Error("-2","图像分辨率必须大于"+resizer.minSize.width+" x "+resizer.minSize.height));
+            }
             resizer.addClass('have-img');
             resizer.setFrames();
             resizer.clipImage();
@@ -336,6 +339,10 @@ Template.avatar.events({
     if (resizer) {
       resizer.resize(ele.files[0],function(error, file){
         if (error) {
+          $('.btns-box .select-file-box').show();
+          $('.btns-box .action-btn-box').hide();
+          resizer.reset();
+          $('#imgFile').val("");
           showError(error.reason);
           return throwError(error.reason);
         }
