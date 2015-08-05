@@ -142,6 +142,13 @@ Template.selectTeachSubject.onRendered(function(){
     watchSlidesVisibility: true,
     centeredSlides: true
   });
+  this.data.swiperSubject.on("setTranslate", function(swiper, translate){
+    var select = getSwiperSlideInWindow(swiper, translate);
+    swiper.container.find("div>div").removeClass("swiper-slide-in");
+    if(select != null){
+      swiper.container.find("div>div:eq("+select+")").addClass("swiper-slide-in");
+    }
+  });
   this.data.swiperGrade.on("setTranslate", function(swiper, translate){
     var select = getSwiperSlideInWindow(swiper, translate);
     swiper.container.find("div>div").removeClass("swiper-slide-in");
@@ -149,7 +156,6 @@ Template.selectTeachSubject.onRendered(function(){
       swiper.container.find("div>div:eq("+select+")").addClass("swiper-slide-in");
     }
   });
-
   var subject = Session.get('teachersSubject');
   if(!subject){
     subject = "all";
