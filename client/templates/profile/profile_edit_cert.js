@@ -23,6 +23,7 @@ var clearUploadBoxErr = function($uploadBox) {
 }
 var clearUploadBox = function($uploadBox) {
   $uploadBox.find('.cert-img-box img').removeAttr('src');
+  $uploadBox.find('.file-input-mask span').text('上传图片');
   clearUploadBoxErr($uploadBox);
 }
 var showSuccessInfo = function(msg, $context) {
@@ -70,9 +71,9 @@ var saveCertData = function(callback) {
       return throwError(error.reason);
     if (callback) {
       callback();
-      return;
+    } else {
+      alert("保存成功");
     }
-    alert("保存成功");
     $(".cert-upload-box.man-insert").remove();
     $(".cert-upload-box.man-delete").show();
     $(".cert-profession-items .cert-upload-box:gt("+professionItems.length+")").remove();
@@ -187,6 +188,9 @@ Template.profileEditCert.events({
     $(".cert-profession-items").append($proItem);
   },
   'click .btn-delete-item': function(e) {
+    if (!confirm("您确定要删除该认证信息吗，删除后不可恢复?")) {
+      return;
+    }
     $uploadBox = $(e.target).closest(".cert-upload-box");
     if ($(".cert-profession-items").children().length==1) {
       clearUploadBox($uploadBox);
@@ -194,6 +198,9 @@ Template.profileEditCert.events({
     }
     $uploadBox.addClass('man-delete');
     $uploadBox.hide();
+    saveCertData(function() {
+      showSuccessInfo("删除成功", $uploadBox);
+    });
   },
   'click .btn-save': function(e) {
     saveCertData();
