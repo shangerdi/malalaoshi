@@ -29,6 +29,12 @@
   margin-right: 10px;
   float: left;
 }
+.profile-edit select[name=gender] {
+  width: 74px;
+}
+.profile-edit select[name=state] {
+  width: 171px;
+}
 .profile-edit .subject-item {
   padding: 5px 0;
 }
@@ -76,7 +82,7 @@
 }
 .profile-edit-cert .cert-upload-box {
   padding: 20px 0;
-  border-top: 1px solid black;
+  border-top: 1px solid #c9c9c9;
   position: relative;
 }
 .profile-edit-cert > .cert-upload-box {
