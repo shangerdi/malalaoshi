@@ -781,12 +781,12 @@ $greyColor: #b8b8b8;
   background-image: none;
   left: 0;
   width: 100%;
-  border: solid #E0C3C3 1px;
+  border: solid #D66D6D 1px;
   border-right: none;
   border-left: none;
   cursor: auto;
   background-color: #fef4f4;
-  opacity: .6;
+  opacity: .2;
 }
 .teach-subject-select .swiper-button-disabled{
   opacity: .6;
@@ -795,11 +795,13 @@ $greyColor: #b8b8b8;
   -webkit-overflow-scrolling: touch;
 }
 
-.swiper-slide-visible {
-}
-
 .swiper-visible-switch {
   opacity: 1;
   top: 0;
   background: #aaa;
+}
+.swiper-slide-in{
+  font-size: 28px;
+  font-weight: 600;
+  color: #695757;
 }
