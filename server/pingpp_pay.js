@@ -1,15 +1,6 @@
-var pingpp = Pingpp('sk_test_0e1W58PWXvTS94a18GvzTyj5');
+var pingpp = Pingpp(Meteor.settings.PingPPApiKey);
 var Fiber = Npm.require('fibers');
 var crypto = Npm.require('crypto');
-var pingpp_public_key = '-----BEGIN PUBLIC KEY-----'
-    +'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA63ies43K5pgEQdnr8uIB'
-    +'gBB54Ht3pMm9HdV8/w6w3RlNDpIaQYQjqURiEzb2JUJmdPqNZ904luMo5Dd8wNbT'
-    +'/lF/ooe5s5Scm08+ja84yE7mT2fxJyvMzT2qSTlDBp84iW+rAspRu3bTDQjWuWyH'
-    +'ghMYTIvAEgv7lRtoN18F8gVeCIjrN++a2M8m4mucOyCXH1HJZYMs4CuTuydnsJdn'
-    +'GT1f+ILzQkOcHj236WCtP55OryVOwZXScZnAZKkx21gSZayW3YNNA8aWh21R/tc3'
-    +'B3o4f+GRCRnrGW58FERhOzwqTKgnOYPTnk50Et28XRXEHoZa3wyTZA1ivP5As4T6'
-    +'6wIDAQAB'
-    +'-----END PUBLIC KEY-----';
 
 Meteor.methods({
   pingpp_alipay: function(params) {
@@ -83,7 +74,7 @@ Meteor.methods({
 // 验证 webhooks 签名
 var pingpp_verify_signature = function(raw_data, signature) {
   var verifier = crypto.createVerify('RSA-SHA256').update(raw_data, "utf8");
-  return verifier.verify(pingpp_public_key, signature, 'base64');
+  return verifier.verify(Meteor.settings.PingPPPublicKey, signature, 'base64');
 }
 // ping++ pay: Webhooks
 Router.route('/pingpp/result', function () {
@@ -100,13 +91,13 @@ Router.route('/pingpp/result', function () {
   // console.log(req);
   var raw_data = req.bodyRawData; // 请求的原始数据
   var signature = req.headers['x-pingplusplus-signature']; // 签名在头部信息的 x-pingplusplus-signature 字段
-  console.log('raw_data:'+raw_data);
-  console.log('signature:'+signature);
   if (typeof raw_data !== 'string' || typeof signature !== 'string') {
     return send('TODO', 200);
   }
 
   if (!pingpp_verify_signature(raw_data, signature)) {
+    console.log('raw_data:'+raw_data);
+    console.log('signature:'+signature);
     console.log('verify fail');
     return send('verify fail', 200);
   }
@@ -114,7 +105,7 @@ Router.route('/pingpp/result', function () {
   switch (eventObj.type) {
     case "charge.succeeded": // 对支付异步通知的处理代码
       var orderNo = dataObj.order_no;
-      if (eventObj.paid && orderNo) {
+      if (dataObj.paid && orderNo) {
         Orders.update({_id: orderNo, status: "submited"}, {$set: {"status": "paid"}});
       }
       console.log('Order paid: '+orderNo);
