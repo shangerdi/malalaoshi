@@ -32,3 +32,21 @@ Template.registerHelper('activeRouteClass', function(/* route names */) {
 
   return activeTab && 'active';
 });
+
+Template.registerHelper('runEnv', function() {
+  var host = window.location.hostname;
+  if (host.match('(localhost|127\.0\.0\.1|.*\.local)')) {
+    return 'Dev';
+  }
+  else if (host.match('stage\..*')) {
+    return 'Stage';
+  }
+  return 'Beta';
+});
+
+Template.registerHelper('location', function() {
+  if (Blaze._globalHelpers.runEnv() === 'Dev') {
+    var loc = Geolocation.latLng();
+    return loc ? loc.lat + ',' + loc.lng : '';
+  }
+});
