@@ -7,5 +7,8 @@
 	},
   "AWSRegion": "ap-southeast-1",
   "AWSAccessKeyId": "AKIAJEMNQ4HCFMXWHZJA",
-  "AWSSecretAccessKey": "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"
+  "AWSSecretAccessKey": "L2WLsdt20xwVVkA7kB/3eIBst5emrsfY/7Lvj28U",
+  "YunPianApiKey": "4094d66bedf5ef7cb3134b4da6c12a0e",
+  "PingPPApiKey": "sk_test_0e1W58PWXvTS94a18GvzTyj5",
+  "PingPPPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA63ies43K5pgEQdnr8uIB\ngBB54Ht3pMm9HdV8/w6w3RlNDpIaQYQjqURiEzb2JUJmdPqNZ904luMo5Dd8wNbT\n/lF/ooe5s5Scm08+ja84yE7mT2fxJyvMzT2qSTlDBp84iW+rAspRu3bTDQjWuWyH\nghMYTIvAEgv7lRtoN18F8gVeCIjrN++a2M8m4mucOyCXH1HJZYMs4CuTuydnsJdn\nGT1f+ILzQkOcHj236WCtP55OryVOwZXScZnAZKkx21gSZayW3YNNA8aWh21R/tc3\nB3o4f+GRCRnrGW58FERhOzwqTKgnOYPTnk50Et28XRXEHoZa3wyTZA1ivP5As4T6\n6wIDAQAB\n-----END PUBLIC KEY-----"
 }
