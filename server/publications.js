@@ -26,6 +26,20 @@ Meteor.publish('curUserEducation', function() {
 Meteor.publish('curUserCertification', function() {
   return UserCertification.find({userId: this.userId});
 });
+Meteor.publish('curTeacherCourseTable', function() {
+  if (this.userId) {
+    return TeacherCourseTables.find({"teacher.id": this.userId});
+  }
+  return null;
+});
+Meteor.publish('areaTimePhases', function(code) {
+  if (typeof code === 'string') {
+    return AreaTimePhases.find({"code":code});
+  } else if (_.isArray(code)) {
+    return AreaTimePhases.find({"code": {$in:code}});
+  }
+  return null;
+});
 
 Meteor.publish('teacherAudits', function(param) {
   var curUser = Meteor.users.findOne(this.userId);
