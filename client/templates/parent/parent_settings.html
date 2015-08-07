@@ -13,7 +13,7 @@
     {{#ionList class="parent-settings-box"}}
       {{#ionItem buttonRight=true avatar=true class="item-icon-right"}}
         <label class="input-label" for="name">姓名</label>
-        <div class="content">{{currentUser.profile.name}} 
+        <div class="content">{{currentUser.profile.name}}
           <a class="btn pull-right" href="{{pathFor 'parentSettingsEdit'}}">{{> ionIcon icon="ios-arrow-forward" class="button-light greyColor"}}</a>
         </div>
       {{/ionItem}}
@@ -21,6 +21,9 @@
         <label class="input-label" for="name">电话</label>
         <div class="content">{{currentUser.phoneNo}}</div>
       {{/ionItem}}
+      <div style="text-align: center; width: 100%; font-size: 28px;">
+        <a href="{{pathFor 'map'}}">地图</a>
+      </div>
     {{/ionList}}
 
     <div class="parent-settings-box logout-btn-box">
