@@ -25,39 +25,48 @@ Template.courseTable.onCreated(function() {
     timePhases = defaultTimePhases;
   }
   this.cacheData.timePhases = timePhases.sort(function(a,b){return a.start-b.start;});
-  // 查询老师的安排
-  var tct = TeacherCourseTables.findOne({"teacher.id": Meteor.userId()});
-  if (tct && tct.phases) {
-    this.cacheData.availablePhases = tct.phases;
-  }
 });
 Template.courseTable.onRendered(function() {
-  $courseTable = $('.course-table');
-  var timePhases = this.cacheData.timePhases, availablePhases = this.cacheData.availablePhases;
-  // 根据时间段，和老师的时间安排数据，渲染课程表
-  _.each(timePhases, function(phase){
-    var htmlBuf = '<tr>';
-    htmlBuf += '<td class="time-phase">'+convMinutes2Str(phase.start)+' -- '+convMinutes2Str(phase.end)+'</td>';
-    for (var i=1; i<=7; i++) {
-      var tmp = _.find(availablePhases, function(obj){
-        return obj.weekday==i && obj.phase.start==phase.start && obj.phase.end==phase.end;
-      });
-      htmlBuf += '<td data-weekday="'+i+'" data-start="'+phase.start+'" data-end="'+phase.end+'" class="phase ';
-      if (tmp) {
-        htmlBuf += 'available">a</td>';
-      } else {
-        htmlBuf += 'un-available">u</td>';
-      }
-    }
-    htmlBuf += '</tr>';
-    $courseTable.append(htmlBuf);
-  });
+  // TODO
 });
 Template.courseTable.helpers({
   lessonCounts: function() {
     var tct = TeacherCourseTables.findOne({"teacher.id": Meteor.userId()});
     var availablePhases = (tct && tct.phases)?tct.phases:null;
     return availablePhases?availablePhases.length:0;
+  },
+  timePhases: function() {
+    return Template.instance().cacheData.timePhases;
+  },
+  days: function() {
+    return [1,2,3,4,5,6,7];
+  },
+  convMinutes2Str: function(mins) {
+    return convMinutes2Str(mins);
+  },
+  getPhaseState: function(i, start, end) {
+    var tct = TeacherCourseTables.findOne({"teacher.id": Meteor.userId()});
+    var availablePhases = (tct && tct.phases)?tct.phases:null;
+    var tmp = _.find(availablePhases, function(obj){
+      return obj.weekday==i && obj.phase.start==start && obj.phase.end==end;
+    });
+    if (tmp) {
+      return 'available';
+    } else {
+      return 'un-available';
+    }
+  },
+  getPhaseText: function(i, start, end) {
+    var tct = TeacherCourseTables.findOne({"teacher.id": Meteor.userId()});
+    var availablePhases = (tct && tct.phases)?tct.phases:null;
+    var tmp = _.find(availablePhases, function(obj){
+      return obj.weekday==i && obj.phase.start==start && obj.phase.end==end;
+    });
+    if (tmp) {
+      return 'a';
+    } else {
+      return 'u';
+    }
   }
 });
 Template.courseTable.events({
