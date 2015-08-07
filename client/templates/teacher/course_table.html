@@ -1,7 +1,13 @@
 <template name="courseTable">
 {{#ionView}}
   {{#ionContent}}
-    <div class="course-table"></div>
+    <div class="course-table-box">
+      <div>每周共{{lessonCounts}}课时</div>
+      <table class="course-table">
+        <tr class="week-row"><td></td><td>周一</td><td>周二</td><td>周三</td><td>周四</td><td>周五</td><td>周六</td><td>周日</td></tr>
+        <!-- <tr><td class="time-phase"></td><td data-weekday=0 data-start=0 data-end=0 class="phase available|un-available">......</tr> -->
+      </table>
+    </div>
   {{/ionContent}}
 {{/ionView}}
 </template>
