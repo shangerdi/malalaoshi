@@ -62,8 +62,7 @@ Template.map.rendered=function(){
   	ac.addEventListener("onconfirm", function(e){
       IonKeyboard.close();
       var _value = e.item.value;
-      var myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-      Session.set("locationAddress", myValue);
+      Session.set("locationAddress", _value.province +  _value.city +  _value.district +  _value.street +  _value.business);
 
   		setPlace(Template.map.map);
   	});
@@ -89,8 +88,7 @@ Template.map.events({
       doSearch = true;
     }
     if(doSearch){
-      var searchVal = $.trim($("#searchInput").val());
-      Session.set("locationAddress", searchVal);
+      Session.set("locationAddress", $.trim($("#searchInput").val()));
       setPlace(Template.map.map);
     }
   }
