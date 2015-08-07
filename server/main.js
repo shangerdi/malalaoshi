@@ -8,4 +8,6 @@ Meteor.startup(function () {
   BrowserPolicy.content.allowOriginForAll('wappaygw.alipay.com');
   BrowserPolicy.content.allowOriginForAll('www.google-analytics.com');
   BrowserPolicy.content.allowOriginForAll('enginex.kadira.io');
+  BrowserPolicy.content.allowOriginForAll('cdn.ckeditor.com');
+  BrowserPolicy.content.allowEval();
 });
