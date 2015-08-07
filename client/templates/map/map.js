@@ -1,3 +1,4 @@
+var lastAct = null;
 function mapMoveAndOverlay(map, e){
   var pt = new BMap.Point(e.point.lng, e.point.lat);
   Session.set("locationLngLat", pt);
@@ -10,7 +11,7 @@ function mapMoveAndOverlay(map, e){
 function setPlace(map){
   map.clearOverlays();
   function myFun(){
-    if(local.getResults() && local.getResults().getPoi(0)){
+    if(lastAct === "manual" && local.getResults() && local.getResults().getPoi(0)){
       var pp = local.getResults().getPoi(0).point;
       Session.set("locationLngLat", pp);
       map.centerAndZoom(pp, 16);
@@ -20,9 +21,11 @@ function setPlace(map){
   var local = new BMap.LocalSearch(map, {
     onSearchComplete: myFun
   });
+  lastAct = "manual";
   local.search(Session.get("locationAddress"));
 }
 Template.map.onCreated(function(){
+  lastAct = null;
   IonNavigation.skipTransitions = true;
   Session.set("locationPlaceholder", "请输入地址");
   Session.set("locationDefaultCity", "北京市");
@@ -37,15 +40,18 @@ Template.map.rendered=function(){
     var map = new BMap.Map("allmap");
 
     var geolocationControl = new BMap.GeolocationControl();
+    Template.map.map = map;
+    Template.map.geolocationControl = geolocationControl;
     geolocationControl.addEventListener("locationSuccess", function(e){
-      mapMoveAndOverlay(map, e);
-      Session.set("locationAddress", e.addressComponent.city + e.addressComponent.district + e.addressComponent.street + e.addressComponent.streetNumber);
-      Template.map.map = map;
-      Template.map.geolocationControl = geolocationControl;
+      if(lastAct === "auto"){
+        mapMoveAndOverlay(map, e);
+        Session.set("locationAddress", e.addressComponent.city + e.addressComponent.district + e.addressComponent.street + e.addressComponent.streetNumber);
+      }
     });
     geolocationControl.addEventListener("locationError",function(e){
       Session.set("locationPlaceholder", "定位错误，请手动输入位置");
     });
+    lastAct = "auto";
     geolocationControl.location();
 
     var ac = new BMap.Autocomplete({
