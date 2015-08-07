@@ -55,7 +55,8 @@ Template.courseTable.onRendered(function() {
 });
 Template.courseTable.helpers({
   lessonCounts: function() {
-    var availablePhases = Template.instance().cacheData.availablePhases;
+    var tct = TeacherCourseTables.findOne({"teacher.id": Meteor.userId()});
+    var availablePhases = (tct && tct.phases)?tct.phases:null;
     return availablePhases?availablePhases.length:0;
   }
 });
