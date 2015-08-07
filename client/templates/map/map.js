@@ -32,7 +32,7 @@ Template.map.rendered=function(){
   window.CKEDITOR_BASEPATH = "/ckeditor/";
 
   $.when(
-    $.getScript("http://api.map.baidu.com/getscript?v=2.0&ak=792d05ff6d74ad5c89cb863774ac6948&services=")
+    $.getScript("http://api.map.baidu.com/getscript?v=2.0&ak="+Meteor.settings.public.baiduAK)
   ).done(function(){
     var map = new BMap.Map("allmap");
 
