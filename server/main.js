@@ -16,4 +16,5 @@ Meteor.startup(function () {
   BrowserPolicy.content.allowOriginForAll('*.baidu.com');
   BrowserPolicy.content.allowOriginForAll('*.bdstatic.com');
   BrowserPolicy.content.allowEval();
+
 });
