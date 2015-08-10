@@ -1,8 +1,4 @@
-var numWords = ['天','一','二','三','四','五','六','日']
-var convMinutes2Str = function(mins) {
-  var sH=mins/60, sM=mins%60;
-  return (sH<10?'0'+sH:sH)+':'+(sM<10?'0'+sM:sM);
-}
+var convMinutes2Str = CourseTable.convMinutes2Str;
 Template.scheduleWeekly.onCreated(function() {
   // define cache data
   this.cacheData = this.cacheData || {};
@@ -22,7 +18,7 @@ Template.scheduleWeekly.onCreated(function() {
     timePhases = AreaTimePhases.findOne({code: address.province.code});
   }
   if (!timePhases) {
-    timePhases = defaultTimePhases;
+    timePhases = CourseTable.defaultTimePhases;
   }
   this.cacheData.timePhases = timePhases.sort(function(a,b){return a.start-b.start;});
 });
@@ -36,7 +32,7 @@ Template.scheduleWeekly.helpers({
     return Template.instance().cacheData.timePhases;
   },
   days: function() {
-    return [1,2,3,4,5,6,7];
+    return CourseTable.days;
   },
   convMinutes2Str: function(mins) {
     return convMinutes2Str(mins);
@@ -69,6 +65,6 @@ Template.scheduleWeekly.helpers({
 Template.scheduleWeekly.events({
   'click td.phase': function(e) {
     var ele=e.target, $ele = $(ele);
-    alert('周'+numWords[$ele.data('weekday')]+"  "+convMinutes2Str($ele.data('start'))+"  "+convMinutes2Str($ele.data('end')));
+    alert('周'+CourseTable.dayNumWords[$ele.data('weekday')]+"  "+convMinutes2Str($ele.data('start'))+"  "+convMinutes2Str($ele.data('end')));
   }
 });
