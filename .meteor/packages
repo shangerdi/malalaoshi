@@ -41,3 +41,4 @@ browser-policy
 jonime:force-ssl
 mdg:geolocation
 lsun:ckeditor
+percolate:synced-cron
