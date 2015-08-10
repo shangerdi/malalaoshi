@@ -62,8 +62,7 @@ Template.map.rendered=function(){
       "input" : "searchInput",
       "location" : Session.get("locationDefaultCity")
     });
-    var la = Session.get("locationAddress");
-    ac.setInputValue(la ? la : "");
+    ac.setInputValue(Session.get("locationAddress") || "");
   	ac.addEventListener("onconfirm", function(e){
       IonKeyboard.close();
       $('#searchInput')[0].blur();
@@ -78,12 +77,10 @@ Template.map.rendered=function(){
 };
 Template.map.helpers({
   placeholder: function(){
-    var ph = Session.get("locationPlaceholder");
-    return ph ? ph : "";
+    return Session.get("locationPlaceholder") || "";
   },
   locationAddress: function(){
-    var la = Session.get("locationAddress");
-    return la ? la : "";
+    return Session.get("locationAddress") || "";
   }
 });
 Template.map.events({
