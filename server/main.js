@@ -9,5 +9,12 @@ Meteor.startup(function () {
   BrowserPolicy.content.allowOriginForAll('www.google-analytics.com');
   BrowserPolicy.content.allowOriginForAll('enginex.kadira.io');
   BrowserPolicy.content.allowOriginForAll('cdn.ckeditor.com');
+  BrowserPolicy.content.allowOriginForAll('api.map.baidu.com');
+  BrowserPolicy.content.allowOriginForAll('*.api.map.baidu.com');
+  BrowserPolicy.content.allowOriginForAll('*.map.bdimg.com');
+  BrowserPolicy.content.allowOriginForAll('*.bdimg.com');
+  BrowserPolicy.content.allowOriginForAll('*.baidu.com');
+  BrowserPolicy.content.allowOriginForAll('*.bdstatic.com');
   BrowserPolicy.content.allowEval();
+
 });

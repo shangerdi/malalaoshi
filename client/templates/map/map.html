@@ -1,0 +1,21 @@
+<template name="map">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=" "}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">位置获取</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent class="location-map"}}
+      <div style="margin-top: 10px; padding-left: 15px; padding-right: 15px; width: 100%; display: block; position: absolute; z-index: 5;">
+        <label class="item item-input">
+          <input id="searchInput" type="text" placeholder="{{placeholder}}" value="{{locationAddress}}">
+          <i id="searchIcon" class="icon ion-search placeholder-icon" style="font-size: 23px; min-width: 60px;"></i>
+        </label>
+      </div>
+      <div style="width: 100%; height: 100%;" id="allmap"></div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
