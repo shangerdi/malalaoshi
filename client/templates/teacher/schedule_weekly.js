@@ -3,7 +3,7 @@ var convMinutes2Str = function(mins) {
   var sH=mins/60, sM=mins%60;
   return (sH<10?'0'+sH:sH)+':'+(sM<10?'0'+sM:sM);
 }
-Template.courseTable.onCreated(function() {
+Template.scheduleWeekly.onCreated(function() {
   // define cache data
   this.cacheData = this.cacheData || {};
   if (!Meteor.user()) {
@@ -26,10 +26,7 @@ Template.courseTable.onCreated(function() {
   }
   this.cacheData.timePhases = timePhases.sort(function(a,b){return a.start-b.start;});
 });
-Template.courseTable.onRendered(function() {
-  // TODO
-});
-Template.courseTable.helpers({
+Template.scheduleWeekly.helpers({
   lessonCounts: function() {
     var tct = TeacherCourseTables.findOne({"teacher.id": Meteor.userId()});
     var availablePhases = (tct && tct.phases)?tct.phases:null;
@@ -69,7 +66,7 @@ Template.courseTable.helpers({
     }
   }
 });
-Template.courseTable.events({
+Template.scheduleWeekly.events({
   'click td.phase': function(e) {
     var ele=e.target, $ele = $(ele);
     alert('周'+numWords[$ele.data('weekday')]+"  "+convMinutes2Str($ele.data('start'))+"  "+convMinutes2Str($ele.data('end')));
