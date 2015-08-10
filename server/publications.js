@@ -26,9 +26,9 @@ Meteor.publish('curUserEducation', function() {
 Meteor.publish('curUserCertification', function() {
   return UserCertification.find({userId: this.userId});
 });
-Meteor.publish('curTeacherCourseTable', function() {
-  if (this.userId) {
-    return TeacherCourseTables.find({"teacher.id": this.userId});
+Meteor.publish('teacherCourseTable', function(teacherId) {
+  if (this.userId && teacherId) {
+    return TeacherCourseTables.find({"teacher.id": teacherId});
   }
   return null;
 });
@@ -37,6 +37,12 @@ Meteor.publish('areaTimePhases', function(code) {
     return AreaTimePhases.find({"code":code});
   } else if (_.isArray(code)) {
     return AreaTimePhases.find({"code": {$in:code}});
+  }
+  return null;
+});
+Meteor.publish('courseAttendanceList', function(params) {
+  if (this.userId && params) {
+    return CourseAttendances.find(params.find, params.options);
   }
   return null;
 });
