@@ -4,7 +4,7 @@ Template.scheduleWeeklyForOrder.onCreated(function() {
   // define cache data
   this.cacheData = this.cacheData || {};
   var teacher = Meteor.users.findOne({_id:Router.current().params.teacherId});
-  if (!Meteor.user() && !teacher) {
+  if (!Meteor.user() || !teacher) {
     this.cacheData.notLogin = true;
     return;
   }

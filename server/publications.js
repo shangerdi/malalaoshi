@@ -40,6 +40,29 @@ Meteor.publish('areaTimePhases', function(code) {
   }
   return null;
 });
+Meteor.publish('areaTimePhasesByTeacher', function(teacherId) {
+  if (!this.userId || !teacherId) {
+    return null;
+  }
+  var teacher = Meteor.users.findOne({_id:teacherId});
+  if (!teacher) {
+    return null;
+  }
+  var address = teacher.profile.address, code=[];
+  if (address.province.code) {
+    code.push(address.province.code);
+  }
+  if (address.city.code) {
+    code.push(address.city.code);
+  }
+  if (address.district.code) {
+    code.push(address.district.code);
+  }
+  return [
+    Meteor.users.find({_id: teacherId}, {fields: {'profile': 1}}),
+    AreaTimePhases.find({"code": {$in:code}})
+  ];
+});
 Meteor.publish('courseAttendances', function(params) {
   if (this.userId && params) {
     return CourseAttendances.find(params.find, params.options);
