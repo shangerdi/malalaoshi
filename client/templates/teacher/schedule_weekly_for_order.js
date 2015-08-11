@@ -54,8 +54,10 @@ Template.scheduleWeeklyForOrder.helpers({
       return obj.weekday==i && obj.phase.start==start && obj.phase.end==end;
     });
     if (tmp) {
-      var now = new Date(), todayTime = new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime(), aWeekLaterTime = todayTime+7*24*60*60*1000;
-      var reservedList = CourseAttendances.find({"teacher.id":Template.instance().cacheData.teacherId, attendDay: {$gte: todayTime, $lt: aWeekLaterTime}}).fetch();
+      var exDays = CourseTable.experienceDays;// TODO: calculate days to attend experience course.
+      var now = new Date(), today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+      var firstTime = today.getTime()+exDays*24*60*60*1000, aWeekLaterTime = today.getTime()+(7+exDays)*24*60*60*1000;
+      var reservedList = CourseAttendances.find({"teacher.id":Template.instance().cacheData.teacherId, 'attendDay': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
       var item = _.find(reservedList, function(obj){
         var tmpDate = new Date(obj.attendDay), weekday = tmpDate.getDay();
         weekday = (weekday==0?7:weekday);
@@ -77,8 +79,10 @@ Template.scheduleWeeklyForOrder.helpers({
       return obj.weekday==i && obj.phase.start==start && obj.phase.end==end;
     });
     if (tmp) {
-      var now = new Date(), todayTime = new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime(), aWeekLaterTime = todayTime+7*24*60*60*1000;
-      var reservedList = CourseAttendances.find({"teacher.id":Template.instance().cacheData.teacherId, attendDay: {$gte: todayTime, $lt: aWeekLaterTime}}).fetch();
+      var exDays = CourseTable.experienceDays;// TODO: calculate days to attend experience course.
+      var now = new Date(), today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+      var firstTime = today.getTime()+exDays*24*60*60*1000, aWeekLaterTime = today.getTime()+(7+exDays)*24*60*60*1000;
+      var reservedList = CourseAttendances.find({"teacher.id":Template.instance().cacheData.teacherId, 'attendDay': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
       var item = _.find(reservedList, function(obj){
         var tmpDate = new Date(obj.attendDay), weekday = tmpDate.getDay();
         weekday = (weekday==0?7:weekday);
@@ -97,7 +101,7 @@ Template.scheduleWeeklyForOrder.helpers({
 Template.scheduleWeeklyForOrder.events({
   'click td.phase': function(e) {
     var ele=e.target, $ele = $(ele);
-    if ($ele.hasClass("available")) {
+    if ($ele.hasClass("available") && !$ele.hasClass('reserved')) {
       $ele.toggleClass("chosen");
     }
   },
@@ -109,7 +113,11 @@ Template.scheduleWeeklyForOrder.events({
     }
     var phases = [];
     $("td.phase.chosen").each(function(){
-      $this = $(this), i = $this.data('weekday'), start = $this.data('start'), end = $this.data('end');
+      $this = $(this);
+      if ($this.hasClass('reserved')) {
+        return;
+      }
+      i = $this.data('weekday'), start = $this.data('start'), end = $this.data('end');
       phases.push({weekday:i, start:start, end:end})
     });
     console.log(phases);
