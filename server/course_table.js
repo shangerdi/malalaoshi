@@ -6,12 +6,12 @@ Meteor.methods({
       throw new Meteor.Error('权限不足', "需要登录");
     }
     var teacherId = params.teacherId, lessonCount = params.lessonCount, phases = params.phases;
+    if (!teacherId || lessonCount<1 || phases.length==0) {
+      throw new Meteor.Error('参数错误', "请核对所选教师、课时数和选择时间段");
+    }
     var teacher = Meteor.users.findOne({"_id": teacherId, role: 'teacher'});
     if (!teacher) {
       throw new Meteor.Error('教师不存在', "没有查找到该教师的记录");
-    }
-    if (lessonCount<1 || phases.length==0) {
-      throw new Meteor.Error('课时参数错误', "请核对课时数或选择时间段");
     }
     console.log("sort phases");
     // sort phases
@@ -23,7 +23,7 @@ Meteor.methods({
     console.log(sortedPhase);
     console.log("calc");
     // calc key time point: today, timeStamp, the day to start and already reserved list
-    var exDays = CourseTable.experienceDays;// TODO: calculate days to attend experience course.
+    var exDays = ScheduleTable.tryDays;// TODO: calculate days to attend experience course.
     console.log('exDays:' + exDays);
     var now = new Date(), today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
     console.log(today);
@@ -32,7 +32,7 @@ Meteor.methods({
       toStartDay -= 7;
     }
     console.log("toStartDay: "+toStartDay);
-    var firstTime = today.getTime()+exDays*24*60*60*1000, aWeekLaterTime = today.getTime()+(7+exDays)*24*60*60*1000;
+    var firstTime = today.getTime()+exDays*ScheduleTable.MS_PER_DAY, aWeekLaterTime = today.getTime()+(7+exDays)*ScheduleTable.MS_PER_DAY;
     console.log("firstTime: "+new Date(firstTime)+", aWeekLaterTime: "+new Date(aWeekLaterTime));
     var reservedList = CourseAttendances.find({"teacher.id":teacherId, 'attendDay': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
     console.log('reservedList: '+reservedList);
@@ -51,21 +51,22 @@ Meteor.methods({
         });
         if (item) {
           isConflict = true;
+          throw new Meteor.Error('时间冲突', "您选择的上课时间和别人冲突了，请确认！");
           return;
         }
         // new phase to attend course
         var newAttendDayTime;
         if (toStartDay<=phase.weekday) {
-          newAttendDayTime = firstTime+(phase.weekday-toStartDay+weekCount*7)*24*60*60*1000;
+          newAttendDayTime = firstTime+(phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY;
         } else {
-          newAttendDayTime = firstTime+(7+phase.weekday-toStartDay+weekCount*7)*24*60*60*1000;
+          newAttendDayTime = firstTime+(7+phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY;
         }
         toInsertList.push({
           'teacher':{'id':teacherId,'name':teacher.profile.name},
           'student':{'id':curUser._id,'name':curUser.profile.name},
           'attendDay':newAttendDayTime,
           'phase':{'start':phase.start,'end':phase.end},
-          'state':CourseTable.attendanceStateDict["reserved"].value
+          'state':ScheduleTable.attendanceStateDict["reserved"].value
         });
         count++;
       });
@@ -81,5 +82,6 @@ Meteor.methods({
     _.each(toInsertList, function(data){
       CourseAttendances.insert(data);
     });
+    return true;
   }
 });

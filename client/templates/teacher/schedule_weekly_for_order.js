@@ -1,4 +1,4 @@
-var convMinutes2Str = CourseTable.convMinutes2Str;
+var convMinutes2Str = ScheduleTable.convMinutes2Str;
 Template.scheduleWeeklyForOrder.onCreated(function() {
   Session.set('errors', {});
   // define cache data
@@ -22,7 +22,7 @@ Template.scheduleWeeklyForOrder.onCreated(function() {
     timePhases = AreaTimePhases.findOne({code: address.province.code});
   }
   if (!timePhases) {
-    timePhases = CourseTable.defaultTimePhases;
+    timePhases = ScheduleTable.defaultTimePhases;
   }
   this.cacheData.timePhases = timePhases.sort(function(a,b){return a.start-b.start;});
 });
@@ -34,7 +34,7 @@ Template.scheduleWeeklyForOrder.helpers({
     return !!Session.get('errors')[field] ? 'has-error' : '';
   },
   lessonCounts: function() {
-    var tct = TeacherCourseTables.findOne({"teacher.id": Template.instance().cacheData.teacherId});
+    var tct = TeacherAvailableTimes.findOne({"teacher.id": Template.instance().cacheData.teacherId});
     var availablePhases = (tct && tct.phases)?tct.phases:null;
     return availablePhases?availablePhases.length:0;
   },
@@ -42,21 +42,21 @@ Template.scheduleWeeklyForOrder.helpers({
     return Template.instance().cacheData.timePhases;
   },
   days: function() {
-    return CourseTable.days;
+    return ScheduleTable.days;
   },
   convMinutes2Str: function(mins) {
     return convMinutes2Str(mins);
   },
   getPhaseState: function(i, start, end) {
-    var tct = TeacherCourseTables.findOne({"teacher.id": Template.instance().cacheData.teacherId});
+    var tct = TeacherAvailableTimes.findOne({"teacher.id": Template.instance().cacheData.teacherId});
     var availablePhases = (tct && tct.phases)?tct.phases:null;
     var tmp = _.find(availablePhases, function(obj){
       return obj.weekday==i && obj.phase.start==start && obj.phase.end==end;
     });
     if (tmp) {
-      var exDays = CourseTable.experienceDays;// TODO: calculate days to attend experience course.
+      var exDays = ScheduleTable.tryDays;// TODO: calculate days to attend experience course.
       var now = new Date(), today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
-      var firstTime = today.getTime()+exDays*24*60*60*1000, aWeekLaterTime = today.getTime()+(7+exDays)*24*60*60*1000;
+      var firstTime = today.getTime()+exDays*ScheduleTable.MS_PER_DAY, aWeekLaterTime = today.getTime()+(7+exDays)*ScheduleTable.MS_PER_DAY;
       var reservedList = CourseAttendances.find({"teacher.id":Template.instance().cacheData.teacherId, 'attendDay': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
       var item = _.find(reservedList, function(obj){
         var tmpDate = new Date(obj.attendDay), weekday = tmpDate.getDay();
@@ -73,15 +73,15 @@ Template.scheduleWeeklyForOrder.helpers({
     }
   },
   getPhaseText: function(i, start, end) {
-    var tct = TeacherCourseTables.findOne({"teacher.id": Template.instance().cacheData.teacherId});
+    var tct = TeacherAvailableTimes.findOne({"teacher.id": Template.instance().cacheData.teacherId});
     var availablePhases = (tct && tct.phases)?tct.phases:null;
     var tmp = _.find(availablePhases, function(obj){
       return obj.weekday==i && obj.phase.start==start && obj.phase.end==end;
     });
     if (tmp) {
-      var exDays = CourseTable.experienceDays;// TODO: calculate days to attend experience course.
+      var exDays = ScheduleTable.tryDays;// TODO: calculate days to attend experience course.
       var now = new Date(), today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
-      var firstTime = today.getTime()+exDays*24*60*60*1000, aWeekLaterTime = today.getTime()+(7+exDays)*24*60*60*1000;
+      var firstTime = today.getTime()+exDays*ScheduleTable.MS_PER_DAY, aWeekLaterTime = today.getTime()+(7+exDays)*ScheduleTable.MS_PER_DAY;
       var reservedList = CourseAttendances.find({"teacher.id":Template.instance().cacheData.teacherId, 'attendDay': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
       var item = _.find(reservedList, function(obj){
         var tmpDate = new Date(obj.attendDay), weekday = tmpDate.getDay();

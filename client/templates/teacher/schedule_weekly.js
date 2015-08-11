@@ -1,4 +1,4 @@
-var convMinutes2Str = CourseTable.convMinutes2Str;
+var convMinutes2Str = ScheduleTable.convMinutes2Str;
 Template.scheduleWeekly.onCreated(function() {
   // define cache data
   this.cacheData = this.cacheData || {};
@@ -18,13 +18,13 @@ Template.scheduleWeekly.onCreated(function() {
     timePhases = AreaTimePhases.findOne({code: address.province.code});
   }
   if (!timePhases) {
-    timePhases = CourseTable.defaultTimePhases;
+    timePhases = ScheduleTable.defaultTimePhases;
   }
   this.cacheData.timePhases = timePhases.sort(function(a,b){return a.start-b.start;});
 });
 Template.scheduleWeekly.helpers({
   lessonCounts: function() {
-    var tct = TeacherCourseTables.findOne({"teacher.id": Meteor.userId()});
+    var tct = TeacherAvailableTimes.findOne({"teacher.id": Meteor.userId()});
     var availablePhases = (tct && tct.phases)?tct.phases:null;
     return availablePhases?availablePhases.length:0;
   },
@@ -32,13 +32,13 @@ Template.scheduleWeekly.helpers({
     return Template.instance().cacheData.timePhases;
   },
   days: function() {
-    return CourseTable.days;
+    return ScheduleTable.days;
   },
   convMinutes2Str: function(mins) {
     return convMinutes2Str(mins);
   },
   getPhaseState: function(i, start, end) {
-    var tct = TeacherCourseTables.findOne({"teacher.id": Meteor.userId()});
+    var tct = TeacherAvailableTimes.findOne({"teacher.id": Meteor.userId()});
     var availablePhases = (tct && tct.phases)?tct.phases:null;
     var tmp = _.find(availablePhases, function(obj){
       return obj.weekday==i && obj.phase.start==start && obj.phase.end==end;
@@ -50,7 +50,7 @@ Template.scheduleWeekly.helpers({
     }
   },
   getPhaseText: function(i, start, end) {
-    var tct = TeacherCourseTables.findOne({"teacher.id": Meteor.userId()});
+    var tct = TeacherAvailableTimes.findOne({"teacher.id": Meteor.userId()});
     var availablePhases = (tct && tct.phases)?tct.phases:null;
     var tmp = _.find(availablePhases, function(obj){
       return obj.weekday==i && obj.phase.start==start && obj.phase.end==end;
@@ -65,6 +65,6 @@ Template.scheduleWeekly.helpers({
 Template.scheduleWeekly.events({
   'click td.phase': function(e) {
     var ele=e.target, $ele = $(ele);
-    alert('周'+CourseTable.dayNumWords[$ele.data('weekday')]+"  "+convMinutes2Str($ele.data('start'))+"  "+convMinutes2Str($ele.data('end')));
+    alert('周'+ScheduleTable.dayNumWords[$ele.data('weekday')]+"  "+convMinutes2Str($ele.data('start'))+"  "+convMinutes2Str($ele.data('end')));
   }
 });

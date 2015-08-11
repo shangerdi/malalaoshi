@@ -26,9 +26,9 @@ Meteor.publish('curUserEducation', function() {
 Meteor.publish('curUserCertification', function() {
   return UserCertification.find({userId: this.userId});
 });
-Meteor.publish('teacherCourseTable', function(teacherId) {
+Meteor.publish('teacherAvailableTime', function(teacherId) {
   if (this.userId && teacherId) {
-    return TeacherCourseTables.find({"teacher.id": teacherId});
+    return TeacherAvailableTimes.find({"teacher.id": teacherId});
   }
   return null;
 });
@@ -40,7 +40,7 @@ Meteor.publish('areaTimePhases', function(code) {
   }
   return null;
 });
-Meteor.publish('courseAttendanceList', function(params) {
+Meteor.publish('courseAttendances', function(params) {
   if (this.userId && params) {
     return CourseAttendances.find(params.find, params.options);
   }
