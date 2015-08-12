@@ -1,0 +1,58 @@
+<template name="index">
+  {{#ionView}}
+    {{#ionContent class="index-page"}}
+      <div class="inde-page-swiper">
+        <div class="swiper-container index-swiper">
+            <div class="swiper-wrapper">
+              {{#each show}}
+                <div class="swiper-slide" data-value="{{key}}">
+                  <a href="{{pathFor 'teacher' id=id}}">
+                    <img src="{{imgSrc}}">
+                  </a>
+                </div>
+              {{/each}}
+            </div>
+            <div class="swiper-pagination swiper-pagination-white"></div>
+        </div>
+      </div>
+      <div class="index-page-nav">
+        <div>
+          <div>
+            <a href="{{pathFor 'teachersFilter'}}">
+              <div class="index-page-cell">
+                <i class="icon ion-ios-eye-outline"></i>
+                找老师
+              </div>
+            </a>
+          </div>
+          <div>
+            <a href="{{pathFor 'teachers'}}">
+              <div class="index-page-cell">
+                <i class="icon ion-ios-list-outline"></i>
+                课程
+              </div>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div>
+            <a href="{{pathFor 'orders'}}">
+              <div class="index-page-cell">
+                <i class="icon ion-ios-cart-outline"></i>
+                订单
+              </div>
+            </a>
+          </div>
+          <div>
+            <a href="{{pathFor 'teachers'}}">
+              <div class="index-page-cell">
+                <i class="icon ion-ios-person-outline"></i>
+                我的
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
