@@ -592,10 +592,11 @@ $greyColor: #b8b8b8;
   font-size: 15px;
   font-weight: bolder;
 }
-.order-detail-head{
-  font-size: 17px;
+.order-detail-head, .index-page-title-head{
+  font-size: 21px;
   color: #000;
   font-weight: normal;
+  letter-spacing: 2px;
 }
 .order-detail-avatar{
   display: table;
@@ -813,4 +814,133 @@ $greyColor: #b8b8b8;
 }
 .BMap_geolocationAddress{
   display: none;
+}
+.index-page{
+  background-color: #FFFFFF;
+}
+.index-page a{
+  color: #000000;
+}
+.index-page a:link{
+  color: #000000;
+}
+.index-page a:visited{
+  color: #000000;
+}
+.index-page a:hover{
+  color: #000000;
+}
+.index-page a:active{
+  color: #000000;
+}
+.index-page > div{
+  height: 50%;
+}
+.index-page-nav > div{
+  width: 100%;
+  height: 50%;
+}
+.index-page-nav a{
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+.index-page-nav > div > div{
+  width: 50%;
+  height: 100%;
+  float: left;
+  display: table;
+  color: #000000;
+  font-size: 20px;
+}
+.index-page-cell{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.index-page-cell i{
+  font-size: 70px;
+  display: block;
+}
+.index-page-nav > div:first-child > div:first-child{
+  border-right: solid rgb(160, 160, 160) 1px;
+  border-bottom: solid rgb(160, 160, 160) 1px;
+}
+.index-page-nav > div:first-child > div:last-child{
+  border-bottom: solid rgb(160, 160, 160) 1px;
+}
+.index-page-nav > div:last-child > div:first-child{
+  border-right: solid rgb(160, 160, 160) 1px;
+}
+.index-swiper .swiper-slide, .index-swiper img, .index-swiper a{
+  width: 100%;
+  height: 100%;
+}
+.page-view{
+  background-color: #FFFFFF;
+  text-align: center;
+}
+.page-view > div{
+  margin: 0 auto;
+  width: 95%;
+}
+.page-view .list:last-child{
+  margin-bottom: 100px;
+}
+.page-view .item:last-child{
+  border-bottom: none;
+}
+.page-view .item:first-child{
+  margin-top: -2px;
+}
+.page-view .item{
+  padding-left: 0;
+  padding-right: 0;
+  border-right: 0;
+  border-left: 0;
+}
+.teachers-filter > div{
+  line-height: 42px;
+}
+.teachers-filter > div > div{
+  text-align: center;
+}
+.buttom-btn-view{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 20;
+}
+.buttom-btn-view button{
+  width: 98%;
+  display: inline;
+}
+.place-holder-div{
+  float: left;
+  width: 110px;
+  height: 41px;
+}
+.no-active-btn{
+  border-color: #7b7b7b;
+  background-color: #7b7b7b;
+  color: #fff;
+  font-size: 24px;
+  width: 100%;
+}
+.teacher-way-select i{
+  color: #c0c0c0;
+}
+.teacher-way-select span{
+  font-size: 20px;
+  color: #988c8d;
+}
+.page-view .subject-grade-select{
+  width: 102%;
+  position: fixed;
+  z-index: 20;
+  margin-left: -20px;
+  margin-right: -20px;
 }
