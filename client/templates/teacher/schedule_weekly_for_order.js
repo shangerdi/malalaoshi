@@ -57,9 +57,9 @@ Template.scheduleWeeklyForOrder.helpers({
       var exDays = ScheduleTable.tryDays;// TODO: calculate days to attend experience course.
       var now = new Date(), today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
       var firstTime = today.getTime()+exDays*ScheduleTable.MS_PER_DAY, aWeekLaterTime = today.getTime()+(7+exDays)*ScheduleTable.MS_PER_DAY;
-      var reservedList = CourseAttendances.find({"teacher.id":Template.instance().cacheData.teacherId, 'attendDay': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
+      var reservedList = CourseAttendances.find({"teacher.id":Template.instance().cacheData.teacherId, 'attendTime': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
       var item = _.find(reservedList, function(obj){
-        var tmpDate = new Date(obj.attendDay), weekday = tmpDate.getDay();
+        var tmpDate = new Date(obj.attendTime), weekday = tmpDate.getDay();
         weekday = (weekday==0?7:weekday);
         return weekday==i && obj.phase.start==start && obj.phase.end==end;
       });
@@ -82,9 +82,9 @@ Template.scheduleWeeklyForOrder.helpers({
       var exDays = ScheduleTable.tryDays;// TODO: calculate days to attend experience course.
       var now = new Date(), today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
       var firstTime = today.getTime()+exDays*ScheduleTable.MS_PER_DAY, aWeekLaterTime = today.getTime()+(7+exDays)*ScheduleTable.MS_PER_DAY;
-      var reservedList = CourseAttendances.find({"teacher.id":Template.instance().cacheData.teacherId, 'attendDay': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
+      var reservedList = CourseAttendances.find({"teacher.id":Template.instance().cacheData.teacherId, 'attendTime': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
       var item = _.find(reservedList, function(obj){
-        var tmpDate = new Date(obj.attendDay), weekday = tmpDate.getDay();
+        var tmpDate = new Date(obj.attendTime), weekday = tmpDate.getDay();
         weekday = (weekday==0?7:weekday);
         return weekday==i && obj.phase.start==start && obj.phase.end==end;
       });

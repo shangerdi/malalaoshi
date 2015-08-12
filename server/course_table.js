@@ -34,7 +34,7 @@ Meteor.methods({
     console.log("toStartDay: "+toStartDay);
     var firstTime = today.getTime()+exDays*ScheduleTable.MS_PER_DAY, aWeekLaterTime = today.getTime()+(7+exDays)*ScheduleTable.MS_PER_DAY;
     console.log("firstTime: "+new Date(firstTime)+", aWeekLaterTime: "+new Date(aWeekLaterTime));
-    var reservedList = CourseAttendances.find({"teacher.id":teacherId, 'attendDay': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
+    var reservedList = CourseAttendances.find({"teacher.id":teacherId, 'attendTime': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
     console.log('reservedList: '+reservedList);
     // generate new records to attend course
     var isConflict = false, count=0, weekCount=0, toInsertList=[];
@@ -45,7 +45,7 @@ Meteor.methods({
         }
         // find conflict phases
         var item = _.find(reservedList, function(obj){
-          var tmpDate = new Date(obj.attendDay), weekday = tmpDate.getDay();
+          var tmpDate = new Date(obj.attendTime), weekday = tmpDate.getDay();
           weekday = (weekday==0?7:weekday);
           return weekday==phase.weekday && obj.phase.start==phase.start && obj.phase.end==phase.end;
         });
@@ -55,16 +55,17 @@ Meteor.methods({
           return;
         }
         // new phase to attend course
-        var newAttendDayTime;
+        var newAttendTimeTime;
         if (toStartDay<=phase.weekday) {
-          newAttendDayTime = firstTime+(phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY;
+          newAttendTimeTime = firstTime+(phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY;
         } else {
-          newAttendDayTime = firstTime+(7+phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY;
+          newAttendTimeTime = firstTime+(7+phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY;
         }
         toInsertList.push({
           'teacher':{'id':teacherId,'name':teacher.profile.name},
           'student':{'id':curUser._id,'name':curUser.profile.name},
-          'attendDay':newAttendDayTime,
+          'attendTime':newAttendTimeTime,
+          'weekday': phase.weekday,
           'phase':{'start':phase.start,'end':phase.end},
           'state':ScheduleTable.attendanceStateDict["reserved"].value
         });
