@@ -13,14 +13,6 @@ Meteor.methods({
     if (!teacher) {
       throw new Meteor.Error('教师不存在', "没有查找到该教师的记录");
     }
-    console.log("sort phases");
-    // sort phases
-    var sortedPhase = phases.sort(function(a,b){
-      var tmp = a.weekday-b.weekday;
-      if (tmp!=0) return tmp;
-      return a.start-b.start;
-    });
-    console.log(sortedPhase);
     console.log("calc");
     // calc key time point: today, timeStamp, the day to start and already reserved list
     var exDays = ScheduleTable.tryDays;// TODO: calculate days to attend experience course.
@@ -31,23 +23,28 @@ Meteor.methods({
     if (toStartDay>7) {
       toStartDay -= 7;
     }
+    var startDayTime = today.getTime()+exDays*ScheduleTable.MS_PER_DAY;
     console.log("toStartDay: "+toStartDay);
-    var firstTime = today.getTime()+exDays*ScheduleTable.MS_PER_DAY, aWeekLaterTime = today.getTime()+(7+exDays)*ScheduleTable.MS_PER_DAY;
-    console.log("firstTime: "+new Date(firstTime)+", aWeekLaterTime: "+new Date(aWeekLaterTime));
-    var reservedList = CourseAttendances.find({"teacher.id":teacherId, 'attendTime': {$gte: firstTime, $lt: aWeekLaterTime}}).fetch();
+    // sort phases
+    var sortedPhases = phases.sort(function(a,b){
+      var dayA = (a.weekday>=toStartDay)?a.weekday:(a.weekday+7), dayB = (b.weekday>=toStartDay)?b.weekday:(b.weekday+7);
+      var tmp = dayA-dayB;
+      if (tmp!=0) return tmp;
+      return a.start-b.start;
+    });
+    console.log("sortedPhases: "+sortedPhases);
+    var reservedList = ScheduleTable.getWeeklyTeacherReservedList(teacherId, now, exDays);
     console.log('reservedList: '+reservedList);
     // generate new records to attend course
     var isConflict = false, count=0, weekCount=0, toInsertList=[];
     while(!isConflict && count<lessonCount) {
-      _.each(sortedPhase, function(phase){
+      _.each(sortedPhases, function(phase){
         if (isConflict || count>=lessonCount) {
           return;
         }
         // find conflict phases
         var item = _.find(reservedList, function(obj){
-          var tmpDate = new Date(obj.attendTime), weekday = tmpDate.getDay();
-          weekday = (weekday==0?7:weekday);
-          return weekday==phase.weekday && obj.phase.start==phase.start && obj.phase.end==phase.end;
+          return obj.weekday==phase.weekday && obj.phase.start==phase.start && obj.phase.end==phase.end;
         });
         if (item) {
           isConflict = true;
@@ -55,16 +52,16 @@ Meteor.methods({
           return;
         }
         // new phase to attend course
-        var newAttendTimeTime;
+        var newAttendTime;
         if (toStartDay<=phase.weekday) {
-          newAttendTimeTime = firstTime+(phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY;
+          newAttendTime = startDayTime+(phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY+phase.start*ScheduleTable.MS_PER_MINUTE;
         } else {
-          newAttendTimeTime = firstTime+(7+phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY;
+          newAttendTime = startDayTime+(7+phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY+phase.start*ScheduleTable.MS_PER_MINUTE;
         }
         toInsertList.push({
           'teacher':{'id':teacherId,'name':teacher.profile.name},
           'student':{'id':curUser._id,'name':curUser.profile.name},
-          'attendTime':newAttendTimeTime,
+          'attendTime':newAttendTime,
           'weekday': phase.weekday,
           'phase':{'start':phase.start,'end':phase.end},
           'state':ScheduleTable.attendanceStateDict["reserved"].value
