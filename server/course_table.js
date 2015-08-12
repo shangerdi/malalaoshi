@@ -36,10 +36,10 @@ Meteor.methods({
     var reservedList = ScheduleTable.getWeeklyTeacherReservedList(teacherId, now, exDays);
     console.log('reservedList: '+reservedList);
     // generate new records to attend course
-    var isConflict = false, count=0, weekCount=0, toInsertList=[];
-    while(!isConflict && count<lessonCount) {
+    var count=0, weekCount=0, toInsertList=[];
+    while(count<lessonCount) {
       _.each(sortedPhases, function(phase){
-        if (isConflict || count>=lessonCount) {
+        if (count>=lessonCount) {
           return;
         }
         // find conflict phases
@@ -47,21 +47,22 @@ Meteor.methods({
           return obj.weekday==phase.weekday && obj.phase.start==phase.start && obj.phase.end==phase.end;
         });
         if (item) {
-          isConflict = true;
           throw new Meteor.Error('时间冲突', "您选择的上课时间和别人冲突了，请确认！");
-          return;
         }
         // new phase to attend course
-        var newAttendTime;
+        var newAttendTime, endTime;
         if (toStartDay<=phase.weekday) {
           newAttendTime = startDayTime+(phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY+phase.start*ScheduleTable.MS_PER_MINUTE;
+          endTime = startDayTime+(phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY+phase.end*ScheduleTable.MS_PER_MINUTE;
         } else {
           newAttendTime = startDayTime+(7+phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY+phase.start*ScheduleTable.MS_PER_MINUTE;
+          endTime = startDayTime+(7+phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY+phase.end*ScheduleTable.MS_PER_MINUTE;
         }
         toInsertList.push({
           'teacher':{'id':teacherId,'name':teacher.profile.name},
           'student':{'id':curUser._id,'name':curUser.profile.name},
           'attendTime':newAttendTime,
+          'endTime':endTime,
           'weekday': phase.weekday,
           'phase':{'start':phase.start,'end':phase.end},
           'state':ScheduleTable.attendanceStateDict["reserved"].value
@@ -72,9 +73,6 @@ Meteor.methods({
       console.log(weekCount);
     }
     console.log(toInsertList);
-    if (isConflict) {
-      throw new Meteor.Error('时间冲突', "您选择的上课时间和别人冲突了，请确认！");
-    }
     // insert
     // CourseAttendances.insert(toInsertList);
     _.each(toInsertList, function(data){
