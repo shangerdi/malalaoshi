@@ -44,7 +44,7 @@ Template.teachersFilter.onCreated(function(){
 
   this.data.eduGradeList = gradeOptionList;
 
-  if(this.data.setAddRess != "setAddRess"){
+  if(this.data.setAddress != "setAddress"){
     Session.set("locationLngLat", null);
     Session.set("locationAddress", null);
     Session.set("locationStreet", null);
@@ -134,7 +134,7 @@ Template.teachersFilter.helpers({
     }
   },
   studyAddress: function(){
-    return this.setAddRess == "setAddRess" ? Session.get("locationAddress") : false;
+    return this.setAddress == "setAddress" ? Session.get("locationAddress") : false;
   }
 });
 
