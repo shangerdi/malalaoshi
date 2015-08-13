@@ -28,6 +28,14 @@
             <span class="index-page-title-head">
               预约上课地点
             </span>
+            {{#if studyAddress}}
+              <div class="study-address">
+                <i id="searchIcon" class="icon ion-ios-location location-map-info-i-select"></i>
+                <span>
+                  {{studyAddress}}
+                </span>
+              </div>
+            {{/if}}
           </div>
         </div>
         {{/ionItem}}
@@ -38,36 +46,19 @@
               选择上课位置
             </span>
 
-            <div class="teacher-way-select">
-              <div style="border: solid #FFFFFF 1px;">
-                <div style="font-size: 45px; width: 110px; vertical-align:middle; margin-right:-100px; float:left;">
-                  <i class="icon ion-ios-circle-outline"></i>
-                </div>
-                <div style="font-size: 45px; width: 110px; vertical-align:middle; margin-left:-100px; float:right;">
-                  <i class="icon ion-ios-circle-outline"></i>
-                </div>
-                <div style="width:auto; margin:0 73px; background-color:#0057B9;text-align:center;">
-                  <hr style="border-style: double;border-color: #c0c0c0;border-top: 1px;border-bottom-width: 1px;">
-                </div>
+            <div class="teacher-way-select2">
+              <div>
+                <i class="icon ion-home"></i>
+                <span>学习中心</span>
+              </div>
+              <div>
+                <i class="icon ion-android-people"></i>
+                <span>老师上门</span>
               </div>
             </div>
-
-            <div class="teacher-way-select">
-              <div style="border: solid #FFFFFF 1px;">
-                <div style="font-size: 20px; width: 89px; vertical-align:middle; margin-right:-100px; float:left;">
-                  <span>老师上门</span>
-                </div>
-                <div style="font-size: 20px; width: 89px; vertical-align:middle; margin-left:-100px; float:right;">
-                  <span>学习中心</span>
-                </div>
-                <div style="width:auto; margin:0 73px; background-color:#0057B9;text-align:center;"></div>
-              </div>
-            </div>
-
           </div>
         </div>
         {{/ionItem}}
-
 
       {{/ionList}}
     {{/ionContent}}

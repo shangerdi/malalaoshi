@@ -27,8 +27,6 @@ function getSwiperSlideInWindow(swiper, translate){
   return nextDist <= refDist ? i : null;
 }
 Template.teachersFilter.onCreated(function(){
-});
-Template.teachersFilter.onCreated(function(){
   var subjectDict = getEduSubjectDict();
   subjectOptionList = [];
   subjectOptionList.push({key:"all",text:"-全部-"});
@@ -45,6 +43,12 @@ Template.teachersFilter.onCreated(function(){
   });
 
   this.data.eduGradeList = gradeOptionList;
+
+  if(this.data.setAddRess != "setAddRess"){
+    Session.set("locationLngLat", null);
+    Session.set("locationAddress", null);
+    Session.set("locationStreet", null);
+  }
 });
 Template.selectTeachSubjectTeachersFilter.onRendered(function(){
   this.data.swiperSubject = new Swiper('.swiper-subject', {
@@ -128,6 +132,9 @@ Template.teachersFilter.helpers({
     }else{
       return gradeOptionList[ind].text;
     }
+  },
+  studyAddress: function(){
+    return this.setAddRess == "setAddRess" ? Session.get("locationAddress") : false;
   }
 });
 
