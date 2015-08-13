@@ -1,3 +1,7 @@
+/* 约课处理锁缓存，{_id:teacherId, lockTime:timestamp}*/
+ReserveCourseTaskLocks = new Mongo.Collection('reserveCourseTaskLocks');
+var Fiber = Npm.require('fibers');
+
 Meteor.methods({
   reserveCourses: function(params) {
     console.log(params);
@@ -12,6 +16,47 @@ Meteor.methods({
     var teacher = Meteor.users.findOne({"_id": teacherId, role: 'teacher'});
     if (!teacher) {
       throw new Meteor.Error('教师不存在', "没有查找到该教师的记录");
+    }
+    // check if other parents/students are doing reserve the teacher's courses at the same time
+    var curFiber = Fiber.current, isWaiting = false, needWait = false, error = false, TIME_OUT = 6*1000, waitStart = new Date().getTime();
+    async.whilst(
+      function() {
+        if (error) {
+          return false;
+        }
+        return ReserveCourseTaskLocks.findOne({'_id':teacherId});
+      },
+      function(next) {
+        if (new Date().getTime() - waitStart > TIME_OUT) {
+          error = "TIME OUT";
+          return next();
+        }
+        needWait = true;
+        Meteor.setTimeout(next, 30);
+      },
+      function(err) {
+        if (!error) {
+          error = err;
+        }
+        if (!error) {
+          try{
+            ReserveCourseTaskLocks.insert({'_id':teacherId,'lockTime':new Date().getTime()});
+          }catch(ex){
+            error = true;
+          }
+        }
+        if (isWaiting) {
+          curFiber.run();
+        }
+      }
+    );
+    // console.log("end whilst");
+    if (needWait) {
+      isWaiting = true;
+      Fiber.yield();
+    }
+    if (error) {
+      throw new Meteor.Error('500', "服务器有些忙，请稍后重试！");
     }
     console.log("calc");
     // calc key time point: today, timeStamp, the day to start and already reserved list
@@ -47,6 +92,7 @@ Meteor.methods({
           return obj.weekday==phase.weekday && obj.phase.start==phase.start && obj.phase.end==phase.end;
         });
         if (item) {
+          ReserveCourseTaskLocks.remove({'_id':teacherId});
           throw new Meteor.Error('时间冲突', "您选择的上课时间和别人冲突了，请确认！");
         }
         // new phase to attend course
@@ -78,6 +124,7 @@ Meteor.methods({
     _.each(toInsertList, function(data){
       CourseAttendances.insert(data);
     });
+    ReserveCourseTaskLocks.remove({'_id':teacherId});
     return true;
   }
 });
