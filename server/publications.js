@@ -26,9 +26,9 @@ Meteor.publish('curUserEducation', function() {
 Meteor.publish('curUserCertification', function() {
   return UserCertification.find({userId: this.userId});
 });
-Meteor.publish('curTeacherCourseTable', function() {
-  if (this.userId) {
-    return TeacherCourseTables.find({"teacher.id": this.userId});
+Meteor.publish('teacherAvailableTime', function(teacherId) {
+  if (this.userId && teacherId) {
+    return TeacherAvailableTimes.find({"teacher.id": teacherId});
   }
   return null;
 });
@@ -37,6 +37,35 @@ Meteor.publish('areaTimePhases', function(code) {
     return AreaTimePhases.find({"code":code});
   } else if (_.isArray(code)) {
     return AreaTimePhases.find({"code": {$in:code}});
+  }
+  return null;
+});
+Meteor.publish('areaTimePhasesByTeacher', function(teacherId) {
+  if (!this.userId || !teacherId) {
+    return null;
+  }
+  var teacher = Meteor.users.findOne({_id:teacherId});
+  if (!teacher) {
+    return null;
+  }
+  var address = teacher.profile.address, code=[];
+  if (address.province.code) {
+    code.push(address.province.code);
+  }
+  if (address.city.code) {
+    code.push(address.city.code);
+  }
+  if (address.district.code) {
+    code.push(address.district.code);
+  }
+  return [
+    Meteor.users.find({_id: teacherId}, {fields: {'profile': 1}}),
+    AreaTimePhases.find({"code": {$in:code}})
+  ];
+});
+Meteor.publish('courseAttendances', function(params) {
+  if (this.userId && params) {
+    return CourseAttendances.find(params.find, params.options);
   }
   return null;
 });

@@ -43,4 +43,6 @@ mdg:geolocation
 lsun:ckeditor
 percolate:synced-cron
 dispatch:reload-on-resume
+peerlibrary:async
+node-async-locks
 msavin:mongol
