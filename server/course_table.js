@@ -1,5 +1,4 @@
 /* 约课处理锁缓存，{_id:teacherId, lockTime:timestamp}*/
-ReserveCourseTaskLocks = new Mongo.Collection('reserveCourseTaskLocks');
 var Fiber = Npm.require('fibers');
 
 Meteor.methods({
@@ -17,114 +16,32 @@ Meteor.methods({
     if (!teacher) {
       throw new Meteor.Error('教师不存在', "没有查找到该教师的记录");
     }
-    // check if other parents/students are doing reserve the teacher's courses at the same time
-    var curFiber = Fiber.current, isWaiting = false, needWait = false, error = false, TIME_OUT = 6*1000, waitStart = new Date().getTime();
-    async.whilst(
-      function() {
-        if (error) {
-          return false;
-        }
-        return ReserveCourseTaskLocks.findOne({'_id':teacherId});
-      },
-      function(next) {
-        if (new Date().getTime() - waitStart > TIME_OUT) {
-          error = "TIME OUT";
-          return next();
-        }
-        needWait = true;
-        Meteor.setTimeout(next, 30);
-      },
-      function(err) {
-        if (!error) {
-          error = err;
-        }
-        if (!error) {
-          try{
-            ReserveCourseTaskLocks.insert({'_id':teacherId,'lockTime':new Date().getTime()});
-          }catch(ex){
-            error = true;
-          }
-        }
-        if (isWaiting) {
-          curFiber.run();
-        }
+    var curFiber = Fiber.current, error = false;
+    // console.log('teacher:'+teacherId+", student:"+curUser._id);
+    AsyncLocks.lock(teacherId, Meteor.bindEnvironment(function(leaveCallback) {
+      try {
+        // console.log("in callback");
+        // sleep(5000);
+        var toInsertList = ScheduleTable.generateReserveCourseRecords(curUser, teacher, lessonCount, phases);
+        // console.log(toInsertList);
+        // insert into DB
+        // CourseAttendances.insert(toInsertList);
+        _.each(toInsertList, function(data){
+          CourseAttendances.insert(data);
+        });
+        // console.log("insert course attendances end");
+      }catch(ex) {
+        error = ex;
       }
-    );
-    // console.log("end whilst");
-    if (needWait) {
-      isWaiting = true;
-      Fiber.yield();
-    }
+      curFiber.run();
+      leaveCallback();
+    }));
+    // console.log("reserve courses task is submit, waiting...");
+    Fiber.yield();
+    // console.log("reserve courses end。"+'teacher:'+teacherId+", student:"+curUser._id);
     if (error) {
-      throw new Meteor.Error('500', "服务器有些忙，请稍后重试！");
+      throw error;
     }
-    console.log("calc");
-    // calc key time point: today, timeStamp, the day to start and already reserved list
-    var exDays = ScheduleTable.tryDays;// TODO: calculate days to attend experience course.
-    console.log('exDays:' + exDays);
-    var now = new Date(), today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
-    console.log(today);
-    var toStartDay = today.getDay()+exDays;
-    if (toStartDay>7) {
-      toStartDay -= 7;
-    }
-    var startDayTime = today.getTime()+exDays*ScheduleTable.MS_PER_DAY;
-    console.log("toStartDay: "+toStartDay);
-    // sort phases
-    var sortedPhases = phases.sort(function(a,b){
-      var dayA = (a.weekday>=toStartDay)?a.weekday:(a.weekday+7), dayB = (b.weekday>=toStartDay)?b.weekday:(b.weekday+7);
-      var tmp = dayA-dayB;
-      if (tmp!=0) return tmp;
-      return a.start-b.start;
-    });
-    console.log("sortedPhases: "+sortedPhases);
-    var reservedList = ScheduleTable.getWeeklyTeacherReservedList(teacherId, now, exDays);
-    console.log('reservedList: '+reservedList);
-    // generate new records to attend course
-    var count=0, weekCount=0, toInsertList=[];
-    while(count<lessonCount) {
-      _.each(sortedPhases, function(phase){
-        if (count>=lessonCount) {
-          return;
-        }
-        // find conflict phases
-        var item = _.find(reservedList, function(obj){
-          return obj.weekday==phase.weekday && obj.phase.start==phase.start && obj.phase.end==phase.end;
-        });
-        if (item) {
-          ReserveCourseTaskLocks.remove({'_id':teacherId});
-          throw new Meteor.Error('时间冲突', "您选择的上课时间和别人冲突了，请确认！");
-        }
-        // new phase to attend course
-        var newAttendTime, endTime;
-        if (toStartDay<=phase.weekday) {
-          newAttendTime = startDayTime+(phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY+phase.start*ScheduleTable.MS_PER_MINUTE;
-          endTime = startDayTime+(phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY+phase.end*ScheduleTable.MS_PER_MINUTE;
-        } else {
-          newAttendTime = startDayTime+(7+phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY+phase.start*ScheduleTable.MS_PER_MINUTE;
-          endTime = startDayTime+(7+phase.weekday-toStartDay+weekCount*7)*ScheduleTable.MS_PER_DAY+phase.end*ScheduleTable.MS_PER_MINUTE;
-        }
-        toInsertList.push({
-          'teacher':{'id':teacherId,'name':teacher.profile.name},
-          'student':{'id':curUser._id,'name':curUser.profile.name},
-          'attendTime':newAttendTime,
-          'endTime':endTime,
-          'weekday': phase.weekday,
-          'phase':{'start':phase.start,'end':phase.end},
-          'state':ScheduleTable.attendanceStateDict["reserved"].value
-        });
-        count++;
-      });
-      weekCount++;
-      console.log(weekCount);
-    }
-    console.log(toInsertList);
-    // insert
-    // CourseAttendances.insert(toInsertList);
-    _.each(toInsertList, function(data){
-      CourseAttendances.insert(data);
-    });
-    ReserveCourseTaskLocks.remove({'_id':teacherId});
     return true;
   }
 });
