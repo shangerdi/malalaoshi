@@ -31,9 +31,6 @@ Template.map.onCreated(function(){
   Session.set("locationDefaultCity", "北京市");
 });
 Template.map.rendered=function(){
-  var template=this;
-  window.CKEDITOR_BASEPATH = "/ckeditor/";
-
   $.when(
     $.getScript("http://api.map.baidu.com/getscript?v=2.0&ak="+Meteor.settings.public.baiduAK)
   ).done(function(){
