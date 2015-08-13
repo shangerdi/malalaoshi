@@ -3,6 +3,9 @@ $greyColor: #b8b8b8;
 .teacher-div>div:first-child{
   min-height:85px;
 }
+.app-layout-nav-bar{
+  background-color: #000000;
+}
 //TODO: teacher-div needs to be refactored by flex
 @media screen and(max-width: 199px){
   .teacher-div{
@@ -495,6 +498,7 @@ $greyColor: #b8b8b8;
 }
 .normal-title{
   font-style: normal;
+  color: #FFFFFF;
 }
 .teacher-detail{
   padding-right: 20px;
@@ -726,7 +730,6 @@ $greyColor: #b8b8b8;
   height: 40px;
   text-align: center;
   font-size: 18px;
-  background-color: #d1d6dd;
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -754,7 +757,6 @@ $greyColor: #b8b8b8;
   float: left;
   width: 50%;
   height: 100%;
-  background-color: #d1d6dd;
 }
 
 .order-empty{
@@ -786,7 +788,7 @@ $greyColor: #b8b8b8;
   border-right: none;
   border-left: none;
   cursor: auto;
-  background-color: #fef4f4;
+  background-color: #A0A2A5;
   opacity: .2;
 }
 .teach-subject-select .swiper-button-disabled{
@@ -882,7 +884,7 @@ $greyColor: #b8b8b8;
 }
 .page-view > div{
   margin: 0 auto;
-  width: 95%;
+  width: 100%;
 }
 .page-view .list:last-child{
   margin-bottom: 100px;
@@ -890,14 +892,19 @@ $greyColor: #b8b8b8;
 .page-view .item:last-child{
   border-bottom: none;
 }
-.page-view .item:first-child{
-  margin-top: -2px;
-}
 .page-view .item{
+  border-top: 0;
   padding-left: 0;
   padding-right: 0;
   border-right: 0;
   border-left: 0;
+}
+.page-view .item{
+  margin: 0 auto;
+  width: 95%;
+}
+.page-view .item:nth-child(2){
+  width: 100%;
 }
 .teachers-filter > div{
   line-height: 42px;
@@ -938,9 +945,68 @@ $greyColor: #b8b8b8;
   color: #988c8d;
 }
 .page-view .subject-grade-select{
-  width: 102%;
-  position: fixed;
-  z-index: 20;
-  margin-left: -20px;
-  margin-right: -20px;
+}
+#subjectGradeSelect .overflow-scroll{
+  top: 3px;
+  bottom: 3px;
+}
+.selectTeachSubjectTeachersFilter{
+  display: none;
+}
+.swiper-middle-line{
+  border-right: solid #a4a4a4 1px;
+  height: 32px;
+  width: 0px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -16px;
+}
+.map-page-head{
+  width: 95%;
+}
+.map-page-head #searchInput{
+  padding-left: 12px;
+}
+.map-page-head .icon{
+  left: 0;
+}
+.location-map-info{
+  width: 100%;
+  background-color: #FFFFFF;
+  bottom: 0;
+  text-align: left;
+  padding-left: 6px;
+}
+#allmap{
+  width: 100%;
+  height: 60%;
+}
+.location-map-info i{
+  font-size: 23px;
+  min-width: 60px;
+}
+.location-map-info-i-select{
+  color: #000000;
+}
+.location-map-info-i-no-select{
+  color: #c9c9c9;
+}
+.location-map-info span{
+  padding-left: 5px;
+  font-size: 19px;
+}
+.location-map-info > div:last-child{
+  margin-top: 3px;
+  padding-left: 20px;
+  color: #a4a4a4;
+  font-size: 16px;
+}
+.location-map-list{
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 40%;
+}
+.location-map-list .item{
+  padding: 11px;
 }

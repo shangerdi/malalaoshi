@@ -1,0 +1,109 @@
+<template name="teachersFilter">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=" "}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">筛选老师</h1>
+  {{/contentFor}}
+
+  {{#ionView class="page-view"}}
+    {{#ionContent}}
+      {{#ionList class="teachers-filter"}}
+        {{#ionItem}}
+        <div id="subjectGradeTitle">
+          <div>
+            <span class="index-page-title-head">
+              {{teachersSubject}} | {{teachersGrade}}
+            </span>
+          </div>
+        </div>
+        {{/ionItem}}
+        {{#ionItem class="selectTeachSubjectTeachersFilter"}}
+          {{> Template.dynamic template=selectTeachSubjectTeachersFilter}}
+        {{/ionItem}}
+        {{#ionItem}}
+        <div id="studyPlace">
+          <div>
+            <span class="index-page-title-head">
+              预约上课地点
+            </span>
+          </div>
+        </div>
+        {{/ionItem}}
+        {{#ionItem}}
+        <div>
+          <div>
+            <span class="index-page-title-head">
+              选择上课位置
+            </span>
+
+            <div class="teacher-way-select">
+              <div style="border: solid #FFFFFF 1px;">
+                <div style="font-size: 45px; width: 110px; vertical-align:middle; margin-right:-100px; float:left;">
+                  <i class="icon ion-ios-circle-outline"></i>
+                </div>
+                <div style="font-size: 45px; width: 110px; vertical-align:middle; margin-left:-100px; float:right;">
+                  <i class="icon ion-ios-circle-outline"></i>
+                </div>
+                <div style="width:auto; margin:0 73px; background-color:#0057B9;text-align:center;">
+                  <hr style="border-style: double;border-color: #c0c0c0;border-top: 1px;border-bottom-width: 1px;">
+                </div>
+              </div>
+            </div>
+
+            <div class="teacher-way-select">
+              <div style="border: solid #FFFFFF 1px;">
+                <div style="font-size: 20px; width: 89px; vertical-align:middle; margin-right:-100px; float:left;">
+                  <span>老师上门</span>
+                </div>
+                <div style="font-size: 20px; width: 89px; vertical-align:middle; margin-left:-100px; float:right;">
+                  <span>学习中心</span>
+                </div>
+                <div style="width:auto; margin:0 73px; background-color:#0057B9;text-align:center;"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        {{/ionItem}}
+
+
+      {{/ionList}}
+    {{/ionContent}}
+    <div class="buttom-btn-view">
+      <button id="btnSaveAndPay" class="button button-full no-active-btn">
+        开始筛选
+      </button>
+    </div>
+  {{/ionView}}
+</template>
+
+<template name="selectTeachSubjectTeachersFilter">
+    <div id="subjectGradeSelect" class="teach-subject-select" style="height: 250px;">
+      <div class="content overflow-scroll">
+        <div>
+          <div>
+            <div class="swiper-container swiper-subject">
+                <div class="swiper-wrapper">
+                  {{#each eduSubjectList}}
+                    <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
+                  {{/each}}
+                </div>
+                <div class="swiper-button-prev"></div><div class="swiper-middle-line"></div>
+            </div>
+          </div>
+          <div>
+            <div class="swiper-container swiper-grade">
+                <div class="swiper-wrapper">
+                  {{#each eduGradeList}}
+                    <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
+                  {{/each}}
+                </div>
+                <div class="swiper-button-prev"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
