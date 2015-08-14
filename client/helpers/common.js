@@ -50,3 +50,7 @@ Template.registerHelper('location', function() {
     return loc ? loc.lat + ',' + loc.lng : '';
   }
 });
+
+appSetDefaultCity = function() {
+  Session.set("locationDefaultCity", "北京市");
+};

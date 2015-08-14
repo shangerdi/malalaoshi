@@ -47,11 +47,11 @@
             </span>
 
             <div class="teacher-way-select2">
-              <div>
+              <div id="teacherWayStudyCenter">
                 <i class="icon ion-home"></i>
                 <span>学习中心</span>
               </div>
-              <div>
+              <div id="teacherWayGoHome">
                 <i class="icon ion-android-people"></i>
                 <span>老师上门</span>
               </div>
@@ -62,8 +62,8 @@
 
       {{/ionList}}
     {{/ionContent}}
-    <div class="buttom-btn-view">
-      <button id="btnSaveAndPay" class="button button-full no-active-btn">
+    <div class="buttom-btn-view {{searchBtnClass}}">
+      <button id="btnSaveAndPay" class="button button-full">
         开始筛选
       </button>
     </div>
