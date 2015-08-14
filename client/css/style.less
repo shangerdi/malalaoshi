@@ -641,3 +641,59 @@ input[type=text].browser {
 .course-table td.phase.reserved {
   background-color: yellow;
 }
+@course-done-color: #bbb;
+@course-todo-color: #888;
+@today-color: blue;
+.schedule-month .top {
+  border-bottom: 1px #aaa solid;
+  > div {
+    display: inline-block;
+  }
+  .marks > div{
+    &.done{
+      color: @course-done-color;
+    }
+    &.todo{
+      color: @course-todo-color;
+    }
+    .ion-record {
+      margin-right: 5px;
+    }
+  }
+  .btns-box .btn{
+    margin-left: 15px;
+  }
+}
+.schedule-month .month-nav {
+  border-bottom: 1px #888 solid;
+  ul {
+    padding: 5px;
+    line-height: 40px;
+    text-align: center;
+    li {
+      display: inline-block;
+      width: 100/7-1%;
+      text-align: center;
+      &.cur-month a {
+        display: inline-block;
+        width: 40px;
+        border: 1px solid @today-color;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+.schedule-month .table {
+  border-bottom: 1px #666 solid;
+  text-align: center;
+  td.done{
+    background-color: @course-done-color;
+  }
+  td.todo{
+    background-color: @course-todo-color;
+  }
+  td.today{
+    border: 1px @today-color solid;
+    border-radius: 50%;
+  }
+}
