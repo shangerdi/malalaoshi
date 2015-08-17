@@ -1,0 +1,42 @@
+<template name="scheduleMonthTeacher">
+{{#ionView}}
+  {{#ionContent}}
+  <div class="schedule-month">
+    <div class="top">
+      <div class="marks"><div class="done"><span class="ion-record"></span>已上课</div><div class="todo"><span class="ion-record"></span>待上课</div></div>
+      <div class="pull-right btns-box">
+        {{#unless isCurrentMonth}}<input class="btn btn-go-today" type="button" name="goToday" value="今天">{{/unless}}
+        <input class="btn btn-go-year-view" type="button" name="goYearView" value="按年">
+      </div>
+    </div>
+    <div class="month-nav">
+      <ul>
+        {{#each indexNum}}
+          <li class="{{#if $eq this 3}}cur-month{{/if}}"><a href="{{monthNavUrl this}}">{{monthNavText this}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="month-view">
+      <table class="table">
+        <thead><tr class="week-row">{{#each weekdays}}<td>{{weekdayText this}}</td>{{/each}}</tr></thead>
+        <tbody>
+          {{#each weekrows}}
+          <tr>
+            {{#each indexNum}}
+              <td class="date {{dateClass .. this}}" data-row="{{..}}" data-col="{{this}}"><div>{{dateText .. this}}</div></td>
+            {{/each}}
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="course-items">
+      <h4 class="title">课程安排</h4>
+      <table class="table course-items-table">
+        <!-- <tr><td>10:30~12:30</td><td>王琳琳</td><td>初三英语</td><td>学习中心</td></tr> -->
+      </table>
+    </div>
+  </div>
+  {{/ionContent}}
+{{/ionView}}
+</template>

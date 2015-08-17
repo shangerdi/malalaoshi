@@ -16,7 +16,7 @@ Npm.depends({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
-  api.addFiles('node-async-locks.js');
+  api.addFiles('node-async-locks.js', ['server']);
   api.export('AsyncLocks', ['server']);
 });
 
