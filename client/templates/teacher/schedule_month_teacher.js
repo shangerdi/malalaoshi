@@ -51,18 +51,6 @@ var getDateByTable = function(row, col) {
   }
   return {year:y, month:m, date:d};
 }
-var findAttendancesByDate = function(date) {
-  var role = Meteor.user().role, findParams={};
-  if (role==='teacher') {
-    findParams["teacher.id"]=Meteor.userId();
-  } else {
-    findParams["student.id"]=Meteor.userId();
-  }
-  var year = date.year, month = date.month, day = date.date;
-  var targetDay = new Date(year, month-1, day), startTime = targetDay.getTime(), endTime = startTime + ScheduleTable.MS_PER_DAY;
-  findParams.attendTime = {$gte: startTime, $lt: endTime};
-  return CourseAttendances.find(findParams).fetch();
-}
 Template.scheduleMonthTeacher.onCreated(function() {
   var year = this.data.year, month = this.data.month;
   console.log(year+"-"+month);
@@ -130,7 +118,7 @@ Template.scheduleMonthTeacher.helpers({
     if (today.getFullYear() == date.year && today.getMonth() == date.month-1 && today.getDate() == date.date) {
       classStr+=" today";
     }
-    var items = findAttendancesByDate(date);
+    var items = ScheduleTable.findAttendancesByDate(Meteor.user(), date);
     if (items && items.length) {
       var nowTime = new Date().getTime();
       var unfinished = _.some(items, function(obj){
@@ -149,13 +137,16 @@ Template.scheduleMonthTeacher.events({
   'click .btn-go-today': function(e) {
     Router.go(Router.current().route.path());
   },
+  'click .btn-go-year-view': function(e) {
+    Router.go(Router.path('scheduleYear', {year:Template.instance().data.year}));
+  },
   'click td.date': function(e) {
     var ele=e.target, $ele = $(ele).closest('td');
     var row = $ele.data("row"), col = $ele.data("col");
     var date = getDateByTable(row, col);
     // alert(JSON.stringify(date));
-    var userRole = Meteor.user().role, nowTime = new Date().getTime();
-    var items = findAttendancesByDate(date);
+    var curUser = Meteor.user(), userRole = curUser.role, nowTime = new Date().getTime();
+    var items = ScheduleTable.findAttendancesByDate(curUser, date);
     if (items) {
       $courseItemsTable = $(".course-items-table");
       $courseItemsTable.children().remove();

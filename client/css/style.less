@@ -644,7 +644,7 @@ input[type=text].browser {
 @course-done-color: #d8d8d8;
 @course-todo-color: #000;
 @today-color: blue;
-.schedule-month .top {
+.schedule-month .top, .schedule-year .top {
   border-bottom: 1px #aaa solid;
   > div {
     display: inline-block;
@@ -720,5 +720,33 @@ input[type=text].browser {
   td {
     border-top: 0;
     border-bottom: 1px #ddd solid;
+  }
+}
+.schedule-year .year-nav {
+  padding: 10px 0;
+}
+.schedule-year .year-view {
+  thead{
+    display: none;
+  }
+  td{
+    border: 0;
+  }
+  td > div{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border: 1px transparent solid;
+    border-radius: 50%;
+  }
+  td.done > div{
+    background-color: @course-done-color;
+  }
+  td.todo > div{
+    background-color: @course-todo-color;
+  }
+  td.today > div{
+    border: 2px @today-color solid;
   }
 }

@@ -1,0 +1,37 @@
+<template name="scheduleYear">
+{{#ionView}}
+  {{#ionContent}}
+  <div class="schedule-year">
+    <div class="top">
+      <div class="marks"><div class="done"><span class="ion-record"></span>已上课</div><div class="todo"><span class="ion-record"></span>待上课</div></div>
+      <div class="pull-right btns-box">
+        <input class="btn btn-go-today" type="button" name="goToday" value="今天">
+        <input class="btn btn-go-month-view" type="button" name="goMonthView" value="按月">
+      </div>
+    </div>
+    <div class="year-nav">
+      <h3>{{year}}年</h3>
+    </div>
+    <div class="mlls-row year-view">
+      {{#each monthNum}}
+      <div class="col-xs-4 col-md-3 amonth">
+        <a href="{{getPathForScheduleMonth this}}">{{this}}月</a>
+        <table class="table" data-month="{{this}}">
+          <thead><tr class="week-row">{{#each weekdays}}<td>{{weekdayText this}}</td>{{/each}}</tr></thead>
+          <tbody>
+            {{#each weekrows this}}
+            <tr>
+              {{#each indexNum}}
+                <td class="date {{dateClass ../.. .. this}}" data-row="{{..}}" data-col="{{this}}"><div>{{dateText ../.. .. this}}</div></td>
+              {{/each}}
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  {{/ionContent}}
+{{/ionView}}
+</template>
