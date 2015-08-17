@@ -60,6 +60,18 @@ var getDateByTable = function(row, col) {
   }
   return {year:y, month:m, date:d};
 }
+var findAttendancesByDate = function(date) {
+  var role = Meteor.user().role, findParams={};
+  if (role==='teacher') {
+    findParams["teacher.id"]=Meteor.userId();
+  } else {
+    findParams["student.id"]=Meteor.userId();
+  }
+  var year = date.year, month = date.month, day = date.date;
+  var targetDay = new Date(year, month-1, day), startTime = targetDay.getTime(), endTime = startTime + ScheduleTable.MS_PER_DAY;
+  findParams.attendTime = {$gte: startTime, $lt: endTime};
+  return CourseAttendances.find(findParams).fetch();
+}
 Template.scheduleMonthTeacher.onCreated(function() {
   var year = this.data.year, month = this.data.month;
   console.log(year+"-"+month);
@@ -122,10 +134,22 @@ Template.scheduleMonthTeacher.helpers({
     return date;
   },
   dateClass: function(row, col) {
-    var classStr = " ", today = new Date();
+    var classStr = "", today = new Date();
     var date = getDateByTable(row, col);
     if (today.getFullYear() == date.year && today.getMonth() == date.month-1 && today.getDate() == date.date) {
-      classStr+="today";
+      classStr+=" today";
+    }
+    var items = findAttendancesByDate(date);
+    if (items && items.length) {
+      var nowTime = new Date().getTime();
+      var unfinished = _.some(items, function(obj){
+        return obj.endTime>nowTime && obj.state==ScheduleTable.attendanceStateDict["reserved"].value;
+      });
+      if (unfinished) {
+        classStr+=" todo";
+      } else {
+        classStr+=" done";
+      }
     }
     return classStr;
   }
@@ -135,9 +159,35 @@ Template.scheduleMonthTeacher.events({
     Router.go(Router.current().route.path());
   },
   'click td.date': function(e) {
-    var ele=e.target, $ele = $(ele);
+    var ele=e.target, $ele = $(ele).closest('td');
     var row = $ele.data("row"), col = $ele.data("col");
     var date = getDateByTable(row, col);
-    alert(JSON.stringify(date));
+    // alert(JSON.stringify(date));
+    var userRole = Meteor.user().role, nowTime = new Date().getTime();
+    var items = findAttendancesByDate(date);
+    if (items) {
+      $courseItemsTable = $(".course-items-table");
+      $courseItemsTable.children().remove();
+      _.each(items, function(obj){
+        var state=obj.state, stateStr="";
+        if (state==ScheduleTable.attendanceStateDict["reserved"].value) {
+          if (obj.attendTime>nowTime) {
+            stateStr="待上课";
+          } else if (obj.endTime<=nowTime) {
+            stateStr="待确认";
+          } else {
+            stateStr="上课中";
+          }
+        } else if (state==ScheduleTable.attendanceStateDict["attended"].value) {
+          stateStr="待评价";
+        } else if (state==ScheduleTable.attendanceStateDict["commented"].value) {
+          stateStr="已评价";
+        }
+        var itemHtml = '<tr><td>'+ScheduleTable.convMinutes2Str(obj.phase.start)+'——'+ScheduleTable.convMinutes2Str(obj.phase.end)+'</td>'
+          +'<td>'+(userRole==='teacher'?obj.student.name:obj.teacher.name)+'</td><td>课程名字TODO</td><td>上课地点TODO</td><td>'+stateStr+'</td>'
+          +'</tr>';
+        $courseItemsTable.append(itemHtml);
+      });
+    }
   }
 });

@@ -641,8 +641,8 @@ input[type=text].browser {
 .course-table td.phase.reserved {
   background-color: yellow;
 }
-@course-done-color: #bbb;
-@course-todo-color: #888;
+@course-done-color: #d8d8d8;
+@course-todo-color: #000;
 @today-color: blue;
 .schedule-month .top {
   border-bottom: 1px #aaa solid;
@@ -650,6 +650,7 @@ input[type=text].browser {
     display: inline-block;
   }
   .marks > div{
+    padding-bottom: 10px;
     &.done{
       color: @course-done-color;
     }
@@ -674,6 +675,7 @@ input[type=text].browser {
       display: inline-block;
       width: 100/7-1%;
       text-align: center;
+      padding: 5px 0;
       &.cur-month a {
         display: inline-block;
         width: 40px;
@@ -683,17 +685,40 @@ input[type=text].browser {
     }
   }
 }
-.schedule-month .table {
+.schedule-month .month-view {
   border-bottom: 1px #666 solid;
   text-align: center;
-  td.done{
+  thead tr td{
+    line-height: 40px;
+  }
+  td{
+    border: 0;
+  }
+  td > div{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px transparent solid;
+    border-radius: 50%;
+  }
+  td.done > div{
     background-color: @course-done-color;
   }
-  td.todo{
+  td.todo > div{
     background-color: @course-todo-color;
   }
-  td.today{
-    border: 1px @today-color solid;
-    border-radius: 50%;
+  td.today > div{
+    border: 2px @today-color solid;
+  }
+}
+.schedule-month .course-items {
+  .title {
+    margin: 20px 0;
+    font-style: normal;
+  }
+  td {
+    border-top: 0;
+    border-bottom: 1px #ddd solid;
   }
 }

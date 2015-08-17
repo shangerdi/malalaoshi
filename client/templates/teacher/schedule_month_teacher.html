@@ -16,20 +16,25 @@
         {{/each}}
       </ul>
     </div>
-    <table class="table">
-      <thead><tr class="week-row">{{#each weekdays}}<td>{{weekdayText this}}</td>{{/each}}</tr></thead>
-      <tbody>
-        {{#each weekrows}}
-        <tr>
-          {{#each indexNum}}
-            <td class="date {{dateClass .. this}}" data-row="{{..}}" data-col="{{this}}">{{dateText .. this}}</td>
+    <div class="month-view">
+      <table class="table">
+        <thead><tr class="week-row">{{#each weekdays}}<td>{{weekdayText this}}</td>{{/each}}</tr></thead>
+        <tbody>
+          {{#each weekrows}}
+          <tr>
+            {{#each indexNum}}
+              <td class="date {{dateClass .. this}}" data-row="{{..}}" data-col="{{this}}"><div>{{dateText .. this}}</div></td>
+            {{/each}}
+          </tr>
           {{/each}}
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
-    <div class="day-events">
-      课程安排
+        </tbody>
+      </table>
+    </div>
+    <div class="course-items">
+      <h4 class="title">课程安排</h4>
+      <table class="table course-items-table">
+        <!-- <tr><td>10:30~12:30</td><td>王琳琳</td><td>初三英语</td><td>学习中心</td></tr> -->
+      </table>
     </div>
   </div>
   {{/ionContent}}
