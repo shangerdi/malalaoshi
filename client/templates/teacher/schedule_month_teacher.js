@@ -13,16 +13,7 @@ var getIndexOfWeekday = function(weekday) {
   return indexWeekday;
 }
 var getMaxDayOfMonth = function(year, month) {
-  if(month==2) {
-    if(moment([year]).isLeapYear()) {
-      return 29;
-    }
-    return 28;
-  }
-  if(month==4 || month==6 || month==9 || month==11) {
-    return 30;
-  }
-  return 31;
+  return moment([year,month-1]).endOf('month').date();
 }
 var getWeekrows = function() {
   var inst = Template.instance();
