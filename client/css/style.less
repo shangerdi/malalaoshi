@@ -641,8 +641,9 @@ input[type=text].browser {
 .course-table td.phase.reserved {
   background-color: yellow;
 }
-@course-done-color: #d8d8d8;
-@course-todo-color: #000;
+@course-done-bgcolor: #d8d8d8;
+@course-todo-bgcolor: #000;
+@course-todo-color: #d8d8d8;
 @today-color: blue;
 .schedule-month .top, .schedule-year .top {
   border-bottom: 1px #aaa solid;
@@ -652,10 +653,10 @@ input[type=text].browser {
   .marks > div{
     padding-bottom: 10px;
     &.done{
-      color: @course-done-color;
+      color: @course-done-bgcolor;
     }
     &.todo{
-      color: @course-todo-color;
+      color: @course-todo-bgcolor;
     }
     .ion-record {
       margin-right: 5px;
@@ -703,10 +704,11 @@ input[type=text].browser {
     border-radius: 50%;
   }
   td.done > div{
-    background-color: @course-done-color;
+    background-color: @course-done-bgcolor;
   }
   td.todo > div{
-    background-color: @course-todo-color;
+    background-color: @course-todo-bgcolor;
+    color: @course-todo-color;
   }
   td.today > div{
     border: 2px @today-color solid;
@@ -726,27 +728,72 @@ input[type=text].browser {
   padding: 10px 0;
 }
 .schedule-year .year-view {
+  a{
+    color: black;
+    font-weight: bold;
+  }
+  .table {
+    cursor: pointer;
+  }
   thead{
     display: none;
   }
   td{
     border: 0;
+    padding: 0;
   }
   td > div{
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    text-align: center;
     border: 1px transparent solid;
     border-radius: 50%;
   }
   td.done > div{
-    background-color: @course-done-color;
+    background-color: @course-done-bgcolor;
   }
   td.todo > div{
-    background-color: @course-todo-color;
+    background-color: @course-todo-bgcolor;
+    color: @course-todo-color;
   }
   td.today > div{
-    border: 2px @today-color solid;
+    border: 1px @today-color solid;
+  }
+}
+@media (max-width: @screen-sm-max) {
+  .schedule-year .year-view .amonth{
+    &:nth-child(3n+1){
+      clear: left;
+    }
+    &:nth-child(3n+2){
+      clear: none;
+    }
+    &:nth-child(3n+3){
+      clear: right;
+    }
+  }
+}
+@media (min-width: @screen-md-min) {
+  .schedule-year .year-view .amonth{
+    td > div{
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+    }
+    &:nth-child(4n+1){
+      clear: left;
+    }
+    &:nth-child(4n+2){
+      clear: none;
+    }
+    &:nth-child(4n+3){
+      clear: none;
+    }
+    &:nth-child(4n+4){
+      clear: right;
+    }
   }
 }

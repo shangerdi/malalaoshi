@@ -14,7 +14,7 @@
     </div>
     <div class="mlls-row year-view">
       {{#each monthNum}}
-      <div class="col-xs-4 col-md-3 amonth">
+      <div class="col-xs-4 col-sm-4 col-md-3 amonth">
         <a href="{{getPathForScheduleMonth this}}">{{this}}月</a>
         <table class="table" data-month="{{this}}">
           <thead><tr class="week-row">{{#each weekdays}}<td>{{weekdayText this}}</td>{{/each}}</tr></thead>

@@ -98,5 +98,11 @@ Template.scheduleYear.helpers({
 Template.scheduleYear.events({
   'click .btn-go-today, click .btn-go-month-view': function(e) {
     Router.go(Router.path('scheduleMonth'));
+  },
+  'click .amonth .table': function(e) {
+    var ele=e.target, $ele = $(ele).closest('table');
+    var m = $ele.data('month');
+    var y = Template.instance().data?Template.instance().data.year:new Date().getFullYear();
+    Router.go(Router.path('scheduleMonth', {monthStr:y+'-'+m}));
   }
 });
