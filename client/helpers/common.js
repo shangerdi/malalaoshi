@@ -43,10 +43,3 @@ Template.registerHelper('runEnv', function() {
   }
   return 'Beta';
 });
-
-Template.registerHelper('location', function() {
-  if (Blaze._globalHelpers.runEnv() === 'Dev') {
-    var loc = Geolocation.latLng();
-    return loc ? loc.lat + ',' + loc.lng : '';
-  }
-});
