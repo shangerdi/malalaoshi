@@ -49,7 +49,7 @@ var getDateByTable = function(row, col) {
   }
   return {year:y, month:m, date:d, flag:flag};
 }
-Template.scheduleMonthTeacher.onCreated(function() {
+Template.scheduleMonth.onCreated(function() {
   var year = this.data.year, month = this.data.month;
   // console.log(year+"-"+month);
   this.cacheData = {};
@@ -62,7 +62,7 @@ Template.scheduleMonthTeacher.onCreated(function() {
   this.cacheData.lastDay = lastDay;
   this.cacheData.indexOfLastDay = getIndexOfWeekday(lastDay.getDay());
 });
-Template.scheduleMonthTeacher.helpers({
+Template.scheduleMonth.helpers({
   isCurrentMonth: function() {
     var today = new Date(), instData = Template.instance().data;
     return today.getFullYear() == instData.year && today.getMonth() == instData.month-1;
@@ -134,7 +134,7 @@ Template.scheduleMonthTeacher.helpers({
     return classStr;
   }
 });
-Template.scheduleMonthTeacher.events({
+Template.scheduleMonth.events({
   'click .btn-go-today': function(e) {
     Router.go(Router.current().route.path());
   },
