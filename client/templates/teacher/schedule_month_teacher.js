@@ -26,15 +26,12 @@ var getWeekrows = function() {
   }
   return a;
 }
-var getDateOnlyByTable = function(row, col) {
-  var inst = Template.instance();
-  var indexFirstDay = inst.cacheData.indexOfFirstDay;
-  return d = row*7+col-indexFirstDay+1;
-}
 var getDateByTable = function(row, col) {
-  var inst = Template.instance(), maxDay = inst.cacheData.maxDay, y = inst.data.year, m = inst.data.month;
-  var d = getDateOnlyByTable(row, col);
+  var inst = Template.instance(), y = inst.data.year, m = inst.data.month;
+  var indexFirstDay = inst.cacheData.indexOfFirstDay, maxDay = inst.cacheData.maxDay;
+  var d = row*7+col-indexFirstDay+1, flag = true; // is it in this month;
   if (d<1) {
+    flag = false;
     m-=1;
     if (m==0) {
       y-=1;
@@ -42,6 +39,7 @@ var getDateByTable = function(row, col) {
     }
     d = getMaxDayOfMonth(y,m)+d;
   } else if (d>maxDay) {
+    flag = false;
     m+=1;
     if (m==13) {
       y+=1;
@@ -49,11 +47,11 @@ var getDateByTable = function(row, col) {
     }
     d = col - inst.cacheData.indexOfLastDay;
   }
-  return {year:y, month:m, date:d};
+  return {year:y, month:m, date:d, flag:flag};
 }
 Template.scheduleMonthTeacher.onCreated(function() {
   var year = this.data.year, month = this.data.month;
-  console.log(year+"-"+month);
+  // console.log(year+"-"+month);
   this.cacheData = {};
   var maxDay = getMaxDayOfMonth(year, month);
   this.cacheData.maxDay = maxDay;
@@ -106,15 +104,18 @@ Template.scheduleMonthTeacher.helpers({
     return getWeekrows();
   },
   dateText: function(row, col) {
-    var date = getDateOnlyByTable(row, col);
-    if (date<1 || date>Template.instance().cacheData.maxDay) {
+    var date = getDateByTable(row, col);
+    if (!date || !date.flag) {
       return "";
     }
-    return date;
+    return date.date;
   },
   dateClass: function(row, col) {
-    var classStr = "", today = new Date();
     var date = getDateByTable(row, col);
+    if (!date || !date.flag) {
+      return "";
+    }
+    var classStr = "", today = new Date();
     if (today.getFullYear() == date.year && today.getMonth() == date.month-1 && today.getDate() == date.date) {
       classStr+=" today";
     }
