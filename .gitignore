@@ -5,3 +5,4 @@ custom.bootstrap.mixins.import.less
 settings.json
 server/zlenv.js
 client/zltest/
+.npm
