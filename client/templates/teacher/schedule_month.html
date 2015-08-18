@@ -1,7 +1,7 @@
 <template name="scheduleMonth">
 {{#ionView}}
   {{#ionContent}}
-  <div class="schedule-month">
+  <div class="schedule-calendar">
     <div class="top">
       <div class="marks"><div class="done"><span class="ion-record"></span>已上课</div><div class="todo"><span class="ion-record"></span>待上课</div></div>
       <div class="pull-right btns-box">
@@ -12,7 +12,7 @@
     <div class="month-nav">
       <ul>
         {{#each indexNum}}
-          <li class="{{#if $eq this 3}}cur-month{{/if}}"><a href="{{monthNavUrl this}}">{{monthNavText this}}</a></li>
+          <li class="{{#if $eq this 3}}cur-month{{/if}}"><a href="{{monthNavUrl this}}" data-i="{{this}}">{{monthNavText this}}</a></li>
         {{/each}}
       </ul>
     </div>

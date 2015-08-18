@@ -645,7 +645,7 @@ input[type=text].browser {
 @course-todo-bgcolor: #000;
 @course-todo-color: #d8d8d8;
 @today-color: blue;
-.schedule-month .top, .schedule-year .top {
+.schedule-calendar .top {
   border-bottom: 1px #aaa solid;
   > div {
     display: inline-block;
@@ -666,8 +666,9 @@ input[type=text].browser {
     margin-left: 15px;
   }
 }
-.schedule-month .month-nav {
+.schedule-calendar .month-nav {
   border-bottom: 1px #888 solid;
+  clear: both;
   ul {
     padding: 5px;
     line-height: 40px;
@@ -677,16 +678,19 @@ input[type=text].browser {
       width: 100/7-1%;
       text-align: center;
       padding: 5px 0;
-      &.cur-month a {
+      a {
         display: inline-block;
         width: 40px;
+        cursor: pointer;
+      }
+      &.cur-month a {
         border: 1px solid @today-color;
         border-radius: 50%;
       }
     }
   }
 }
-.schedule-month .month-view {
+.schedule-calendar .month-view {
   border-bottom: 1px #666 solid;
   text-align: center;
   thead tr td{
@@ -702,6 +706,7 @@ input[type=text].browser {
     line-height: 30px;
     border: 1px transparent solid;
     border-radius: 50%;
+    cursor: pointer;
   }
   td.done > div{
     background-color: @course-done-bgcolor;
@@ -714,7 +719,7 @@ input[type=text].browser {
     border: 2px @today-color solid;
   }
 }
-.schedule-month .course-items {
+.schedule-calendar .course-items {
   .title {
     margin: 20px 0;
     font-style: normal;
@@ -724,10 +729,13 @@ input[type=text].browser {
     border-bottom: 1px #ddd solid;
   }
 }
-.schedule-year .year-nav {
+.schedule-calendar .year-view-box {
+  display: none;
+}
+.schedule-calendar .year-nav {
   padding: 10px 0;
 }
-.schedule-year .year-view {
+.schedule-calendar .year-view {
   a{
     color: black;
     font-weight: bold;
@@ -764,7 +772,7 @@ input[type=text].browser {
   }
 }
 @media (max-width: @screen-sm-max) {
-  .schedule-year .year-view .amonth{
+  .schedule-calendar .year-view .amonth{
     &:nth-child(3n+1){
       clear: left;
     }
@@ -777,7 +785,7 @@ input[type=text].browser {
   }
 }
 @media (min-width: @screen-md-min) {
-  .schedule-year .year-view .amonth{
+  .schedule-calendar .year-view .amonth{
     td > div{
       width: 20px;
       height: 20px;
