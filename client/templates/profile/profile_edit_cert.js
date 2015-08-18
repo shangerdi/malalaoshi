@@ -139,7 +139,7 @@ Template.profileEditCert.events({
     var file = $uploadBox.find("input[type=file]")[0].files[0];
 
     // upload the picture to server
-    var uploader = new Slingshot.Upload("myHeadImgUploads");
+    var uploader = new Slingshot.Upload("imgUploads");
     var error = uploader.validate(file);
     if (error) {
       console.error(error);

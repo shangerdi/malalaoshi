@@ -395,7 +395,7 @@ Template.avatar.events({
   'submit #avatarUploadForm': function(e) {
     e.preventDefault();
     clearError();
-    var uploader = new Slingshot.Upload("myHeadImgUploads");
+    var uploader = new Slingshot.Upload("imgUploads");
 
     var toUploadfile = document.getElementById('imgFile').files[0];
     var resizer = Template.instance().resizer;
