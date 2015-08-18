@@ -21,9 +21,16 @@
         <label class="input-label" for="name">电话</label>
         <div class="content">{{currentUser.phoneNo}}</div>
       {{/ionItem}}
+      {{#ionItem buttonRight=true avatar=true class="item-icon-right"}}
       <div style="text-align: center; width: 100%; font-size: 28px;">
         <a href="{{pathFor 'map'}}">地图</a>
       </div>
+      {{/ionItem}}
+      {{#ionItem buttonRight=true avatar=true class="item-icon-right"}}
+      <div style="text-align: center; width: 100%; font-size: 28px;">
+        <a href="{{pathFor 'index'}}">首页</a>
+      </div>
+      {{/ionItem}}
     {{/ionList}}
 
     <div class="parent-settings-box logout-btn-box">
