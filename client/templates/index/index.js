@@ -1,4 +1,5 @@
 Template.index.onCreated(function(){
+  appSetDefaultCity();
 });
 
 Template.index.onRendered(function () {

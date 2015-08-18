@@ -43,3 +43,7 @@ Template.registerHelper('runEnv', function() {
   }
   return 'Beta';
 });
+
+appSetDefaultCity = function() {
+  Session.set("locationDefaultCity", "北京市");
+};
