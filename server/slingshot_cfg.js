@@ -1,4 +1,4 @@
-Slingshot.createDirective("myHeadImgUploads", Slingshot.S3Storage, {
+Slingshot.createDirective("imgUploads", Slingshot.S3Storage, {
   bucket: "my.images.head",
   acl: "public-read",
   authorize: function() {
