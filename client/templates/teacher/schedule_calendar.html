@@ -1,4 +1,4 @@
-<template name="scheduleYear">
+<template name="scheduleCalendar">
 {{#ionView}}
   {{#ionContent}}
   <div class="schedule-calendar">
@@ -62,6 +62,9 @@
         </table>
       </div>
     </div>
+    {{#if showLoading}}
+      {{> loading}}
+    {{/if}}
   </div>
   {{/ionContent}}
 {{/ionView}}

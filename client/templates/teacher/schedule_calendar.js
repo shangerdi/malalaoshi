@@ -13,7 +13,13 @@ var getViewType = function() {
   return v;
 }
 var getCurYear = function() {
-  return Template.instance().data?Template.instance().data.year:new Date().getFullYear();
+  // return Template.instance().data?Template.instance().data.year:new Date().getFullYear();
+  var y = Session.get('year');
+  if (!y) {
+    y = new Date().getFullYear();
+    Session.set('year', y);
+  }
+  return y;
 }
 var getCurMonth = function() {
   var m = Session.get('month');
@@ -72,16 +78,51 @@ var getTdDateClass = function(date) {
   }
   return classStr;
 }
-Template.scheduleYear.helpers({
+var subscribe = function(year, month) {
+  var param = {find:{},options:{}};
+  var role = Meteor.user().role;
+  if (role==='teacher') {
+    param.find["teacher.id"]=Meteor.userId();
+  } else {
+    param.find["student.id"]=Meteor.userId();
+  }
+  var startTime, endTime;
+  if (month) {
+    startTime = new Date(year, month-1, 1).getTime(), endTime = startTime + 31*ScheduleTable.MS_PER_DAY;
+  } else {
+    startTime = new Date(year, 0, 1).getTime(), endTime = startTime + 366*ScheduleTable.MS_PER_DAY;
+  }
+  param.find.attendTime = {$gte: startTime, $lt: endTime};
+  Session.set("orderShowLoading", true);
+  Meteor.subscribe('courseAttendances', param, function(){
+    Session.set("orderShowLoading", false);
+  });
+}
+Template.scheduleCalendar.onRendered(function(){
+  var v = getViewType();
+  if (v=='month') {
+    $(".year-view-box").hide();
+    $(".month-view-box").show();
+    subscribe(getCurYear(),getCurMonth());
+  } else {
+    $(".month-view-box").hide();
+    $(".year-view-box").show();
+    subscribe(getCurYear());
+  }
+  console.log(getCurYear()+"-"+getCurMonth());
+});
+Template.scheduleCalendar.helpers({
+  showLoading: function(){
+    return Session.get("orderShowLoading");
+  },
   year: function() {
     return getCurYear();
   },
   isShowToToday: function() {
-    var v = getViewType();
+    var v = getViewType(), today = new Date();
     if (v!='month') {
-      return true;
+      return today.getFullYear() != getCurYear();
     }
-    var today = new Date();
     return today.getFullYear() != getCurYear() || today.getMonth() != getCurMonth()-1;
   },
   monthNavText: function(i) {
@@ -157,19 +198,17 @@ Template.scheduleYear.helpers({
     return getTdDateClass(date);
   }
 });
-Template.scheduleYear.events({
+Template.scheduleCalendar.events({
   'click .btn-go-today': function(e) {
     var v = getViewType(), today = new Date();
-    if (v=='year') {
-      v='month';
-      $('.year-view-box').hide();
-      $('.month-view-box').show();
-      $('.btn-change-view').val("按年");
-      Session.set('view', v);
-    }
-    Session.set('month', today.getMonth()+1);
     if (getCurYear()!=today.getFullYear()) {
-      Router.go("scheduleYear", {year:today.getFullYear()});
+      Session.set('year', today.getFullYear());
+    }
+    if (v=='month') {
+      Session.set('month', today.getMonth()+1);
+      subscribe(getCurYear(),getCurMonth());
+    } else {
+      subscribe(getCurYear());
     }
   },
   'click .btn-change-view': function(e) {
@@ -179,11 +218,13 @@ Template.scheduleYear.events({
       $('.year-view-box').show();
       $('.month-view-box').hide();
       e.target.value="按月";
+      subscribe(getCurYear());
     } else {
       v='month';
       $('.year-view-box').hide();
       $('.month-view-box').show();
       e.target.value="按年";
+      subscribe(getCurYear(),getCurMonth());
     }
     Session.set('view', v);
   },
@@ -196,6 +237,7 @@ Template.scheduleYear.events({
     $('.month-view-box').show();
     $('.btn-change-view').val("按年");
     Session.set('view', v);
+    subscribe(getCurYear(),m);
   },
   'click .month-nav a': function(e) {
     var ele=e.target, $ele = $(ele), i = $ele.data('i'), m = getCurMonth(), y = getCurYear(), flag = false;
@@ -214,8 +256,9 @@ Template.scheduleYear.events({
     }
     Session.set('month', m);
     if (flag) {
-      Router.go("scheduleYear", {year:y});
+      Session.set('year', y);
     }
+    subscribe(y,m);
   },
   'click .month-view td.date': function(e) {
     var ele=e.target, $ele = $(ele).closest('td');
