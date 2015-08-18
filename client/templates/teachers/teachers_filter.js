@@ -26,6 +26,18 @@ function getSwiperSlideInWindow(swiper, translate){
   }
   return nextDist <= refDist ? i : null;
 }
+function checkCondition(setAddress){
+  var sub = Session.get('teachersSubjectIndex');
+  sub = sub == 0 ? true : sub;
+  var grade = Session.get('teachersGradeIndex');
+  grade = grade == 0 ? true : grade;
+  var way  = Session.get('teachersTeacherWay');
+  var studyAddress = setAddress == "setAddress" ? Session.get("locationAddress") : false;
+  var studyCenters = Session.get('selectedStudyCenters');
+  var selectedStudyCenter = studyCenters && studyCenters.length > 0 ? true : false;
+
+  return sub && grade && (way == "goHome" || (way == "studyCenter" && selectedStudyCenter)) && studyAddress;
+}
 Template.teachersFilter.onCreated(function(){
   appSetDefaultCity();
   var subjectDict = getEduSubjectDict();
@@ -67,18 +79,10 @@ Template.teachersFilter.onRendered(function(){
     }
   });
   self.autorun(function(){
-    var sub = Session.get('teachersSubjectIndex');
-    sub = sub == 0 ? true : sub;
-    var grade = Session.get('teachersGradeIndex');
-    grade = grade == 0 ? true : grade;
-    var way  = Session.get('teachersTeacherWay');
-    var studyAddress = self.data.setAddress == "setAddress" ? Session.get("locationAddress") : false;
-    var studyCenters = Session.get('selectedStudyCenters');
-    var selectedStudyCenter = studyCenters && studyCenters.length > 0 ? true : false;
-
     $('.buttom-btn-view').removeClass("buttom-btn-view-active");
     $('.buttom-btn-view').addClass("buttom-btn-view-no-active");
-    if(sub && grade && (way == "goHome" || (way == "studyCenter" && selectedStudyCenter)) && studyAddress){
+
+    if(checkCondition(self.data.setAddress)){
       $('.buttom-btn-view').removeClass("buttom-btn-view-no-active");
       $('.buttom-btn-view').addClass("buttom-btn-view-active");
     }else{
@@ -212,11 +216,14 @@ Template.teachersFilter.events({
     }
   },
   'click #studyPlace': function(e){
+    e.preventDefault();
     Router.go("map");
   },
-  'click #btnSaveAndPay': function(e){
-    $('#btnSaveAndPay').parent().removeClass('buttom-btn-view-no-active');
-    $('#btnSaveAndPay').parent().addClass('buttom-btn-view-active');
+  'click #btnSearchTeachers': function(e){
+    e.preventDefault();
+    if(checkCondition(this.setAddress)){
+      Router.go("teachers");
+    }
   },
   'click #teacherWayStudyCenter': function(e, template){
     e.preventDefault();
