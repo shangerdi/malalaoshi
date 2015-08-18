@@ -45,3 +45,5 @@ dispatch:reload-on-resume
 peerlibrary:async
 node-async-locks
 msavin:mongol
+sanjo:jasmine
+velocity:html-reporter
