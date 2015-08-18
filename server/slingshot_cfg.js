@@ -1,5 +1,5 @@
 Slingshot.createDirective("imgUploads", Slingshot.S3Storage, {
-  bucket: "my.images.head",
+  bucket: Meteor.settings.S3Bucket,
   acl: "public-read",
   authorize: function() {
     //Deny uploads if user is not logged in.
