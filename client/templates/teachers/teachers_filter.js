@@ -271,7 +271,7 @@ Template.teachersFilterStudyCenter.events({
 });
 Template.teachersFilterStudyCenter.helpers({
   formatDist: function(val){
-    return accounting.formatNumber(val, 1);
+    return accounting.formatNumber(val, 0);
   },
   itemSelect: function(){
     var self = this;
