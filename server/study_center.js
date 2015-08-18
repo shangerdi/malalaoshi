@@ -86,26 +86,14 @@ function getStudyCentersByCity(city){
   return studyCenters;
 }
 
-//double d =  Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))*R;
-function calculateDistance(basLatSin, basLatCos, basLngRadian, latSin, latCos, lngRadian){
-  return Math.acos(latSin * basLatSin + latCos * basLatCos * Math.cos(basLngRadian - lngRadian))*R*1000;
+function calculateDistance(pointA, pointB){
+  return Math.acos(Math.sin(PI180 * pointA.lat) * Math.sin(PI180 * pointB.lat) + Math.cos(PI180 * pointA.lat) * Math.cos(PI180 * pointB.lat) * Math.cos(PI180 * pointB.lng - PI180 * pointA.lng)) * R * 1000;
 }
 
-var quickSort = function(arr){
-  if (arr.length <= 1){return arr;}
-  var pivotIndex = Math.floor(arr.length / 2);
-  var pivot = arr.splice(pivotIndex, 1)[0];
-  var left = [];
-  var right = [];
-  for(var i = 0; i < arr.length; i++){
-    if(arr[i].distance < pivot.distance){
-      left.push(arr[i]);
-    }else{
-      right.push(arr[i]);
-    }
-  }
-  return quickSort(left).concat([pivot], quickSort(right));
-};
+function compDistance(pointA, pointB){
+  return pointA.distance < pointB.distance ? -1 : 1;
+}
+
 Meteor.methods({
   getStudyCentersByPlace: function(city, lng, lat){
     var curUser = Meteor.user();
@@ -113,19 +101,18 @@ Meteor.methods({
       throw new Meteor.Error('权限不足', "当前用户权限不足");
     }
 
-    var basLatRadian = PI180 * lat;
-    var basLatSin = Math.sin(basLatRadian);
-    var basLatCos = Math.cos(basLatRadian);
-    var basLngRadian = PI180 * lng;
+    var pointBasic = {
+      lat: lat,
+      lng: lng
+    }
 
     var retStudyCenters = [];
     _.each(getStudyCentersByCity(city), function(element) {
-      var latRadian = PI180 * element.lat;
-      element.distance = calculateDistance(basLatSin, basLatCos, basLngRadian, Math.sin(latRadian), Math.cos(latRadian), PI180 * element.lng);
+      element.distance = calculateDistance({lat: element.lat, lng: element.lng}, pointBasic);
       retStudyCenters[retStudyCenters.length] = element;
     });
 
-    retStudyCenters = quickSort(retStudyCenters);
+    retStudyCenters.sort(compDistance);
     return retStudyCenters.length > 10 ? retStudyCenters.slice(0,10): retStudyCenters;
   }
 });
