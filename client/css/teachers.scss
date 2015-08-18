@@ -907,6 +907,11 @@ $greyColor: #b8b8b8;
 .page-view .item:nth-child(2){
   width: 100%;
 }
+.page-view .item:nth-child(n+4){
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+}
 .teachers-filter > div{
   line-height: 42px;
 }
@@ -1052,4 +1057,94 @@ $greyColor: #b8b8b8;
 }
 .loading-container{
   z-index: 1000;
+}
+.teachers-filter-nearest{
+   ///margin-top: -20px;
+}
+.teachers-filter-nearest span{
+   font-size: 15px;
+   color: #000000;
+}
+.teachers-filter-nearest > div > div:first-child{
+  float: left;
+  width: 50%;
+  margin-right: -50px;
+  padding-right: 40px;
+}
+.teachers-filter-nearest > div > div:last-child{
+  width: 100px;
+  margin: 0 auto;
+}
+.teachers-filter-nearest > div > div:nth-child(2){
+  float: right;
+  width: 50%;
+  margin-left: -50px;
+  padding-left: 40px;
+}
+.teachers-filter-nearest hr{
+  border-style: double;
+  border-color: #c0c0c0;
+  border-top: 1px;
+  border-bottom-width: 1px;
+}
+.teachers-filter-study-center-item{
+  overflow: hidden;
+  padding: 10px;
+  font-size: 16px;
+  width: 95%;
+  background-color: #f1f1f1;
+  margin: 0 auto 20px auto;
+  width: 95%;
+  margin: 0 auto 20px auto;
+  display: table;
+}
+.teachers-filter-study-center-item > div{
+  display: table-cell;
+  vertical-align: middle;
+}
+.teachers-filter-study-center-item > div:first-child{
+  width: 40%;
+}
+.teachers-filter-study-center-item > div:last-child{
+  width: 60%;
+}
+.teachers-filter-study-center-item img{
+  width: 100%;
+}
+.teachers-filter-study-center-item span{
+  font-size: 21px;
+  display: block;
+}
+.teachers-filter-study-center-item i{
+  font-size: 40px;
+  position: absolute;
+  background-color: #f1f1f1;
+  left: 4%;
+  margin-top: -10px;
+  z-index: 20;
+}
+.study-center-item-select{
+  border: solid #000 2px;
+}
+.study-center-item-select i{
+  color: #000000;
+}
+.study-center-item-no-select{
+  border: none;
+}
+.study-center-item-no-select i{
+  color: #E0D5D5;
+}
+.teachers-filter-study-center-item-info{
+  text-align: left;
+  padding-left: 20px;
+}
+.teachers-filter-study-center-item-info > p:nth-last-child(2){
+  float: left;
+}
+.teachers-filter-study-center-item-info > p:last-child{
+  float: right;
+}
+#teachersFilterNearestStudyCenter{
+  display: none;
 }

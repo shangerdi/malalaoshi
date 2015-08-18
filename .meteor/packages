@@ -46,3 +46,4 @@ dispatch:reload-on-resume
 peerlibrary:async
 node-async-locks
 msavin:mongol
+reactive-var

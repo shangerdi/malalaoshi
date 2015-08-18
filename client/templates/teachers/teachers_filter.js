@@ -50,6 +50,8 @@ Template.teachersFilter.onCreated(function(){
     Session.set("locationAddress", null);
     Session.set("locationStreet", null);
   }
+
+  this.studyCenters = new ReactiveVar([]);
 });
 Template.teachersFilter.onRendered(function(){
   var self = this;
@@ -71,10 +73,12 @@ Template.teachersFilter.onRendered(function(){
     grade = grade == 0 ? true : grade;
     var way  = Session.get('teachersTeacherWay');
     var studyAddress = self.data.setAddress == "setAddress" ? Session.get("locationAddress") : false;
+    var studyCenters = Session.get('selectedStudyCenters');
+    var selectedStudyCenter = studyCenters && studyCenters.length > 0 ? true : false;
 
     $('.buttom-btn-view').removeClass("buttom-btn-view-active");
     $('.buttom-btn-view').addClass("buttom-btn-view-no-active");
-    if(sub && grade && (way == "goHome" || way == "studyCenter") && studyAddress){
+    if(sub && grade && (way == "goHome" || (way == "studyCenter" && selectedStudyCenter)) && studyAddress){
       $('.buttom-btn-view').removeClass("buttom-btn-view-no-active");
       $('.buttom-btn-view').addClass("buttom-btn-view-active");
     }else{
@@ -170,26 +174,17 @@ Template.teachersFilter.helpers({
   studyAddress: function(){
     return this.setAddress == "setAddress" ? Session.get("locationAddress") : false;
   },
-  canSearch: function(){
-    var sub = Session.get('teachersSubjectIndex');
-    sub = sub == 0 ? true : sub;
-    var grade = Session.get('teachersGradeIndex');
-    grade = grade == 0 ? true : grade;
-    var way  = Session.get('teachersTeacherWay');
-
-    return sub && grade && way && this.studyAddress;
+  studyCentersCount: function(){
+    var stCenter = Template.instance().studyCenters.get();
+    return stCenter ? stCenter.length : 0;
   },
-  searchBtnClass: function(){
-    var sub = Session.get('teachersSubjectIndex');
-    sub = sub == 0 ? true : sub;
-    var grade = Session.get('teachersGradeIndex');
-    grade = grade == 0 ? true : grade;
-    var way  = Session.get('teachersTeacherWay');
-    var studyAddress = this.setAddress == "setAddress" ? Session.get("locationAddress") : false;
-
-    var canSearch = sub && grade && way && studyAddress;
-    //return canSearch ? "buttom-btn-view-active" : "buttom-btn-view-no-active";
-    return "xx";
+  commendStudyCenter: function(){
+    var stCenter = Template.instance().studyCenters.get();
+    return stCenter ? stCenter[0] : {};
+  },
+  otherStudyCenter: function(){
+    var stCenter = Template.instance().studyCenters.get();
+    return stCenter ? stCenter.slice(1) : [];
   }
 });
 
@@ -223,7 +218,9 @@ Template.teachersFilter.events({
     $('#btnSaveAndPay').parent().removeClass('buttom-btn-view-no-active');
     $('#btnSaveAndPay').parent().addClass('buttom-btn-view-active');
   },
-  'click #teacherWayStudyCenter': function(e){
+  'click #teacherWayStudyCenter': function(e, template){
+    e.preventDefault();
+    $("#teachersFilterNearestStudyCenter").css("display", "block");
     Session.set('teachersTeacherWay', null);
     var studyAddress = this.setAddress == "setAddress" ? Session.get("locationAddress") : false;
     if(!studyAddress){
@@ -232,22 +229,82 @@ Template.teachersFilter.events({
     }
     var localPoint = Session.get("locationLngLat");
     IonLoading.show({backdrop:true});
+
+    var self = this;
     Meteor.call('getStudyCentersByPlace', Session.get("locationDefaultCity"), localPoint.lng, localPoint.lat, function(error, result){
       IonLoading.hide();
       if(error){
         return throwError(error.reason);
       }
 
-      console.log("...............返回........")
-      console.log(result);
+      template.studyCenters.set(result);
     });
 
     Session.set('teachersTeacherWay', "studyCenter");
   },
   'click #teacherWayGoHome': function(e){
+    e.preventDefault();
+    $("#teachersFilterNearestStudyCenter").css("display", "none");
     Session.set('teachersTeacherWay', "goHome");
   }
 });
+Template.teachersFilterStudyCenter.events({
+  'click .teachers-filter-study-center-item': function(e){
+    e.preventDefault();
+    var classList = e.currentTarget.classList;
+    var self = this;
+    _.each(classList, function(obj){
+      if(obj == "study-center-item-no-select"){
+        Session.set('selectedStudyCenters', addSelectStudyCenter(Session.get('selectedStudyCenters'), self.studyCenter.id));
+      }else if(obj == "study-center-item-select"){
+        Session.set('selectedStudyCenters', removeSelectStudyCenter(Session.get('selectedStudyCenters'), self.studyCenter.id));
+      }
+    });
+  }
+});
+Template.teachersFilterStudyCenter.helpers({
+  formatDist: function(val){
+    return accounting.formatNumber(val, 1);
+  },
+  itemSelect: function(){
+    var self = this;
+    var selected = Session.get('selectedStudyCenters');
+    if(!selected){
+      return "study-center-item-no-select";
+    }
+    var noSelect = true;
+    _.each(selected, function(obj){
+      if(noSelect && obj == self.studyCenter.id){
+        noSelect = false;
+      }
+    });
+    return noSelect ? "study-center-item-no-select" : "study-center-item-select";
+  }
+});
+function addSelectStudyCenter(selected, id){
+  selected = selected || [];
+  var noHas = true;
+  _.each(selected, function(obj){
+    if(noHas && obj == id){
+      noHas = false;
+    }
+  });
+  if(noHas){
+    selected[selected.length] = id;
+  }
+  return selected;
+}
+function removeSelectStudyCenter(selected, id){
+  selected = selected || [];
+  var noHas = true;
+  _.each(selected, function(obj,ind){
+    if(noHas && obj == id){
+      selected.splice(ind,1);
+      noHas = false;
+    }
+  });
+  return selected;
+}
 function popupInfo(popInfo){
   IonPopup.show({
     title: '提示',

@@ -59,10 +59,37 @@
           </div>
         </div>
         {{/ionItem}}
-
+        <div id="teachersFilterNearestStudyCenter">
+        {{#if $gt studyCentersCount 0}}
+          <div class="teachers-filter-nearest" style="width: 95%; margin: 0 auto;">
+            <div>
+              <div><hr></div>
+              <div><hr></div>
+              <div><span>离你最近</span></div>
+            </div>
+          </div>
+          {{> teachersFilterStudyCenter studyCenter=commendStudyCenter}}
+          {{#if $gt studyCentersCount 1}}
+            <div class="teachers-filter-nearest" style="width: 95%; margin: 0 auto;">
+              <div>
+                <div><hr></div>
+                <div><hr></div>
+                <div><span>其他推荐</span></div>
+              </div>
+            </div>
+            {{#each otherStudyCenter}}
+              {{> teachersFilterStudyCenter studyCenter=this}}
+            {{/each}}
+          {{/if}}
+        {{else}}
+          <div style="width: 95%; margin: 0 auto;">
+            <div>没有满足条件的学习中心</div>
+          </div>
+        {{/if}}
+        </div>
       {{/ionList}}
     {{/ionContent}}
-    <div class="buttom-btn-view {{searchBtnClass}}">
+    <div class="buttom-btn-view">
       <button id="btnSaveAndPay" class="button button-full">
         开始筛选
       </button>
@@ -97,4 +124,22 @@
         </div>
       </div>
     </div>
+</template>
+
+<template name="teachersFilterStudyCenter">
+  <div class="teachers-filter-study-center-item {{itemSelect}}">
+      <div>
+        <div>
+          <i class="icon ion-android-done"></i>
+          <img src="{{studyCenter.avatar}}">
+        </div>
+      </div>
+      <div>
+        <div class="teachers-filter-study-center-item-info">
+          <span>{{studyCenter.name}}（{{studyCenter.city}})</span>
+          <p>{{studyCenter.address}}</p>
+          <p>{{formatDist studyCenter.distance}}米</p>
+        </div>
+      </div>
+  </div>
 </template>
