@@ -12,10 +12,8 @@ function setPlace(map){
   map.clearOverlays();
   function myFun(){
     if(lastAct === "manual" && local.getResults() && local.getResults().getPoi(0)){
-      var pp = local.getResults().getPoi(0).point;
-      Session.set("locationLngLat", pp);
-      map.centerAndZoom(pp, 16);
-      map.addOverlay(new BMap.Marker(pp));
+      var pt = local.getResults().getPoi(0);
+      selectPoint(pt.title, pt.address, pt.point);
     }
   }
   var local = new BMap.LocalSearch(map, {
@@ -27,23 +25,51 @@ function setPlace(map){
 Template.map.onCreated(function(){
   lastAct = null;
   IonNavigation.skipTransitions = true;
-  Session.set("locationPlaceholder", "请输入地址");
-  Session.set("locationDefaultCity", "北京市");
+  Session.set("locationPlaceholder", "请输入您的上课位置");
+  appSetDefaultCity();
+  this.locationList = new ReactiveVar([]);
 });
+function selectPoint(addRess, street, point){
+  Session.set("locationLngLat", point);
+  Session.set("locationAddress", addRess);
+  Session.set("locationStreet", street);
+
+  Router.go("teachersFilter", null, {hash: "setAddress"});
+}
 Template.map.rendered=function(){
+  IonLoading.show({backdrop:true});
+  var self = this;
   $.when(
     $.getScript("http://api.map.baidu.com/getscript?v=2.0&ak="+Meteor.settings.public.baiduAK)
   ).done(function(){
+    IonLoading.hide();
     var map = new BMap.Map("allmap");
 
     var geolocationControl = new BMap.GeolocationControl({showAddressBar: false});
     Template.map.map = map;
     Template.map.geolocationControl = geolocationControl;
+    Template.map.geoc = new BMap.Geocoder();
     geolocationControl.addEventListener("locationSuccess", function(e){
       $('.BMap_geolocationContainer').find('.BMap_geolocationAddress').remove();
       if(lastAct === "auto"){
         mapMoveAndOverlay(map, e);
-        Session.set("locationAddress", e.addressComponent.city + e.addressComponent.district + e.addressComponent.street + e.addressComponent.streetNumber);
+
+        self.locationList.set([]);
+        Template.map.geoc.getLocation(e.point, function(rs){
+          var locationList = [];
+          locationList[0] = {
+            select: true,
+            point: rs.point,
+            selectStyle: "location-map-info-i-select",
+            title: rs.business,
+            address: rs.address
+          };
+          for(var i=0; i<rs.surroundingPois.length; i++){
+            rs.surroundingPois[i].selectStyle = "location-map-info-i-no-select";
+            locationList[i+1] = rs.surroundingPois[i];
+          }
+          self.locationList.set(locationList);
+        });
       }
     });
     geolocationControl.addEventListener("locationError",function(e){
@@ -59,13 +85,12 @@ Template.map.rendered=function(){
       "input" : "searchInput",
       "location" : Session.get("locationDefaultCity")
     });
-    ac.setInputValue(Session.get("locationAddress") || "");
   	ac.addEventListener("onconfirm", function(e){
       IonKeyboard.close();
       $('#searchInput')[0].blur();
       var _value = e.item.value;
-      Session.set("locationAddress", _value.province +  _value.city +  _value.district +  _value.street +  _value.business);
 
+      Session.set("locationAddress", _value.province +  _value.city +  _value.district +  _value.street +  _value.business);
   		setPlace(Template.map.map);
   	});
 
@@ -76,26 +101,17 @@ Template.map.helpers({
   placeholder: function(){
     return Session.get("locationPlaceholder") || "";
   },
-  locationAddress: function(){
-    return Session.get("locationAddress") || "";
+  autoLocation: function(){
+    return Template.instance().locationList.get();
   }
 });
 Template.map.events({
   'click .BMap_geolocationIcon': function(){
     lastAct = "auto";
   },
-  'click #searchIcon, keyup #searchInput': function(e){
+  'click .location-map-info': function(e){
     e.preventDefault();
 
-    var doSearch = false;
-    if(e.target.id === "searchIcon"){
-      doSearch = true;
-    }else if(e.target.id === "searchInput" && e.keyCode === 13){
-      doSearch = true;
-    }
-    if(doSearch){
-      Session.set("locationAddress", $.trim($("#searchInput").val()));
-      setPlace(Template.map.map);
-    }
+    selectPoint(this.title, this.address, this.point);
   }
 });
