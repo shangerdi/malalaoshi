@@ -72,5 +72,9 @@ Template.teacher.events({
                    '&cost=' + cost;
 
     Router.go('order', {}, {query: queryObj});
+  },
+  'click #reserveCourse': function(e) {
+    Session.set('orderTeacherId', this.user._id);
+    Router.go('orderCourseSelectTime');
   }
 });

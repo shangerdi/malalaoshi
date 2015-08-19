@@ -1,0 +1,24 @@
+<template name="orderCourseConfirm">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=" "}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">确认课程订单</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+    <div class="row row-center">
+      <div class="pull-left col">
+        还需支付：￥1100 (TODO)
+      </div>
+      <div class="pull-right col">
+        <button id="gotoPay" class="button button-full button-assertive">
+          前往支付
+        </button>
+      </div>
+    </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
