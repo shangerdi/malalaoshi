@@ -129,12 +129,8 @@ Template.mylogin.events({
           $loginBtn.val("登录");
           return Session.set('myloginErrors', {checkCode: result.msg});
         }
-        if (Meteor.isCordova) {
-          if (role=="parent") {
-            Router.go('teachers');
-          } else {
-            Router.go('dashboard');
-          }
+        if (role=="parent") {
+          Router.go('teachers');
         } else {
           Router.go('dashboard');
         }
