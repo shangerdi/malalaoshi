@@ -1,5 +1,3 @@
-var R = 6371;  //地球半径
-var PI180 = Math.PI/180;
 var studyCenters = [
   {
     id: "testid1",
@@ -87,7 +85,10 @@ function getStudyCentersByCity(city){
 }
 
 function calculateDistance(pointA, pointB){
-  return Math.acos(Math.sin(PI180 * pointA.lat) * Math.sin(PI180 * pointB.lat) + Math.cos(PI180 * pointA.lat) * Math.cos(PI180 * pointB.lat) * Math.cos(PI180 * pointB.lng - PI180 * pointA.lng)) * R * 1000;
+  var R = 6371000; // metres
+  var toRadians = Math.PI/180;
+
+  return Math.acos(Math.sin(toRadians * pointA.lat) * Math.sin(toRadians * pointB.lat) + Math.cos(toRadians * pointA.lat) * Math.cos(toRadians * pointB.lat) * Math.cos(toRadians * pointB.lng - toRadians * pointA.lng)) * R;
 }
 
 function compDistance(pointA, pointB){

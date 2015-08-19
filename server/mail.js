@@ -1,7 +1,7 @@
 Meteor.methods({
   sendmail: function(order) {
     var to = 'i@liangsun.org';
-    var from = 'service@feichanglaoshi.com';
+    var from = 'service@malalaoshi.com';
     var subject = 'New teacher enrolled';
     var text = 'Feichanglaoshi.com has new teacher enrolled, please login to audit.';
     check([to, from, subject, text], [String]);
