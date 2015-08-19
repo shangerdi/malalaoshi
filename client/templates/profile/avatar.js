@@ -62,8 +62,7 @@ Template.avatar.onRendered(function(){
         for (var i = 0; i < src.length; i++) {
             ia[i] = src.charCodeAt(i);
         };
-        var file = new Blob([ia], {type:"image/jpeg"});
-        this.doneCallback(false, file);
+        this.doneCallback(false, new Blob([ia], {type:"image/jpeg"}));
     };
     
     resizer.resize=function(file,done){
