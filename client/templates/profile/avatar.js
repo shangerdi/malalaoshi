@@ -63,7 +63,6 @@ Template.avatar.onRendered(function(){
             ia[i] = src.charCodeAt(i);
         };
         var file = new Blob([ia], {type:"image/jpeg"});
-        file.name = CryptoJS.SHA1(src).toString()+".jpg";
         this.doneCallback(false, file);
     };
     
@@ -336,7 +335,7 @@ Template.avatar.events({
     }
     $('.btns-box .select-file-box').hide();
     $('.btns-box .action-btn-box').show();
-    var resizer = Template.instance().resizer, origFile = ele.files[0], filename = origFile.name, extName=filename.substr(filename.lastIndexOf(".")+1);
+    var resizer = Template.instance().resizer;
     if (resizer) {
       resizer.resize(ele.files[0],function(error, file){
         if (error) {

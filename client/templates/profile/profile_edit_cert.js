@@ -138,43 +138,37 @@ Template.profileEditCert.events({
     var $uploadBox = $ele.closest(".cert-upload-box");
     var file = $uploadBox.find("input[type=file]")[0].files[0];
 
-    var reader=new FileReader();
-    reader.onload=function(){
-      var sha1 = CryptoJS.SHA1(reader.result).toString();
-      reader = null;
-      // upload the picture to server
-      var uploader = new Slingshot.Upload("imgUploads", {'sha1':sha1});
-      var error = uploader.validate(file);
+    // upload the picture to server
+    var uploader = new Slingshot.Upload("imgUploads");
+    var error = uploader.validate(file);
+    if (error) {
+      console.error(error);
+      $uploadBox.addClass('has-error');
+      $uploadBox.find('.help-block').text(error.reason);
+      return false;
+    }
+    $uploadBox.find(".uploading-hint-box").show();
+    $ele.attr("disabled", true);
+    $ele.css("cursor", "wait");
+    uploader.send(file, function(error, downloadUrl) {
       if (error) {
         console.error(error);
         $uploadBox.addClass('has-error');
         $uploadBox.find('.help-block').text(error.reason);
-        return false;
+      } else {
+        // console.log(downloadUrl);
+        $uploadBox.data("changed", false);
+        $uploadBox.find(".cert-img-box img").attr("src", downloadUrl);
+        saveCertData(function() {
+          showSuccessInfo("保存成功", $uploadBox);
+          $uploadBox.find('.btns-box .select-file-box').show();
+          $uploadBox.find('.btns-box .action-btn-box').hide();
+        });
       }
-      $uploadBox.find(".uploading-hint-box").show();
-      $ele.attr("disabled", true);
-      $ele.css("cursor", "wait");
-      uploader.send(file, function(error, downloadUrl) {
-        if (error) {
-          console.error(error);
-          $uploadBox.addClass('has-error');
-          $uploadBox.find('.help-block').text(error.reason);
-        } else {
-          // console.log(downloadUrl);
-          $uploadBox.data("changed", false);
-          $uploadBox.find(".cert-img-box img").attr("src", downloadUrl);
-          saveCertData(function() {
-            showSuccessInfo("保存成功", $uploadBox);
-            $uploadBox.find('.btns-box .select-file-box').show();
-            $uploadBox.find('.btns-box .action-btn-box').hide();
-          });
-        }
-        $uploadBox.find(".uploading-hint-box").hide();
-        $ele.removeAttr("disabled");
-        $ele.css("cursor", "pointer");
-      });
-    };
-    reader.readAsDataURL(file);
+      $uploadBox.find(".uploading-hint-box").hide();
+      $ele.removeAttr("disabled");
+      $ele.css("cursor", "pointer");
+    });
   },
   'click .action-btn-box .btn-cancel': function(e) {
     var ele = e.target, $ele = $(ele);
