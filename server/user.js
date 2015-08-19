@@ -1,3 +1,15 @@
+UserLocationSchema = new SimpleSchema({
+  lng:{
+    type: Number,
+    decimal: true,
+    label: 'Longitude'
+  },
+  lat: {
+    type: Number,
+    decimal: true,
+    label: 'Latitude'
+  }
+});
 UserStatusSchema = new SimpleSchema({
   basic:{
     type: String,
@@ -96,6 +108,20 @@ ProfileSchema = new SimpleSchema({
   address: {
     optional: true,
     type: UserAddressSchema
+  },
+  recommend: {
+    type: Boolean,
+    optional: true,
+    label: 'Recommend'
+  },
+  location: {
+    optional: true,
+    type: UserLocationSchema
+  },
+  studyCenter: {
+    type: [String],
+    optional: true,
+    label: 'Study center'
   }
 });
 
