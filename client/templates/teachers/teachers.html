@@ -1,22 +1,20 @@
 <template name="teachers">
-  {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear pull-right button-light" data-ion-modal="selectTeachSubject">
-      {{#if isAndroid}}
-      {{> ionIcon icon="android-search"}}
-      {{else}}
-      {{> ionIcon icon="ios-search"}}
-      {{/if}}
-    </button>
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
   {{/contentFor}}
 
-
   {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title">麻辣老师</h1>
+    <h1 class="title normal-title">筛选老师</h1>
   {{/contentFor}}
 
   {{#ionView class="teachers-grid-view"}}
     {{#ionContent}}
       {{#ionList}}
+        <div>
+        {{#each teachers}}
+          {{> teacherItemRecommend}}
+        {{/each}}
+        </div>
         <div class="teachers-grid">
         {{#each teachers}}
           {{> teacherItem}}
@@ -25,6 +23,27 @@
       {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
+</template>
+
+<template name="teacherItemRecommend">
+  <a href="{{pathFor 'teacher' id=this._id}}" class="">
+    <div class="col">
+      <div>
+        <img src="{{profile.avatarUrl}}" class="img-responsive" style="width: 100%; height:180px;">
+        <div class="teacher-subject">{{subject}}</div>
+      </div>
+      <div class="teacher-profile">
+        <div>
+          <h3>{{profile.name}}</h3>
+        </div>
+        <div>
+          <i class="mala mala-id teacher-icon-id-active"></i>
+          <i class="mala mala-edu {{#if eduAudit}}teacher-icon-edu-active{{else}}teacher-icon-inactive{{/if}}"></i>
+          <i class="mala mala-cert {{#if cert}}teacher-icon-cert-active{{else}}teacher-icon-inactive{{/if}}"></i>
+        </div>
+      </div>
+    </div>
+  </a>
 </template>
 
 <template name="teacherItem">
@@ -46,40 +65,4 @@
       </div>
     </div>
   </a>
-</template>
-
-<template name="selectTeachSubject">
-  {{#ionModal customTemplate=true}}
-    <form class="teach-subject-select">
-      <div class="bar bar-header bar-stable">
-        <button data-dismiss="modal" type="button" class="button button-clear ion-close"></button>
-        <h2 class="title">筛选</h2>
-        <button type="submit" id="selectSubjectBtn" class="button button-clear ion-checkmark"></button>
-      </div>
-      <div class="content has-header overflow-scroll">
-        <div>
-          <div>
-            <div class="swiper-container swiper-subject">
-                <div class="swiper-wrapper">
-                  {{#each eduSubjectList}}
-                    <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
-                  {{/each}}
-                </div>
-                <div class="swiper-button-prev"></div>
-            </div>
-          </div>
-          <div>
-            <div class="swiper-container swiper-grade">
-                <div class="swiper-wrapper">
-                  {{#each eduGradeList}}
-                    <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
-                  {{/each}}
-                </div>
-                <div class="swiper-button-prev"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-  {{/ionModal}}
 </template>

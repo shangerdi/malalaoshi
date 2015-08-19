@@ -128,6 +128,12 @@ ProfileSchema = new SimpleSchema({
     optional: true,
     label: 'Recommend avatar url'
   },
+  teacherType: {
+    type: String,
+    optional: true,
+    allowedValues: ['goHome', 'studyCenter'],
+    label: 'Teacher type'
+  }
 });
 
 Meteor.users.attachSchema(new SimpleSchema({
