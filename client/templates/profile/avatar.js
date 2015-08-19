@@ -62,8 +62,9 @@ Template.avatar.onRendered(function(){
         for (var i = 0; i < src.length; i++) {
             ia[i] = src.charCodeAt(i);
         };
-        
-        this.doneCallback(false, new Blob([ia], {type:"image/jpeg"}));
+        var file = new Blob([ia], {type:"image/jpeg"});
+        file.name = CryptoJS.SHA1(src).toString()+".jpg";
+        this.doneCallback(false, file);
     };
     
     resizer.resize=function(file,done){
@@ -346,7 +347,6 @@ Template.avatar.events({
           showError(error.reason);
           return throwError(error.reason);
         }
-        file.name = Date.now()+"."+extName;
         // console.log(file);
         resizer.resizedImage=file;
       });
