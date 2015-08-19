@@ -632,19 +632,28 @@ input[type=text].browser {
   background-color: #d8d8d8;
   color: #444;
 }
-.course-table td.phase.available {
-  background-color: green;
+.course-table {
+  thead > tr.week-row:first-child > td {
+    border-top: 1px solid #aaa;
+  }
+  td{
+    border: 1px solid #aaa;
+    &.phase.available {
+      background-color: green;
+    }
+    &.phase.chosen {
+      background-color: blue;
+    }
+    &.phase.reserved {
+      background-color: yellow;
+    }
+  }
 }
-.course-table td.phase.chosen {
-  background-color: blue;
-}
-.course-table td.phase.reserved {
-  background-color: yellow;
-}
-@course-done-color: #d8d8d8;
-@course-todo-color: #000;
+@course-done-bgcolor: #d8d8d8;
+@course-todo-bgcolor: #000;
+@course-todo-color: #d8d8d8;
 @today-color: blue;
-.schedule-month .top {
+.schedule-calendar .top {
   border-bottom: 1px #aaa solid;
   > div {
     display: inline-block;
@@ -652,10 +661,10 @@ input[type=text].browser {
   .marks > div{
     padding-bottom: 10px;
     &.done{
-      color: @course-done-color;
+      color: @course-done-bgcolor;
     }
     &.todo{
-      color: @course-todo-color;
+      color: @course-todo-bgcolor;
     }
     .ion-record {
       margin-right: 5px;
@@ -665,8 +674,9 @@ input[type=text].browser {
     margin-left: 15px;
   }
 }
-.schedule-month .month-nav {
+.schedule-calendar .month-nav {
   border-bottom: 1px #888 solid;
+  clear: both;
   ul {
     padding: 5px;
     line-height: 40px;
@@ -676,16 +686,19 @@ input[type=text].browser {
       width: 100/7-1%;
       text-align: center;
       padding: 5px 0;
-      &.cur-month a {
+      a {
         display: inline-block;
         width: 40px;
+        cursor: pointer;
+      }
+      &.cur-month a {
         border: 1px solid @today-color;
         border-radius: 50%;
       }
     }
   }
 }
-.schedule-month .month-view {
+.schedule-calendar .month-view {
   border-bottom: 1px #666 solid;
   text-align: center;
   thead tr td{
@@ -701,18 +714,20 @@ input[type=text].browser {
     line-height: 30px;
     border: 1px transparent solid;
     border-radius: 50%;
+    cursor: pointer;
   }
   td.done > div{
-    background-color: @course-done-color;
+    background-color: @course-done-bgcolor;
   }
   td.todo > div{
-    background-color: @course-todo-color;
+    background-color: @course-todo-bgcolor;
+    color: @course-todo-color;
   }
   td.today > div{
     border: 2px @today-color solid;
   }
 }
-.schedule-month .course-items {
+.schedule-calendar .course-items {
   .title {
     margin: 20px 0;
     font-style: normal;
@@ -720,5 +735,83 @@ input[type=text].browser {
   td {
     border-top: 0;
     border-bottom: 1px #ddd solid;
+  }
+}
+.schedule-calendar .spinner-container{
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.schedule-calendar .year-nav {
+  padding: 10px 0;
+}
+.schedule-calendar .year-view {
+  a{
+    color: black;
+    font-weight: bold;
+  }
+  .table {
+    cursor: pointer;
+  }
+  thead{
+    display: none;
+  }
+  td{
+    border: 0;
+    padding: 0;
+  }
+  td > div{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px transparent solid;
+    border-radius: 50%;
+  }
+  td.done > div{
+    background-color: @course-done-bgcolor;
+  }
+  td.todo > div{
+    background-color: @course-todo-bgcolor;
+    color: @course-todo-color;
+  }
+  td.today > div{
+    border: 1px @today-color solid;
+  }
+}
+@media (max-width: @screen-sm-max) {
+  .schedule-calendar .year-view .amonth{
+    &:nth-child(3n+1){
+      clear: left;
+    }
+    &:nth-child(3n+2){
+      clear: none;
+    }
+    &:nth-child(3n+3){
+      clear: right;
+    }
+  }
+}
+@media (min-width: @screen-md-min) {
+  .schedule-calendar .year-view .amonth{
+    td > div{
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+    }
+    &:nth-child(4n+1){
+      clear: left;
+    }
+    &:nth-child(4n+2){
+      clear: none;
+    }
+    &:nth-child(4n+3){
+      clear: none;
+    }
+    &:nth-child(4n+4){
+      clear: right;
+    }
   }
 }

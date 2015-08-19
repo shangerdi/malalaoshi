@@ -1,0 +1,19 @@
+<template name="scheduleWeeklyForOrderTest">
+{{#ionView}}
+  {{#ionContent}}
+    <div class="course-table-box {{errorClass 'phases'}}">
+      <div>每周共{{lessonCounts}}课时</div>
+      {{>scheduleWeeklyForOrder teacherId=teacherId}}
+      <span class="help-block">{{errorMessage 'phases'}}</span>
+    </div>
+    <div class="{{errorClass 'lessonCount'}}">
+      <label class="" for="lessonCount">
+        课时数:
+        <input type="text" id="lessonCount" name="lessonCount"/>
+      </label>
+      <span class="help-block">{{errorMessage 'lessonCount'}}</span>
+      <input class="btn btn-success button button-block button-assertive btn-save" type="button" value="保存"/>
+    </div>
+  {{/ionContent}}
+{{/ionView}}
+</template>
