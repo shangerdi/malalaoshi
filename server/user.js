@@ -122,7 +122,12 @@ ProfileSchema = new SimpleSchema({
     type: [String],
     optional: true,
     label: 'Study center'
-  }
+  },
+  recommendAvatarUrl: {
+    type: String,
+    optional: true,
+    label: 'Recommend avatar url'
+  },
 });
 
 Meteor.users.attachSchema(new SimpleSchema({
