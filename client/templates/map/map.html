@@ -4,18 +4,30 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title">位置获取</h1>
+  <label class="item item-input item-icon-left map-page-head">
+    <input id="searchInput" type="text" placeholder="{{placeholder}}">
+    <i id="searchIcon" class="icon ion-ios-location-outline" style="font-size: 23px; min-width: 60px;"></i>
+  </label>
   {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent class="location-map"}}
-      <div style="margin-top: 10px; padding-left: 15px; padding-right: 15px; width: 100%; display: block; position: absolute; z-index: 5;">
-        <label class="item item-input">
-          <input id="searchInput" type="text" placeholder="{{placeholder}}" value="{{locationAddress}}">
-          <i id="searchIcon" class="icon ion-search placeholder-icon" style="font-size: 23px; min-width: 60px;"></i>
-        </label>
+      <div id="allmap"></div>
+      <div class="location-map-list">
+        {{#ionList}}
+          {{#each autoLocation}}
+          {{#ionItem}}
+            <div class="location-map-info">
+              <div>
+                <i id="searchIcon" class="icon ion-ios-location {{selectStyle}}"></i>
+                <span>{{#if select}}[当前]{{/if}} {{title}}</span>
+              </div>
+              <div>{{address}}</div>
+            </div>
+          {{/ionItem}}
+          {{/each}}
+        {{/ionList}}
       </div>
-      <div style="width: 100%; height: 100%;" id="allmap"></div>
     {{/ionContent}}
   {{/ionView}}
 </template>
