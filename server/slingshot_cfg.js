@@ -10,11 +10,8 @@ Slingshot.createDirective("imgUploads", Slingshot.S3Storage, {
 
     return true;
   },
-  key: function(file, metaContext) {
-    if (metaContext && metaContext.sha1) {
-      var ext = (file.type)?file.type.substr(file.type.lastIndexOf("/")+1):'jpg';
-      return metaContext.sha1+"."+ext;
-    }
-    return file.name;
+  key: function(file) {
+    var ext = file.type.substr(file.type.lastIndexOf("/")+1);
+    return this.userId + "/" + Meteor.uuid() + "." + ext;
   }
 });
