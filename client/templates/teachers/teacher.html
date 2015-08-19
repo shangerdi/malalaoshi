@@ -64,6 +64,16 @@
           </div>
         </div>
       </div>
+      <div>
+        <div clas="teacher-detail-item-head">
+          <span class="teacher-detail-item-span">
+            可授课时间
+          </span>
+        </div>
+        <div>
+          {{>scheduleWeeklyForOrder teacherId=user._id}}
+        </div>
+      </div>
       {{# if $neq currentUser._id user._id }}
       <div class="teacher-detail-submit">
         <button id="tryExperienceCourse" class="button button-full button-assertive {{#if submitActiv}}disabled{{/if}}">
