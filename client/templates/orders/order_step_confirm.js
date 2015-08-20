@@ -18,10 +18,10 @@ var getDiscount = function() {
 var calcToPayCost = function() {
   return calcTotalCost()-getDiscount();
 }
-Template.orderCourseConfirm.onCreated(function(){
+Template.orderStepConfirm.onCreated(function(){
   console.log(getTeacherId());
 });
-Template.orderCourseConfirm.helpers({
+Template.orderStepConfirm.helpers({
   myPhoneNo: function() {
     var a = Meteor.user().phoneNo;
     return a.substr(0,3)+'****'+a.substr(a.length-4);
@@ -67,8 +67,8 @@ Template.orderCourseConfirm.helpers({
     return calcToPayCost();
   }
 });
-Template.orderCourseConfirm.events({
+Template.orderStepConfirm.events({
   'click #gotoPay': function(e) {
-    Router.go('orderCoursePay');
+    Router.go('orderStepPay');
   }
 });

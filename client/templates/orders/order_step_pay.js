@@ -18,15 +18,15 @@ var getDiscount = function() {
 var calcToPayCost = function() {
   return calcTotalCost()-getDiscount();
 }
-Template.orderCoursePay.onCreated(function(){
+Template.orderStepPay.onCreated(function(){
   console.log(Session.get("orderTeacherId"));
 });
-Template.orderCoursePay.helpers({
+Template.orderStepPay.helpers({
   toPayCost: function() {
     return calcToPayCost();
   }
 });
-Template.orderCoursePay.events({
+Template.orderStepPay.events({
   'click .item-radio': function(e) {
     var ele = e.target, $ele = $(ele).closest(".item-radio");
     $ele.find("input")[0].click();
