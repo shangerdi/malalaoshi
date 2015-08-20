@@ -1,6 +1,14 @@
 @import "custom.bootstrap.import.less";
-html.browser,html.browser body{
- .user-select(initial);
+html.browser{
+  &,body,.ionic-body{
+    .user-select(initial);
+  }
+  .nav-view-transition-ios.nav-view-direction-forward, .nav-view-transition-ios.nav-view-direction-back{
+    background-color:transparent;
+  }
+}
+.jumbotron{
+  margin-top:60px;
 }
 @page-max-width: 930px;
 .grid-block, .post, .comments li, .comment-form {
