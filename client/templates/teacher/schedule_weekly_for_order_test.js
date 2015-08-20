@@ -1,3 +1,6 @@
+Template.scheduleWeeklyForOrderTest.onCreated(function(){
+  Session.set('errors','');
+});
 Template.scheduleWeeklyForOrderTest.helpers({
   errorMessage: function(field) {
     return Session.get('errors')[field];
@@ -53,6 +56,7 @@ Template.scheduleWeeklyForOrderTest.events({
       }
       alert("约课成功");
       $(e.currentTarget).removeClass("disabled");
+      $("td.phase.chosen").removeClass("chosen");
     });
   }
 });

@@ -43,5 +43,25 @@ Meteor.methods({
       throw error;
     }
     return true;
+  },
+  saveAvailableTime: function(params) {
+    var curUser = Meteor.user();
+    if (!curUser) {
+      throw new Meteor.Error('权限不足', "需要登录");
+    }
+    if (curUser.role!=='teacher') {
+      throw new Meteor.Error('权限不足', "您不需要设置此项内容");
+    }
+    var teacherId = curUser._id, teacherName = curUser.profile.name, phases = params.phases;
+    if (!teacherId || !_.isArray(phases)) {
+      throw new Meteor.Error('参数错误', "参数错误");
+    }
+    var oldOne = TeacherAvailableTimes.findOne({'teacher.id': teacherId});
+    if (oldOne) {
+      TeacherAvailableTimes.update({'teacher.id': teacherId}, {$set: {'teacher.name': teacherName, 'phases': phases}});
+    } else {
+      TeacherAvailableTimes.insert({'teacher': {'id': teacherId, 'name': teacherName}, 'phases': phases});
+    }
+    return true;
   }
 });
