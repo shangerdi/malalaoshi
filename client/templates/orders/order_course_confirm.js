@@ -1,5 +1,25 @@
+var getTeacherId = function() {
+  return Session.get("orderTeacherId");
+}
+var getUnitPrice = function() {
+  return 400;
+}
+var getCourseCount = function() {
+  var courseCount = Session.get("courseCount");
+  return courseCount?courseCount:0;
+}
+var calcTotalCost = function() {
+  var courseCount = getCourseCount();
+  return courseCount * getUnitPrice();
+}
+var getDiscount = function() {
+  return 100;
+}
+var calcToPayCost = function() {
+  return calcTotalCost()-getDiscount();
+}
 Template.orderCourseConfirm.onCreated(function(){
-  console.log(Session.get("orderTeacherId"));
+  console.log(getTeacherId());
 });
 Template.orderCourseConfirm.helpers({
   myPhoneNo: function() {
@@ -13,13 +33,13 @@ Template.orderCourseConfirm.helpers({
     return ScheduleTable.convMinutes2Str(mins);
   },
   weekdayText: function(d) {
-    return '周'+ScheduleTable.dayNumWords[d];
+    return '每周'+ScheduleTable.dayNumWords[d];
   },
   courseCount: function() {
-    return Session.get("courseCount");
+    return getCourseCount();
   },
   teacherName: function() {
-    var teacherId = Session.get("orderTeacherId");
+    var teacherId = getTeacherId();
     var teacher = Meteor.users.findOne({_id:teacherId});
     if (!teacher) {
       return "教师姓名(Error)";
@@ -30,12 +50,21 @@ Template.orderCourseConfirm.helpers({
     return "年级-科目(TODO)";
   },
   teacherAvatarUrl: function() {
-    var teacherId = Session.get("orderTeacherId");
+    var teacherId = getTeacherId();
     var teacher = Meteor.users.findOne({_id:teacherId});
     if (!teacher) {
       return "教师头像(Error)";
     }
     return teacher.profile.avatarUrl;
+  },
+  totalCost: function() {
+    return calcTotalCost();
+  },
+  discount: function() {
+    return getDiscount();
+  },
+  toPayCost: function() {
+    return calcToPayCost();
   }
 });
 Template.orderCourseConfirm.events({

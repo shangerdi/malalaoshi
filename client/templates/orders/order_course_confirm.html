@@ -16,12 +16,16 @@
       {{/ionItem}}
       {{#ionItem}}
         <label>上课时间</label>
-        <div class="item-note">{{currentUser.profile.name}} | {{currentUser.phoneNo}}</div>
+        <div class="item-note">
+          {{#each timePhases}}
+            <div>{{weekdayText weekday}} {{convMinutes2Str start}} - {{convMinutes2Str end}}</div>
+          {{/each}}
+        </div>
       {{/ionItem}}
       {{#ionItem}}
         <label>上课地点</label>
         <div class="item-note">学习中心</div>
-        <div>上课地点详细信息</div>
+        <div>上课地点详细信息 (TODO)</div>
       {{/ionItem}}
       {{#ionItem}}
         <div class="pull-left">
@@ -34,7 +38,7 @@
       {{/ionItem}}
       {{#ionItem}}
         <label>课时</label>
-        <div class="item-note">N课时</div>
+        <div class="item-note">{{courseCount}}课时</div>
       {{/ionItem}}
       {{#ionItem class="item-icon-right"}}
         <label>麻辣奖学金</label>
@@ -45,14 +49,14 @@
       {{#ionItem}}
         <label>课程总价</label>
         <div class="item-note">
-          <div>￥<span id="totalCost">1200</span></div>
-          <div><strong>-</strong>￥<span id="discount">100</span></div>
+          <div>￥<span id="totalCost">{{totalCost}}</span></div>
+          <div><strong>-</strong>￥<span id="discount">{{discount}}</span></div>
         </div>
       {{/ionItem}}
     {{/ionList}}
     <div class="row row-center">
       <div class="pull-left col">
-        还需支付：￥<span id="toPayCost">1100</span>
+        还需支付：￥<span id="toPayCost">{{toPayCost}}</span>
       </div>
       <div class="pull-right col">
         <button id="gotoPay" class="button button-full button-assertive">
