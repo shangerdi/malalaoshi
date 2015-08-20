@@ -327,7 +327,3 @@ function popupInfo(popInfo){
     }]
   });
 }
-Template.selectTeachSubject.helpers({
-  subject: function(){
-  }
-});
