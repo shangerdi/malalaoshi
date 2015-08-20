@@ -1,4 +1,4 @@
-<template name="orderCourseSelectTime">
+<template name="orderCourseSchedule">
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton class="button-clear button-light" text=" "}}
   {{/contentFor}}
@@ -22,7 +22,7 @@
       <div class="{{errorClass 'courseCount'}}">
         <label>选择课时</label>
         <div class="item-note count-edit-box">
-          <a class="subtract">-</a><input class="input-course-count" type="text" id="courseCount" name="courseCount"><a class="add">+</a>
+          <a class="subtract">-</a><input class="input-course-count" type="text" id="courseCount" name="courseCount" value="0"><a class="add">+</a>
         </div>
         <span class="help-block">{{errorMessage 'courseCount'}}</span>
       </div>

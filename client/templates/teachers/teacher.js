@@ -75,6 +75,6 @@ Template.teacher.events({
   },
   'click #reserveCourse': function(e) {
     Session.set('orderTeacherId', this.user._id);
-    Router.go('orderCourseSelectTime');
+    Router.go('orderCourseSchedule');
   }
 });

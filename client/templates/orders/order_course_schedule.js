@@ -13,11 +13,11 @@ var calcTotalCost = function() {
   var courseCount = getCourseCount();
   $("#totalCost").text(courseCount * getUnitPrice());
 }
-Template.orderCourseSelectTime.onCreated(function(){
+Template.orderCourseSchedule.onCreated(function(){
   console.log(Session.get("orderTeacherId"));
   Session.set('errors','');
 });
-Template.orderCourseSelectTime.helpers({
+Template.orderCourseSchedule.helpers({
   errorMessage: function(field) {
     return Session.get('errors')[field];
   },
@@ -31,7 +31,7 @@ Template.orderCourseSelectTime.helpers({
     return getUnitPrice();
   }
 });
-Template.orderCourseSelectTime.events({
+Template.orderCourseSchedule.events({
   'click #nextStep': function(e) {
     var courseCount = getCourseCount()
       , errors={hasError:false};
