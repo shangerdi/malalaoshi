@@ -1,7 +1,36 @@
+var getTeacherId = function() {
+  return Session.get("orderTeacherId");
+}
+var getUnitPrice = function() {
+  return 400;
+}
+var getCourseCount = function() {
+  var courseCount = Session.get("courseCount");
+  return courseCount?courseCount:0;
+}
+var calcTotalCost = function() {
+  var courseCount = getCourseCount();
+  return courseCount * getUnitPrice();
+}
+var getDiscount = function() {
+  return 100;
+}
+var calcToPayCost = function() {
+  return calcTotalCost()-getDiscount();
+}
 Template.orderStepPay.onCreated(function(){
   console.log(Session.get("orderTeacherId"));
 });
+Template.orderStepPay.helpers({
+  toPayCost: function() {
+    return calcToPayCost();
+  }
+});
 Template.orderStepPay.events({
+  'click .item-radio': function(e) {
+    var ele = e.target, $ele = $(ele).closest(".item-radio");
+    $ele.find("input")[0].click();
+  },
   'click #callPayment': function(e) {
     var orderId = Template.instance().data.orderId;
     if (!orderId) {
