@@ -1,6 +1,6 @@
 <template name="mylogin">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton class="button-positive" text=false}}
+    {{>ionNavBackButton class="button-positive" path="accountEntry" text=false}}
   {{/contentFor}}
   {{#contentFor "headerTitle"}}
     <h1 class="title normal-title">登录</h1>
@@ -11,7 +11,7 @@
 
   <form class="main form page form-horizontal login-form">
     <div class="col-xs-offset-0 col-xs-12 col-sm-offset-4 col-sm-4">
-      <div class="form-group">
+      <div class="form-group hide">
         <div class="login-top">
           <div class="login-top-box">
           </div>

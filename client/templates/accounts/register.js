@@ -13,6 +13,7 @@ Template.register.onRendered(function() {
 });
 var selectRole = function(role) {
   $("input[name=role]").val(role);
+  Session.set('selectedRole', role);
   $(".role-select li.active").removeClass('active');
   $(".role-select li.tab-"+role).addClass('active');
   if (role=="parent") {
