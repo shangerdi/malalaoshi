@@ -1,7 +1,7 @@
-Template.orderCoursePay.onCreated(function(){
+Template.orderStepPay.onCreated(function(){
   console.log(Session.get("orderTeacherId"));
 });
-Template.orderCoursePay.events({
+Template.orderStepPay.events({
   'click #callPayment': function(e) {
     var orderId = Template.instance().data.orderId;
     if (!orderId) {
