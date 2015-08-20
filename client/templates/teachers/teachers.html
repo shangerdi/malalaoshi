@@ -11,14 +11,23 @@
     {{#ionContent}}
       {{#ionList}}
         <div>
-        {{#each teachers}}
-          {{> teacherItemRecommend}}
-        {{/each}}
+          {{#each recommendTeachers}}
+            {{> teacherItemRecommend}}
+          {{/each}}
         </div>
-        <div class="teachers-grid">
-        {{#each teachers}}
-          {{> teacherItem}}
-        {{/each}}
+        <div class="teachers-list-other-teacher-split-line">
+          <div>
+            <div><hr></div>
+            <div><hr></div>
+            <div><span>其余老师</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="teachers-grid">
+            {{#each normalTeachers}}
+              {{> teacherItem}}
+            {{/each}}
+          </div>
         </div>
       {{/ionList}}
     {{/ionContent}}
@@ -26,21 +35,18 @@
 </template>
 
 <template name="teacherItemRecommend">
-  <a href="{{pathFor 'teacher' id=this._id}}" class="">
-    <div class="col">
-      <div>
-        <img src="{{profile.avatarUrl}}" class="img-responsive" style="width: 100%; height:180px;">
-        <div class="teacher-subject">{{subject}}</div>
+  <a href="{{pathFor 'teacher' id=this._id}}">
+    <div>
+      <div class="recommend-teacher-body">
+        <img src="{{profile.avatarUrl}}" class="img-responsive">
+        <div class="teacher-subject">¥{{unitCost}}/课时</div>
       </div>
-      <div class="teacher-profile">
+      <div class="recommend-teacher-subject">
         <div>
           <h3>{{profile.name}}</h3>
+          <span class="teacher-subject-grade-info-recommend">{{subject}}</span>
         </div>
-        <div>
-          <i class="mala mala-id teacher-icon-id-active"></i>
-          <i class="mala mala-edu {{#if eduAudit}}teacher-icon-edu-active{{else}}teacher-icon-inactive{{/if}}"></i>
-          <i class="mala mala-cert {{#if cert}}teacher-icon-cert-active{{else}}teacher-icon-inactive{{/if}}"></i>
-        </div>
+        <div>{{#each starLevelAry}}<i class="icon ion-star"></i>{{/each}}</div>
       </div>
     </div>
   </a>
@@ -48,19 +54,20 @@
 
 <template name="teacherItem">
   <a href="{{pathFor 'teacher' id=this._id}}" class="teacher-a">
-    <div class="col teacher-div">
+    <div class="teacher-div">
       <div>
-        <img src="{{profile.avatarUrl}}" class="img-responsive">
-        <div class="teacher-subject">{{subject}}</div>
-      </div>
-      <div class="teacher-profile">
         <div>
-          <h3>{{profile.name}}</h3>
+          <img src="{{profile.avatarUrl}}" class="img-responsive">
+          <div class="teacher-subject">¥{{unitCost}}/课时</div>
         </div>
-        <div>
-          <i class="mala mala-id teacher-icon-id-active"></i>
-          <i class="mala mala-edu {{#if eduAudit}}teacher-icon-edu-active{{else}}teacher-icon-inactive{{/if}}"></i>
-          <i class="mala mala-cert {{#if cert}}teacher-icon-cert-active{{else}}teacher-icon-inactive{{/if}}"></i>
+        <div class="teacher-item-no-recommend-info">
+          <div>
+            <div>
+              <p class="world-nowrap"><h3>{{profile.name}}</h3></p>
+              <p><span class="teacher-subject-grade-info">{{subject}}</span></p>
+            </div>
+            <div>{{#each starLevelAry}}<i class="icon ion-star"></i>{{/each}}</div>
+          </div>
         </div>
       </div>
     </div>
