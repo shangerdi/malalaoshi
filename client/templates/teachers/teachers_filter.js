@@ -124,6 +124,7 @@ Template.selectTeachSubjectTeachersFilter.onRendered(function(){
   self.data.swiperSubject.on("setTranslate", function(swiper, translate){
     var select = getSwiperSlideInWindow(swiper, translate);
     Session.set('teachersSubjectIndex', select);
+    Session.set('teachersSubject', subjectOptionList[select].key);
     swiper.container.find("div>div").removeClass("swiper-slide-in");
     if(select != null){
       swiper.container.find("div>div:eq("+select+")").addClass("swiper-slide-in");
@@ -132,6 +133,7 @@ Template.selectTeachSubjectTeachersFilter.onRendered(function(){
   self.data.swiperGrade.on("setTranslate", function(swiper, translate){
     var select = getSwiperSlideInWindow(swiper, translate);
     Session.set('teachersGradeIndex', select);
+    Session.set('teachersGrade', gradeOptionList[select].key);
     swiper.container.find("div>div").removeClass("swiper-slide-in");
     if(select != null){
       swiper.container.find("div>div:eq("+select+")").addClass("swiper-slide-in");
