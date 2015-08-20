@@ -1,6 +1,9 @@
 <template name="register">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton class="button-positive" path="home" text=false}}
+    {{>ionNavBackButton class="button-positive" text=false}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">注册</h1>
   {{/contentFor}}
 
 
@@ -51,6 +54,13 @@
     <div class="form-group {{errorClass 'checkCode'}}">
       <input class="form-control" id="checkCode" name="checkCode" type="text" hint="输入您收到的短信验证码"/>
       <span class="help-block">{{errorMessage 'checkCode'}}</span>
+    </div>
+    <div class="form-group {{errorClass 'agreement'}}">
+      <label>
+        <input id="agreement" name="agreement" type="checkbox" hint="请阅读并同意用户协议"/>
+        我已阅读并同意<a href="{{pathFor 'accountAgreement'}}" target="_blank">《麻辣老师用户服务协议》</a>
+      </label>
+      <span class="help-block">{{errorMessage 'agreement'}}</span>
     </div>
     <div class="form-group">
       <input class="btn btn-login" id="doRegister" type="button" value="注册" disabled="disabled">

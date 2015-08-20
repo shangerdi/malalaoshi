@@ -1,9 +1,10 @@
 <template name="mylogin">
-  {{# if isCordova }}
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton class="button-positive" path="home" text=false}}
+    {{>ionNavBackButton class="button-positive" text=false}}
   {{/contentFor}}
-  {{/if}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">登录</h1>
+  {{/contentFor}}
 
 {{#ionView}}
   {{#ionContent}}
