@@ -1,0 +1,47 @@
+<template name="orderStepSchedule">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=" "}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">购买课程</h1>
+  {{/contentFor}}
+
+  {{#ionView class="order-course-select-time"}}
+    {{#ionContent}}
+    {{#ionList}}
+      {{#ionItem}}
+      <div class="{{errorClass 'phases'}}">
+        {{#unless teacherId}}<div>没有选择老师，<a href="{{pathFor 'teachers'}}">请重新选择老师</a></div>{{/unless}}
+        <label>选择上课时间</label>
+        {{>scheduleWeeklyForOrder teacherId=teacherId}}
+        <span class="help-block">{{errorMessage 'phases'}}</span>
+      </div>
+      {{/ionItem}}
+      {{#ionItem}}
+      <div class="{{errorClass 'courseCount'}}">
+        <label>选择课时</label>
+        <div class="item-note count-edit-box">
+          <a class="subtract">-</a><input class="input-course-count" type="text" id="courseCount" name="courseCount" value="0"><a class="add">+</a>
+        </div>
+        <span class="help-block">{{errorMessage 'courseCount'}}</span>
+      </div>
+      {{/ionItem}}
+      {{#ionItem}}
+        <label>课程单价</label>
+        <div class="item-note course-price">￥{{unitPrice}}</div>
+      {{/ionItem}}
+    {{/ionList}}
+    <div class="row row-center">
+      <div class="pull-left col">
+        课程总价：￥<span id="totalCost">0</span>
+      </div>
+      <div class="pull-right col">
+        <button id="nextStep" class="button button-full button-assertive">
+          下一步
+        </button>
+      </div>
+    </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>

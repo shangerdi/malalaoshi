@@ -1,0 +1,23 @@
+<template name="orderStepPay">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=" "}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">支付</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+    <div class="pull-left col">
+      应付金额：
+      ￥1100 (TODO)
+    </div>
+    <div class="row row-center">
+      <button id="callPayment" class="button button-full button-assertive">
+        支付
+      </button>
+    </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
