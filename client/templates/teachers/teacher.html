@@ -1,10 +1,10 @@
 <template name="teacher">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton path="teachers" class="button-clear button-light" text=" "}}
+    {{>ionNavBackButton class="button-clear button-light" text=" "}}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title">{{user.profile.name}}</h1>
+    <h1 class="title normal-title">老师详情</h1>
   {{/contentFor}}
 
   {{#ionView}}
@@ -13,14 +13,28 @@
         <div>
           <img src="{{user.profile.avatarUrl}}" class="img-responsive img-circle">
         </div>
+        <div>
+          {{user.profile.name}} {{#if genderMale}}<i class="icon ion-male"></i>{{else}}{{#if genderFemale}}<i class="icon ion-female"></i>{{/if}}{{/if}}
+        </div>
+        <div>
+          热爱教育事业，很喜欢跟孩子在一起成长，深爱教育事业
+        </div>
       </div>
-      <div>
-        <div class="teacher-detail-item-head  teacher-detail-item-head-float">
-          <span class="teacher-detail-item-name">
-            {{user.profile.name}} {{#if genderMale}}<i class="icon ion-male"></i>{{else}}{{#if genderFemale}}<i class="icon ion-female"></i>{{/if}}{{/if}}
-          </span>
+      <div class="teacher-detial-star-content">
+        <div>
+          <p>麻度 4.9分</p>
+          <p>上课老好了，一学就会</p>
         </div>
         <div></div>
+        <div>
+          <p>辣度 4.2分</p>
+          <p>老师太棒了，必须点赞</p>
+        </div>
+      </div>
+      <div class="teacher-detail-tab-content">
+        <div id="mainPage" class="teacher-detail-tab {{activeTabClass 'mainPage'}}">主页</div>
+        <div id="personInfo" class="teacher-detail-tab {{activeTabClass 'personInfo'}}">个人资料</div>
+        <div id="evaluation" class="teacher-detail-tab {{activeTabClass 'evaluation'}}">评价</div>
       </div>
       <div>
         <div class="teacher-detail-item-head teacher-detail-item-head-float">
