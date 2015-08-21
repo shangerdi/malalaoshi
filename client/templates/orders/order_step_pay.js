@@ -3,16 +3,19 @@ var getOrderId = function() {
 }
 var calcToPayCost = function() {
   var orderId = getOrderId(), curOrder = Orders.findOne({"_id": orderId});
-  var discountSum = 0;
-  if (curOrder.discount && curOrder.discount.sum) {
-    discountSum = curOrder.discount.sum;
-  }
-  return curOrder.cost-discountSum;
+  return Orders.getOrderPayAmount(curOrder);
 }
 Template.orderStepPay.onCreated(function(){
   Session.set("orderId", getOrderId());
+  Session.set('errors','');
 });
 Template.orderStepPay.helpers({
+  errorMessage: function(field) {
+    return Session.get('errors')[field];
+  },
+  errorClass: function (field) {
+    return !!Session.get('errors')[field] ? 'has-error' : '';
+  },
   toPayCost: function() {
     return calcToPayCost();
   }
@@ -23,16 +26,28 @@ Template.orderStepPay.events({
     $ele.find("input")[0].click();
   },
   'click #callPayment': function(e) {
-    var orderId = getOrderId();
+    var orderId = getOrderId(), errors={hasError:false};
     if (!orderId) {
       alert("订单ID错误");
       return;
     }
-    Meteor.call('pingpp_alipay', {'orderId':orderId,'isCordova':Meteor.isCordova}, function(err, charge_obj) {
+    var channel = $("input[name=payType]:checked").val();
+    if (!channel) {
+      errors.pay="请选择支付方式";
+      errors.hasError=true;
+    }
+    Session.set('errors', errors);
+    if (errors.hasError) {
+      return;
+    }
+    var payParams = {'orderId':orderId, 'isCordova':Meteor.isCordova, 'channel': channel};
+    Meteor.call('pingpp_alipay', payParams, function(err, charge_obj) {
       if(err){
         // console.log(err);
         Session.set("orderShowLoading", false);
         $(e.currentTarget).removeClass("disabled");
+        errors.pay=err.reason;
+        Session.set('errors', errors);
         return throwError(err.reason);
       }
       // console.log(charge_obj);

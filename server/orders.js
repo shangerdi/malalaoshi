@@ -11,6 +11,16 @@ Meteor.methods({
 	     submitUserId: curUser._id
     });
 
+    // 检测老师的时间安排
+    try {
+      var curUser = Meteor.user(), teacher = Meteor.users.find({'_id':order.teacher.id}), lessonCount = order.hour, phases = order.phases;
+      if (phases && _.isArray(phases)) {
+        ScheduleTable.generateReserveCourseRecords(curUser, teacher, lessonCount, phases, true);
+      }
+    } catch (ex) { // 没有异常即表示时间安排没有冲突
+      throw ex;
+    }
+
     if(order._id){
       var old = Orders.findOne(order._id);
       if(!old){

@@ -16,6 +16,7 @@
           ￥{{toPayCost}}
         </div>
       {{/ionItem}}
+     <div class="{{errorClass 'pay'}}">
       <label>选择支付方式</label>
       {{#ionItem class="item-radio"}}
         <input type="radio" name="payType" value="alipay">
@@ -31,6 +32,8 @@
         </div>
         {{> ionIcon icon="checkmark" class="radio-icon"}}
       {{/ionItem}}
+      <span class="help-block">{{errorMessage 'pay'}}</span>
+     </div>
     {{/ionList}}
     <div class="row row-center">
       <button id="callPayment" class="button button-full button-assertive">
