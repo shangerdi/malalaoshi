@@ -278,10 +278,11 @@ $greyColor: #b8b8b8;
 }
 .teacher-cert div{
   float: left;
-  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
 }
-.teacher-cert div:first-child{
-  margin-left: 0;
+.teacher-cert div:last-child{
+  margin-right: 0;
 }
 .teacher-avatar{
   width: 50px;
@@ -419,7 +420,7 @@ $greyColor: #b8b8b8;
   min-height: 70px;
   float: left;
 }
-.teacher-detail > div:nth-child(n+4) > div:last-child{
+.teacher-detail > div:nth-child(n+5) > div:last-child{
   margin-top: 10px;
 }
 .teacher-detail > div:nth-last-child(1){
@@ -462,7 +463,7 @@ $greyColor: #b8b8b8;
 .teacher-detail-head > div:last-child{
   display: block;
   margin-top: 10px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #FFFFFF;
 }
@@ -478,7 +479,7 @@ $greyColor: #b8b8b8;
 .teacher-detail-item-head-float{
   float: left;
 }
-.teacher-detail > div:nth-child(n+4) > div:last-child{
+.teacher-detail > div:nth-child(n+5) > div:last-child{
   color: $greyColor;
   font-size: 15px;
   font-weight: bolder;
@@ -1159,7 +1160,7 @@ $greyColor: #b8b8b8;
 }
 .teacher-detial-star-content > div:first-child{
   padding: 15px;
-  height: 75px;
+  height: 80px;
   width: 50%;
   float: left;
 }
@@ -1167,14 +1168,14 @@ $greyColor: #b8b8b8;
   float: left;
   margin-top: 11px;
   border-right: solid #a4a4a4 1px;
-  height: 50px;
+  height: 70px;
   width: 0px;
 }
 .teacher-detial-star-content > div:last-child{
   padding: 15px;
   padding-left: 25px;
   float: left;
-  height: 75px;
+  height: 80px;
   width: 49%;
   float: right;
 }
@@ -1187,4 +1188,19 @@ $greyColor: #b8b8b8;
   margin-top: 19px;
   font-size: 18px;
   font-family: fantasy;
+  line-height: 20px;
+}
+.teacher-detail-sp-info{
+  width: 100%;
+  margin-top: 25px;
+}
+.teacher-detail-sp-info > div:first-child{
+  float: left;
+  width: 85px;
+  font-size: 18px;
+}
+.teacher-detail-sp-info > div:last-child{
+  width: 100%;
+  padding-left: 85px;
+  color: #000000;
 }

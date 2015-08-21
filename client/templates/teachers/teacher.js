@@ -95,10 +95,12 @@ Template.teacher.events({
   },
   'click #personInfo': function(e){
     e.preventDefault();
+    hideTop();
     Session.set('teacherDetialPageAcitveTab', "personInfo");
   },
   'click #evaluation': function(e){
     e.preventDefault();
+    showTop();
     Session.set('teacherDetialPageAcitveTab', "evaluation");
   }
 });
@@ -115,4 +117,10 @@ function doStarLevelAry(self){
     }
   }
   return ary;
+}
+function hideTop(){
+  $(".teacher-detail").animate({marginTop: "" + ($(".teacher-detail").offset().top - $(".teacher-detail-tab-content").offset().top - 1) + "px"});
+}
+function showTop(){
+  $(".teacher-detail").animate({marginTop: "0px"});
 }
