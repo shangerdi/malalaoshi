@@ -1,25 +1,16 @@
-var getTeacherId = function() {
-  return Session.get("orderTeacherId");
-}
-var getUnitPrice = function() {
-  return 400;
-}
-var getCourseCount = function() {
-  var courseCount = Session.get("courseCount");
-  return courseCount?courseCount:0;
-}
-var calcTotalCost = function() {
-  var courseCount = getCourseCount();
-  return courseCount * getUnitPrice();
-}
-var getDiscount = function() {
-  return 100;
+var getOrderId = function() {
+  return Router.current().params.orderId;
 }
 var calcToPayCost = function() {
-  return calcTotalCost()-getDiscount();
+  var orderId = getOrderId(), curOrder = Orders.findOne({"_id": orderId});
+  var discountSum = 0;
+  if (curOrder.discount && curOrder.discount.sum) {
+    discountSum = curOrder.discount.sum;
+  }
+  return curOrder.cost-discountSum;
 }
 Template.orderStepPay.onCreated(function(){
-  console.log(Session.get("orderTeacherId"));
+  Session.set("orderId", getOrderId());
 });
 Template.orderStepPay.helpers({
   toPayCost: function() {
@@ -32,7 +23,7 @@ Template.orderStepPay.events({
     $ele.find("input")[0].click();
   },
   'click #callPayment': function(e) {
-    var orderId = Template.instance().data.orderId;
+    var orderId = getOrderId();
     if (!orderId) {
       alert("订单ID错误");
       return;

@@ -19,7 +19,8 @@ Meteor.methods({
       if(curUser.role != "admin" && old.student.id != curUser._id){
         throw new Meteor.Error('权限不足', "不能删除别人的订单");
       }
-      return Orders.update({_id: order._id}, {$set: order});
+      Orders.update({_id: order._id}, {$set: order});
+      return old._id;
     }else{
       var teacherCount = Meteor.users.find({"_id": order.teacher.id, "role": "teacher", "status.basic": "approved"}).count();
       if(teacherCount == 0){
