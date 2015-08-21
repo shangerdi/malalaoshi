@@ -11,8 +11,7 @@ Slingshot.createDirective("imgUploads", Slingshot.S3Storage, {
     return true;
   },
   key: function(file) {
-    //Store file into a directory by the user's username.
-    var user = Meteor.users.findOne(this.userId);
-    return user.username + "/" + file.name;
+    var ext = file.type.substr(file.type.lastIndexOf("/")+1);
+    return this.userId + "/" + Meteor.uuid() + "." + ext;
   }
 });

@@ -1,4 +1,15 @@
 @import "custom.bootstrap.import.less";
+html.browser{
+  &,body,.ionic-body{
+    .user-select(initial);
+  }
+  .nav-view-transition-ios.nav-view-direction-forward, .nav-view-transition-ios.nav-view-direction-back{
+    background-color:transparent;
+  }
+}
+.jumbotron{
+  margin-top:60px;
+}
 @page-max-width: 930px;
 .grid-block, .post, .comments li, .comment-form {
   background: #fff;
@@ -647,6 +658,9 @@ input[type=text].browser {
     &.phase.reserved {
       background-color: yellow;
     }
+    &.phase.removed {
+      background-color: gray;
+    }
   }
 }
 @course-done-bgcolor: #d8d8d8;
@@ -814,4 +828,30 @@ input[type=text].browser {
       clear: right;
     }
   }
+}
+.order-course-select-time {
+  .count-edit-box {
+    a {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      line-height: 18px;
+      padding: 0;
+      border: 1px #aaa solid;
+      background: #ddd;
+      text-align: center;
+      color: #000;
+      cursor: pointer;
+    }
+    input {
+      display: inline-block;
+      width: 50px;
+      height: 22px;
+      padding: 0px 3px;
+      margin: 0 5px;
+      border: 1px #ddd solid;
+      text-align: center;
+    }
+  }
+
 }

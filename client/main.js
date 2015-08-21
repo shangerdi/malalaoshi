@@ -4,5 +4,7 @@ Meteor.startup(function () {
   if (Meteor.isCordova) {
     window.plugins.jPushPlugin.init();
   }
-
+  else {
+    $('html').addClass('browser');
+  }
 });

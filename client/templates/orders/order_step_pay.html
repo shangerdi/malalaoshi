@@ -1,0 +1,42 @@
+<template name="orderStepPay">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=" "}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">支付</h1>
+  {{/contentFor}}
+
+  {{#ionView class="order-course-pay"}}
+    {{#ionContent}}
+    {{#ionList}}
+      {{#ionItem}}
+        <label>应付金额</label>
+        <div>
+          ￥{{toPayCost}}
+        </div>
+      {{/ionItem}}
+      <label>选择支付方式</label>
+      {{#ionItem class="item-radio"}}
+        <input type="radio" name="payType" value="alipay">
+        <div class="item-content">
+          支付宝
+        </div>
+        {{> ionIcon icon="checkmark" class="radio-icon"}}
+      {{/ionItem}}
+      {{#ionItem class="item-radio"}}
+        <input type="radio" name="payType" value="weixin">
+        <div class="item-content">
+          微信支付
+        </div>
+        {{> ionIcon icon="checkmark" class="radio-icon"}}
+      {{/ionItem}}
+    {{/ionList}}
+    <div class="row row-center">
+      <button id="callPayment" class="button button-full button-assertive">
+        支付
+      </button>
+    </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>

@@ -90,9 +90,19 @@
       </div>
       {{# if $neq currentUser._id user._id }}
       <div class="teacher-detail-submit">
-        <button id="tryExperienceCourse" class="button button-full button-assertive {{#if submitActiv}}disabled{{/if}}">
+        <!-- <button id="tryExperienceCourse" class="button button-full button-assertive {{#if submitActiv}}disabled{{/if}}">
           一元预约体验课
-        </button>
+        </button> -->
+        <div class="row row-center">
+          <div class="pull-left col">
+            ￥400/课时 (TODO)
+          </div>
+          <div class="pull-right col">
+            <button id="reserveCourse" class="button button-full button-assertive">
+              约课
+            </button>
+          </div>
+        </div>
       </div>
       {{/if}}
     {{/ionContent}}

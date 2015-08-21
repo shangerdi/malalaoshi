@@ -6,3 +6,5 @@ settings.json
 server/zlenv.js
 client/zltest/
 .npm
+package-stubs.js
+packageMocksSpec.js
