@@ -2,6 +2,9 @@ Template.teacher.onRendered(function () {
   IonNavigation.skipTransitions = true;
 });
 Template.teacher.helpers({
+  starLevelAry: function(){
+    return doStarLevelAry(this.user);
+  },
   genderFemale: function(v){
     return this.user.profile && this.user.profile.gender == '女';
   },
@@ -46,6 +49,13 @@ Template.teacher.helpers({
   },
   submitActiv: function(){
     return !this.user;
+  },
+  activeTabClass: function(id){
+    var actId = Session.get('teacherDetialPageAcitveTab');
+    if(actId == id){
+      return "teacher-detail-tab-active";
+    }
+    return "";
   }
 });
 
@@ -78,3 +88,39 @@ Template.teacher.events({
     Router.go('orderStepSchedule');
   }
 });
+Template.teacher.events({
+  'click #mainPage': function(e){
+    e.preventDefault();
+    Session.set('teacherDetialPageAcitveTab', "mainPage");
+  },
+  'click #personInfo': function(e){
+    e.preventDefault();
+    hideTop();
+    Session.set('teacherDetialPageAcitveTab', "personInfo");
+  },
+  'click #evaluation': function(e){
+    e.preventDefault();
+    showTop();
+    Session.set('teacherDetialPageAcitveTab', "evaluation");
+  }
+});
+function doStarLevelAry(self){
+  var ary = [];
+  if(self.profile && self.profile.starLevel){
+    for(var i=0; i<self.profile.starLevel; i++){
+      ary[i] = 0;
+    }
+  }
+  if(ary.length < 5){
+    for(var i = ary.length; i < 5; i++){
+      ary[i] = 1;
+    }
+  }
+  return ary;
+}
+function hideTop(){
+  $(".teacher-detail").animate({marginTop: "" + ($(".teacher-detail").offset().top - $(".teacher-detail-tab-content").offset().top - 1) + "px"});
+}
+function showTop(){
+  $(".teacher-detail").animate({marginTop: "0px"});
+}

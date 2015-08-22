@@ -278,10 +278,11 @@ $greyColor: #b8b8b8;
 }
 .teacher-cert div{
   float: left;
-  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
 }
-.teacher-cert div:first-child{
-  margin-left: 0;
+.teacher-cert div:last-child{
+  margin-right: 0;
 }
 .teacher-avatar{
   width: 50px;
@@ -393,21 +394,33 @@ $greyColor: #b8b8b8;
   font-style: normal;
   color: #FFFFFF;
 }
-.teacher-detail{
+.teacher-detail {
+  background-color: #FFFFFF;
+}
+.teacher-detail > div:nth-child(n+1){
   padding-right: 20px;
   padding-left: 20px;
   float: left;
 }
-.teacher-detail > div{
+.teacher-detail > div:first-child{
+  padding-right: 0;
+  padding-left: 0;
+  float: left;
+}
+.teacher-detail > div:first-child{
+  margin-top: none;
+  width: 100%;
+}
+.teacher-detail > div:nth-child(n+2){
   margin-top: 10px;
   width: 100%;
 }
-.teacher-detail > div:nth-child(n+3){
+.teacher-detail > div:nth-child(n+4){
   border-bottom: solid #ddd 1px;
   min-height: 70px;
   float: left;
 }
-.teacher-detail > div:nth-child(n+4) > div:last-child{
+.teacher-detail > div:nth-child(n+5) > div:last-child{
   margin-top: 10px;
 }
 .teacher-detail > div:nth-last-child(1){
@@ -422,21 +435,37 @@ $greyColor: #b8b8b8;
 .teacher-detail-head{
   text-align: center;
   position: relative;
-  height: 100px;
   margin: 0 auto;
   vertical-align: bottom;
+  height: auto;
+  background-color: #967878;
+  padding: 20px;
 }
 .teacher-detail-head > div{
-  position: absolute;
+  //position: absolute;
   bottom: 0;
   display: -webkit-inline-box;
-  margin-left: -25px;
+  //margin-left: -25px;
 }
 .teacher-detail-head > div > img{
-  height: 50px;
-  width: 50px;
   vertical-align: middle;
   display: inline;
+  width: 120px;
+  height: 120px;
+}
+.teacher-detail-head > div:nth-child(2){
+  display: block;
+  font-size: 24px;
+  color: #FFFFFF;
+  margin-top: 15px;
+  font-weight: 700;
+}
+.teacher-detail-head > div:last-child{
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFFFFF;
 }
 .teacher-detail-item-head{
   width: 115px;
@@ -450,7 +479,7 @@ $greyColor: #b8b8b8;
 .teacher-detail-item-head-float{
   float: left;
 }
-.teacher-detail > div > div:last-child{
+.teacher-detail > div:nth-child(n+5) > div:last-child{
   color: $greyColor;
   font-size: 15px;
   font-weight: bolder;
@@ -1110,4 +1139,68 @@ $greyColor: #b8b8b8;
 .recommend-teacher-subject h3{
   font-size: 17px;
   float:left;
+}
+.teacher-detail-tab{
+  width: 33.33%;
+  float: left;
+  border-style: solid;
+  border-width: 2px 0 2px 0;
+  text-align: center;
+  padding: 20px 0 20px 0;
+  font-size: 20px;
+  color: #b8b8b8;
+  cursor: pointer;
+}
+.teacher-detail-tab-active{
+  color: #000000;
+  border-color: #000000;
+}
+.teacher-detail-tab-content{
+  width: 100%;
+}
+.teacher-detial-star-content > div:first-child{
+  padding: 15px;
+  height: 80px;
+  width: 50%;
+  float: left;
+}
+.teacher-detial-star-content > div:nth-child(2){
+  float: left;
+  margin-top: 11px;
+  border-right: solid #a4a4a4 1px;
+  height: 70px;
+  width: 0px;
+}
+.teacher-detial-star-content > div:last-child{
+  padding: 15px;
+  padding-left: 25px;
+  float: left;
+  height: 80px;
+  width: 49%;
+  float: right;
+}
+.teacher-detial-star-content > div > p:first-child{
+  color: #000000;
+  font-size: 20px;
+}
+.teacher-detial-star-content > div > p:last-child{
+  color: #b8b8b8;
+  margin-top: 19px;
+  font-size: 18px;
+  font-family: fantasy;
+  line-height: 20px;
+}
+.teacher-detail-sp-info{
+  width: 100%;
+  margin-top: 25px;
+}
+.teacher-detail-sp-info > div:first-child{
+  float: left;
+  width: 85px;
+  font-size: 18px;
+}
+.teacher-detail-sp-info > div:last-child{
+  width: 100%;
+  padding-left: 85px;
+  color: #000000;
 }
