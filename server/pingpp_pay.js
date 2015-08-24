@@ -10,8 +10,31 @@ Meteor.methods({
       throw new Meteor.Error('Data Not Found', "订单不存在了，或已经完成支付，呃呃！");
       return;
     }
-    var total_fee = 1; // RMB: currency is cny, unit is fen(penny)
+    // 检测老师的时间安排
+    try {
+      var student = Meteor.user(), teacher = Meteor.users.findOne({'_id':order.teacher.id}), lessonCount = order.hour, phases = order.phases;
+      if (phases && _.isArray(phases)) {
+        ScheduleTable.generateReserveCourseRecords(student, teacher, lessonCount, phases, true);
+      }
+    } catch (ex) { // 没有异常即表示时间安排没有冲突
+      throw ex;
+    }
+    // 支付参数
+    var total_fee = Orders.getOrderPayAmount(order)*100; // RMB: currency is cny, unit is fen(penny)
     var channel = 'alipay_wap', extra = {};
+    if (params.channel === 'alipay') {
+      if (isCordova) {
+        channel = 'alipay';
+      } else {
+        channel = 'alipay_wap';
+      }
+    } else if (params.channel === 'weixin') {
+      if (isCordova) {
+        channel = 'wx';
+      } else {
+        channel = 'wx_pub';
+      }
+    }
     switch (channel) {
       case 'alipay_wap':
         extra = {
@@ -35,8 +58,8 @@ Meteor.methods({
         order_no: orderId,
         app: {id: "app_4eXP8OfP0mzL4SmP"},
         channel: channel,
-        subject: "体验课程",
-        body: "麻辣老师-体验课程测试",
+        subject: order.className,
+        body: order.className + order.subject,
         amount: total_fee,
         currency: "cny",
         client_ip: "127.0.0.1",
@@ -64,12 +87,26 @@ Meteor.methods({
       });
       Fiber.yield();
       if (hasPaid) {
-        Orders.update({_id: orderId, status: "submited"}, {$set: {"status": "paid"}});
+        updateOrderStatusPaid(orderId);
       }
     }
     return true;
   }
 });
+
+var updateOrderStatusPaid = function(orderId) {
+  var order = Orders.findOne({'_id': orderId});
+  if (order.status==='submited') {
+    Orders.update({_id: orderId, status: "submited"}, {$set: {"status": "paid"}});
+    // 后面安排课程时间
+    try {
+      var student = Meteor.users.findOne({'_id':order.student.id}), teacher = Meteor.users.findOne({'_id':order.teacher.id}), lessonCount = order.hour, phases = order.phases;
+      doReserveCourses(student, teacher, lessonCount, phases);
+    } catch(ex) {
+      console.log(ex);
+    }
+  }
+}
 
 // 验证 webhooks 签名
 var pingpp_verify_signature = function(raw_data, signature) {
@@ -106,7 +143,7 @@ Router.route('/pingpp/result', function () {
     case "charge.succeeded": // 对支付异步通知的处理代码
       var orderNo = dataObj.order_no;
       if (dataObj.paid && orderNo) {
-        Orders.update({_id: orderNo, status: "submited"}, {$set: {"status": "paid"}});
+        updateOrderStatusPaid(orderId);
       }
       console.log('Order paid: '+orderNo);
       return send('OK');

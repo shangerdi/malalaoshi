@@ -1,27 +1,21 @@
-var getTeacherId = function() {
-  return Session.get("orderTeacherId");
-}
-var getUnitPrice = function() {
-  return 400;
-}
-var getCourseCount = function() {
-  var courseCount = Session.get("courseCount");
-  return courseCount?courseCount:0;
-}
-var calcTotalCost = function() {
-  var courseCount = getCourseCount();
-  return courseCount * getUnitPrice();
-}
-var getDiscount = function() {
-  return 100;
+var getOrderId = function() {
+  return Router.current().params.orderId;
 }
 var calcToPayCost = function() {
-  return calcTotalCost()-getDiscount();
+  var orderId = getOrderId(), curOrder = Orders.findOne({"_id": orderId});
+  return Orders.getOrderPayAmount(curOrder);
 }
 Template.orderStepPay.onCreated(function(){
-  console.log(Session.get("orderTeacherId"));
+  Session.set("orderId", getOrderId());
+  Session.set('errors','');
 });
 Template.orderStepPay.helpers({
+  errorMessage: function(field) {
+    return Session.get('errors')[field];
+  },
+  errorClass: function (field) {
+    return !!Session.get('errors')[field] ? 'has-error' : '';
+  },
   toPayCost: function() {
     return calcToPayCost();
   }
@@ -32,16 +26,28 @@ Template.orderStepPay.events({
     $ele.find("input")[0].click();
   },
   'click #callPayment': function(e) {
-    var orderId = Template.instance().data.orderId;
+    var orderId = getOrderId(), errors={hasError:false};
     if (!orderId) {
       alert("订单ID错误");
       return;
     }
-    Meteor.call('pingpp_alipay', {'orderId':orderId,'isCordova':Meteor.isCordova}, function(err, charge_obj) {
+    var channel = $("input[name=payType]:checked").val();
+    if (!channel) {
+      errors.pay="请选择支付方式";
+      errors.hasError=true;
+    }
+    Session.set('errors', errors);
+    if (errors.hasError) {
+      return;
+    }
+    var payParams = {'orderId':orderId, 'isCordova':Meteor.isCordova, 'channel': channel};
+    Meteor.call('pingpp_alipay', payParams, function(err, charge_obj) {
       if(err){
         // console.log(err);
         Session.set("orderShowLoading", false);
         $(e.currentTarget).removeClass("disabled");
+        errors.pay=err.reason;
+        Session.set('errors', errors);
         return throwError(err.reason);
       }
       // console.log(charge_obj);
