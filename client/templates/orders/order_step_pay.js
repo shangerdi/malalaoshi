@@ -51,18 +51,23 @@ Template.orderStepPay.events({
         return throwError(err.reason);
       }
       // console.log(charge_obj);
-      pingpp.createPayment(charge_obj, function(pay_result, pay_error){
+      var pingppObj = Meteor.isCordova?pingpp:pingpp_web;
+      pingppObj.createPayment(charge_obj, function(pay_result, pay_error){
         Session.set("orderShowLoading", false);
         $(e.currentTarget).removeClass("disabled");
         // console.log(pay_error);
         // console.log(pay_result);
         if (pay_result == "success") {
             // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的 wap 支付结果都是在 extra 中对应的 URL 跳转。
+            Router.go('pingppResultUrl', {}, {query: 'out_trade_no='+orderId+'&result=success'});
         } else if (pay_result == "fail") {
             // charge 不正确或者微信公众账号支付失败时会在此处返回
         } else if (pay_result == "cancel") {
             // 微信公众账号支付取消支付
         }
+      }, function(result){
+        // errorCallback
+        console.log("In errorCallback(): " + result);  //"fail"|"cancel"|"invalid"
       });
     });
   }
