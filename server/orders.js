@@ -13,7 +13,7 @@ Meteor.methods({
 
     // 检测老师的时间安排
     try {
-      var curUser = Meteor.user(), teacher = Meteor.users.find({'_id':order.teacher.id}), lessonCount = order.hour, phases = order.phases;
+      var curUser = Meteor.user(), teacher = Meteor.users.findOne({'_id':order.teacher.id}), lessonCount = order.hour, phases = order.phases;
       if (phases && _.isArray(phases)) {
         ScheduleTable.generateReserveCourseRecords(curUser, teacher, lessonCount, phases, true);
       }

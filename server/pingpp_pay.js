@@ -12,7 +12,7 @@ Meteor.methods({
     }
     // 检测老师的时间安排
     try {
-      var student = Meteor.user(), teacher = Meteor.users.find({'_id':order.teacher.id}), lessonCount = order.hour, phases = order.phases;
+      var student = Meteor.user(), teacher = Meteor.users.findOne({'_id':order.teacher.id}), lessonCount = order.hour, phases = order.phases;
       if (phases && _.isArray(phases)) {
         ScheduleTable.generateReserveCourseRecords(student, teacher, lessonCount, phases, true);
       }
@@ -99,7 +99,12 @@ var updateOrderStatusPaid = function(orderId) {
   if (order.status==='submited') {
     Orders.update({_id: orderId, status: "submited"}, {$set: {"status": "paid"}});
     // 后面安排课程时间
-    // TODO
+    try {
+      var student = Meteor.users.findOne({'_id':order.student.id}), teacher = Meteor.users.findOne({'_id':order.teacher.id}), lessonCount = order.hour, phases = order.phases;
+      doReserveCourses(student, teacher, lessonCount, phases);
+    } catch(ex) {
+      console.log(ex);
+    }
   }
 }
 
@@ -111,24 +116,6 @@ var pingpp_verify_signature = function(raw_data, signature) {
 // ping++ pay: Webhooks
 Router.route('/pingpp/result', function () {
   console.log("debug: /pingpp/result")
-  var curFiber = Fiber.current, error = false;
-  console.log(curFiber);
-  // console.log('teacher:'+teacherId+", student:"+curUser._id);
-  AsyncLocks.lock('teacherId', Meteor.bindEnvironment(function(leaveCallback) {
-    try {
-      console.log("in callback");
-      sleep(5000);
-      console.log("insert course attendances end");
-    }catch(ex) {
-      error = ex;
-    }
-    curFiber.run();
-    leaveCallback();
-  }));
-  // console.log("reserve courses task is submit, waiting...");
-  Fiber.yield();
-  console.log('test end');
-  return;
   var req = this.request, res = this.response;
   var send = function (msg, http_code) {
     http_code = (typeof http_code === "undefined")?200:http_code;
