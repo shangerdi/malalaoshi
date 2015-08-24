@@ -1,0 +1,14 @@
+<template name="studentScheduleCourses">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">我的课程</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList class="schedule-courses"}}
+        {{#ionItem buttonRight=true avatar=true class="schedule-course-item"}}
+        {{/ionItem}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>
