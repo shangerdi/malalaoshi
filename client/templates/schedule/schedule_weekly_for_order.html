@@ -5,7 +5,7 @@
   <tbody>
     {{#each timePhases}}
       <tr>
-        <td class="time-phase">{{convMinutes2Str start}} -- {{convMinutes2Str end}}</td>
+        <td class="time-phase">{{convMinutes2Str start}} - {{convMinutes2Str end}}</td>
         {{#each days}}
         <td data-weekday="{{this}}" data-start="{{../start}}" data-end="{{../end}}" class="phase {{getPhaseState this ../start ../end}}"></td>
         {{/each}}
