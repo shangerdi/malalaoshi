@@ -1,3 +1,6 @@
+var getOrderId = function() {
+  return Template.instance().data.orderId;
+}
 var getTeacherId = function() {
   return Session.get("orderTeacherId");
 }
@@ -69,6 +72,61 @@ Template.orderStepConfirm.helpers({
 });
 Template.orderStepConfirm.events({
   'click #gotoPay': function(e) {
-    Router.go('orderStepPay');
+    $(e.currentTarget).addClass("disabled");
+    Session.set("orderShowLoading", true);
+
+    var orderId = getOrderId(), curOrder = null;
+    if (orderId) {
+      curOrder = Orders.findOne({"_id": orderId});
+    } else {
+      // new order
+      var teacherId = getTeacherId(), studentId = Meteor.userId();
+      var className = "预约课程(TODO)";
+      var hour = getCourseCount();
+      var unitCost = getUnitPrice();
+      var cost = calcTotalCost();
+      var teacher = Meteor.users.findOne({'_id': teacherId}), student = Meteor.user();
+
+      var school = "", subject = "";
+      if(teacher.profile && teacher.profile.subjects){
+        var subjects = teacher.profile.subjects[0];
+        if(subjects){
+          if(subjects.subject){
+            subject = getEduSubjectText(subjects.subject);
+          }
+          if(subjects.school){
+            school = getEduSchoolText(subjects.school);
+          }
+        }
+      }
+      curOrder = {
+        student: {
+          id: studentId,
+          phoneNo: student.phoneNo,
+          name: student.profile.name
+        },
+        teacher: {
+          id: teacherId,
+          name: teacher.profile.name
+        },
+        className: className,
+        hour: hour,
+        unitCost: unitCost,
+        cost: cost,
+        subject: school + subject,
+        status: "submited"
+      };
+    }
+    curOrder.phases = Session.get("phases");
+    curOrder.discount = {'sum': getDiscount()};
+
+    Meteor.call('updateOrder', curOrder, function(error, result) {
+      if(error){
+        Session.set("orderShowLoading", false);
+        $(e.currentTarget).removeClass("disabled");
+        return throwError(error.reason);
+      }
+      Router.go('orderStepPay', {'orderId': result});
+    });
   }
 });

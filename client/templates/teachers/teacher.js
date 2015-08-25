@@ -7,9 +7,11 @@ Template.teacher.onCreated(function(){
 Template.teacher.onRendered(function(){
   IonNavigation.skipTransitions = true;
   Session.set('teacherDetialPageAcitveTab', null);
-  maxNavOffsetTop = $("#teacherNav").offset().top - $(".teacher-detail").offset().top;
-  auditMoveHeight = $('#teacherAudit').position().top - $("#teacherNav").outerHeight(true) - $("#teacherNav").outerHeight() - 20;
-  evaluationMoveHeight = $('#teacherEvaluation').position().top - $("#teacherNav").outerHeight(true) - $("#teacherNav").outerHeight() + 1;
+  var detailScrollTop = $('.teacher-detail').scrollTop();
+  var navDist = $("#teacherNav").outerHeight(true) + $("#teacherNav").outerHeight();
+  maxNavOffsetTop = $("#teacherNav").offset().top - $(".teacher-detail").offset().top + detailScrollTop;
+  auditMoveHeight = $('#teacherAudit').position().top - navDist - 20 + detailScrollTop;
+  evaluationMoveHeight = $('#teacherEvaluation').position().top - navDist + 1 + detailScrollTop;
   $('.teacher-detail').scroll(function(){
     if($('.teacher-detail').scrollTop() >= maxNavOffsetTop){
       $('#teacherNav').addClass('teacher-detail-nav-fixed');

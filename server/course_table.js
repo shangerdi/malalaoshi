@@ -1,9 +1,38 @@
 /* 约课处理锁缓存，{_id:teacherId, lockTime:timestamp}*/
 var Fiber = Npm.require('fibers');
 
+doReserveCourses = function(student, teacher, lessonCount, phases) {
+  var curFiber = Fiber.current, error = false;
+  // console.log('teacher:'+teacher._id+", student:"+student._id);
+  AsyncLocks.lock(teacher._id, Meteor.bindEnvironment(function(leaveCallback) {
+    try {
+      // console.log("in callback");
+      // sleep(5000);
+      var toInsertList = ScheduleTable.generateReserveCourseRecords(student, teacher, lessonCount, phases);
+      // console.log(toInsertList);
+      // insert into DB
+      // CourseAttendances.insert(toInsertList);
+      _.each(toInsertList, function(data){
+        CourseAttendances.insert(data);
+      });
+      // console.log("insert course attendances end");
+    }catch(ex) {
+      error = ex;
+    }
+    curFiber.run();
+    leaveCallback();
+  }));
+  // console.log("reserve courses task is submit, waiting...");
+  Fiber.yield();
+  // console.log("reserve courses end。"+'teacher:'+teacher._id+", student:"+student._id);
+  if (error) {
+    throw error;
+  }
+}
+
 Meteor.methods({
   reserveCourses: function(params) {
-    console.log(params);
+    // console.log(params);
     var curUser = Meteor.user();
     if (!curUser) {
       throw new Meteor.Error('权限不足', "需要登录");
@@ -16,32 +45,7 @@ Meteor.methods({
     if (!teacher) {
       throw new Meteor.Error('教师不存在', "没有查找到该教师的记录");
     }
-    var curFiber = Fiber.current, error = false;
-    // console.log('teacher:'+teacherId+", student:"+curUser._id);
-    AsyncLocks.lock(teacherId, Meteor.bindEnvironment(function(leaveCallback) {
-      try {
-        // console.log("in callback");
-        // sleep(5000);
-        var toInsertList = ScheduleTable.generateReserveCourseRecords(curUser, teacher, lessonCount, phases);
-        // console.log(toInsertList);
-        // insert into DB
-        // CourseAttendances.insert(toInsertList);
-        _.each(toInsertList, function(data){
-          CourseAttendances.insert(data);
-        });
-        // console.log("insert course attendances end");
-      }catch(ex) {
-        error = ex;
-      }
-      curFiber.run();
-      leaveCallback();
-    }));
-    // console.log("reserve courses task is submit, waiting...");
-    Fiber.yield();
-    // console.log("reserve courses end。"+'teacher:'+teacherId+", student:"+curUser._id);
-    if (error) {
-      throw error;
-    }
+    doReserveCourses(curUser, teacher, lessonCount, phases);
     return true;
   },
   saveAvailableTime: function(params) {

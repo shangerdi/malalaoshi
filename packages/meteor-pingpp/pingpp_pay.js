@@ -310,7 +310,7 @@ function stringify_data(data, channel, urlencode) {
 }
 
 PingppSDK.prototype.payment = PingppSDK.prototype.createPayment;
-window.pingpp = new PingppSDK();
+window.pingpp_web = new PingppSDK();
 // aliases
-window.PINGPP_PAY_SDK = window.PINGPP_WX_PUB = window.pingpp;
+window.PINGPP_PAY_SDK = window.PINGPP_WX_PUB = window.pingpp_web;
 })();
