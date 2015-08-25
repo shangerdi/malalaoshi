@@ -9,40 +9,38 @@
 
   {{#ionView}}
     {{#ionContent class="teacher-detail"}}
-      <div class="teacher-detail-head">
+      <div class="teacher-detail-head" id="teacherDetailHead">
         <div>
           <img src="{{user.profile.avatarUrl}}" class="img-responsive img-circle">
         </div>
         <div>
           {{user.profile.name}} {{#if genderMale}}<i class="icon ion-male"></i>{{else}}{{#if genderFemale}}<i class="icon ion-female"></i>{{/if}}{{/if}}
         </div>
-        <div>
-          热爱教育事业，很喜欢跟孩子在一起成长，深爱教育事业
-        </div>
+        <div>{{user.profile.selfIntro}}</div>
       </div>
-      <div class="teacher-detial-star-content">
+      <div class="teacher-detial-star-content" id="teacherStarContent">
         <div>
-          <p>麻度 4.9分</p>
+          <p>麻度 {{maDu}}分</p>
           <p>上课老好了，一学就会</p>
         </div>
         <div></div>
         <div>
-          <p>辣度 4.2分</p>
+          <p>辣度 {{laDu}}分</p>
           <p>老师太棒了，必须点赞</p>
         </div>
       </div>
-      <div class="teacher-detail-tab-content">
-        <div id="mainPage" class="teacher-detail-tab {{activeTabClass 'mainPage'}}">主页</div>
-        <div id="personInfo" class="teacher-detail-tab {{activeTabClass 'personInfo'}}">个人资料</div>
+      <div class="teacher-detail-tab-content" id="teacherNav">
+        <div id="mainPage" class="teacher-detail-tab {{activeTabClass 'mainPage'}}">个人资料</div>
         <div id="evaluation" class="teacher-detail-tab {{activeTabClass 'evaluation'}}">评价</div>
       </div>
-      <div class="teacher-detail-sp-info">
+      <div class="teacher-detail-sp-info" id="teacherSpInfo">
           <div>特殊头衔</div>
           <div>
             国际数学奥林匹克冠军教练，中国青少年奥林匹克特聘专家，浙江电视台节目主持人
           </div>
       </div>
-      <div>
+      <div><hr></div>
+      <div id="teacherAudit">
         <div clas="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
             认证信息
@@ -58,34 +56,63 @@
           </div>
         </div>
       </div>
-      <div>
-        <div class="teacher-detail-item-head teacher-detail-item-head-float">
-          <span class="teacher-detail-item-span">
-            个人简介：
-          </span>
-        </div>
-        <div>{{user.profile.selfIntro}}</div>
-      </div>
-      <div>
+      <div><hr></div>
+      <div class="teacher-person-img-show">
         <div class="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
-            教授科目
-          </span>
-        </div>
-        <div>{{subject}}</div>
-      </div>
-      <div>
-        <div clas="teacher-detail-item-head">
-          <span class="teacher-detail-item-span">
-            毕业院校/学历
+            照片展示
           </span>
         </div>
         <div>
-          {{#each colleges}}
-            <p>{{.}}</p>
-          {{/each}}
+          <div class="teacher-swiper-container">
+              <div class="swiper-wrapper">
+                {{#each personalPhoto}}
+                  <div class="swiper-slide"><img src="{{this}}"></div>
+                {{/each}}
+              </div>
+          </div>
         </div>
       </div>
+      <div><hr></div>
+      <div class="teacher-edu-results">
+        <div class="teacher-detail-item-head">
+          <span class="teacher-detail-item-span">
+            教学成果
+          </span>
+        </div>
+        <div id="moreEduResults" class="teacher-more-info">展开查看全部</div>
+        <div id="eduReults">{{user.profile.eduResults}}</div>
+      </div>
+      <div><hr></div>
+      <div class="teacher-edu-results">
+        <div class="teacher-detail-item-head">
+          <span class="teacher-detail-item-span">
+            过往经历
+          </span>
+        </div>
+        <div id="moreExperience" class="teacher-more-info">展开查看全部</div>
+        <div id="experience">{{experience}}</div>
+      </div>
+      <div><hr></div>
+      <div class="teacher-detial-study-center">
+        <div class="teacher-detail-item-head">
+          <span class="teacher-detail-item-span">
+            授课区域
+          </span>
+        </div>
+        <div class="teacher-more-info">只在学习中心授课</div>
+        {{> teachersFilterStudyCenter studyCenter=commendStudyCenter}}
+      </div>
+      <div><hr></div>
+      <div>
+        <div class="teacher-detail-item-head">
+          <span class="teacher-detail-item-span">
+            上门区域
+          </span>
+        </div>
+        <div class="teacher-more-info">朝阳区 | 海淀区 | 丰台区</div>
+      </div>
+      <div><hr></div>
       <div>
         <div clas="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
@@ -96,23 +123,31 @@
           {{>scheduleWeeklyForOrder teacherId=user._id}}
         </div>
       </div>
-      {{# if $neq currentUser._id user._id }}
-      <div class="teacher-detail-submit">
-        <!-- <button id="tryExperienceCourse" class="button button-full button-assertive {{#if submitActiv}}disabled{{/if}}">
-          一元预约体验课
-        </button> -->
-        <div class="row row-center">
-          <div class="pull-left col">
-            ￥400/课时 (TODO)
-          </div>
-          <div class="pull-right col">
-            <button id="reserveCourse" class="button button-full button-assertive">
-              约课
-            </button>
-          </div>
+      <div><hr></div>
+      <div id="teacherEvaluation">
+        <div class="teacher-detail-item-head">
+          <span class="teacher-detail-item-span">
+            课程评价
+          </span>
+        </div>
+        <div id="moreEvaluation" class="teacher-more-info">点击查看更多</div>
+        <div id="evaluationInfo">{{evaluationInfo}}</div>
+      </div>
+      <div><hr></div>
+    {{/ionContent}}
+    {{# if $neq currentUser._id user._id }}
+    <div class="buttom-btn-view teacher-buttom-btn-view buttom-btn-view-active">
+      <div class="row row-center">
+        <div class="pull-left col">
+          ￥{{user.profile.unitCost}}/课时
+        </div>
+        <div class="pull-right col">
+          <button id="reserveCourse" class="button button-full">
+            马上约课
+          </button>
         </div>
       </div>
-      {{/if}}
-    {{/ionContent}}
+    </div>
+    {{/if}}
   {{/ionView}}
 </template>

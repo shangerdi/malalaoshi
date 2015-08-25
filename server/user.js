@@ -144,6 +144,26 @@ ProfileSchema = new SimpleSchema({
     decimal: true,
     optional: true,
     label: 'Unit Cost'
+  },
+  maScore: {
+    type: Number,
+    optional: true,
+    label: 'Ma Du score'
+  },
+  maCount: {
+    type: Number,
+    optional: true,
+    label: 'Ma Du count'
+  },
+  laScore: {
+    type: Number,
+    optional: true,
+    label: 'La Du score'
+  },
+  laCount: {
+    type: Number,
+    optional: true,
+    label: 'La Du count'
   }
 });
 

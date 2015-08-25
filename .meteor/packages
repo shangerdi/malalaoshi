@@ -47,3 +47,4 @@ msavin:mongol
 reactive-var
 sanjo:jasmine
 velocity:html-reporter
+johnantoni:meteor-scrollto
