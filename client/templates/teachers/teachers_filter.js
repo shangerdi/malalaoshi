@@ -260,6 +260,9 @@ Template.teachersFilter.events({
 Template.teachersFilterStudyCenter.events({
   'click .teachers-filter-study-center-item': function(e){
     e.preventDefault();
+    if(!chekStudyCenterInTeachersFilter(Template.instance())){
+      return false;
+    }
     var classList = e.currentTarget.classList;
     var self = this;
     _.each(classList, function(obj){
@@ -326,4 +329,16 @@ function popupInfo(popInfo){
       }
     }]
   });
+}
+function chekStudyCenterInTeachersFilter(template){
+  var cur = template.view;
+  var noHas = true;
+  while(noHas && cur.parentView){
+    if(cur.parentView.name == "Template.teachersFilter"){
+      noHas = false;
+      break;
+    }
+    cur = cur.parentView;
+  }
+  return !noHas;
 }

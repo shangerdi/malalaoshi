@@ -44,3 +44,4 @@ peerlibrary:async
 node-async-locks
 msavin:mongol
 reactive-var
+johnantoni:meteor-scrollto
