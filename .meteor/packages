@@ -45,5 +45,4 @@ peerlibrary:async
 node-async-locks
 msavin:mongol
 reactive-var
-sanjo:jasmine
 velocity:html-reporter
