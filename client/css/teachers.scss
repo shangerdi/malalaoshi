@@ -273,6 +273,9 @@ $greyColor: #b8b8b8;
 .teacher-content .checkbox{
   margin: 0;
 }
+#teacherAudit > div:last-child{
+  margin-top: 10px;
+}
 .teacher-content .teacher-cert div{
   margin-top: 8px;
 }
@@ -293,6 +296,7 @@ $greyColor: #b8b8b8;
 .teacher-cert span{
   color: $greyColor;
   font-size: 15px;
+  font-weight: bolder;
 }
 .ion-checked{
   color: #59e3c3;
@@ -412,19 +416,14 @@ $greyColor: #b8b8b8;
   width: 100%;
 }
 .teacher-detail > div:nth-child(n+2){
-  margin-top: 10px;
   width: 100%;
 }
 .teacher-detail > div:nth-child(n+4){
-  border-bottom: solid #ddd 1px;
-  min-height: 70px;
   float: left;
-}
-.teacher-detail > div:nth-child(n+5) > div:last-child{
-  margin-top: 10px;
 }
 .teacher-detail > div:nth-last-child(1){
   border-bottom: none;
+  margin-bottom: 100px;
 }
 .teacher-detail > div:nth-last-child(2){
   border-bottom: none;
@@ -442,10 +441,8 @@ $greyColor: #b8b8b8;
   padding: 20px;
 }
 .teacher-detail-head > div{
-  //position: absolute;
   bottom: 0;
   display: -webkit-inline-box;
-  //margin-left: -25px;
 }
 .teacher-detail-head > div > img{
   vertical-align: middle;
@@ -479,11 +476,7 @@ $greyColor: #b8b8b8;
 .teacher-detail-item-head-float{
   float: left;
 }
-.teacher-detail > div:nth-child(n+5) > div:last-child{
-  color: $greyColor;
-  font-size: 15px;
-  font-weight: bolder;
-}
+
 .teacher-detail-item-name{
   font-size: 18px;
 }
@@ -1025,7 +1018,7 @@ $greyColor: #b8b8b8;
   background-color: #f1f1f1;
   margin: 0 auto 20px auto;
   width: 95%;
-  margin: 0 auto 20px auto;
+  margin: 0 auto;
   display: table;
 }
 .teachers-filter-study-center-item > div{
@@ -1141,7 +1134,7 @@ $greyColor: #b8b8b8;
   float:left;
 }
 .teacher-detail-tab{
-  width: 33.33%;
+  width: 50%;
   float: left;
   border-style: solid;
   border-width: 2px 0 2px 0;
@@ -1157,9 +1150,12 @@ $greyColor: #b8b8b8;
 }
 .teacher-detail-tab-content{
   width: 100%;
+  margin-top: 15px;
 }
 .teacher-detial-star-content > div:first-child{
   padding: 15px;
+  padding-right: 5px;
+  padding-left: 5px;
   height: 80px;
   width: 50%;
   float: left;
@@ -1173,7 +1169,8 @@ $greyColor: #b8b8b8;
 }
 .teacher-detial-star-content > div:last-child{
   padding: 15px;
-  padding-left: 25px;
+  padding-right: 5px;
+  padding-left: 5px;
   float: left;
   height: 80px;
   width: 49%;
@@ -1203,4 +1200,64 @@ $greyColor: #b8b8b8;
   width: 100%;
   padding-left: 85px;
   color: #000000;
+}
+.teacher-detail-nav-fixed{
+  position: fixed;
+  z-index: 999999;
+  background-color: #FFFFFF;
+  top: 27px;
+}
+.teacher-person-img-show{
+  overflow: auto;
+}
+.teacher-person-img-show > div:last-child{
+  margin-top: 40px;
+}
+.teacher-swiper-container{
+  height: 100px;
+}
+.teacher-swiper-container img{
+  height: 100px;
+  width: 100%;
+}
+.teacher-more-info{
+  float: right;
+  color: #b8b8b8;
+  font-size: 15px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+#eduReults{
+  line-height: 25px;
+  overflow: hidden;
+  height: 52px;
+  margin-top: 10px;
+}
+#experience{
+  line-height: 25px;
+  overflow: hidden;
+  height: 76px;
+  margin-top: 10px;
+}
+.teacher-detial-study-center i{
+  display: none;
+}
+.teacher-detial-study-center > div:last-child{
+  margin-top: 10px;
+}
+#evaluationInfo{
+  margin-top: 10px;
+}
+.teacher-buttom-btn-view{
+  background-color: #f1f1f1;
+  font-size: 18px;
+}
+.teacher-buttom-btn-view .row{
+  padding: 0;
+}
+.teacher-buttom-btn-view .col{
+  padding: 0;
+}
+.teachers-filter .teachers-filter-study-center-item{
+  margin: 0 auto 20px auto;
 }
