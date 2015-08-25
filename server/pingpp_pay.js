@@ -43,6 +43,7 @@ Meteor.methods({
         };
         break;
     }
+    var clientIp = this.connection.clientAddress;
     var fiber = Fiber.current, result = null, error = null;
     var callback = function(err, charge) {
         if (err) {
@@ -56,13 +57,13 @@ Meteor.methods({
     };
     pingpp.charges.create({
         order_no: orderId,
-        app: {id: "app_4eXP8OfP0mzL4SmP"},
+        app: {id: Meteor.settings.PingPPAppId},
         channel: channel,
         subject: order.className,
         body: order.className + order.subject,
         amount: total_fee,
         currency: "cny",
-        client_ip: "127.0.0.1",
+        client_ip: clientIp,
         extra: extra
     }, callback);
     Fiber.yield();
