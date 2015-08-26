@@ -179,6 +179,11 @@ ProfileSchema = new SimpleSchema({
     type: Number,
     optional: true,
     label: 'La Du count'
+  },
+  goHomeArea: {
+    type: [String],
+    optional: true,
+    label: 'Go home area'
   }
 });
 
