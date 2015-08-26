@@ -25,6 +25,21 @@ UserStatusSchema = new SimpleSchema({
     type: String,
     optional: true,
     label: 'edu'
+  },
+  teachingCert: {
+    type: String,
+    optional: true,
+    label: 'Teaching certificate'
+  },
+  specialty: {
+    type: String,
+    optional: true,
+    label: 'Specialty'
+  },
+  maLaCert: {
+    type: String,
+    optional: true,
+    label: 'Ma la certificate'
   }
 });
 UserAddressDetailSchema = new SimpleSchema({

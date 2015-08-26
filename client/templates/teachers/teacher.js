@@ -72,6 +72,15 @@ Template.teacher.helpers({
   cert: function(){
     return this.user && this.user.status && this.user.status.cert == "approved";
   },
+  teachingCert: function(){
+    return this.user && this.user.status && this.user.status.teachingCert == "approved";
+  },
+  specialty: function(){
+    return this.user && this.user.status && this.user.status.specialty == "approved";
+  },
+  maLaCert: function(){
+    return this.user && this.user.status && this.user.status.maLaCert == "approved";
+  },
   submitActiv: function(){
     return !this.user;
   },
