@@ -1,0 +1,12 @@
+<template name="appScheduleTabs">
+    {{#ionTabs style="android"}}
+      {{> ionTab title="课表" path="scheduleCalendar"}}
+      {{#if $eq currentUser.role 'teacher'}}
+        {{> ionTab title="待上课" path="coursesToattend"}}
+        {{> ionTab title="已完成" path="coursesAttended"}}
+      {{else}}
+        {{> ionTab title="待确认" path="coursesToconfirm"}}
+        {{> ionTab title="已确认" path="coursesConfirmed"}}
+      {{/if}}
+    {{/ionTabs}}
+</template>

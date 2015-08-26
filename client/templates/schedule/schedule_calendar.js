@@ -1,4 +1,17 @@
 var weekFirstDay = 7; // 定义每周的第一天：周日
+var weekdays = null;
+var getWeekdays = function() {
+  if (weekdays) {
+    return weekdays;
+  }
+  var i, a=[];
+  for (i=0; i<7; i++) {
+    var d=i+weekFirstDay;
+    a.push(d>7?d-7:d);
+  }
+  weekdays = a;
+  return a;
+}
 var getIndexOfWeekday = function(weekday) {
   var indexWeekday = weekday-weekFirstDay;
   if (indexWeekday<0) indexWeekday+=7;
@@ -78,6 +91,12 @@ var getTdDateClass = function(date) {
   }
   return classStr;
 }
+var getWeekdayClass = function(weekday) {
+  if (weekday==6 || weekday==7 || weekday==0) {
+    return "weekend";
+  }
+  return "";
+}
 var subscribe = function(year, month) {
   var param = {find:{},options:{}};
   var role = Meteor.user().role;
@@ -143,12 +162,10 @@ Template.scheduleCalendar.helpers({
     return [0,1,2,3,4,5,6];
   },
   weekdays: function() {
-    var i, a=[];
-    for (i=0; i<7; i++) {
-      var d=i+weekFirstDay;
-      a.push(d>7?d-7:d);
-    }
-    return a;
+    return getWeekdays();
+  },
+  getWeekdayClass: function(d) {
+    return getWeekdayClass(d);
   },
   weekdayText: function(d) {
     return '周'+ScheduleTable.dayNumWords[d];
@@ -179,7 +196,8 @@ Template.scheduleCalendar.helpers({
     if (!date || !date.flag) {
       return "";
     }
-    return getTdDateClass(date);
+    var weekday = getWeekdays()[col];
+    return getTdDateClass(date) + " " + getWeekdayClass(weekday);
   },
   dateText2: function(row, col) {
     var m = getCurMonth();
@@ -195,7 +213,8 @@ Template.scheduleCalendar.helpers({
     if (!date || !date.flag) {
       return "";
     }
-    return getTdDateClass(date);
+    var weekday = getWeekdays()[col];
+    return getTdDateClass(date) + " " + getWeekdayClass(weekday);
   }
 });
 Template.scheduleCalendar.events({

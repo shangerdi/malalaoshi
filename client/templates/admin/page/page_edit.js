@@ -7,11 +7,11 @@ Template.adminPage.onCreated(function() {
 });
 
 Template.adminPage.rendered=function(){
-  window.onload = function() {
+  $.getScript("https://cdn.ckeditor.com/4.5.2/standard/ckeditor.js", function() {
     CKEDITOR.replace('content', {
       customConfig: '/custom/ckeditor_config.js'
     });
-  }
+  });
 };
 
 Template.adminPage.events({
