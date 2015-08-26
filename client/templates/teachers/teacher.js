@@ -124,8 +124,8 @@ Template.teacher.helpers({
     retStudyCenters.sort(compDistance);
     return retStudyCenters;
   },
-  activeGoHomeArea: function(){
-    return this.user && this.user.profile && this.user.profile && this.user.profile.goHomeArea ? this.user.profile.goHomeArea.join(" | ") : "";
+  activeServiceArea: function(){
+    return this.user && this.user.profile && this.user.profile && this.user.profile.serviceArea ? this.user.profile.serviceArea.join(" | ") : "";
   }
 });
 

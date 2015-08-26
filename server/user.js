@@ -180,7 +180,7 @@ ProfileSchema = new SimpleSchema({
     optional: true,
     label: 'La Du count'
   },
-  goHomeArea: {
+  serviceArea: {
     type: [String],
     optional: true,
     label: 'Go home area'
