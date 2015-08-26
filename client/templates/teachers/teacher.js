@@ -95,8 +95,8 @@ Template.teacher.helpers({
     var test = [
       "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222226/1437104338352.jpg",
       "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222223/1437104448883.jpg",
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222228/1437104277843.jpg",
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222229/1437104183029.jpg",
+      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/11111111223/1436942308118.png",
+      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/13426127318/1435567695398.jpg",
       "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222225/1437104374691.jpg"
     ];
 
@@ -177,6 +177,15 @@ Template.teacher.events({
     Session.set('teacherDetialPageAcitveTab', "evaluation");
     $('.teacher-detail').scrollTo(evaluationMoveHeight+'px',500);
   }
+});
+Template.teacherPersonalPhotosShow.onCreated(function(){
+  this.data.personalPhotos = this.data.allphotos.split(",");
+});
+Template.teacherPersonalPhotosShow.onRendered(function(){
+  var swiper = new Swiper('.teacher-swiper-container-modal', {
+      slidesPerView: 1,
+      spaceBetween: 0
+  });
 });
 function doStarLevelAry(self){
   var ary = [];

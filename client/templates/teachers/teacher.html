@@ -67,7 +67,7 @@
           <div class="teacher-swiper-container">
               <div class="swiper-wrapper">
                 {{#each personalPhoto}}
-                  <div class="swiper-slide"><img src="{{this}}"></div>
+                  <div data-allPhotos={{personalPhoto}} class="swiper-slide" data-ion-modal="teacherPersonalPhotosShow"><img src="{{this}}"></div>
                 {{/each}}
               </div>
           </div>
@@ -150,4 +150,18 @@
     </div>
     {{/if}}
   {{/ionView}}
+</template>
+
+<template name="teacherPersonalPhotosShow">
+  {{#ionModal customTemplate=true}}
+  <div class="teacher-detail-photos-show">
+    <div class="teacher-swiper-container-modal">
+        <div class="swiper-wrapper" data-dismiss=modal>
+          {{#each personalPhotos}}
+            <div class="swiper-slide"><img src="{{this}}"></div>
+          {{/each}}
+        </div>
+    </div>
+  </div>
+  {{/ionModal}}
 </template>
