@@ -1,6 +1,7 @@
 var maxNavOffsetTop = 0;
 var auditMoveHeight = 0;
 var evaluationMoveHeight = 0;
+var teacherNavHeight = 0;
 Template.teacher.onCreated(function(){
   Session.set('hasTabsTop',false);
 });
@@ -8,15 +9,18 @@ Template.teacher.onRendered(function(){
   IonNavigation.skipTransitions = true;
   Session.set('teacherDetialPageAcitveTab', null);
   var detailScrollTop = $('.teacher-detail').scrollTop();
-  var navDist = $("#teacherNav").outerHeight(true) + $("#teacherNav").outerHeight();
+  var navDist = $("#teacherNav").outerHeight(true);
+  teacherNavHeight = $("#teacherNav").outerHeight();
   maxNavOffsetTop = $("#teacherNav").offset().top - $(".teacher-detail").offset().top + detailScrollTop;
   auditMoveHeight = $('#teacherAudit').position().top - navDist - 20 + detailScrollTop;
   evaluationMoveHeight = $('#teacherEvaluation').position().top - navDist + 1 + detailScrollTop;
   $('.teacher-detail').scroll(function(){
     if($('.teacher-detail').scrollTop() >= maxNavOffsetTop){
       $('#teacherNav').addClass('teacher-detail-nav-fixed');
+      $('#teacherNavPlaceholder').height(teacherNavHeight+'px');
     }else{
       $('#teacherNav').removeClass('teacher-detail-nav-fixed');
+      $('#teacherNavPlaceholder').height(0);
     }
   });
 
@@ -72,6 +76,15 @@ Template.teacher.helpers({
   cert: function(){
     return this.user && this.user.status && this.user.status.cert == "approved";
   },
+  teachingCert: function(){
+    return this.user && this.user.status && this.user.status.teachingCert == "approved";
+  },
+  specialty: function(){
+    return this.user && this.user.status && this.user.status.specialty == "approved";
+  },
+  maLaCert: function(){
+    return this.user && this.user.status && this.user.status.maLaCert == "approved";
+  },
   submitActiv: function(){
     return !this.user;
   },
@@ -83,24 +96,13 @@ Template.teacher.helpers({
     return "";
   },
   experience: function(){
-    //TODO add database
-    return "";
+    return this.teacherAudit && this.teacherAudit.experience || "";
   },
   eduResults: function(){
-    //TODO add database
-    return "";
+    return this.teacherAudit && this.teacherAudit.eduResults || "";
   },
   personalPhoto: function(){
-    //TODO add database
-    var test = [
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222226/1437104338352.jpg",
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222223/1437104448883.jpg",
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222228/1437104277843.jpg",
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222229/1437104183029.jpg",
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222225/1437104374691.jpg"
-    ];
-
-    return test;
+    return this.teacherAudit && this.teacherAudit.personalPhoto ? this.teacherAudit.personalPhoto : [];
   },
   maDu: function(){
     return accounting.formatNumber(this.user && this.user.profile && this.user.profile.maCount
@@ -110,14 +112,20 @@ Template.teacher.helpers({
     return accounting.formatNumber(this.user && this.user.profile && this.user.profile.laCount
       && this.user.profile.laScore ? this.user.profile.laScore/this.user.profile.laCount : 0, 1);
   },
-  commendStudyCenter: function(){
-    return {
-      avatar: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222226/1437104338352.jpg",
-      name: "麻辣学习中心",
-      city: "北京",
-      address: "北京市大望路10号",
-      distance: 500
-    };
+  teacherStudyCenters: function(){
+    var pointBasic = Session.get("locationLngLat");
+    var retStudyCenters = [];
+    if(this.studyCenters){
+      this.studyCenters.forEach(function(element){
+        element.distance = pointBasic ? calculateDistance({lat: element.lat, lng: element.lng}, pointBasic) : null;
+        retStudyCenters[retStudyCenters.length] = element;
+      });
+    }
+    retStudyCenters.sort(compDistance);
+    return retStudyCenters;
+  },
+  activeServiceArea: function(){
+    return this.user && this.user.profile && this.user.profile && this.user.profile.serviceArea ? this.user.profile.serviceArea.join(" | ") : "";
   }
 });
 
@@ -177,6 +185,15 @@ Template.teacher.events({
     Session.set('teacherDetialPageAcitveTab', "evaluation");
     $('.teacher-detail').scrollTo(evaluationMoveHeight+'px',500);
   }
+});
+Template.teacherPersonalPhotosShow.onCreated(function(){
+  this.data.personalPhotos = this.data && this.data.teacherId ? TeacherAudit.findOne({'userId': this.data.teacherId}).personalPhoto : [];
+});
+Template.teacherPersonalPhotosShow.onRendered(function(){
+  var swiper = new Swiper('.teacher-swiper-container-modal', {
+      slidesPerView: 1,
+      spaceBetween: 0
+  });
 });
 function doStarLevelAry(self){
   var ary = [];

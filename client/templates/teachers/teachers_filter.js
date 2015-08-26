@@ -267,9 +267,9 @@ Template.teachersFilterStudyCenter.events({
     var self = this;
     _.each(classList, function(obj){
       if(obj == "study-center-item-no-select"){
-        Session.set('selectedStudyCenters', addSelectStudyCenter(Session.get('selectedStudyCenters'), self.studyCenter.id));
+        Session.set('selectedStudyCenters', addSelectStudyCenter(Session.get('selectedStudyCenters'), self.studyCenter._id));
       }else if(obj == "study-center-item-select"){
-        Session.set('selectedStudyCenters', removeSelectStudyCenter(Session.get('selectedStudyCenters'), self.studyCenter.id));
+        Session.set('selectedStudyCenters', removeSelectStudyCenter(Session.get('selectedStudyCenters'), self.studyCenter._id));
       }
     });
   }
@@ -286,7 +286,7 @@ Template.teachersFilterStudyCenter.helpers({
     }
     var noSelect = true;
     _.each(selected, function(obj){
-      if(noSelect && obj == self.studyCenter.id){
+      if(obj && noSelect && obj == self.studyCenter._id){
         noSelect = false;
       }
     });

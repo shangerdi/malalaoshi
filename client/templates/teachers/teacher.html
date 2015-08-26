@@ -29,6 +29,7 @@
           <p>老师太棒了，必须点赞</p>
         </div>
       </div>
+      <div id="teacherNavPlaceholder"></div>
       <div class="teacher-detail-tab-content" id="teacherNav">
         <div id="mainPage" class="teacher-detail-tab {{activeTabClass 'mainPage'}}">个人资料</div>
         <div id="evaluation" class="teacher-detail-tab {{activeTabClass 'evaluation'}}">评价</div>
@@ -49,10 +50,10 @@
         <div>
           <div class="teacher-cert">
             <div><i class="icon ion-checked ion-checkmark-circled"></i> <span>身份证</span></div>
-            <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教师证</span></div>
-            <div><i class="icon ion-checked {{#if cert}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>学历证</span></div>
-            <div><i class="icon ion-checked ion-checkmark-circled"></i> <span>专业资质</span></div>
-            <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>麻辣认证</span></div>
+            <div><i class="icon ion-checked {{#if teachingCert}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>教师证</span></div>
+            <div><i class="icon ion-checked {{#if eduAudit}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>学历证</span></div>
+            <div><i class="icon ion-checked {{#if specialty}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>专业资质</span></div>
+            <div><i class="icon ion-checked {{#if maLaCert}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>麻辣认证</span></div>
           </div>
         </div>
       </div>
@@ -67,7 +68,7 @@
           <div class="teacher-swiper-container">
               <div class="swiper-wrapper">
                 {{#each personalPhoto}}
-                  <div class="swiper-slide"><img src="{{this}}"></div>
+                  <div data-teacher-id="{{../user._id}}" class="swiper-slide" data-ion-modal="teacherPersonalPhotosShow"><img src="{{this}}"></div>
                 {{/each}}
               </div>
           </div>
@@ -94,6 +95,7 @@
         <div id="experience">{{experience}}</div>
       </div>
       <div><hr></div>
+      {{#if $eq user.profile.teacherType "studyCenter"}}
       <div class="teacher-detial-study-center">
         <div class="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
@@ -101,18 +103,24 @@
           </span>
         </div>
         <div class="teacher-more-info">只在学习中心授课</div>
-        {{> teachersFilterStudyCenter studyCenter=commendStudyCenter}}
+        <div class="teacher-detail-study-centers">
+          {{#each teacherStudyCenters}}
+            {{> teachersFilterStudyCenter studyCenter=this}}
+          {{/each}}
+        </div>
       </div>
       <div><hr></div>
+      {{else}}
       <div>
         <div class="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
             上门区域
           </span>
         </div>
-        <div class="teacher-more-info">朝阳区 | 海淀区 | 丰台区</div>
+        <div class="teacher-more-info">{{activeServiceArea}}</div>
       </div>
       <div><hr></div>
+      {{/if}}
       <div>
         <div clas="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
@@ -150,4 +158,18 @@
     </div>
     {{/if}}
   {{/ionView}}
+</template>
+
+<template name="teacherPersonalPhotosShow">
+  {{#ionModal customTemplate=true}}
+  <div class="teacher-detail-photos-show">
+    <div class="teacher-swiper-container-modal">
+        <div class="swiper-wrapper" data-dismiss=modal>
+          {{#each personalPhotos}}
+            <div class="swiper-slide"><img src="{{this}}"></div>
+          {{/each}}
+        </div>
+    </div>
+  </div>
+  {{/ionModal}}
 </template>
