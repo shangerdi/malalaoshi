@@ -92,24 +92,13 @@ Template.teacher.helpers({
     return "";
   },
   experience: function(){
-    //TODO add database
-    return "";
+    return this.teacherAudit && this.teacherAudit.experience || "";
   },
   eduResults: function(){
-    //TODO add database
-    return "";
+    return this.teacherAudit && this.teacherAudit.eduResults || "";
   },
   personalPhoto: function(){
-    //TODO add database
-    var test = [
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222226/1437104338352.jpg",
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222223/1437104448883.jpg",
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/11111111223/1436942308118.png",
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/13426127318/1435567695398.jpg",
-      "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222225/1437104374691.jpg"
-    ];
-
-    return test;
+    return this.teacherAudit && this.teacherAudit.personalPhoto ? this.teacherAudit.personalPhoto : [];
   },
   maDu: function(){
     return accounting.formatNumber(this.user && this.user.profile && this.user.profile.maCount
@@ -119,14 +108,11 @@ Template.teacher.helpers({
     return accounting.formatNumber(this.user && this.user.profile && this.user.profile.laCount
       && this.user.profile.laScore ? this.user.profile.laScore/this.user.profile.laCount : 0, 1);
   },
-  commendStudyCenter: function(){
-    return {
-      avatar: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222226/1437104338352.jpg",
-      name: "麻辣学习中心",
-      city: "北京",
-      address: "北京市大望路10号",
-      distance: 500
-    };
+  teacherStudyCenters: function(){
+    return this.studyCenters ? this.studyCenters : [];
+  },
+  activeGoHomeArea: function(){
+    return this.user && this.user.profile && this.user.profile && this.user.profile.goHomeArea ? this.user.profile.goHomeArea.join(" | ") : "";
   }
 });
 
@@ -188,7 +174,7 @@ Template.teacher.events({
   }
 });
 Template.teacherPersonalPhotosShow.onCreated(function(){
-  this.data.personalPhotos = this.data.allphotos.split(",");
+  this.data.personalPhotos = this.data && this.data.teacherId ? TeacherAudit.findOne({'userId': this.data.teacherId}).personalPhoto : [];
 });
 Template.teacherPersonalPhotosShow.onRendered(function(){
   var swiper = new Swiper('.teacher-swiper-container-modal', {

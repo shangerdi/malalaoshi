@@ -1298,3 +1298,15 @@ $greyColor: #b8b8b8;
   height: 100%;
   position: relative;
 }
+.teacher-detail-study-centers > div > div:first-child img{
+  max-height: 100px;
+}
+.teacher-detail-study-centers > div{
+  margin-top: 10px;
+}
+.teacher-detail-study-centers .teachers-filter-study-center-item-info{
+  padding-left: 7px;
+}
+.teacher-detail-study-centers .teachers-filter-study-center-item-info span{
+  margin-bottom: 20px;
+}
