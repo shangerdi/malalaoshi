@@ -333,13 +333,12 @@ $greyColor: #b8b8b8;
 
 @media (min-width: 680px) {
   .modal {
-    top: 20%;
-    right: 20%;
-    bottom: 20%;
-    left: 20%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     overflow: visible;
-    min-height: 240px;
-    width: 60%;
+    width: 100%;
   }
 
   .modal.ng-leave-active {
@@ -1309,4 +1308,12 @@ $greyColor: #b8b8b8;
 }
 .teacher-detail-study-centers .teachers-filter-study-center-item-info span{
   margin-bottom: 20px;
+}
+.teacher-detail-study-centers .teachers-filter-study-center-item{
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+#teacherNavPlaceholder{
+  height: 0;
 }

@@ -1,6 +1,7 @@
 var maxNavOffsetTop = 0;
 var auditMoveHeight = 0;
 var evaluationMoveHeight = 0;
+var teacherNavHeight = 0;
 Template.teacher.onCreated(function(){
   Session.set('hasTabsTop',false);
 });
@@ -8,15 +9,18 @@ Template.teacher.onRendered(function(){
   IonNavigation.skipTransitions = true;
   Session.set('teacherDetialPageAcitveTab', null);
   var detailScrollTop = $('.teacher-detail').scrollTop();
-  var navDist = $("#teacherNav").outerHeight(true) + $("#teacherNav").outerHeight();
+  var navDist = $("#teacherNav").outerHeight(true);
+  teacherNavHeight = $("#teacherNav").outerHeight();
   maxNavOffsetTop = $("#teacherNav").offset().top - $(".teacher-detail").offset().top + detailScrollTop;
   auditMoveHeight = $('#teacherAudit').position().top - navDist - 20 + detailScrollTop;
   evaluationMoveHeight = $('#teacherEvaluation').position().top - navDist + 1 + detailScrollTop;
   $('.teacher-detail').scroll(function(){
     if($('.teacher-detail').scrollTop() >= maxNavOffsetTop){
       $('#teacherNav').addClass('teacher-detail-nav-fixed');
+      $('#teacherNavPlaceholder').height(teacherNavHeight+'px');
     }else{
       $('#teacherNav').removeClass('teacher-detail-nav-fixed');
+      $('#teacherNavPlaceholder').height(0);
     }
   });
 
@@ -109,7 +113,16 @@ Template.teacher.helpers({
       && this.user.profile.laScore ? this.user.profile.laScore/this.user.profile.laCount : 0, 1);
   },
   teacherStudyCenters: function(){
-    return this.studyCenters ? this.studyCenters : [];
+    var pointBasic = Session.get("locationLngLat");
+    var retStudyCenters = [];
+    if(this.studyCenters){
+      this.studyCenters.forEach(function(element){
+        element.distance = pointBasic ? calculateDistance({lat: element.lat, lng: element.lng}, pointBasic) : null;
+        retStudyCenters[retStudyCenters.length] = element;
+      });
+    }
+    retStudyCenters.sort(compDistance);
+    return retStudyCenters;
   },
   activeGoHomeArea: function(){
     return this.user && this.user.profile && this.user.profile && this.user.profile.goHomeArea ? this.user.profile.goHomeArea.join(" | ") : "";
