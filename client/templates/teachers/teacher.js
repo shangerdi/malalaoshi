@@ -6,28 +6,49 @@ Template.teacher.onCreated(function(){
   Session.set('hasTabsTop',false);
 });
 Template.teacher.onRendered(function(){
+  var self = this;
+  var addNavElement = '' +
+  '  <div class="teacher-detail-tab-content teacher-detail-nav-fixed" id="teacherNavStatic"> ' +
+  '    <div id="mainPage" class="teacher-detail-tab">个人资料</div> ' +
+  '    <div id="evaluation" class="teacher-detail-tab">评价</div> ' +
+  '  </div>';
+
+  $('body').append(addNavElement);
+
+  $('#mainPage').click(mainPageClick);
+  $('#evaluation').click(evaluationClick);
+
   IonNavigation.skipTransitions = true;
   Session.set('teacherDetialPageAcitveTab', null);
   var detailScrollTop = $('.teacher-detail').scrollTop();
-  var navDist = $("#teacherNav").outerHeight(true);
+  var teacherDetailOffTop = $(".teacher-detail").offset().top;
+  var barHeaderHeight = $(".bar-header").outerHeight(true);
+  var navStaticHeight = $("#teacherNavStatic").outerHeight(true);
   teacherNavHeight = $("#teacherNav").outerHeight();
   maxNavOffsetTop = $("#teacherNav").offset().top - $(".teacher-detail").offset().top + detailScrollTop;
-  auditMoveHeight = $('#teacherAudit').position().top - navDist - 20 + detailScrollTop;
-  evaluationMoveHeight = $('#teacherEvaluation').position().top - navDist + 1 + detailScrollTop;
+  auditMoveHeight = detailScrollTop + $("#teacherAudit").offset().top - barHeaderHeight - navStaticHeight;
+  evaluationMoveHeight = detailScrollTop + $("#teacherEvaluation").offset().top - barHeaderHeight - navStaticHeight;
   $('.teacher-detail').scroll(function(){
-    if($('.teacher-detail').scrollTop() >= maxNavOffsetTop){
-      $('#teacherNav').addClass('teacher-detail-nav-fixed');
-      $('#teacherNavPlaceholder').height(teacherNavHeight+'px');
+    if($("#teacherNav").offset().top <= teacherDetailOffTop){
+      $('#teacherNavStatic').css('display','block');
     }else{
-      $('#teacherNav').removeClass('teacher-detail-nav-fixed');
-      $('#teacherNavPlaceholder').height(0);
+      $('#teacherNavStatic').css('display','none');
     }
   });
-
   var swiper = new Swiper('.teacher-swiper-container', {
       slidesPerView: 3,
       spaceBetween: 7,
       freeMode: true
+  });
+  self.autorun(function(){
+    var actId = Session.get('teacherDetialPageAcitveTab');
+    if(actId == "mainPage"){
+      $('#mainPage').addClass('teacher-detail-tab-active');
+      $('#evaluation').removeClass('teacher-detail-tab-active');
+    }else if(actId == "evaluation"){
+      $('#evaluation').addClass('teacher-detail-tab-active');
+      $('#mainPage').removeClass('teacher-detail-tab-active');
+    }
   });
 });
 Template.teacher.helpers({
@@ -172,18 +193,12 @@ Template.teacher.events({
     }else{
       $('#experience').css('height', '76px');
     }
-  }
-});
-Template.teacher.events({
-  'click #mainPage': function(e){
-    e.preventDefault();
-    Session.set('teacherDetialPageAcitveTab', "mainPage");
-    $('.teacher-detail').scrollTo(auditMoveHeight+'px',500);
   },
-  'click #evaluation': function(e){
-    e.preventDefault();
-    Session.set('teacherDetialPageAcitveTab', "evaluation");
-    $('.teacher-detail').scrollTo(evaluationMoveHeight+'px',500);
+  'click #mainPageInScroll': function(e){
+    mainPageClick(e);
+  },
+  'click #evaluationInScroll': function(e){
+    evaluationClick(e);
   }
 });
 Template.teacherPersonalPhotosShow.onCreated(function(){
@@ -194,6 +209,9 @@ Template.teacherPersonalPhotosShow.onRendered(function(){
       slidesPerView: 1,
       spaceBetween: 0
   });
+});
+Template.teacher.onDestroyed(function(){
+  $('#teacherNavStatic').remove();
 });
 function doStarLevelAry(self){
   var ary = [];
@@ -208,4 +226,14 @@ function doStarLevelAry(self){
     }
   }
   return ary;
+}
+var mainPageClick = function(e){
+  e.preventDefault();
+  Session.set('teacherDetialPageAcitveTab', "mainPage");
+  $('.teacher-detail').scrollTo(auditMoveHeight+'px',500);
+}
+var evaluationClick = function(e){
+  e.preventDefault();
+  Session.set('teacherDetialPageAcitveTab', "evaluation");
+  $('.teacher-detail').scrollTo(evaluationMoveHeight+'px',500);
 }
