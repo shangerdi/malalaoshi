@@ -8,7 +8,7 @@ Template.teacher.onCreated(function(){
 Template.teacher.onRendered(function(){
   var self = this;
   var addNavElement = '' +
-  '  <div class="teacher-detail-tab-content teacher-detail-nav-fixed" id="teacherNavStatic"> ' +
+  '  <div class="teacher-detail-tab-content nav-fixed-top" id="teacherNavStatic"> ' +
   '    <div id="mainPage" class="teacher-detail-tab">个人资料</div> ' +
   '    <div id="evaluation" class="teacher-detail-tab">评价</div> ' +
   '  </div>';
