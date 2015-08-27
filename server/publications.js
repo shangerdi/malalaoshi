@@ -107,9 +107,13 @@ Meteor.publish('teachers', function(parameters) {
 });
 Meteor.publish('teacher', function(userId) {
   if (this.userId) {
+    var teacher = Meteor.users.findOne({"_id": userId, "status.basic": "approved"},{"studyCenter": 1});
+    var studyCenterIds = teacher && teacher.profile && teacher.profile.studyCenter ? teacher.profile.studyCenter : [];
     return [
       Meteor.users.find({"_id": userId, "status.basic": "approved"}),
-      UserEducation.find({'userId': userId})
+      UserEducation.find({'userId': userId}),
+      TeacherAudit.find({'userId': userId}),
+      StudyCenter.find({"_id": {$in: studyCenterIds}})
     ];
   }
   return [];

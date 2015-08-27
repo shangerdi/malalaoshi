@@ -102,7 +102,7 @@ var updateOrderStatusPaid = function(orderId) {
     // 后面安排课程时间
     try {
       var student = Meteor.users.findOne({'_id':order.student.id}), teacher = Meteor.users.findOne({'_id':order.teacher.id}), lessonCount = order.hour, phases = order.phases;
-      doReserveCourses(student, teacher, lessonCount, phases);
+      doReserveCourses(student, teacher, lessonCount, phases, order);
     } catch(ex) {
       console.log(ex);
     }
