@@ -1,0 +1,12 @@
+<template name="accountRole">
+{{#ionView}}
+  {{#ionContent}}
+  <div class="account-role-box">
+    <div class="btns-box">
+      <a href="{{pathFor 'accountEntry' query='role=teacher'}}" class="role-teacher">我是老师</a>
+      <a href="{{pathFor 'accountEntry' query='role=parent'}}" class="role-parent">我是家长</a>
+    </div>
+  </div>
+  {{/ionContent}}
+{{/ionView}}
+</template>
