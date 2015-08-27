@@ -7,6 +7,7 @@ Template.teacher.onCreated(function(){
 });
 Template.teacher.onRendered(function(){
   var self = this;
+  //on Android (< 2.3) devices, elements that are set to position: fixed; in CSS behave as if they are ‘static’ or part of the normal document flow
   var addNavElement = '' +
   '  <div class="teacher-detail-tab-content nav-fixed-top" id="teacherNavStatic"> ' +
   '    <div id="mainPage" class="teacher-detail-tab">个人资料</div> ' +
