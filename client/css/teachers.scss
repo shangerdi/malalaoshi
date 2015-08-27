@@ -1200,11 +1200,14 @@ $greyColor: #b8b8b8;
   padding-left: 85px;
   color: #000000;
 }
-.teacher-detail-nav-fixed{
-  position: fixed;
-  z-index: 999999;
+.nav-fixed-top{
+  position: absolute;
+  z-index: 8;
   background-color: #FFFFFF;
   top: 27px;
+  padding-right: 20px;
+  padding-left: 20px;
+  display: none;
 }
 .teacher-person-img-show{
   overflow: auto;
