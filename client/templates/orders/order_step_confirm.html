@@ -7,7 +7,7 @@
     <h1 class="title normal-title">确认课程订单</h1>
   {{/contentFor}}
 
-  {{#ionView class="order-course-confirm"}}
+  {{#ionView class="order-view order-course-confirm"}}
     {{#ionContent}}
     {{#ionList}}
       {{#ionItem}}
@@ -54,6 +54,8 @@
         </div>
       {{/ionItem}}
     {{/ionList}}
+    {{/ionContent}}
+  <div class="buttom-btn-view">
     <div class="row row-center">
       <div class="pull-left col">
         还需支付：￥<span id="toPayCost">{{toPayCost}}</span>
@@ -64,6 +66,6 @@
         </button>
       </div>
     </div>
-    {{/ionContent}}
+  </div>
   {{/ionView}}
 </template>

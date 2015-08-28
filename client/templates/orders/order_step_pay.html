@@ -7,7 +7,7 @@
     <h1 class="title normal-title">支付</h1>
   {{/contentFor}}
 
-  {{#ionView class="order-course-pay"}}
+  {{#ionView class="order-view order-course-pay"}}
     {{#ionContent}}
     {{#ionList}}
       {{#ionItem}}
@@ -35,11 +35,13 @@
       <span class="help-block">{{errorMessage 'pay'}}</span>
      </div>
     {{/ionList}}
-    <div class="row row-center">
-      <button id="callPayment" class="button button-full button-assertive">
-        支付
-      </button>
-    </div>
     {{/ionContent}}
+    <div class="buttom-btn-view">
+      <div class="col">
+        <button id="callPayment" class="button button-full button-assertive">
+          支付
+        </button>
+      </div>
+    </div>
   {{/ionView}}
 </template>
