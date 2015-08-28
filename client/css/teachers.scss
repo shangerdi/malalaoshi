@@ -1328,27 +1328,35 @@ $greyColor: #b8b8b8;
   margin-top: 20px;
   font-size: 20px;
   padding-bottom: 10px;
-}
-.course-attendance-comment-head > div:last-child{
-  padding-top: 20px;
-  padding-left: 110px;
-}
-.course-attendance-comment-head p{
-  line-height: 20px;
+
+  > div:last-child{
+    padding-top: 20px;
+    padding-left: 110px;
+  }
+
+  p{
+    line-height: 20px;
+  }
 }
 .view-page-common{
   background-color: #FFFFFF;
 }
-.course-attendance-comment-evaluate > div:first-child{
-  font-size: 20px;
-  padding-bottom: 10px;
-}
-.course-attendance-comment-evaluate > div:last-child > div{
-  font-size: 16px;
-  line-height: 33px;
+.course-attendance-comment-evaluate{
+  > div:first-child{
+   font-size: 20px;
+   padding-bottom: 10px;
+ }
+ > div:last-child > div{
+   font-size: 16px;
+   line-height: 33px;
+ }
 }
 .course-attendance-comment-evaluate-i{
   float: right;
   font-size: 30px;
   width: 166px;
+
+  i{
+    cursor: pointer;
+  }
 }

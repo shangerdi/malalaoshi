@@ -69,6 +69,21 @@ Meteor.publish('courseAttendances', function(params) {
   }
   return null;
 });
+Meteor.publish('courseAttendancesWithTeacher', function(params) {
+  if (this.userId && params) {
+    var cts = CourseAttendances.find(params.find, params.options);
+    var teacherIds = [];
+    cts.forEach(function(ct){
+      teacherIds[teacherIds.length] = ct.teacher.id;
+    });
+    teacherIds = _.uniq(teacherIds);
+    return [
+      cts,
+      Meteor.users.find({_id: {$in: teacherIds}})
+    ];
+  }
+  return null;
+});
 
 Meteor.publish('teacherAudits', function(param) {
   var curUser = Meteor.users.findOne(this.userId);
