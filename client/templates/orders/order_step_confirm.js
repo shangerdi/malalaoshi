@@ -4,8 +4,9 @@ var getOrderId = function() {
 var getTeacherId = function() {
   return Session.get("orderTeacherId");
 }
+// TODO price of per lesson
 var getUnitPrice = function() {
-  return 400;
+  return 0.01;
 }
 var getCourseCount = function() {
   var courseCount = Session.get("courseCount");
@@ -15,8 +16,9 @@ var calcTotalCost = function() {
   var courseCount = getCourseCount();
   return courseCount * getUnitPrice();
 }
+// TODO discount
 var getDiscount = function() {
-  return 100;
+  return 0;
 }
 var calcToPayCost = function() {
   return calcTotalCost()-getDiscount();
@@ -83,7 +85,7 @@ Template.orderStepConfirm.events({
       var teacherId = getTeacherId(), studentId = Meteor.userId();
       var className = "预约课程(TODO)";
       var hour = getCourseCount();
-      var unitCost = getUnitPrice();
+      var unitCost = getUnitPrice(); // TODO: do not pass price from client
       var cost = calcTotalCost();
       var teacher = Meteor.users.findOne({'_id': teacherId}), student = Meteor.user();
 
