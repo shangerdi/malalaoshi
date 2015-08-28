@@ -6,6 +6,9 @@ Meteor.publish("userData", function () {
     this.ready();
   }
 });
+Meteor.publish("userAvatars", function(userIds){
+  return Meteor.users.find({_id:{$in: userIds}}, {fields: {'profile.avatarUrl': 1}});
+});
 Meteor.publish('messages', function() {
   return Messages.find({userId: this.userId});
 });
