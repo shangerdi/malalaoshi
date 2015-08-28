@@ -1,0 +1,66 @@
+<template name="applyTeacherProgress">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">申请进度</h1>
+  {{/contentFor}}
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear pull-right button-positive" data-ion-modal="">
+      。。。
+    </button>
+  {{/contentFor}}
+
+
+  {{#ionView class="apply-progress"}}
+    {{#ionContent}}
+      <div class="progress-row profress-register {{getClass 'register'}}">
+        <div class="progress-mark">
+          <div class="v-line"></div>
+          <span class="flag ion-checkmark-circled"></span>
+        </div>
+        <h4>恭喜您注册成功</h4>
+        <p class="hint-info">
+          请完善您的个人资料
+        </p>
+        <div class="time-info">今天13:39</div>
+      </div>
+      <div class="progress-row profress-submit {{getClass 'submit'}}">
+        <div class="progress-mark">
+          <div class="v-line"></div>
+          <span class="flag ion-checkmark-circled"></span>
+        </div>
+        <h4>您的资料已经提交</h4>
+        <p class="hint-info">
+          我们会在3个工作日内给您答复
+        </p>
+        <div class="time-info">今天15:39</div>
+      </div>
+      <div class="progress-row profress-audit  {{getClass 'audit'}}">
+        <div class="progress-mark">
+          <div class="v-line"></div>
+          <span class="flag ion-checkmark-circled"></span>
+        </div>
+        <h4>您的资料审核成功</h4>
+        <p class="hint-info">
+          敬请等待
+        </p>
+        <div class="time-info">今天19:39</div>
+      </div>
+      <div class="progress-row profress-complete  {{getClass 'complete'}}">
+        <div class="progress-mark">
+          <div class="v-line"></div>
+          <span class="flag ion-checkmark-circled"></span>
+        </div>
+        <h4>恭喜您成为麻辣老师</h4>
+        <p class="hint-info">
+          您可以继续完善资料、查看收入、查看课程安排等信息
+        </p>
+        <div class="time-info">今天21:39</div>
+      </div>
+      {{#unless isProfileAudited}}
+        <div class="bar bar-footer">
+          <button>完善个人资料</button>
+        </div>
+      {{/unless}}
+    {{/ionContent}}
+  {{/ionView}}
+
+</template>
