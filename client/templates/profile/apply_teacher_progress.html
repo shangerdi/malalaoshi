@@ -8,8 +8,8 @@
     </button>
   {{/contentFor}}
 
-
-  {{#ionView class="apply-progress"}}
+<div class="apply-progress">
+  {{#ionView}}
     {{#ionContent}}
       <div class="progress-row profress-register {{getClass 'register'}}">
         <div class="progress-mark">
@@ -55,12 +55,16 @@
         </p>
         <div class="time-info">今天21:39</div>
       </div>
-      {{#unless isProfileAudited}}
-        <div class="bar bar-footer">
-          <button>完善个人资料</button>
-        </div>
-      {{/unless}}
     {{/ionContent}}
   {{/ionView}}
+  
+  {{#unless isProfileAudited}}
+  <div class="{{platform}} ">
+    <div class="buttom-btn-view">
+      <button id="editProfileBtn" class="button button-full button-assertive">完善个人资料</button>
+    </div>
+  </div>
+  {{/unless}}
+</div>
 
 </template>
