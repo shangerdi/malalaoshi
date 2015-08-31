@@ -1,3 +1,10 @@
+var getTeacherId = function() {
+  return Session.get("orderTeacherId");
+}
+var getCourseCount = function() {
+  var courseCount = Session.get("courseCount");
+  return courseCount?courseCount:0;
+}
 Template.order.onRendered(function () {
   IonNavigation.skipTransitions = true;
   Session.set("orderShowLoading", false);
@@ -14,6 +21,18 @@ Template.order.helpers({
       var b = lth < 7 ? lth : 7;
       return pn.substring(0, a) + "****" + pn.substring(b, lth);
     }
+  },
+  timePhases: function() {
+    return Session.get("phases");
+  },
+  convMinutes2Str: function(mins) {
+    return ScheduleTable.convMinutes2Str(mins);
+  },
+  weekdayText: function(d) {
+    return '每周'+ScheduleTable.dayNumWords[d];
+  },
+  courseCount: function() {
+    return getCourseCount();
   },
   subject: function(){
     return this.order ? this.order.subject : "";
