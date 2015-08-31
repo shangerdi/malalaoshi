@@ -14,7 +14,7 @@ var isPassed = function() {
   var auditObj = getAuditObj();
   return auditObj && auditObj.applyStatus==='passed';
 }
-Template.applyTeacherProgress.helpers({
+Template.applicationProgress.helpers({
   getClass: function(step) {
     if (step==='register') {
       return 'ok';
@@ -36,7 +36,7 @@ Template.applyTeacherProgress.helpers({
     return isPassed();
   }
 });
-Template.applyTeacherProgress.events({
+Template.applicationProgress.events({
   'click #editProfileBtn': function() {
     Router.go('profileEditBasic');
   },
