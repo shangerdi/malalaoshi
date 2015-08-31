@@ -12,7 +12,7 @@
 
 1. Fork this repository
 2. Grant `lsun` read access to your forked repo
-3. `ssh-keygen` and follow manage account -> ssh keys -> add key
+3. Follow <https://confluence.atlassian.com/bitbucket/add-an-ssh-key-to-an-account-302811853.html> to add an SSH key to your bitbucket account.
 4. Utilize `git clone` to download forked repo to local machine
 5. Install Meteor
 6. `cd malalaoshi`
