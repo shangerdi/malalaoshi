@@ -58,13 +58,16 @@
     {{/ionContent}}
   {{/ionView}}
   
-  {{#unless isProfileAudited}}
   <div class="{{platform}} ">
     <div class="buttom-btn-view">
+      {{#unless isProfileAudited}}
       <button id="editProfileBtn" class="button button-full button-assertive">完善个人资料</button>
+      {{/unless}}
+      {{#if isPassed}}
+      <button id="start" class="button button-full button-assertive">开启麻辣之旅</button>
+      {{/if}}
     </div>
   </div>
-  {{/unless}}
 </div>
 
 </template>

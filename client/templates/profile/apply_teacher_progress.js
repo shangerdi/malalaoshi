@@ -10,9 +10,9 @@ var isProfileAudited = function() {
   var auditObj = getAuditObj();
   return auditObj && auditObj.basicInfo && auditObj.basicInfo.status==='approved';
 }
-var isComplete = function() {
+var isPassed = function() {
   var auditObj = getAuditObj();
-  return auditObj && auditObj.isQualified;
+  return auditObj && auditObj.applyStatus==='passed';
 }
 Template.applyTeacherProgress.helpers({
   getClass: function(step) {
@@ -25,11 +25,28 @@ Template.applyTeacherProgress.helpers({
     if (step==='audit' && isProfileAudited()) {
       return 'ok';
     }
-    if (step==='complete' && isComplete()) {
+    if (step==='complete' && isPassed()) {
       return 'ok';
     }
   },
   isProfileAudited: function() {
     return isProfileAudited();
+  },
+  isPassed: function() {
+    return isPassed();
+  }
+});
+Template.applyTeacherProgress.events({
+  'click #editProfileBtn': function() {
+    Router.go('profileEditBasic');
+  },
+  'click #start': function() {
+    Meteor.call('startAsTeacher', function(err, result) {
+      if (err) {
+        alert(err.reason);
+        return;
+      }
+      Router.go('dashboard');
+    });
   }
 });
