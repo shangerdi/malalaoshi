@@ -80,7 +80,9 @@ Template.comment.events({
       maScore: getScore(maScore),
       laScore: getScore(laScore),
       courseAttendanceId: this.courseAttendance._id,
-      comment: comment
+      comment: comment,
+      teacher: this.courseAttendance.teacher,
+      student: this.courseAttendance.student
     }
     Meteor.call('insertComment', saveObj, function(error, result){
       if(error){
