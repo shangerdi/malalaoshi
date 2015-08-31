@@ -13,7 +13,7 @@ Meteor.methods({
     //TODO bay transaction
     Comment.insert(comment, function(error, result){
       if(!error){
-        CourseAttendances.update({_id: comment.courseAttendanceId}, {'state': 3};
+        CourseAttendances.update({_id: comment.courseAttendanceId}, {$set: {'state': 3}});
       }
     });
   }
