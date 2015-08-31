@@ -1,4 +1,5 @@
 Template.index.onCreated(function(){
+  Session.set('hasTabsTop',false);
   appSetDefaultCity();
 });
 

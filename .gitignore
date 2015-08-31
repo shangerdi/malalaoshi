@@ -9,3 +9,4 @@ client/zltest/
 package-stubs.js
 packageMocksSpec.js
 .idea
+*.swp

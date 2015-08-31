@@ -1,5 +1,6 @@
+// TODO price of per lesson
 var getUnitPrice = function() {
-  return 400;
+  return 0.01;
 }
 var getCourseCount = function() {
   var courseCount = parseInt($("#courseCount").val());

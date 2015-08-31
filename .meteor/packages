@@ -38,11 +38,10 @@ zhonglijunyi:meteor-pingpp
 reywood:iron-router-ga
 zhonglijunyi:ionic
 browser-policy
-lsun:ckeditor
 percolate:synced-cron
 dispatch:reload-on-resume
 peerlibrary:async
 node-async-locks
 msavin:mongol
 reactive-var
-velocity:html-reporter
+johnantoni:meteor-scrollto

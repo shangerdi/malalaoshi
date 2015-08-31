@@ -1,0 +1,37 @@
+<template name="teacherScheduleCourses">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">我的课程</h1>
+  {{/contentFor}}
+
+  {{> appScheduleTabs}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList class="schedule-courses"}}
+        {{#each courses}}
+        {{#ionItem class="schedule-course-item"}}
+          <div class="course-time-info">
+            <div class="pull-left">
+              {{getCourseTime this.attendTime}} {{this.student.name}} {{getStateStr this._id}}
+            </div>
+            <div class="pull-right">
+              {{this.detail.subject}} {{convMinutes2Str this.phase.start}} - {{convMinutes2Str this.phase.end}}
+            </div>
+          </div>
+          <div class="course-addr-info">
+            <div class="pull-left">
+              上课地点
+            </div>
+            <div class="pull-right">
+              TODO
+            </div>
+          </div>
+        {{/ionItem}}
+        {{/each}}
+      {{/ionList}}
+      {{#if hasMore}}
+        <a class="btn" href="{{nextPath}}">more</a>
+      {{/if}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

@@ -4,12 +4,16 @@ Template.register.onCreated(function() {
 Template.register.onRendered(function() {
   var role = Router.current().params.query.role;
   if (!role) {
+    role = Session.get('selectedRole');
+  }
+  if (!role) {
     role = 'parent';
   }
   selectRole(role);
 });
 var selectRole = function(role) {
   $("input[name=role]").val(role);
+  Session.set('selectedRole', role);
   $(".role-select li.active").removeClass('active');
   $(".role-select li.tab-"+role).addClass('active');
   if (role=="parent") {
@@ -55,6 +59,10 @@ validateRegister = function (param, step) {
       errors.checkCode = "验证码错误";
       hasError = true;
     }
+    if (!$("#agreement").is(":checked")) {
+      errors.agreement = "请阅读并同意用户协议";
+      hasError = true;
+    }
   }
   errors.hasError = hasError;
   return errors;
@@ -72,9 +80,9 @@ Template.register.events({
       $getCodeButton.attr("disabled",true);
     }
   },
-  'keyup #checkCode, change #checkCode': function(e) {
-    var val = e.target.value, $destBtn = $("#doRegister");
-    if (/^\d{6}$/.test(val)) {
+  'keyup #checkCode, change #checkCode, click #agreement': function(e) {
+    var checkCode = $("#checkCode").val(), isAgree = $("#agreement").is(":checked"), $destBtn = $("#doRegister");
+    if (/^\d{6}$/.test(checkCode) && isAgree) {
       $destBtn.removeAttr('disabled');
     } else {
       $destBtn.attr("disabled",true);

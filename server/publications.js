@@ -6,6 +6,9 @@ Meteor.publish("userData", function () {
     this.ready();
   }
 });
+Meteor.publish("userAvatars", function(userIds){
+  return Meteor.users.find({_id:{$in: userIds}}, {fields: {'profile.avatarUrl': 1}});
+});
 Meteor.publish('messages', function() {
   return Messages.find({userId: this.userId});
 });
@@ -69,6 +72,21 @@ Meteor.publish('courseAttendances', function(params) {
   }
   return null;
 });
+Meteor.publish('courseAttendancesWithTeacher', function(params) {
+  if (this.userId && params) {
+    var cts = CourseAttendances.find(params.find, params.options);
+    var teacherIds = [];
+    cts.forEach(function(ct){
+      teacherIds[teacherIds.length] = ct.teacher.id;
+    });
+    teacherIds = _.uniq(teacherIds);
+    return [
+      cts,
+      Meteor.users.find({_id: {$in: teacherIds}})
+    ];
+  }
+  return null;
+});
 
 Meteor.publish('teacherAudits', function(param) {
   var curUser = Meteor.users.findOne(this.userId);
@@ -107,9 +125,13 @@ Meteor.publish('teachers', function(parameters) {
 });
 Meteor.publish('teacher', function(userId) {
   if (this.userId) {
+    var teacher = Meteor.users.findOne({"_id": userId, "status.basic": "approved"},{"studyCenter": 1});
+    var studyCenterIds = teacher && teacher.profile && teacher.profile.studyCenter ? teacher.profile.studyCenter : [];
     return [
       Meteor.users.find({"_id": userId, "status.basic": "approved"}),
-      UserEducation.find({'userId': userId})
+      UserEducation.find({'userId': userId}),
+      TeacherAudit.find({'userId': userId}),
+      StudyCenter.find({"_id": {$in: studyCenterIds}})
     ];
   }
   return [];

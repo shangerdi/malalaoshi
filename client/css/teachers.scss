@@ -273,6 +273,9 @@ $greyColor: #b8b8b8;
 .teacher-content .checkbox{
   margin: 0;
 }
+#teacherAudit > div:last-child{
+  margin-top: 10px;
+}
 .teacher-content .teacher-cert div{
   margin-top: 8px;
 }
@@ -293,6 +296,7 @@ $greyColor: #b8b8b8;
 .teacher-cert span{
   color: $greyColor;
   font-size: 15px;
+  font-weight: bolder;
 }
 .ion-checked{
   color: #59e3c3;
@@ -329,13 +333,12 @@ $greyColor: #b8b8b8;
 
 @media (min-width: 680px) {
   .modal {
-    top: 20%;
-    right: 20%;
-    bottom: 20%;
-    left: 20%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     overflow: visible;
-    min-height: 240px;
-    width: 60%;
+    width: 100%;
   }
 
   .modal.ng-leave-active {
@@ -412,19 +415,14 @@ $greyColor: #b8b8b8;
   width: 100%;
 }
 .teacher-detail > div:nth-child(n+2){
-  margin-top: 10px;
   width: 100%;
 }
 .teacher-detail > div:nth-child(n+4){
-  border-bottom: solid #ddd 1px;
-  min-height: 70px;
   float: left;
-}
-.teacher-detail > div:nth-child(n+5) > div:last-child{
-  margin-top: 10px;
 }
 .teacher-detail > div:nth-last-child(1){
   border-bottom: none;
+  margin-bottom: 100px;
 }
 .teacher-detail > div:nth-last-child(2){
   border-bottom: none;
@@ -442,10 +440,8 @@ $greyColor: #b8b8b8;
   padding: 20px;
 }
 .teacher-detail-head > div{
-  //position: absolute;
   bottom: 0;
   display: -webkit-inline-box;
-  //margin-left: -25px;
 }
 .teacher-detail-head > div > img{
   vertical-align: middle;
@@ -479,11 +475,7 @@ $greyColor: #b8b8b8;
 .teacher-detail-item-head-float{
   float: left;
 }
-.teacher-detail > div:nth-child(n+5) > div:last-child{
-  color: $greyColor;
-  font-size: 15px;
-  font-weight: bolder;
-}
+
 .teacher-detail-item-name{
   font-size: 18px;
 }
@@ -1025,7 +1017,7 @@ $greyColor: #b8b8b8;
   background-color: #f1f1f1;
   margin: 0 auto 20px auto;
   width: 95%;
-  margin: 0 auto 20px auto;
+  margin: 0 auto;
   display: table;
 }
 .teachers-filter-study-center-item > div{
@@ -1141,7 +1133,7 @@ $greyColor: #b8b8b8;
   float:left;
 }
 .teacher-detail-tab{
-  width: 33.33%;
+  width: 50%;
   float: left;
   border-style: solid;
   border-width: 2px 0 2px 0;
@@ -1157,9 +1149,12 @@ $greyColor: #b8b8b8;
 }
 .teacher-detail-tab-content{
   width: 100%;
+  margin-top: 15px;
 }
 .teacher-detial-star-content > div:first-child{
   padding: 15px;
+  padding-right: 5px;
+  padding-left: 5px;
   height: 80px;
   width: 50%;
   float: left;
@@ -1173,7 +1168,8 @@ $greyColor: #b8b8b8;
 }
 .teacher-detial-star-content > div:last-child{
   padding: 15px;
-  padding-left: 25px;
+  padding-right: 5px;
+  padding-left: 5px;
   float: left;
   height: 80px;
   width: 49%;
@@ -1203,4 +1199,164 @@ $greyColor: #b8b8b8;
   width: 100%;
   padding-left: 85px;
   color: #000000;
+}
+.nav-fixed-top{
+  position: absolute;
+  z-index: 8;
+  background-color: #FFFFFF;
+  top: 27px;
+  padding-right: 20px;
+  padding-left: 20px;
+  display: none;
+}
+.teacher-person-img-show{
+  overflow: auto;
+}
+.teacher-person-img-show > div:last-child{
+  margin-top: 40px;
+}
+.teacher-swiper-container{
+  height: 100px;
+}
+.teacher-swiper-container img{
+  height: 100px;
+  width: 100%;
+}
+.teacher-more-info{
+  float: right;
+  color: #b8b8b8;
+  font-size: 15px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+#eduReults{
+  line-height: 25px;
+  overflow: hidden;
+  height: 52px;
+  margin-top: 10px;
+}
+#experience{
+  line-height: 25px;
+  overflow: hidden;
+  height: 76px;
+  margin-top: 10px;
+}
+.teacher-detial-study-center i{
+  display: none;
+}
+.teacher-detial-study-center > div:last-child{
+  margin-top: 10px;
+}
+#evaluationInfo{
+  margin-top: 10px;
+}
+.teacher-buttom-btn-view{
+  background-color: #f1f1f1;
+  font-size: 18px;
+}
+.teacher-buttom-btn-view .row{
+  padding: 0;
+}
+.teacher-buttom-btn-view .col{
+  padding: 0;
+}
+.teachers-filter .teachers-filter-study-center-item{
+  margin: 0 auto 20px auto;
+}
+.teacher-swiper-container-modal{
+  width: 100%;
+  height: 100%;
+}
+.teacher-swiper-container-modal .swiper-wrapper{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.teacher-swiper-container-modal .swiper-slide{
+  text-align: center;
+  font-size: 18px;
+  background: #414141;
+  height: 100%;
+}
+.teacher-swiper-container-modal img{
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.teacher-detail-photos-show{
+  background: #414141;
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.teacher-detail-study-centers > div > div:first-child img{
+  max-height: 100px;
+}
+.teacher-detail-study-centers > div{
+  margin-top: 10px;
+}
+.teacher-detail-study-centers .teachers-filter-study-center-item-info{
+  padding-left: 7px;
+}
+.teacher-detail-study-centers .teachers-filter-study-center-item-info span{
+  margin-bottom: 20px;
+}
+.teacher-detail-study-centers .teachers-filter-study-center-item{
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+#teacherNavPlaceholder{
+  height: 0;
+}
+.view-both-side-margin{
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.course-attendance-comment-head{
+  margin-top: 20px;
+  font-size: 20px;
+  padding-bottom: 10px;
+
+  > div:last-child{
+    padding-top: 20px;
+    padding-left: 110px;
+  }
+
+  p{
+    line-height: 20px;
+  }
+}
+.view-page-common{
+  background-color: #FFFFFF;
+}
+.course-attendance-comment-evaluate{
+  > div:first-child{
+   font-size: 20px;
+   padding-bottom: 10px;
+ }
+ > div:last-child > div{
+   font-size: 16px;
+   line-height: 33px;
+ }
+}
+.course-attendance-comment-evaluate-i{
+  float: right;
+  font-size: 30px;
+  width: 166px;
+
+  i{
+    cursor: pointer;
+  }
 }
