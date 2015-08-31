@@ -36,8 +36,17 @@ function getScore(arr){
   return 0;
 }
 Template.comment.onRendered(function(){
-  Session.set("commentMaDuStars", genStarsAry(-1));
-  Session.set("commentLaDuStars", genStarsAry(-1));
+  if(this.data && this.data.comment){
+    var madu = this.data.comment.maScore;
+    var ladu = this.data.comment.laScore;
+    madu = madu > 0 ? --madu : -1;
+    ladu = ladu > 0 ? --ladu : -1;
+    Session.set("commentMaDuStars", genStarsAry(madu));
+    Session.set("commentLaDuStars", genStarsAry(ladu));
+  }else{
+    Session.set("commentMaDuStars", genStarsAry(-1));
+    Session.set("commentLaDuStars", genStarsAry(-1));
+  }
 });
 Template.comment.helpers({
   subject: function(){
@@ -57,6 +66,9 @@ Template.comment.helpers({
   },
   submitBtnClass: function(){
     return (this.courseAttendance && this.courseAttendance.state == 3) ? "buttom-btn-view-no-active" : "buttom-btn-view-active";
+  },
+  commentInfo: function(){
+    return this.comment && this.comment.comment ? this.comment.comment : "";
   }
 });
 Template.comment.events({

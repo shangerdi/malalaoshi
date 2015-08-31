@@ -162,3 +162,9 @@ Meteor.publish('orders', function(parameters) {
   }
   return [];
 });
+Meteor.publish('comments', function(params) {
+  if (this.userId && params) {
+    return Comment.find(params.find, params.options);
+  }
+  return null;
+});
