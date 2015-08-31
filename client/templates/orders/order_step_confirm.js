@@ -4,9 +4,8 @@ var getOrderId = function() {
 var getTeacherId = function() {
   return Session.get("orderTeacherId");
 }
-// TODO price of per lesson
 var getUnitPrice = function() {
-  return 0.01;
+  return Orders.getTeacherUnitPrice(getTeacherId());
 }
 var getCourseCount = function() {
   var courseCount = Session.get("courseCount");
