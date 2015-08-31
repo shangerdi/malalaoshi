@@ -8,4 +8,5 @@ client/zltest/
 .npm
 package-stubs.js
 packageMocksSpec.js
+.idea
 *.swp
