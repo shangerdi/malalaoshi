@@ -26,27 +26,31 @@
           <div>
             <div>
               <div class="course-attendance-comment-evaluate-i">
-                <i class="icon ion-ios-star"></i>
-                <i class="icon ion-ios-star"></i>
-                <i class="icon ion-ios-star"></i>
-                <i class="icon ion-ios-star"></i>
-                <i class="icon ion-ios-star-outline"></i>
+                {{#each maStars}}
+                  <i class="icon {{starClass this.value}}" data-index="{{this.index}}" name="maDu"></i>
+                {{/each}}
               </div>
               <div>麻度（上课老好了，一学就会）</div>
             </div>
             <div>
               <div class="course-attendance-comment-evaluate-i">
-                <i class="icon ion-ios-star"></i>
-                <i class="icon ion-ios-star"></i>
-                <i class="icon ion-ios-star"></i>
-                <i class="icon ion-ios-star"></i>
-                <i class="icon ion-ios-star"></i>
+                {{#each laStars}}
+                  <i class="icon {{starClass this.value}}" data-index="{{this.index}}" name="laDu"></i>
+                {{/each}}
               </div>
               <div>辣度（老师太棒了，必须点赞）</div>
             </div>
           </div>
       </div>
       <div class="view-both-side-margin"><hr></div>
+      <div class="view-both-side-margin">
+        <textarea rows='3' style="border: solid #c2c2c2 1px; padding: 10px;">超级棒的老师，很负责任，已经是第三次上王老师的课了，很期待下一次！</textarea>
+      </div>
     {{/ionContent}}
+    <div class="buttom-btn-view {{submitBtnClass}}">
+      <button class="button button-full">
+        发表评价
+      </button>
+    </div>
   {{/ionView}}
 </template>
