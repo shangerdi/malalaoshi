@@ -30,5 +30,5 @@
 
 ### To Synchronize with Upstream
 
-1. `git remote add upstream git@bitbucket.org:lsun/malalaoshi.git`
+1. `git remote add upstream git@bitbucket.org:malalaoshi/malalaoshi.git`
 2. `git pull upstream master`
