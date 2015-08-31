@@ -1,6 +1,9 @@
 <template name="register">
   {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton class="button-positive" path="home" text=false}}
+    {{>ionNavBackButton class="button-positive" path="accountEntry" text=false}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">注册</h1>
   {{/contentFor}}
 
 
@@ -9,7 +12,7 @@
 
 <form class="main form page form-horizontal login-form">
   <div class="col-xs-offset-0 col-xs-12 col-sm-offset-4 col-sm-4">
-    <div class="form-group">
+    <div class="form-group hide">
       <div class="login-top">
         <div class="login-top-box">
         </div>
@@ -19,7 +22,7 @@
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group hide">
       <input type="hidden" id="role" name="role" value="{{role}}">
       <ul class="nav role-select">
         <li class="tab-parent"><a class="btn" name="parent">我是家长</a></li>
@@ -51,6 +54,13 @@
     <div class="form-group {{errorClass 'checkCode'}}">
       <input class="form-control" id="checkCode" name="checkCode" type="text" hint="输入您收到的短信验证码"/>
       <span class="help-block">{{errorMessage 'checkCode'}}</span>
+    </div>
+    <div class="form-group {{errorClass 'agreement'}}">
+      <label>
+        <input id="agreement" name="agreement" type="checkbox" hint="请阅读并同意用户协议"/>
+        我已阅读并同意<a href="{{pathFor 'agreement'}}" target="_blank">《麻辣老师用户服务协议》</a>
+      </label>
+      <span class="help-block">{{errorMessage 'agreement'}}</span>
     </div>
     <div class="form-group">
       <input class="btn btn-login" id="doRegister" type="button" value="注册" disabled="disabled">

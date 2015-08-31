@@ -1,0 +1,52 @@
+<template name="comment">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">评价课程</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent class="view-page-common"}}
+      <div class="teacher-detail-sp-info view-both-side-margin course-attendance-comment-head">
+        <div>
+          <img src="{{teacher.profile.avatarUrl}}" class="img-responsive img-circle">
+        </div>
+        <div>
+          <p>{{teacher.profile.name}} {{subject}}</p>
+          <p>¥{{unitCost}}/课时</p>
+        </div>
+      </div>
+      <div class="view-both-side-margin"><hr></div>
+      <div class="view-both-side-margin course-attendance-comment-evaluate">
+          <div>
+            给老师评分
+          </div>
+          <div>
+            <div>
+              <div class="course-attendance-comment-evaluate-i">
+                <i class="icon ion-ios-star"></i>
+                <i class="icon ion-ios-star"></i>
+                <i class="icon ion-ios-star"></i>
+                <i class="icon ion-ios-star"></i>
+                <i class="icon ion-ios-star-outline"></i>
+              </div>
+              <div>麻度（上课老好了，一学就会）</div>
+            </div>
+            <div>
+              <div class="course-attendance-comment-evaluate-i">
+                <i class="icon ion-ios-star"></i>
+                <i class="icon ion-ios-star"></i>
+                <i class="icon ion-ios-star"></i>
+                <i class="icon ion-ios-star"></i>
+                <i class="icon ion-ios-star"></i>
+              </div>
+              <div>辣度（老师太棒了，必须点赞）</div>
+            </div>
+          </div>
+      </div>
+      <div class="view-both-side-margin"><hr></div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
