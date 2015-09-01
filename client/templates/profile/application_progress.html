@@ -61,17 +61,17 @@
       </div>
     {{/ionContent}}
   {{/ionView}}
-  
-  <div class="{{platform}} ">
-    <div class="buttom-btn-view">
-      {{#unless isProfileAudited}}
-      <button id="editProfileBtn" class="button button-full button-assertive">完善个人资料</button>
-      {{/unless}}
-      {{#if isPassed}}
-      <button id="start" class="button button-full button-assertive">开启麻辣之旅</button>
-      {{/if}}
-    </div>
-  </div>
+
+  {{#unless isProfileAudited}}
+    {{#ionFooterBar}}
+    <button id="editProfileBtn" class="button button-full button-assertive">完善个人资料</button>
+    {{/ionFooterBar}}
+  {{/unless}}
+  {{#if isPassed}}
+    {{#ionFooterBar}}
+    <button id="start" class="button button-full button-assertive">开启麻辣之旅</button>
+    {{/ionFooterBar}}
+  {{/if}}
 </div>
 
 </template>
