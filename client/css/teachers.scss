@@ -841,8 +841,8 @@ $greyColor: #b8b8b8;
   color: #fff;
   font-size: 24px;
   width: 100%;
-  border-right-width: 1;
-  border-left-width: 1;
+  border-right-width: 1px;
+  border-left-width: 1px;
 }
 .buttom-btn-view-active button{
   border-color: #4a4a4a;
@@ -1396,4 +1396,39 @@ $greyColor: #b8b8b8;
 }
 .pop-remind-template{
   text-align: center;
+}
+.comments-page-total-score{
+  margin-top: 20px;
+  margin-bottom: 35px;
+  > div:first-child{
+    float: right;
+    text-align: right;
+    > div:first-child{
+      font-size: 17px;
+    }
+    > div:last-child{
+      font-size: 15px;
+    }
+  }
+  > div:last-child{
+    font-size: 26px;
+  }
+}
+.comments-page-mala-score{
+  font-size: 16px;
+  margin-bottom: 20px;
+  > div:first-child{
+    margin-bottom: 10px;
+  }
+}
+.comments-page-tab{
+  width: 33%;
+  float: left;
+  border-style: solid;
+  border-width: 2px 0 2px 0;
+  text-align: center;
+  padding: 20px 0 20px 0;
+  font-size: 20px;
+  color: #b8b8b8;
+  cursor: pointer;
 }
