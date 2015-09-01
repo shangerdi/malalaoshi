@@ -112,5 +112,8 @@ Template.orderStepSchedule.events({
     if ($ele.hasClass("available") && !$ele.hasClass('reserved')) {
       $ele.toggleClass("chosen");
     }
+    var nChosen = $('td.phase.chosen').length;
+    $('#courseCount').val(Math.max($('#courseCount').val(), nChosen));
+    calcTotalCost();
   }
 });
