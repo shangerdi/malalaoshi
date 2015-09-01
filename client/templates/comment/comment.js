@@ -73,17 +73,23 @@ Template.comment.helpers({
   commentInfo: function(){
     return this.comment && this.comment.comment ? this.comment.comment : "";
   },
-  readyOnly: function(){
-    return (this.courseAttendance && this.courseAttendance.state == 3) ? "" : "readyOnly";
+  readOnly: function(){
+    return (this.courseAttendance && this.courseAttendance.state == 3) ? "readOnly" : "";
   }
 });
 Template.comment.events({
   'click i[name="maDu"]': function(e){
     e.preventDefault();
+    if($('.buttom-btn-view').hasClass("buttom-btn-view-no-active")){
+      return;
+    }
     Session.set("commentMaDuStars", genStarsAry(this.index));
   },
   'click i[name="laDu"]': function(e){
     e.preventDefault();
+    if($('.buttom-btn-view').hasClass("buttom-btn-view-no-active")){
+      return;
+    }
     Session.set("commentLaDuStars", genStarsAry(this.index));
   },
   'click .buttom-btn-view .button': function(e){
