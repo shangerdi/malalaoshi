@@ -32,6 +32,9 @@ function getScore(arr){
     if(arr[i].value == 0){
       return i;
     }
+    if(i == (arr.length - 1)){
+      return i+1;
+    }
   }
   return 0;
 }
@@ -69,6 +72,9 @@ Template.comment.helpers({
   },
   commentInfo: function(){
     return this.comment && this.comment.comment ? this.comment.comment : "";
+  },
+  readyOnly: function(){
+    return (this.courseAttendance && this.courseAttendance.state == 3) ? "" : "readyOnly";
   }
 });
 Template.comment.events({
