@@ -1,6 +1,9 @@
 var getRole = function() {
   var role = Router.current().params.query.role;
   if (!role) {
+    role = Session.get('selectedRole');
+  }
+  if (!role) {
     role = 'parent';
   }
   return role;
@@ -10,6 +13,7 @@ Template.accountEntry.onCreated(function() {
 });
 Template.accountEntry.onRendered(function() {
   var viewHeight = $(window).height();
+  viewHeight -= 44;
   $(".account-entry-box").height(viewHeight);
   $(".listbox").css('top', (viewHeight-170)+"px");
 });
