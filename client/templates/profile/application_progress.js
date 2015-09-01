@@ -50,3 +50,17 @@ Template.applicationProgress.events({
     });
   }
 });
+Template._appProgPopover.onRendered(function(){
+  $(".popover").height("auto");
+});
+Template._appProgPopover.events({
+  'click .btn-logout': function(e) {
+    var doLogout = function() {
+      IonPopover.hide();
+      Meteor.logout();
+      // Router.go('home');
+    };
+    doLogout();
+  }
+});
+

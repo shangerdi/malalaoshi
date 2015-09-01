@@ -3,8 +3,12 @@
     <h1 class="title normal-title">申请进度</h1>
   {{/contentFor}}
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear pull-right button-positive" data-ion-modal="">
-      。。。
+    <button class="button button-clear pull-right button-positive" data-ion-popover="_appProgPopover"><!-- 弹出菜单（见下方定义） -->
+      {{#if isAndroid}}
+        {{> ionIcon icon='android-more-vertical'}}
+      {{else}}
+        {{> ionIcon icon='more'}}
+      {{/if}}
     </button>
   {{/contentFor}}
 
@@ -70,4 +74,16 @@
   </div>
 </div>
 
+</template>
+
+<template name="_appProgPopover">
+  {{#ionPopover class="app-prog-popover"}}
+    <div class="content">
+      <div class="list">
+        <a class="item btn-logout">
+          退出登录
+        </a>
+      </div>
+    </div>
+  {{/ionPopover}}
 </template>
