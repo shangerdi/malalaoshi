@@ -983,20 +983,16 @@ input[type=text].browser {
       }
     }
     .teach-years {
-      height: 44px;
-      line-height: 44px;
-      padding-left: 50%;
-      .ion-slide-box {
-        margin-left: -22px;
-        .slick-list {
-          overflow: visible;
-          .ion-slide {
-            width: 44px;
-            height: 44px;
-            &.slick-active {
-              border: 1px solid black;
-              border-radius: 50%;
-            }
+      .swiper-container {
+        display: inline-table;
+        width: 50%;
+        overflow: visible;
+        .swiper-slide {
+          width: 44px;
+          height: 44px;
+          &.swiper-slide-active {
+            border: 1px solid black;
+            border-radius: 50%;
           }
         }
       }

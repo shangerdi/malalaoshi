@@ -24,35 +24,15 @@
           <!-- 4教龄 -->
           <label>教龄</label>
           <div class="teach-years">
-            {{#ionSlideBox showPager="false"}}
-              {{#ionSlide}}
-                1
-              {{/ionSlide}}
-              {{#ionSlide}}
-                2
-              {{/ionSlide}}
-              {{#ionSlide}}
-                3
-              {{/ionSlide}}
-              {{#ionSlide}}
-                4
-              {{/ionSlide}}
-              {{#ionSlide}}
-                5
-              {{/ionSlide}}
-              {{#ionSlide}}
-                6
-              {{/ionSlide}}
-              {{#ionSlide}}
-                7
-              {{/ionSlide}}
-              {{#ionSlide}}
-                8
-              {{/ionSlide}}
-              {{#ionSlide}}
-                9
-              {{/ionSlide}}
-            {{/ionSlideBox}}
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                {{#each teachYearNums}}
+                  <div class="swiper-slide">{{this}}</div>
+                {{/each}}
+              </div>
+              <!-- Add Pagination -->
+              <div class="swiper-pagination"></div>
+            </div>
           </div>
         {{/ionItem}}
         {{#ionItem}}
