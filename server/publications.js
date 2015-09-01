@@ -170,9 +170,9 @@ Meteor.publish('orders', function(parameters) {
   }
   return [];
 });
-Meteor.publish('comments', function(params) {
+Meteor.publish('commentsByCourseAttendanceId', function(params) {
   if (this.userId && params) {
-    return Comment.find(params.find, params.options);
+    return Comment.find({'courseAttendanceId': params.find.courseAttendanceId}, params.options);
   }
   return null;
 });
