@@ -27,7 +27,7 @@
         <div>
           <div class="order-detail-avatar">
             <span class="order-detail-head">
-              {{order.className}}
+              课程{{order.className}}
             </span>
             <div class="order-detail-detail">
               {{order.teacher.name}} | {{subject}}
@@ -39,6 +39,19 @@
         </div>
         {{/ionItem}}
         {{#ionItem}}
+          <label>上课时间</label>
+          <div class="item-note">
+            {{#each timePhases}}
+              <div>{{weekdayText weekday}} {{convMinutes2Str start}} - {{convMinutes2Str end}}</div>
+            {{/each}}
+          </div>
+        {{/ionItem}}
+        {{#ionItem}}
+          <label>上课地点</label>
+          <div class="item-note">学习中心</div>
+          <div>上课地点详细信息 (TODO)</div>
+        {{/ionItem}}
+        {{#ionItem}}
         <div>
           <div>
             <span class="order-detail-head">
@@ -46,7 +59,7 @@
             </span>
           </div>
           <div class="order-detail-detail">
-            {{formatNum order.hour}}小时
+            {{courseCount}}课时
           </div>
         </div>
         {{/ionItem}}
@@ -61,6 +74,12 @@
             ￥{{money order.unitCost}}
           </div>
         </div>
+        {{/ionItem}}
+        {{#ionItem class="item-icon-right"}}
+          <label>麻辣奖学金</label>
+          <div class="item-note">
+            <a class="btn pull-right" href="{{pathFor 'parentSettingsEdit'}}">{{> ionIcon icon="ios-arrow-forward" class="button-light greyColor"}}</a>
+          </div>
         {{/ionItem}}
         {{#ionItem}}
         <div>
@@ -84,9 +103,18 @@
             </div>
             {{/if}}
           {{else}}
-          <button id="btnSaveAndPay" class="button button-full button-assertive {{error}}">
-            确认并支付
-          </button>
+          <div class="buttom-btn-view">
+            <div class="row row-center">
+              <div class="pull-left col">
+                还需支付：￥<span id="toPayCost">{{toPayCost}}</span>
+              </div>
+              <div class="pull-right col">
+                <button id="btnSaveAndPay" class="button button-full button-assertive">
+                  前往支付
+                </button>
+              </div>
+            </div>
+          </div>
           {{/if}}
         </div>
         {{/ionItem}}

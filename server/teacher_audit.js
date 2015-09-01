@@ -77,5 +77,16 @@ Meteor.methods({
       'content':"亲，您提交的【"+partName+"】没有通过审核，(原因是："+msg+")，请您再修改一下吧",
     };
     Messages.insert(noticeObj);
+  },
+  startAsTeacher: function() {
+    var curUser = Meteor.users.findOne(this.userId);
+    if (curUser.role!='teacher') {
+      throw new Meteor.Error('没有权限', '您没有权限，若有疑问请联系管理员');
+    }
+    var auditObj = TeacherAudit.findOne({'userId': this.userId});
+    if (!auditObj || auditObj.applyStatus!='passed') {
+      throw new Meteor.Error('没有权限', '您还没有通过审核，若有疑问请联系管理员');
+    }
+    TeacherAudit.update({'userId':this.userId},{$set:{'applyStatus': 'started'}});
   }
 });
