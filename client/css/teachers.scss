@@ -1251,6 +1251,34 @@ $greyColor: #b8b8b8;
 }
 #evaluationInfo{
   margin-top: 10px;
+  i{
+    font-size: 20px;
+  }
+  img{
+    width: 35px;
+    display: inline;
+  }
+  > div:last-child{
+    color: $greyColor;
+    clear: both;
+    padding-left: 30px;
+    margin-top: -1px;
+  }
+  > div:first-child{
+    line-height: 40px;
+    > div{
+      height: 40px;
+    }
+    > div:first-child{
+      float: right;
+    }
+    > div:nth-child(2){
+      float: left;
+    }
+    > div:last-child{
+      padding-left: 42px;
+    }
+  }
 }
 .teacher-buttom-btn-view{
   background-color: #f1f1f1;

@@ -47,3 +47,25 @@ Template.registerHelper('runEnv', function() {
 appSetDefaultCity = function() {
   Session.set("locationDefaultCity", "北京市");
 };
+
+genScoreStarsAry = function(val, max){
+  var ret = [];
+  if(typeof val != 'number'){
+    return ret;
+  }
+  var intNum = parseInt(val);
+  var noInteger = val != intNum ? true : false;
+  for(var i=0; i< max; i++){
+    if(i<intNum){
+      ret[ret.length] = 3;    //star
+    }else{
+      if(noInteger){
+        noInteger = false;
+        ret[ret.length] = 2;  //ion-ios-star-half
+      }else{
+        ret[ret.length] = 1;  //star-outline
+      }
+    }
+  }
+  return ret;
+}

@@ -138,7 +138,18 @@
           </span>
         </div>
         <div id="moreEvaluation" class="teacher-more-info">点击查看更多</div>
-        <div id="evaluationInfo">{{evaluationInfo}}</div>
+        <div id="evaluationInfo">
+          <div>
+            <div>
+              {{#each commentStars}}
+                <i class="icon {{starClass this}}"></i>
+              {{/each}}
+            </div>
+            <div><img src="{{commentUserAvatarUrl}}" class="img-responsive img-circle"></div>
+            <div>{{commentUserName}}</div>
+          </div>
+          <div>{{commentInfo}}</div>
+        </div>
       </div>
       <div><hr></div>
     {{/ionContent}}

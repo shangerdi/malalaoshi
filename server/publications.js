@@ -168,3 +168,19 @@ Meteor.publish('comments', function(params) {
   }
   return null;
 });
+Meteor.publish('commentsWidthUserDetail', function(params) {
+  if (this.userId && params) {
+    var comments = Comment.find(params.find, params.options);
+    var userIds = [];
+    comments.forEach(function(ct){
+      userIds[userIds.length] = ct.teacher.id;
+      userIds[userIds.length] = ct.student.id;
+    });
+    userIds = _.uniq(userIds);
+    return [
+      comments,
+      Meteor.users.find({_id: {$in: userIds}})
+    ];
+  }
+  return null;
+});
