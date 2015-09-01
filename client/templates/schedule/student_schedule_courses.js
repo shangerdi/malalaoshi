@@ -11,35 +11,10 @@ var showToastInfo = function(msg) {
     $('.toast-box').remove();
   }, 800);
 }
-var findOptions = function() {
-  var param = {find:{},options:{}};
-  if (!Meteor.userId() || !Meteor.user()) {
-    return null;
-  }
-  param.find["student.id"]=Meteor.userId();
-  var tab = Router.current().route.getName(), now = new Date(), nowTime = now.getTime();
-  if (tab==='coursesToconfirm') { // 查询待确认完成的课程
-    var startTime = nowTime - ScheduleTable.timeToConfirm;
-    param.find.endTime = {'$gte': startTime, '$lte': nowTime};
-    param.find.state = ScheduleTable.attendanceStateDict["reserved"].value;
-  } else if (tab==='coursesConfirmed') { // 查询确认后的课程
-    param.find.endTime = {'$lte': nowTime};
-    param.find.state = {'$in': [ScheduleTable.attendanceStateDict["attended"].value, ScheduleTable.attendanceStateDict["commented"].value]};
-  } else {
-    return null;
-  }
-  param.options.limit = Template.instance().data.limit;
-  return param;
-};
 Template.studentScheduleCourses.onRendered(function(){
   Session.set('ionTab.current', this.data.tab);
 });
 Template.studentScheduleCourses.helpers({
-  courses: function(){
-    var param = findOptions();
-    if (!param) return null;
-    return CourseAttendances.find(param.find, param.options);
-  },
   getCourseTime: function(timestamp) {
     return moment(timestamp).format('YYYY年MM月DD日');
   },

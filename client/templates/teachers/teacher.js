@@ -149,6 +149,9 @@ Template.teacher.helpers({
   activeServiceArea: function(){
     return this.user && this.user.profile && this.user.profile && this.user.profile.serviceArea ? this.user.profile.serviceArea.join(" | ") : "";
   },
+  unitCost: function() {
+    return TeacherAudit.getTeacherUnitPrice(this.user._id);
+  },
   commentInfo: function(){
     return this.comment && this.comment.comment ? this.comment.comment : "";
   },

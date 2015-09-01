@@ -45,3 +45,5 @@ node-async-locks
 msavin:mongol
 reactive-var
 johnantoni:meteor-scrollto
+sanjo:jasmine
+velocity:html-reporter

@@ -7,7 +7,7 @@
     <h1 class="title normal-title">购买课程</h1>
   {{/contentFor}}
 
-  {{#ionView class="order-course-select-time"}}
+  {{#ionView class="order-view order-course-select-time"}}
     {{#ionContent}}
     {{#ionList}}
       {{#ionItem}}
@@ -32,6 +32,8 @@
         <div class="item-note course-price">￥{{unitPrice}}</div>
       {{/ionItem}}
     {{/ionList}}
+    {{/ionContent}}
+  <div class="buttom-btn-view">
     <div class="row row-center">
       <div class="pull-left col">
         课程总价：￥<span id="totalCost">0</span>
@@ -42,6 +44,6 @@
         </button>
       </div>
     </div>
-    {{/ionContent}}
+  </div>
   {{/ionView}}
 </template>

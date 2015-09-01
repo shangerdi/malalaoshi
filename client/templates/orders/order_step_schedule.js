@@ -1,5 +1,8 @@
+var getTeacherId = function() {
+  return Session.get("orderTeacherId");
+}
 var getUnitPrice = function() {
-  return 400;
+  return Orders.getTeacherUnitPrice(getTeacherId());
 }
 var getCourseCount = function() {
   var courseCount = parseInt($("#courseCount").val());
@@ -16,6 +19,32 @@ var calcTotalCost = function() {
 Template.orderStepSchedule.onCreated(function(){
   console.log(Session.get("orderTeacherId"));
   Session.set('errors','');
+});
+Template.orderStepSchedule.onRendered(function(){
+  // 从session中获取“课时数”并显示
+  var num = parseInt(Session.get("courseCount"));;
+  if (isNaN(num) || num<0) {
+    num = 0;
+  }
+  $("#courseCount").val(num);
+  calcTotalCost();
+  // 从seesion中获取已选择的“时间段”
+  var phases = Session.get("phases");
+  if (_.isArray(phases)) {
+    $("td.phase").each(function(){
+      $this = $(this);
+      if (!$this.hasClass('available')) {
+        return;
+      }
+      var i = $this.data('weekday'), start = $this.data('start'), end = $this.data('end');
+      var flag = _.find(phases,function(obj) {
+        return obj.weekday==i && obj.start==start && obj.end==end;
+      });
+      if (flag) {
+        $this.addClass('chosen');
+      }
+    });
+  }
 });
 Template.orderStepSchedule.helpers({
   errorMessage: function(field) {
@@ -42,7 +71,7 @@ Template.orderStepSchedule.events({
     var phases = [];
     $("td.phase.chosen").each(function(){
       $this = $(this);
-      if ($this.hasClass('reserved')) {
+      if (!$this.hasClass('available')) {
         return;
       }
       i = $this.data('weekday'), start = $this.data('start'), end = $this.data('end');
@@ -83,5 +112,8 @@ Template.orderStepSchedule.events({
     if ($ele.hasClass("available") && !$ele.hasClass('reserved')) {
       $ele.toggleClass("chosen");
     }
+    var nChosen = $('td.phase.chosen').length;
+    $('#courseCount').val(Math.max($('#courseCount').val(), nChosen));
+    calcTotalCost();
   }
 });

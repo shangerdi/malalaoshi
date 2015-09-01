@@ -1,10 +1,18 @@
 Meteor.publish("userData", function () {
   if (this.userId) {
-    return Meteor.users.find({_id: this.userId},
-                             {fields: {'role': 1, 'phoneNo': 1}});
+    var subs = [Meteor.users.find({_id: this.userId},
+                             {fields: {'role': 1, 'phoneNo': 1}})];
+    var curUser = Meteor.users.findOne(this.userId);
+    if (curUser.role==='teacher') {
+      subs.push(TeacherAudit.find({userId: this.userId}));
+    }
+    return subs;
   } else {
     this.ready();
   }
+});
+Meteor.publish("userAvatars", function(userIds){
+  return Meteor.users.find({_id:{$in: userIds}}, {fields: {'profile.avatarUrl': 1}});
 });
 Meteor.publish('messages', function() {
   return Messages.find({userId: this.userId});

@@ -53,8 +53,6 @@ Template.orderStepPay.events({
       // console.log(charge_obj);
       var pingppObj = Meteor.isCordova?pingpp:pingpp_web;
       pingppObj.createPayment(charge_obj, function(pay_result, pay_error){
-        Session.set("orderShowLoading", false);
-        $(e.currentTarget).removeClass("disabled");
         // console.log(pay_error);
         // console.log(pay_result);
         if (pay_result == "success") {
@@ -68,6 +66,13 @@ Template.orderStepPay.events({
       }, function(result){
         // errorCallback
         console.log("In errorCallback(): " + result);  //"fail"|"cancel"|"invalid"
+        if (result=='cancel') {
+          // TODO
+        } else {
+          alert("支付失败!");
+        }
+        Session.set("orderShowLoading", false);
+        $(e.currentTarget).removeClass("disabled");
       });
     });
   }
