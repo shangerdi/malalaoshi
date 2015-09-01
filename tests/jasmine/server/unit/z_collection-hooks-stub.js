@@ -1,3 +1,20 @@
+var Security = {
+  defineMethod: function () {},
+  apply: function () {return this;},
+  userOwnOrder: function () {return this;},
+  ifHasRole: function() {return this;},
+  userSelf: function() {return this;},
+  ownsDocument: function() {return this;},
+  never: function() {return this;}
+};
+
+Meteor.users.attachSchema = function () {};
+Meteor.users.permit = function() { return Security;};
+beforeEach(function () {
+  Meteor.users.attachSchema = function () {};
+  Meteor.users.permit = function() { return Security;};
+});
+
 var originalMeteorCollection = Meteor.Collection;
 
 Meteor.Collection = function () {
@@ -16,10 +33,9 @@ Meteor.Collection = function () {
 
   this.attachSchema = function(hook) {
   };
-  this.permit = function(hook) {
+  this.permit = function () {
+    return Security;
   };
-
-
   this.before = {
     insert: function (hook) {
       collectionHooks.before.insert.push(hook);
