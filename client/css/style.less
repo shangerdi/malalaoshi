@@ -965,4 +965,41 @@ input[type=text].browser {
       height: 44px;
     }
   }
+  &.apply-info {
+    label {
+      font-size: 18px;
+    }
+    .radio-group {
+      color: gray;
+      label {
+        font-size: 14px;
+        margin-left: 40px;
+        &:first-child{
+          margin-left: 0;
+        }
+      }
+      input:checked + span {
+        color: black;
+      }
+    }
+    .teach-years {
+      height: 44px;
+      line-height: 44px;
+      padding-left: 50%;
+      .ion-slide-box {
+        margin-left: -22px;
+        .slick-list {
+          overflow: visible;
+          .ion-slide {
+            width: 44px;
+            height: 44px;
+            &.slick-active {
+              border: 1px solid black;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+    }
+  }
 }

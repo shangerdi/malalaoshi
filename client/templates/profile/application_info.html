@@ -1,0 +1,78 @@
+<template name="applicationInfo">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">完善资料</h1>
+  {{/contentFor}}
+
+<div class="apply-progress apply-info">
+  {{#ionView class="text-center"}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#ionItem}}
+          <!-- 1姓名 -->
+          <input class="text-center" type="text" name="name" placeholder="姓名" value="{{currentUser.profile.name}}" maxlength="20">
+        {{/ionItem}}
+        {{#ionItem}}
+          <!-- 2电话号码 -->
+          <span>{{currentUser.phoneNo}}</span>
+        {{/ionItem}}
+        {{#ionItem class="radio-group"}}
+          <!-- 3性别 -->
+          <label><input type="radio" name="gender" value="女" checked="{{$eq currentUser.profile.gender '女'}}"/><span>女</span></label>
+          <label><input type="radio" name="gender" value="男" checked="{{$eq currentUser.profile.gender '男'}}"/><span>男</span></label>
+        {{/ionItem}}
+        {{#ionItem}}
+          <!-- 4教龄 -->
+          <label>教龄</label>
+          <div class="teach-years">
+            {{#ionSlideBox showPager="false"}}
+              {{#ionSlide}}
+                1
+              {{/ionSlide}}
+              {{#ionSlide}}
+                2
+              {{/ionSlide}}
+              {{#ionSlide}}
+                3
+              {{/ionSlide}}
+              {{#ionSlide}}
+                4
+              {{/ionSlide}}
+              {{#ionSlide}}
+                5
+              {{/ionSlide}}
+              {{#ionSlide}}
+                6
+              {{/ionSlide}}
+              {{#ionSlide}}
+                7
+              {{/ionSlide}}
+              {{#ionSlide}}
+                8
+              {{/ionSlide}}
+              {{#ionSlide}}
+                9
+              {{/ionSlide}}
+            {{/ionSlideBox}}
+          </div>
+        {{/ionItem}}
+        {{#ionItem}}
+          <!-- 5年级科目 -->
+          <button class="button-clear button-dark btn-add-subject">年级 | 科目</button>
+        {{/ionItem}}
+        {{#ionItem}}
+          <!-- 6所在城市 -->
+          <label>所在城市</label>
+          <div class="radio-group">
+            <label><input type="radio" name="city" value="洛阳"/><span>洛阳</span></label><label><input type="radio" name="city" value="其他"/><span>其他</span></label>
+          </div>
+        {{/ionItem}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+  
+  {{#ionFooterBar}}
+  <button id="submitInfo" class="button button-full button-assertive">提交</button>
+  {{/ionFooterBar}}
+</div>
+
+</template>

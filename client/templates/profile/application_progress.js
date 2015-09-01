@@ -38,7 +38,7 @@ Template.applicationProgress.helpers({
 });
 Template.applicationProgress.events({
   'click #editProfileBtn': function() {
-    Router.go('profileEditBasic');
+    Router.go('applicationInfo');
   },
   'click #start': function() {
     Meteor.call('startAsTeacher', function(err, result) {
