@@ -1,3 +1,4 @@
+/*
 var areaOfChina = new AreaOfChina();
 Template.profileEditBasic.onCreated(function() {
   Session.set('settingsErrors', {});
@@ -314,3 +315,4 @@ Template.profileEditBasic.events({
     });
   }
 });
+*/

@@ -1,5 +1,5 @@
 Template.adminUser.events({
-  'submit form': function(e) {
+  'submit #role-form': function(e) {
     e.preventDefault();
     var curForm = e.target;
     var user = {
