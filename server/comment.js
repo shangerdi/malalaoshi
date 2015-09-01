@@ -10,10 +10,11 @@ Meteor.methods({
       throw new Meteor.Error('权限不足', "不能给别人评论");
     }
 
-    //TODO bay transaction
+    //TODO with transaction
     Comment.insert(comment, function(error, result){
       if(!error){
         CourseAttendances.update({_id: comment.courseAttendanceId}, {$set: {'state': 3}});
+        Meteor.users.update({_id: comment.teacher.id}, {$inc: {"profile.maScore": comment.maScore, "profile.maCount": 1, "profile.laScore": comment.laScore, "profile.laCount": 1}});
       }
     });
   }
