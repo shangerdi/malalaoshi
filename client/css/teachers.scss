@@ -1342,6 +1342,10 @@ $greyColor: #b8b8b8;
 }
 .view-page-common{
   background-color: #FFFFFF;
+  textarea{
+    border: solid #c2c2c2 1px;
+    padding: 10px;
+  }
 }
 .course-attendance-comment-evaluate{
   > div:first-child{
