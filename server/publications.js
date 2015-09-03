@@ -1,3 +1,10 @@
+var ifHasRole = function(userId, role) {
+  var curUser = Meteor.users.findOne({_id: userId}, {fields: {role: 1}});
+  if (curUser && curUser.role) {
+    return curUser.role === role;
+  }
+  return false;
+}
 Meteor.publish("userData", function () {
   if (this.userId) {
     var subs = [Meteor.users.find({_id: this.userId},
@@ -18,14 +25,26 @@ Meteor.publish('messages', function() {
   return Messages.find({userId: this.userId});
 });
 Meteor.publish('feedbacks', function() {
-  return Feedbacks.find();
+  //only admin users can get feedbacks
+  if (ifHasRole(this.userId, 'admin')) {
+    return Feedbacks.find();
+  }
+  return this.ready();
 });
 Meteor.publish('allusers', function() {
-  return Meteor.users.find({}, {fields:{role:1,username:1,createdAt:1, profile:1}});
+  //only admin users can get all users collection
+  if (ifHasRole(this.userId, 'admin')) {
+    return Meteor.users.find({}, {fields:{role:1,username:1,createdAt:1, profile:1}});
+  }
+  return this.ready();
 });
 
 Meteor.publish('allorders', function() {
-  return Orders.find({});
+  //only admin users can get all users orders
+  if (ifHasRole(this.userId, 'admin')) {
+    return Orders.find();
+  }
+  return this.ready();
 });
 
 Meteor.publish('curUserEducation', function() {
