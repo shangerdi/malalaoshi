@@ -151,6 +151,27 @@ Template.teacher.helpers({
   },
   unitCost: function() {
     return TeacherAudit.getTeacherUnitPrice(this.user._id);
+  },
+  commentInfo: function(){
+    return this.comment && this.comment.comment ? this.comment.comment : "";
+  },
+  commentStars: function(){
+    var score = this.comment && this.comment.maScore && this.comment.laScore ? (this.comment.maScore + this.comment.laScore)/2 : 0;
+    return genScoreStarsAry(score, 5);
+  },
+  starClass: function(val){
+    return val == 3 ? "ion-ios-star" : val == 2 ? "ion-ios-star-half" : val == 1 ? "ion-ios-star-outline" : "";
+  },
+  commentUserName: function(){
+    return this.comment && this.comment.student && this.comment.student.name ? this.comment.student.name : "";
+  },
+  commentUserAvatarUrl: function(){
+    var avtUrl = "";
+    if(this.comment && this.comment.student && this.comment.student.id){
+      var u = Meteor.users.findOne({_id: this.comment.student.id});
+      avtUrl = u && u.profile.avatarUrl ? u.profile.avatarUrl : "";
+    }
+    return avtUrl;
   }
 });
 
