@@ -68,18 +68,18 @@ Template.profileEditBasicForm.events({
     var userId = this.user._id;
     var curForm = e.target, $curForm = $(curForm);
     var gender = $(curForm).find('[name="gender"]').val();
-    var birthday = parseInt($('#birthdayYear').val()) + '-' + parseInt($('#birthdayMonth').val()) + '-' + parseInt($('#birthdayDay').val());
+    var birthday = parseInt($('.birthdayYear').val()) + '-' + parseInt($('.birthdayMonth').val()) + '-' + parseInt($('.birthdayDay').val());
     var state = $(curForm).find('[name="state"]').val();
     var subjects = getSubjectsInput($curForm);
     var address = {
       province: {
-        "code": $("#addressProvince").val(),
-        "name": $("#addressProvince").find("option:selected").text(),
-        "type": $("#addressProvince").find("option:selected").attr('type')
+        "code": $(".addressProvince").val(),
+        "name": $(".addressProvince").find("option:selected").text(),
+        "type": $(".addressProvince").find("option:selected").attr('type')
       },
-      city: {"code": $("#addressCity").val(), "name": $("#addressCity").find("option:selected").text()},
-      district: {"code": $("#addressDistrict").val(), "name": $("#addressDistrict").find("option:selected").text()},
-      road: $("#addressRoad").val()
+      city: {"code": $(".addressCity").val(), "name": $(".addressCity").find("option:selected").text()},
+      district: {"code": $(".addressDistrict").val(), "name": $(".addressDistrict").find("option:selected").text()},
+      road: $(".addressRoad").val()
     };
     // console.log(address);
     var profile = {
@@ -115,11 +115,11 @@ Template.profileEditBasicForm.events({
     if (t.id != 'birthdayYear' && t.id != 'birthdayMonth') {
       return;
     }
-    var m = parseInt($('#birthdayMonth').val());
+    var m = parseInt($('.birthdayMonth').val());
     if (t.id == 'birthdayYear' && m != 2) {
       return;
     }
-    var $daySelect = $("#birthdayDay");
+    var $daySelect = $(".birthdayDay");
     $daySelect.children().remove();
     var days = getDaysArray();
     $.each(days, function(i, day) {
@@ -133,9 +133,9 @@ Template.profileEditBasicForm.events({
     }
     var code = t.value;
     if (t.id == 'addressProvince') {
-      var $citySelect = $("#addressCity");
+      var $citySelect = $(".addressCity");
       $citySelect.children(":gt(0)").remove();
-      var $distSelect = $("#addressDistrict");
+      var $distSelect = $(".addressDistrict");
       $distSelect.children(":gt(0)").remove();
       var cur = areaOfChina.getSubAreas(code, function(error, arrCity) {
         $.each(arrCity, function(i, obj) {
@@ -143,7 +143,7 @@ Template.profileEditBasicForm.events({
         });
       });
     } else if (t.id == 'addressCity') {
-      var $distSelect = $("#addressDistrict");
+      var $distSelect = $(".addressDistrict");
       $distSelect.children(":gt(0)").remove();
       var cur = areaOfChina.getSubAreas(code, function(error, arrDist) {
         $.each(arrDist, function(i, obj) {
@@ -198,7 +198,7 @@ Template.profileEditBasicForm.onRendered(function() {
   //var user = Meteor.user();
   var user = this.data.user;
   // init area province list
-  var $proSelect = $("#addressProvince");
+  var $proSelect = $(".addressProvince");
   var cur = areaOfChina.getProvince(function(error, arrProv) {
     $.each(arrProv, function(i, obj) {
       $proSelect.append('<option value="' + obj.code + '" type="' + (obj.type ? obj.type : 0) + '">' + obj.name + '</option>');
@@ -217,9 +217,9 @@ Template.profileEditBasicForm.onRendered(function() {
   // init user's some properties
   if (user.profile.birthday) {
     var a = user.profile.birthday.split('-');
-    $('#birthdayYear').val(a[0] + '年');
-    $('#birthdayMonth').val(a[1] + '月');
-    $('#birthdayDay').val(a[2] + '日');
+    $('.birthdayYear').val(a[0] + '年');
+    $('.birthdayMonth').val(a[1] + '月');
+    $('.birthdayDay').val(a[2] + '日');
   }
   $("select[name=gender]").val(user.profile.gender);
 
@@ -227,7 +227,7 @@ Template.profileEditBasicForm.onRendered(function() {
   if (userAddress && userAddress.province) {
     if (userAddress.city && userAddress.city.code) {
       var cur = areaOfChina.getSubAreas(userAddress.province.code, function(error, arrCity) {
-        var $citySelect = $("#addressCity");
+        var $citySelect = $(".addressCity");
         $.each(arrCity, function(i, obj) {
           $citySelect.append('<option value="' + obj.code + '">' + obj.name + '</option>');
         });
@@ -236,7 +236,7 @@ Template.profileEditBasicForm.onRendered(function() {
     }
     if (userAddress.district && userAddress.district.code) {
       var cur = areaOfChina.getSubAreas(userAddress.city.code, function(error, arrDist) {
-        var $distSelect = $("#addressDistrict");
+        var $distSelect = $(".addressDistrict");
         $.each(arrDist, function(i, obj) {
           $distSelect.append('<option value="' + obj.code + '">' + obj.name + '</option>');
         });
@@ -295,14 +295,14 @@ var getEduGradeOptionList = function(school, val) {
   return optionList;
 }
 getDaysArray = function() {
-  var m = parseInt($('#birthdayMonth').val());
+  var m = parseInt($('.birthdayMonth').val());
   var a = [], max = 31;
   if (!!m) {
     if (m == 4 || m == 6 || m == 9 || m == 11) {
       max = 30;
     } else if (m == 2) {
       max = 28;
-      var y = parseInt($('#birthdayYear').val());
+      var y = parseInt($('.birthdayYear').val());
       if (y % 100 == 0) {
         if (y % 400 == 0) {
           max = 29;

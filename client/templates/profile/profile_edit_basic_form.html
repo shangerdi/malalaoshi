@@ -1,4 +1,5 @@
 <template name="profileEditBasicForm">
+  <!-- 此模板可能重复使用，因此需要注意Element的id问题-->
   <div class="col-xs-12 col-sm-9">
     <div class="profile-edit-title">基本信息</div>
     <form class="form form-horizontal profile-edit-basic">
@@ -38,17 +39,17 @@
 
         <div class="col-sm-10 controls form-inline">
           <div class="clearfix">
-            <select class="form-control birthday" id="birthdayYear" name="birthdayYear" value="{{birthdayYear}}">
+            <select class="form-control birthday birthdayYear" name="birthdayYear" value="{{birthdayYear}}">
               {{#each years}}
                 <option>{{y}}</option>
               {{/each}}
             </select>
-            <select class="form-control birthday" id="birthdayMonth" name="birthdayMonth" value="{{birthdayMonth}}">
+            <select class="form-control birthday birthdayMonth" name="birthdayMonth" value="{{birthdayMonth}}">
               {{#each months}}
                 <option>{{m}}</option>
               {{/each}}
             </select>
-            <select class="form-control birthday" id="birthdayDay" name="birthdayDay" value="{{birthdayDay}}">
+            <select class="form-control birthday birthdayDay" name="birthdayDay" value="{{birthdayDay}}">
               {{#each days}}
                 <option>{{d}}</option>
               {{/each}}
@@ -135,14 +136,14 @@
 
         <div class="col-sm-10 controls form-inline">
           <div class="clearfix">
-            <select class="form-control address" id="addressProvince" name="addressProvince"
+            <select class="form-control address addressProvince" name="addressProvince"
                     value="{{addressProvince}}">
               <option value=""> - 省 -</option>
             </select>
-            <select class="form-control address" id="addressCity" name="addressCity" value="{{addressCity}}">
+            <select class="form-control address addressCity" name="addressCity" value="{{addressCity}}">
               <option value=""> - 市 -</option>
             </select>
-            <select class="form-control address" id="addressDistrict" name="addressDistrict"
+            <select class="form-control address addressDistrict" name="addressDistrict"
                     value="{{addressDistrict}}">
               <option value=""> - 区/县 -</option>
             </select>
@@ -153,7 +154,7 @@
         <label class="col-sm-2 control-label"></label>
 
         <div class="col-sm-10 controls">
-          <textarea class="form-control" id="addressRoad" name="addressRoad" rows="4"
+          <textarea class="form-control addressRoad" name="addressRoad" rows="4"
                     value="{{user.profile.address.road}}" placeholder="街道"></textarea>
           <span class="help-block">{{errorMessage 'address'}}</span>
         </div>
