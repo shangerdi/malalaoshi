@@ -3,8 +3,12 @@
     <h1 class="title normal-title">申请进度</h1>
   {{/contentFor}}
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear pull-right button-positive" data-ion-modal="">
-      。。。
+    <button class="button button-clear pull-right button-positive" data-ion-popover="_appProgPopover"><!-- 弹出菜单（见下方定义） -->
+      {{#if isAndroid}}
+        {{> ionIcon icon='android-more-vertical'}}
+      {{else}}
+        {{> ionIcon icon='more'}}
+      {{/if}}
     </button>
   {{/contentFor}}
 
@@ -57,17 +61,29 @@
       </div>
     {{/ionContent}}
   {{/ionView}}
-  
-  <div class="{{platform}} ">
-    <div class="buttom-btn-view">
-      {{#unless isProfileAudited}}
-      <button id="editProfileBtn" class="button button-full button-assertive">完善个人资料</button>
-      {{/unless}}
-      {{#if isPassed}}
-      <button id="start" class="button button-full button-assertive">开启麻辣之旅</button>
-      {{/if}}
-    </div>
-  </div>
+
+  {{#unless isProfileAudited}}
+    {{#ionFooterBar}}
+    <button id="editProfileBtn" class="button button-full button-assertive">完善个人资料</button>
+    {{/ionFooterBar}}
+  {{/unless}}
+  {{#if isPassed}}
+    {{#ionFooterBar}}
+    <button id="start" class="button button-full button-assertive">开启麻辣之旅</button>
+    {{/ionFooterBar}}
+  {{/if}}
 </div>
 
+</template>
+
+<template name="_appProgPopover">
+  {{#ionPopover class="app-prog-popover"}}
+    <div class="content">
+      <div class="list">
+        <a class="item btn-logout">
+          退出登录
+        </a>
+      </div>
+    </div>
+  {{/ionPopover}}
 </template>

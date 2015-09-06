@@ -956,7 +956,68 @@ input[type=text].browser {
       display: none;
     }
   }
-  .browser .buttom-btn-view {
-    position: static;
+  .bar.bar-footer {
+    height: 54px;
+    border: 0;
+    background-color: #ddd;
+    button {
+      margin: 0 auto;
+      height: 44px;
+    }
+  }
+  &.apply-info {
+    label {
+      font-size: 18px;
+      color: black;
+    }
+    input[name=name]:focus {
+      border-bottom: 1px solid black;
+    }
+    .error-msg {
+      font-size: 14px;
+      color: red;
+    }
+    .radio-group {
+      label {
+        font-size: 14px;
+        margin-left: 40px;
+        color: gray;
+        &:first-child{
+          margin-left: 0;
+        }
+      }
+      input:checked + span {
+        color: black;
+      }
+    }
+    .subjects {
+      button{
+        color: black;
+      }
+    }
+    .teaching-age {
+      .swiper-container {
+        display: inline-table;
+        width: 50%;
+        overflow: visible;
+        .swiper-slide {
+          width: 44px;
+          height: 44px;
+          &.swiper-slide-active {
+            border: 1px solid black;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+.subjects-modal-box {
+  .selected-subjects{
+    min-height: 30px;
+    line-height: 30px;
+  }
+  .subjects-selecting-area {
+
   }
 }

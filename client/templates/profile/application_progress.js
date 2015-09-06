@@ -38,7 +38,7 @@ Template.applicationProgress.helpers({
 });
 Template.applicationProgress.events({
   'click #editProfileBtn': function() {
-    Router.go('profileEditBasic');
+    Router.go('applicationInfo');
   },
   'click #start': function() {
     Meteor.call('startAsTeacher', function(err, result) {
@@ -50,3 +50,17 @@ Template.applicationProgress.events({
     });
   }
 });
+Template._appProgPopover.onRendered(function(){
+  $(".popover").height("auto");
+});
+Template._appProgPopover.events({
+  'click .btn-logout': function(e) {
+    var doLogout = function() {
+      IonPopover.hide();
+      Meteor.logout();
+      // Router.go('home');
+    };
+    doLogout();
+  }
+});
+
