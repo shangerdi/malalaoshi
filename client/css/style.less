@@ -968,15 +968,20 @@ input[type=text].browser {
   &.apply-info {
     label {
       font-size: 18px;
+      color: black;
     }
     input[name=name]:focus {
       border-bottom: 1px solid black;
     }
+    .error-msg {
+      font-size: 14px;
+      color: red;
+    }
     .radio-group {
-      color: gray;
       label {
         font-size: 14px;
         margin-left: 40px;
+        color: gray;
         &:first-child{
           margin-left: 0;
         }
@@ -985,7 +990,12 @@ input[type=text].browser {
         color: black;
       }
     }
-    .teach-years {
+    .subjects {
+      button{
+        color: black;
+      }
+    }
+    .teaching-age {
       .swiper-container {
         display: inline-table;
         width: 50%;

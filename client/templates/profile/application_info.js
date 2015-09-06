@@ -18,12 +18,18 @@ var getSubjectStr = function(obj) {
   return s;
 }
 Template.applicationInfo.onRendered(function(){
-  this.teachYearsSwiper = new Swiper('.swiper-container', {
+  this.teachingAgeSwiper = new Swiper('.swiper-container', {
     slidesPerView: 'auto',
     centeredSlides: true
   });
-  var subjects = Meteor.user().profile.subject;
+  var subjects = Meteor.user().profile.subjects;
   Session.set('subjects', subjects?subjects:[]);
+  var address = Meteor.user().profile.address;
+  if (address && address.city && address.city.code==='410300') {
+    $("input[name=city][value=luoyang]").attr("checked", true);
+  } else {
+    $("input[name=city][value=other]").attr("checked", true);
+  }
 });
 Template.applicationInfo.helpers({
   teachYearNums: function() {
@@ -42,12 +48,70 @@ Template.applicationInfo.helpers({
   },
   getSubjectStr: function(obj) {
     return getSubjectStr(obj);
+  },
+  getErrorMsg: function(field) {
+    if (Session.get("errors")) {
+      return Session.get("errors")[field];
+    }
   }
 });
+var checkProfile = function(info) {
+  var error = {hasError: false};
+  if (!info.name || info.name.trim()==='') {
+    error.hasError = true;
+    error.name = "请填写您的姓名";
+  }
+  if (!info.gender) {
+    error.hasError = true;
+    error.gender = "请选择性别";
+  }
+  if (!info.subjects || !info.subjects.length) {
+    error.hasError = true;
+    error.subjects = "请至少添加一项您擅长的教学科目";
+  }
+  if (!info.city) {
+    error.hasError = true;
+    error.city = "请选择您所在的城市";
+  }
+  return error;
+}
 Template.applicationInfo.events({
   'click #submitInfo': function() {
-    // TODO 提交申请资料
-    console.log('submitInfo');
+    Session.set("errors", {});
+    var profile = {};
+    profile.name = $("input[name=name]").val();
+    profile.gender = $("input[name=gender]:checked").val();
+    profile.teachingAge = Template.instance().teachingAgeSwiper.activeIndex + 1;
+    profile.subjects = getSelectedSubjects();
+    profile.city = $("input[name=city]:checked").val();
+    // console.log(profile);
+    var errors = checkProfile(profile);
+    if (errors && errors.hasError) {
+      Session.set("errors", errors);
+      return;
+    }
+    if (profile.city==='luoyang') {
+      profile.address = {'province':{'code': "410000", 'name': "河南"}, 'city': {'code': "410300", 'name': "洛阳市"}, 'district': {'code': "410301", 'name': "市辖区"}};
+    }
+    profile.city=null;
+
+    Meteor.call('submitApplyProfile', profile, function(error, result) {
+      if (error) {
+        Session.set("errors", {city: error.reason});
+        return throwError(error.reason);
+      }
+      Router.go('applicationProgress');
+    });
+  },
+  'click input': function(e) {
+    var errors = Session.get("errors");
+    if (!errors) {
+      return;
+    }
+    var ele = e.target;
+    var name = ele.name;
+    errors[name]='';
+    Session.set("errors", errors);
   }
 });
 
@@ -111,6 +175,11 @@ Template._subjectsModal.events({
     }
     subjects.push({'school': school, 'subject': subject, 'grade': grade});
     Session.set('subjects', subjects);
+    var errors = Session.get("errors");
+    if (errors) {
+      errors['subjects']='';
+      Session.set("errors", errors);
+    }
   },
   'click .selected-subjects span': function(e) {
     var ele = e.target, $ele = $(ele), $ele = $ele.closest(".subject");
