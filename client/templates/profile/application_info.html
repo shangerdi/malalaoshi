@@ -37,13 +37,21 @@
         {{/ionItem}}
         {{#ionItem}}
           <!-- 5年级科目 -->
-          <button class="button-clear button-dark btn-add-subject">年级 | 科目</button>
+          <button class="button-clear button-dark btn-add-subject" data-ion-modal="_subjectsModal">
+            {{#if hasSubjects}}
+              {{#each selectedSubjects}}
+                <span class="subject">{{getSubjectStr this}}</span>
+              {{/each}}
+            {{else}}
+              年级 | 科目
+            {{/if}}
+          </button>
         {{/ionItem}}
         {{#ionItem}}
           <!-- 6所在城市 -->
           <label>所在城市</label>
           <div class="radio-group">
-            <label><input type="radio" name="city" value="洛阳"/><span>洛阳</span></label><label><input type="radio" name="city" value="其他"/><span>其他</span></label>
+            <label><input type="radio" name="city" value="luoyang"/><span>洛阳</span></label><label><input type="radio" name="city" value="other"/><span>其他</span></label>
           </div>
         {{/ionItem}}
       {{/ionList}}
@@ -54,5 +62,62 @@
   <button id="submitInfo" class="button button-full button-assertive">提交</button>
   {{/ionFooterBar}}
 </div>
+</template>
 
+
+<template name="_subjectsModal">
+  {{#ionModal title="已选中科目年级"}}
+    <div class="subjects-modal-box">
+      <div class="selected-subjects">
+        {{#each selectedSubjects}}
+          <span class="subject" school="{{this.school}}" grade="{{this.grade}}" subject="{{this.subject}}">
+            <a>{{getSubjectStr this}}</a>
+          </span>
+        {{/each}}
+      </div>
+      <div class="subjects-selecting-area">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          {{#each getEduSchools}}
+            <li data-key="{{this.key}}">
+              <a href="#{{this.key}}" aria-controls="{{this.key}}" role="tab" data-toggle="tab">{{this.text}}</a>
+            </li>
+          {{/each}}
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          {{#each getEduSchools}}
+            <div role="tabpanel" class="tab-pane panel-group" id="{{this.key}}">
+              <div class="panel">
+                <div class="panel-heading" role="tab" id="heading{{this.key}}">
+                  <a role="button" data-toggle="collapse" data-parent="#{{this.key}}" href="#collapse{{this.key}}_all" aria-controls="collapse{{this.key}}_all">{{this.text}}</a>
+                </div>
+                <div id="collapse{{this.key}}_all" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{this.key}}_all">
+                  {{#each getEduSubjects this.key 'all'}}
+                    <div class="subject-item" school="{{../key}}" grade="all" subject="{{this.key}}">
+                      <span>{{this.text}}</span><a class="btn-add-subject"><span class="ion-plus"></span></a>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+              {{#each getEduGrades this.key}}
+                <div class="panel">
+                  <div class="panel-heading" role="tab" id="heading{{this.key}}">
+                    <a role="button" data-toggle="collapse" data-parent="#{{../key}}" href="#collapse{{this.key}}" aria-controls="collapse{{this.key}}">{{this.text}}</a>
+                  </div>
+                  <div id="collapse{{this.key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{this.key}}">
+                    {{#each getEduSubjects ../key this.key}}
+                      <div class="subject-item" school="{{../../key}}" grade="{{../key}}" subject="{{this.key}}">
+                        <span>{{this.text}}</span><a class="btn-add-subject"><span class="ion-plus"></span></a>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/ionModal}}
 </template>
