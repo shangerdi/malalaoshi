@@ -224,6 +224,10 @@ Template.teacher.events({
   },
   'click #evaluationInScroll': function(e){
     evaluationClick(e);
+  },
+  'click #moreEvaluation': function(e){
+    e.preventDefault();
+    Router.go('comments', {'tid': this.user._id});
   }
 });
 Template.teacherPersonalPhotosShow.onCreated(function(){
