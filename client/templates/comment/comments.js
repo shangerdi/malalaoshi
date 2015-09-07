@@ -27,20 +27,16 @@ Template.comments.onCreated(function(){
       Session.set('commentsPageAcitveTab', "goodComments");
     }
     if(currentData.teacher && currentData.teacher._id){
-      if(commentsType == 'goodCommnets'){
-        currentData.commentsSub = Meteor.subscribe('goodComments', params, {
-          onReady: function(ready){
-            self.commentsData.set(Math.random());
-          }
-        });
+      var serachParams = null;
+      if(commentsType == 'goodComments'){
+        serachParams = _.extend(params, {type: 'goodComments'});
       }else if(commentsType == 'averageComments'){
-        currentData.commentsSub = Meteor.subscribe('averageComments', params, {
-          onReady: function(ready){
-            self.commentsData.set(Math.random());
-          }
-        });
+        serachParams = _.extend(params, {type: 'averageComments'});
       }else if(commentsType == 'poolComments'){
-        currentData.commentsSub = Meteor.subscribe('poolComments', params, {
+        serachParams = _.extend(params, {type: 'poolComments'});
+      }
+      if(serachParams != null){
+        currentData.commentsSub = Meteor.subscribe('commentsByType', serachParams, {
           onReady: function(ready){
             self.commentsData.set(Math.random());
           }
@@ -54,19 +50,19 @@ Template.comments.onRendered(function(){
 
   var addNavElement = '' +
   '  <div class="comments-nav-tatic nav-fixed-top" id="commentsNavStatic"> ' +
-  '    <div id="goodCommnets" class="comments-page-tab">好评(0)</div> ' +
+  '    <div id="goodComments" class="comments-page-tab">好评(0)</div> ' +
   '    <div id="averageComments" class="comments-page-tab">中评(0)</div> ' +
   '    <div id="poolComments" class="comments-page-tab">差评(0)</div> ' +
   '  </div> ';
 
   $('body').append(addNavElement);
-  $('#goodCommnets').html($('#goodCommnetsInScroll').html());
+  $('#goodComments').html($('#goodCommentsInScroll').html());
   $('#averageComments').html($('#averageCommentsInScroll').html());
   $('#poolComments').html($('#poolCommentsInScroll').html());
 
-  commentsPageAcitveTabClick('goodCommnets');
-  $('#goodCommnets').click(function(){
-    commentsPageAcitveTabClick('goodCommnets');
+  commentsPageAcitveTabClick('goodComments');
+  $('#goodComments').click(function(){
+    commentsPageAcitveTabClick('goodComments');
   });
   $('#averageComments').click(function(){
     commentsPageAcitveTabClick('averageComments');
@@ -77,31 +73,7 @@ Template.comments.onRendered(function(){
 
   self.autorun(function(){
     var actId = Session.get('commentsPageAcitveTab');
-    if(actId == "goodCommnets"){
-      $('#averageComments').removeClass('teacher-detail-tab-active');
-      $('#poolComments').removeClass('teacher-detail-tab-active');
-      $('#goodCommnets').addClass('teacher-detail-tab-active');
-
-      $('#averageCommentsInScroll').removeClass('teacher-detail-tab-active');
-      $('#poolCommentsInScroll').removeClass('teacher-detail-tab-active');
-      $('#goodCommnetsInScroll').addClass('teacher-detail-tab-active');
-    }else if(actId == "averageComments"){
-      $('#goodCommnets').removeClass('teacher-detail-tab-active');
-      $('#poolComments').removeClass('teacher-detail-tab-active');
-      $('#averageComments').addClass('teacher-detail-tab-active');
-
-      $('#goodCommnetsInScroll').removeClass('teacher-detail-tab-active');
-      $('#poolCommentsInScroll').removeClass('teacher-detail-tab-active');
-      $('#averageCommentsInScroll').addClass('teacher-detail-tab-active');
-    }else if(actId == "poolComments"){
-      $('#goodCommnets').removeClass('teacher-detail-tab-active');
-      $('#averageComments').removeClass('teacher-detail-tab-active');
-      $('#poolComments').addClass('teacher-detail-tab-active');
-
-      $('#goodCommnetsInScroll').removeClass('teacher-detail-tab-active');
-      $('#averageCommentsInScroll').removeClass('teacher-detail-tab-active');
-      $('#poolCommentsInScroll').addClass('teacher-detail-tab-active');
-    }
+    setNavClass(actId);
   });
 
   var detailScrollTop = $('.view-page-common').scrollTop();
@@ -155,7 +127,7 @@ Template.comments.helpers({
   },
   goodComments: function(){
     var ct = this.userSummary && this.userSummary.goodComments ? this.userSummary.goodComments : 0
-    $('#goodCommnets').html('好评(' + ct + ')');
+    $('#goodComments').html('好评(' + ct + ')');
     return ct;
   },
   averageComments: function(){
@@ -200,7 +172,7 @@ Template.comments.helpers({
     var commentsType = Session.get('commentsPageAcitveTab');
     var currentData = Template.currentData();
     if(currentData.teacher && currentData.teacher._id){
-      if(commentsType == 'goodCommnets'){
+      if(commentsType == 'goodComments'){
         allCount = this.userSummary && this.userSummary.goodComments ? this.userSummary.goodComments : 0
       }else if(commentsType == 'averageComments'){
         allCount = this.userSummary && this.userSummary.averageComments ? this.userSummary.averageComments : 0;
@@ -283,4 +255,24 @@ function cmpTotalScore(teacher){
   laScore = _.isNumber(laScore) ? laScore : 0;
   laCount = _.isNumber(laCount) ? laCount : 0;
   return (maCount + laCount) == 0 ? 0 : (maScore + laScore)/(maCount + laCount);
+}
+function setNavClass(actId){
+  var commentType = ['goodComments', 'averageComments', 'poolComments'];
+  var navIdAry = [];
+  navIdAry[0] = ['#goodComments', '#goodCommentsInScroll'];
+  navIdAry[1] = ['#averageComments', '#averageCommentsInScroll'];
+  navIdAry[2] = ['#poolComments', '#poolCommentsInScroll'];
+  for(var i=0; i<commentType.length; i++){
+    if(commentType[i] == actId){
+      var navIds = navIdAry[i];
+      _.each(navIds, function(item){
+        $(item).addClass('teacher-detail-tab-active');
+      });
+    }else{
+      var navIds = navIdAry[i];
+      _.each(navIds, function(item){
+        $(item).removeClass('teacher-detail-tab-active');
+      });
+    }
+  }
 }
