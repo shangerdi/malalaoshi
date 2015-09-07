@@ -211,3 +211,39 @@ Meteor.publish('commentsWidthUserDetail', function(params) {
   }
   return null;
 });
+Meteor.publish('userSummary', function(userId){
+  if(this.userId){
+    return UserSummary.find({'userId': userId});
+  }
+  return [];
+});
+Meteor.publish('commentsByType', function(params){
+  if(this.userId && params.type){
+    var comments = [];
+    var cond = {
+      'teacher.id': params.teacherId
+    };
+    if(params.type == 'goodComments'){
+      cond.$where = 'this.maScore + this.laScore >= 8';
+    }else if(params.type == 'averageComments'){
+      cond.$where = 'this.maScore + this.laScore > 2 && this.maScore + this.laScore < 8';
+    }else if(params.type == 'poolComments'){
+      cond.$where = 'this.maScore + this.laScore <= 2';
+    }
+    if(!cond.$where){
+      return [];
+    }
+    comments = Comment.find(cond, params.options);
+    var userIds = [];
+    comments.forEach(function(ct){
+      userIds[userIds.length] = ct.teacher.id;
+      userIds[userIds.length] = ct.student.id;
+    });
+    userIds = _.uniq(userIds);
+    return [
+      comments,
+      Meteor.users.find({_id: {$in: userIds}})
+    ];
+  }
+  return [];
+});

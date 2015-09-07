@@ -1145,10 +1145,6 @@ $greyColor: #b8b8b8;
   color: #b8b8b8;
   cursor: pointer;
 }
-.teacher-detail-tab-active{
-  color: #000000;
-  border-color: #000000;
-}
 .teacher-detail-tab-content{
   width: 100%;
   margin-top: 15px;
@@ -1201,15 +1197,6 @@ $greyColor: #b8b8b8;
   width: 100%;
   padding-left: 85px;
   color: #000000;
-}
-.nav-fixed-top{
-  position: absolute;
-  z-index: 8;
-  background-color: #FFFFFF;
-  top: 27px;
-  padding-right: 20px;
-  padding-left: 20px;
-  display: none;
 }
 .teacher-person-img-show{
   overflow: auto;
@@ -1374,6 +1361,9 @@ $greyColor: #b8b8b8;
     border: solid #c2c2c2 1px;
     padding: 10px;
   }
+  > div:last-child{
+    margin-bottom: 800px;
+  }
 }
 .course-attendance-comment-evaluate{
   > div:first-child{
@@ -1420,6 +1410,9 @@ $greyColor: #b8b8b8;
   > div:first-child{
     margin-bottom: 10px;
   }
+  > div > div:first-child{
+    float: right;
+  }
 }
 .comments-page-tab{
   width: 33%;
@@ -1431,4 +1424,51 @@ $greyColor: #b8b8b8;
   font-size: 20px;
   color: #b8b8b8;
   cursor: pointer;
+}
+.comments-page-comment-avt{
+  float: left;
+  width: 44px;
+  height: 44px;
+}
+.comments-page-comment-head{
+  padding-left: 53px;
+  margin: 0 auto;
+  > div:first-child{
+    > div:first-child{
+      float: right;
+    }
+    > div:last-child{
+      font-size: 17px;
+    }
+  }
+  > div:nth-child(2){
+    margin-top: 5px;
+  }
+  > div:last-child{
+    margin-top: 5px;
+    color: $greyColor;
+    > div:first-child{
+      float: right;
+    }
+  }
+}
+.comments-nav-tatic{
+  width: 100%;
+  margin-top: 15px;
+}
+.nav-fixed-top{
+  position: absolute;
+  z-index: 8;
+  background-color: #FFFFFF;
+  top: 27px;
+  padding-right: 20px;
+  padding-left: 20px;
+  display: none;
+}
+.teacher-detail-tab-active{
+  color: #000000;
+  border-color: #000000;
+}
+.element-clear-both{
+  clear: both;
 }
