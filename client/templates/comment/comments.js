@@ -1,5 +1,5 @@
 var navMoveHeight = 0;
-var defalutIncrement = 1;
+var defalutIncrement = 10;
 var sort = {createdAt: -1};
 var commentsLimit = defalutIncrement;
 Template.comments.onCreated(function(){
