@@ -192,3 +192,57 @@ Meteor.publish('commentsWidthUserDetail', function(params) {
   }
   return null;
 });
+Meteor.publish('userSummary', function(userId){
+  if(this.userId){
+    return UserSummary.find({'userId': userId});
+  }
+  return [];
+});
+Meteor.publish('goodComments', function(params){
+  if(this.userId){
+    var comments = Comment.find({'teacher.id': params.teacherId, $where: 'this.maScore + this.laScore >= 8'}, params.options);
+    var userIds = [];
+    comments.forEach(function(ct){
+      userIds[userIds.length] = ct.teacher.id;
+      userIds[userIds.length] = ct.student.id;
+    });
+    userIds = _.uniq(userIds);
+    return [
+      comments,
+      Meteor.users.find({_id: {$in: userIds}})
+    ];
+  }
+  return [];
+});
+Meteor.publish('averageComments', function(params){
+  if(this.userId){
+    var comments = Comment.find({'teacher.id': params.teacherId, $where: 'this.maScore + this.laScore > 2 && this.maScore + this.laScore < 8'}, params.options);
+    var userIds = [];
+    comments.forEach(function(ct){
+      userIds[userIds.length] = ct.teacher.id;
+      userIds[userIds.length] = ct.student.id;
+    });
+    userIds = _.uniq(userIds);
+    return [
+      comments,
+      Meteor.users.find({_id: {$in: userIds}})
+    ];
+  }
+  return [];
+});
+Meteor.publish('poolComments', function(params){
+  if(this.userId){
+    var comments = Comment.find({'teacher.id': params.teacherId, $where: 'this.maScore + this.laScore <= 2'}, params.options);
+    var userIds = [];
+    comments.forEach(function(ct){
+      userIds[userIds.length] = ct.teacher.id;
+      userIds[userIds.length] = ct.student.id;
+    });
+    userIds = _.uniq(userIds);
+    return [
+      comments,
+      Meteor.users.find({_id: {$in: userIds}})
+    ];
+  }
+  return [];
+});

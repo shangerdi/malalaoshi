@@ -1,0 +1,93 @@
+<template name="comments">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">评价</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent class="view-page-common"}}
+      <div class="view-both-side-margin comments-page-total-score">
+        <div>
+          <div>
+            {{#each commentStars}}
+              <i class="icon {{starClass this}}"></i>
+            {{/each}}
+          </div>
+          <div>共{{totalComments}}人评价</div>
+        </div>
+        <div>
+          {{totalScore}}分
+        </div>
+      </div>
+      <div class="view-both-side-margin"><hr></div>
+      <div class="view-both-side-margin comments-page-mala-score">
+        <div>
+          <div>{{maScore}}分</div>
+          <div>麻度（专业程度）</div>
+        </div>
+        <div>
+          <div>{{laScore}}分</div>
+          <div>辣度（上课程度）</div>
+        </div>
+      </div>
+      <div class="view-both-side-margin" id="commentsNav">
+        <div id="goodCommnetsInScroll" class="comments-page-tab {{activeTabClass 'goodCommnets'}}">好评({{goodComments}})</div>
+        <div id="averageCommentsInScroll" class="comments-page-tab {{activeTabClass 'averageComments'}}">中评({{averageComments}})</div>
+        <div id="poolCommentsInScroll" class="comments-page-tab {{activeTabClass 'poolComments'}}">差评({{poolComments}})</div>
+      </div>
+      <div class="view-both-side-margin element-clear-both"><hr></div>
+      {{#each allComments}}
+        {{> commentsDetailShow comment=this}}
+        <div class="view-both-side-margin element-clear-both"><hr></div>
+      {{/each}}
+      {{#if hasMore}}
+        <a class="load-more" href="#">加载更多</a>
+      {{/if}}
+      <div></div>
+    {{/ionContent}}
+      {{#unless commentsReady}}
+        {{> spinner}}
+      {{/unless}}
+    <div class="buttom-btn-view teacher-buttom-btn-view buttom-btn-view-active">
+      <div class="row row-center">
+        <div class="pull-left col">
+          ￥{{unitCost}}/课时
+        </div>
+        <div class="pull-right col">
+          <button id="reserveCourse" class="button button-full">
+            马上约课
+          </button>
+        </div>
+      </div>
+    </div>
+  {{/ionView}}
+</template>
+<template name="commentsDetailShow">
+  <div class="view-both-side-margin">
+    <div>
+      <div class="comments-page-comment-avt"><img src="{{userAvt}}" class="img-responsive img-circle"></div>
+      <div class="comments-page-comment-head">
+        <div>
+          <div>
+            {{#each commentStars}}
+              <i class="icon {{starClass this}}"></i>
+            {{/each}}
+          </div>
+          <div>
+            {{comment.student.name}}
+          </div>
+        </div>
+        <div>
+          {{comment.comment}}
+        </div>
+        <div>
+          <div>{{createDate}}</div>
+          <div>{{subject}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
