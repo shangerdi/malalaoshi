@@ -124,6 +124,11 @@ ProfileSchema = new SimpleSchema({
     optional: true,
     type: UserAddressSchema
   },
+  teachingAge: {
+    type: Number,
+    optional: true,
+    label: "Teaching Age"
+  },
   recommend: {
     type: Boolean,
     optional: true,
@@ -238,7 +243,8 @@ Meteor.methods({
   }
 });
 Meteor.methods({
-  updateProfile: function(profile) {
+  updateProfile: function(userId, profile) {
+    check(userId, String);
     check(profile, {
       name: String,
       // nickname: String,
@@ -259,9 +265,20 @@ Meteor.methods({
       throw new Meteor.Error('无效设置', "参数设置错误");
     }
 
-    var oldProfile = Meteor.user().profile;
+    var oldProfile = Meteor.users.findOne({_id: userId});
     if (oldProfile) {
-      profile = _.extend(Meteor.user().profile, profile);
+      profile = _.extend(oldProfile, profile);
+    }
+
+    var curUser = Meteor.user();
+    if (!curUser || !(curUser.role === 'admin') && !(Meteor.userId() === userId)) {
+      //user can only update self without admin role
+      throw new Meteor.Error('权限不足', "当前用户权限不足");
+    }
+
+    var returnPage = 'profileEditEdu';
+    if (curUser.role === 'admin') {
+      returnPage = 'adminUsers';
     }
     // console.log(profile);
     var setObj = {profile:profile};
@@ -270,7 +287,23 @@ Meteor.methods({
       TeacherAudit.update({userId:Meteor.userId()},{$set:{name:profile.name,submitTime:now,basicInfo:{submitTime:now, status: 'submited'}}},{upsert:true});
       setObj["status.basic"] = "submited";
     }
-    Meteor.users.update({_id: Meteor.userId()}, {$set: setObj});
+    Meteor.users.update({_id: userId}, {$set: setObj});
     // TODO：用户操作日志 UserOpLogs
+    // UserOpLogs ...
+    return {goPage: returnPage};
+  },
+  submitApplyProfile: function(profile) {
+    if (!Meteor.user() || Meteor.user().role!=='teacher') {
+      throw new Meteor.Error('权限不足', "当前用户权限不足");
+    }
+    var userId = Meteor.userId();
+    var oldProfile = Meteor.user().profile;
+    if (oldProfile) {
+      profile = _.extend(oldProfile, profile);
+    }
+    var now = Date.now();
+    Meteor.users.update({_id: userId}, {$set: {'profile': profile, "status.basic": "submited"}});
+    TeacherAudit.update({userId:Meteor.userId()},{$set:{name:profile.name,submitTime:now,basicInfo:{submitTime:now, status: 'submited'}}},{upsert:true});
+    return true;
   }
 });
