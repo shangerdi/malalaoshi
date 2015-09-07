@@ -124,6 +124,11 @@ ProfileSchema = new SimpleSchema({
     optional: true,
     type: UserAddressSchema
   },
+  teachingAge: {
+    type: Number,
+    optional: true,
+    label: "Teaching Age"
+  },
   recommend: {
     type: Boolean,
     optional: true,
@@ -286,5 +291,19 @@ Meteor.methods({
     // TODO：用户操作日志 UserOpLogs
     // UserOpLogs ...
     return {goPage: returnPage};
+  },
+  submitApplyProfile: function(profile) {
+    if (!Meteor.user() || Meteor.user().role!=='teacher') {
+      throw new Meteor.Error('权限不足', "当前用户权限不足");
+    }
+    var userId = Meteor.userId();
+    var oldProfile = Meteor.user().profile;
+    if (oldProfile) {
+      profile = _.extend(oldProfile, profile);
+    }
+    var now = Date.now();
+    Meteor.users.update({_id: userId}, {$set: {'profile': profile, "status.basic": "submited"}});
+    TeacherAudit.update({userId:Meteor.userId()},{$set:{name:profile.name,submitTime:now,basicInfo:{submitTime:now, status: 'submited'}}},{upsert:true});
+    return true;
   }
 });
