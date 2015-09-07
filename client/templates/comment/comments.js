@@ -54,13 +54,13 @@ Template.comments.onRendered(function(){
 
   var addNavElement = '' +
   '  <div class="comments-nav-tatic nav-fixed-top" id="commentsNavStatic"> ' +
-  '    <div id="goodCommnets" class="comments-page-tab">好评(25)</div> ' +
+  '    <div id="goodCommnets" class="comments-page-tab">好评(0)</div> ' +
   '    <div id="averageComments" class="comments-page-tab">中评(0)</div> ' +
-  '    <div id="poolComments" class="comments-page-tab">差评(1)</div> ' +
+  '    <div id="poolComments" class="comments-page-tab">差评(0)</div> ' +
   '  </div> ';
 
   $('body').append(addNavElement);
-  $('#poolComments').html($('#poolCommentsInScroll').html());
+  $('#goodCommnets').html($('#goodCommnetsInScroll').html());
   $('#averageComments').html($('#averageCommentsInScroll').html());
   $('#poolComments').html($('#poolCommentsInScroll').html());
 
