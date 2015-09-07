@@ -147,7 +147,7 @@ Template.teacher.helpers({
     return retStudyCenters;
   },
   activeServiceArea: function(){
-    return this.user && this.user.profile && this.user.profile && this.user.profile.serviceArea ? this.user.profile.serviceArea.join(" | ") : "";
+    return this.user && this.user.profile && this.user.profile.serviceArea ? this.user.profile.serviceArea.join(" | ") : "";
   },
   unitCost: function() {
     return TeacherAudit.getTeacherUnitPrice(this.user._id);
