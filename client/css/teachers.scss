@@ -493,22 +493,37 @@ $greyColor: #b8b8b8;
   padding-right: 20px;
   padding-left: 20px;
   float: left;
-}
-.order-detail > div{
-  background-color: #f1f1f1;
-  border-left: none;
-  border-right: none;
-  padding-left: 0;
-  padding-right: 0;
-}.order-detail > div:last-child{
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
-}
-.order-detail > div > div:nth-child(1){
-  color: $greyColor;
-  font-size: 15px;
-  font-weight: bolder;
+  background-color: #FFFFFF;
+  > div{
+    background-color: #FFFFFF;
+    border-left: none;
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+    > div:nth-child(1){
+      color: $greyColor;
+      font-size: 15px;
+      font-weight: bolder;
+    }
+  }
+  > div:last-child{
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 800px;
+  }
+  .item-note{
+    color: $greyColor;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .item-note-cost{
+    float: right;
+    color: #000000;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: right;
+  }
 }
 .order-detail-head, .index-page-title-head{
   font-size: 21px;
@@ -524,7 +539,7 @@ $greyColor: #b8b8b8;
   margin-top: 10px;
   color: $greyColor;
   font-size: 15px;
-  font-weight: bolder;
+  font-weight: 500;
 }
 
 .orders-detail{
@@ -1258,6 +1273,8 @@ $greyColor: #b8b8b8;
     }
     > div:first-child{
       float: right;
+      width: auto;
+      white-space: nowrap;
     }
     > div:nth-child(2){
       float: left;
@@ -1436,6 +1453,8 @@ $greyColor: #b8b8b8;
   > div:first-child{
     > div:first-child{
       float: right;
+      width: auto;
+      white-space: nowrap;
     }
     > div:last-child{
       font-size: 17px;
@@ -1471,4 +1490,13 @@ $greyColor: #b8b8b8;
 }
 .element-clear-both{
   clear: both;
+}
+.study-address-order{
+  font-size: 20px;
+  margin-top: 10px;
+  span{
+    margin-left: 2px;
+    font-size: 15px;
+    color: #988c8d;
+  }
 }

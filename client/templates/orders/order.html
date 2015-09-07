@@ -24,6 +24,52 @@
         {{/ionItem}}
         {{#ionItem}}
         <div>
+          <label class="order-detail-head">上课时间</label>
+          <div class="item-note">
+            {{#each timePhases}}
+              <div>{{weekdayText weekday}} {{convMinutes2Str start}} - {{convMinutes2Str end}}</div>
+            {{/each}}
+          </div>
+        </div>
+        {{/ionItem}}
+        {{#ionItem}}
+        {{#if $eq teacher.profile.teacherType "studyCenter"}}
+        <div class="teacher-detial-study-center">
+          <div class="teacher-detail-item-head">
+            <span class="order-detail-head">
+              上课地点
+            </span>
+          </div>
+          <div class="item-note">学习中心</div>
+          <div class="teacher-detail-study-centers">
+            {{#each teacherStudyCenters}}
+              {{> teachersFilterStudyCenter studyCenter=this}}
+            {{/each}}
+          </div>
+        </div>
+        {{else}}
+          {{#if $eq teacher.profile.teacherType "goHome"}}
+          <div>
+            <div class="teacher-detail-item-head">
+              <span class="order-detail-head">
+                上课地点
+              </span>
+            </div>
+            <div class="item-note">老师上门</div>
+            {{#if studyAddress}}
+              <div class="study-address-order">
+                <i id="searchIcon" class="icon ion-ios-location location-map-info-i-select"></i>
+                <span>
+                  {{studyAddress}}
+                </span>
+              </div>
+            {{/if}}
+          </div>
+          {{/if}}
+        {{/if}}
+        {{/ionItem}}
+        {{#ionItem}}
+        <div>
           <div class="order-detail-avatar">
             <span class="order-detail-head">
               课程{{order.className}}
@@ -38,57 +84,37 @@
         </div>
         {{/ionItem}}
         {{#ionItem}}
-          <label>上课时间</label>
-          <div class="item-note">
-            {{#each timePhases}}
-              <div>{{weekdayText weekday}} {{convMinutes2Str start}} - {{convMinutes2Str end}}</div>
-            {{/each}}
-          </div>
-        {{/ionItem}}
-        {{#ionItem}}
-          <label>上课地点</label>
-          <div class="item-note">学习中心</div>
-          <div>上课地点详细信息 (TODO)</div>
-        {{/ionItem}}
-        {{#ionItem}}
         <div>
+          <div class="item-note">
+            {{courseCount}}课时
+          </div>
           <div>
             <span class="order-detail-head">
               课时
             </span>
           </div>
-          <div class="order-detail-detail">
-            {{courseCount}}课时
-          </div>
-        </div>
-        {{/ionItem}}
-        {{#ionItem}}
-        <div>
-          <div>
-            <span class="order-detail-head">
-              课程单价
-            </span>
-          </div>
-          <div class="order-detail-detail">
-            ￥{{money order.unitCost}}
-          </div>
         </div>
         {{/ionItem}}
         {{#ionItem class="item-icon-right"}}
-          <label>麻辣奖学金</label>
+          <label class="order-detail-head">麻辣奖学金</label>
           <div class="item-note">
             <a class="btn pull-right" href="{{pathFor 'parentSettingsEdit'}}">{{> ionIcon icon="ios-arrow-forward" class="button-light greyColor"}}</a>
           </div>
         {{/ionItem}}
         {{#ionItem}}
         <div>
+          <div class="item-note-cost">
+            <div>
+              ￥{{money totalCost}}
+            </div>
+            <div>
+              - ￥500
+            </div>
+          </div>
           <div>
             <span class="order-detail-head">
               课程总价
             </span>
-          </div>
-          <div class="order-detail-detail">
-            ￥{{money order.cost}}
           </div>
         </div>
         {{/ionItem}}
@@ -102,13 +128,13 @@
             </div>
             {{/if}}
           {{else}}
-          <div class="buttom-btn-view">
+          <div class="buttom-btn-view teacher-buttom-btn-view buttom-btn-view-active">
             <div class="row row-center">
               <div class="pull-left col">
                 还需支付：￥<span id="toPayCost">{{toPayCost}}</span>
               </div>
               <div class="pull-right col">
-                <button id="btnSaveAndPay" class="button button-full button-assertive">
+                <button id="btnSaveAndPay" class="button button-full">
                   前往支付
                 </button>
               </div>

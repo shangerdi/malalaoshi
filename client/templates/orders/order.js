@@ -45,6 +45,27 @@ Template.order.helpers({
   },
   error: function(){
     return (this.student && this.teacher) ? "" : "disabled";
+  },
+  teacherStudyCenters: function(){
+    var pointBasic = Session.get("locationLngLat");
+    var retStudyCenters = [];
+    if(this.studyCenters){
+      this.studyCenters.forEach(function(element){
+        element.distance = pointBasic ? calculateDistance({lat: element.lat, lng: element.lng}, pointBasic) : null;
+        retStudyCenters[retStudyCenters.length] = element;
+      });
+    }
+    retStudyCenters.sort(compDistance);
+    return retStudyCenters;
+  },
+  studyAddress: function(){
+    return Session.get("locationAddress");
+  },
+  totalCost: function(){
+    return getCourseCount() * TeacherAudit.getTeacherUnitPrice(this.teacher ? this.teacher._id : null);
+  },
+  toPayCost: function(){
+    return getCourseCount() * TeacherAudit.getTeacherUnitPrice(this.teacher ? this.teacher._id : null);
   }
 });
 
