@@ -1,0 +1,53 @@
+<template name="mineProfileBirthday">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">修改生日</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear button-light" data-action="save-profile-birthday">
+      保存
+    </button>
+  {{/contentFor}}
+
+
+{{#ionView}}
+  {{#ionContent}}
+    <div class="birthday-swiper-comp">
+      <div>
+        <div class="swiper-container year-swiper">
+          <div class="swiper-wrapper">
+            {{#each yearList}}
+              <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
+            {{/each}}
+          </div>
+          <div class="swiper-button-prev"></div><div class="swiper-middle-line"></div>
+        </div>
+      </div>
+      <div>
+        <div class="swiper-container month-swiper">
+          <div class="swiper-wrapper">
+            {{#each monthList}}
+              <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
+            {{/each}}
+          </div>
+          <div class="swiper-button-prev"></div><div class="swiper-middle-line"></div>
+        </div>
+      </div>
+      <div>
+        <div class="swiper-container day-swiper">
+          <div class="swiper-wrapper">
+            {{#each dayList}}
+              <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
+            {{/each}}
+          </div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+    </div>
+  {{/ionContent}}
+{{/ionView}}
+</template>
