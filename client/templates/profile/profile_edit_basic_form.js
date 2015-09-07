@@ -112,11 +112,11 @@ Template.profileEditBasicForm.events({
   },
   'change select.birthday': function(e) {
     var t = e.target;
-    if (t.id != 'birthdayYear' && t.id != 'birthdayMonth') {
+    if (!t.classList.contains('birthdayYear') && !t.classList.contains('birthdayMonth')) {
       return;
     }
     var m = parseInt($('.birthdayMonth').val());
-    if (t.id == 'birthdayYear' && m != 2) {
+    if (t.classList.contains('birthdayYear') && m != 2) {
       return;
     }
     var $daySelect = $(".birthdayDay");
@@ -128,11 +128,11 @@ Template.profileEditBasicForm.events({
   },
   'change select.address': function(e) {// 地区select组件事件
     var t = e.target;
-    if (t.id != 'addressProvince' && t.id != 'addressCity') {
+    if (!t.classList.contains('addressProvince') && !t.classList.contains('addressCity')) {
       return;
     }
     var code = t.value;
-    if (t.id == 'addressProvince') {
+    if (t.classList.contains('addressProvince')) {
       var $citySelect = $(".addressCity");
       $citySelect.children(":gt(0)").remove();
       var $distSelect = $(".addressDistrict");
@@ -142,7 +142,7 @@ Template.profileEditBasicForm.events({
           $citySelect.append('<option value="' + obj.code + '">' + obj.name + '</option>');
         });
       });
-    } else if (t.id == 'addressCity') {
+    } else if (t.classList.contains('addressCity')) {
       var $distSelect = $(".addressDistrict");
       $distSelect.children(":gt(0)").remove();
       var cur = areaOfChina.getSubAreas(code, function(error, arrDist) {
