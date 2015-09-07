@@ -1,0 +1,39 @@
+<template name="mineProfileGender">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">修改性别</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear button-light" data-action="save-profile-gender">
+      保存
+    </button>
+  {{/contentFor}}
+
+
+{{#ionView}}
+  {{#ionContent}}
+
+    {{#ionList}}
+      {{#ionItem class="item-radio"}}
+        <input type="radio" name="gender" value="男">
+        <div class="item-content">
+          男
+        </div>
+        {{> ionIcon icon="checkmark" class="radio-icon"}}
+      {{/ionItem}}
+      {{#ionItem class="item-radio"}}
+        <input type="radio" name="gender" value="女">
+        <div class="item-content">
+          女
+        </div>
+        {{> ionIcon icon="checkmark" class="radio-icon"}}
+      {{/ionItem}}
+    {{/ionList}}
+
+  {{/ionContent}}
+{{/ionView}}
+</template>

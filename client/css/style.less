@@ -1018,3 +1018,37 @@ input[type=text].browser {
 
   }
 }
+.mine-profile-view {
+  .item.item-avatar-right.item-icon-right {
+    img:first-child {
+      margin-right: 35px;
+    }
+  }
+}
+.birthday-swiper-comp {
+  > div {
+    float: left;
+    width: 33%;
+    height: 300px;
+  }
+  .swiper-button-prev {
+    background-image: none;
+    left: 0;
+    width: 100%;
+    border: solid #D66D6D 1px;
+    border-right: none;
+    border-left: none;
+    cursor: auto;
+    background-color: #A0A2A5;
+    opacity: .2;
+  }
+  .swiper-slide {
+    color: #e5e5e5;
+    &.swiper-slide-prev, &.swiper-slide-next {
+      color: #9b9b9b;
+    }
+    &.swiper-slide-active {
+      color: #444;
+    }
+  }
+}
