@@ -1,6 +1,6 @@
 <template name="mineAppTabs">
     {{#ionTabs style="android"}}
       {{> ionTab title="我的资料" path="mineProfile"}}
-      {{> ionTab title="评价" path="mineComment"}}
+      {{> ionTab title="评价" path="comments" tid=currentUser._id}}
     {{/ionTabs}}
 </template>
