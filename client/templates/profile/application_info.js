@@ -18,10 +18,19 @@ var getSubjectStr = function(obj) {
   return s;
 }
 Template.applicationInfo.onRendered(function(){
+  var n=6, u=44, width=u*n;
   this.teachingAgeSwiper = new Swiper('.swiper-container', {
-    slidesPerView: 'auto',
+    slidesPerView: n,
+    width: width,
+    freeMode: true,
+    freeModeMomentum: true,
+    freeModeMomentumRatio: 0.3,
+    freeModeMomentumBounce: true,
+    freeModeMomentumBounceRatio: 0.01,
+    freeModeSticky: true,
     centeredSlides: true
   });
+  $(".swiper-wrapper").width(width);
   var subjects = Meteor.user().profile.subjects;
   Session.set('subjects', subjects?subjects:[]);
   var address = Meteor.user().profile.address;
