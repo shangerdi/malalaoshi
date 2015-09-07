@@ -43,6 +43,6 @@ Template.studentScheduleCourses.events({
   'click .btn-comment': function(e) {
     var ele=e.target, $ele=$(ele);
     var itemId = $ele.closest('div').data('itemid');
-    showToastInfo("出错了，请稍后重试");
+    Router.go('comment', {'cid': itemId});
   }
 });
