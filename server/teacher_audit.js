@@ -13,10 +13,12 @@ Meteor.methods({
     }
 
     var todoUser = Meteor.users.findOne(params.userId);
-    if (params.part == 'basic' && todoUser && todoUser.profile && todoUser.profile.avatarUrl) {
-      //头像有效
-    } else {
-      throw new Meteor.Error('缺少头像', '基本信息审核需要上传头像');
+    if (params.part == 'basic') {
+      if (todoUser && todoUser.profile && todoUser.profile.avatarUrl) {
+        //头像有效
+      } else {
+        throw new Meteor.Error('缺少头像', '基本信息审核需要上传头像');
+      }
     }
 
     // do approve
