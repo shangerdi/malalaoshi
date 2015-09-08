@@ -30,6 +30,19 @@ Template.applicationInfo.onRendered(function(){
     centeredSlides: true
   });
   $(".swiper-wrapper").width(width);
+  // init teachingAge
+  var teachingAge = Meteor.user().profile.teachingAge;
+  if (teachingAge) {
+    var slideIndex = 0;
+    this.teachingAgeSwiper.slides.each(function(){
+      var val = $(this).data('value');
+      if(val==teachingAge){
+        return false;// end each loop
+      }
+      slideIndex++;
+    });
+    this.teachingAgeSwiper.slideTo(slideIndex);
+  }
   var subjects = Meteor.user().profile.subjects;
   Session.set('subjects', subjects?subjects:[]);
   var address = Meteor.user().profile.address;
@@ -45,6 +58,7 @@ Template.applicationInfo.helpers({
     for (i=1;i<=20;i++) {
       a.push(i);
     }
+    a.push('20+');
     return a;
   },
   hasSubjects: function() {
@@ -89,7 +103,8 @@ Template.applicationInfo.events({
     var profile = {};
     profile.name = $("input[name=name]").val();
     profile.gender = $("input[name=gender]:checked").val();
-    profile.teachingAge = Template.instance().teachingAgeSwiper.activeIndex + 1;
+    var teachingAgeSwiper = Template.instance().teachingAgeSwiper;
+    profile.teachingAge = $(teachingAgeSwiper.slides[teachingAgeSwiper.activeIndex]).data('value');
     profile.subjects = getSelectedSubjects();
     profile.city = $("input[name=city]:checked").val();
     // console.log(profile);

@@ -135,7 +135,7 @@ ProfileSchema = new SimpleSchema({
     type: UserAddressSchema
   },
   teachingAge: {
-    type: Number,
+    type: String,
     optional: true,
     label: "Teaching Age"
   },

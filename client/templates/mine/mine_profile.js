@@ -13,5 +13,17 @@ Template.mineProfile.helpers({
       return getEduDegreeText(degree);
     }
     return '';
+  },
+  getTeachingAgeStr: function() {
+    var teachingAge = Meteor.user().profile.teachingAge;
+    if (teachingAge) {
+      var s = parseInt(teachingAge)+'年';
+      if ((''+teachingAge).indexOf('+')>0) {
+        s += '以上';
+      }
+      return s;
+    } else {
+      return '未设置';
+    }
   }
 });

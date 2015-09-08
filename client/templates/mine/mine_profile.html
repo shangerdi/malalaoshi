@@ -66,10 +66,10 @@
           科目年级
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
-        {{#ionItem path="" iconRight=true}}
+        {{#ionItem path="mineProfileTeachingAge" iconRight=true}}
           教龄
           <span class="item-note">
-            {{currentUser.profile.teachingAge}}
+            {{getTeachingAgeStr}}
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
