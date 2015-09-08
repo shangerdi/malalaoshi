@@ -1,4 +1,5 @@
 $greyColor: #b8b8b8;
+$moreGreyColor: #ddd;
 
 .teacher-div > div > div:first-child{
   min-height:85px;
@@ -96,7 +97,7 @@ $greyColor: #b8b8b8;
   padding-right: 20px;
   padding-left: 20px;
   background: white;
-  border: solid #ddd 1px;
+  border: solid $moreGreyColor 1px;
   border-bottom: none;
   border-top: none;
 }
@@ -521,9 +522,19 @@ $greyColor: #b8b8b8;
     float: right;
     color: #000000;
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 500;
     text-align: right;
   }
+}
+#addressDetail{
+  border: solid $moreGreyColor 1px;
+  margin-top: 6px;
+  padding-left: 5px;
+}
+#addressDetail::-moz-placeholder,
+#addressDetail:-ms-input-placeholder,
+#addressDetail::-webkit-input-placeholder{
+  padding-left: 5px;
 }
 .order-detail-head, .index-page-title-head{
   font-size: 21px;
@@ -1157,7 +1168,7 @@ $greyColor: #b8b8b8;
   text-align: center;
   padding: 20px 0 20px 0;
   font-size: 20px;
-  color: #b8b8b8;
+  color: $greyColor;
   cursor: pointer;
 }
 .teacher-detail-tab-content{
@@ -1193,7 +1204,7 @@ $greyColor: #b8b8b8;
   font-size: 20px;
 }
 .teacher-detial-star-content > div > p:last-child{
-  color: #b8b8b8;
+  color: $greyColor;
   margin-top: 19px;
   font-size: 18px;
   font-family: fantasy;
@@ -1228,7 +1239,7 @@ $greyColor: #b8b8b8;
 }
 .teacher-more-info{
   float: right;
-  color: #b8b8b8;
+  color: $greyColor;
   font-size: 15px;
   font-weight: bolder;
   cursor: pointer;
@@ -1439,7 +1450,7 @@ $greyColor: #b8b8b8;
   text-align: center;
   padding: 20px 0 20px 0;
   font-size: 20px;
-  color: #b8b8b8;
+  color: $greyColor;
   cursor: pointer;
 }
 .comments-page-comment-avt{

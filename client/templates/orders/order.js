@@ -62,10 +62,10 @@ Template.order.helpers({
     return Session.get("locationAddress");
   },
   totalCost: function(){
-    return getCourseCount() * TeacherAudit.getTeacherUnitPrice(this.teacher ? this.teacher._id : null);
+    return cmpTotalCost(this);
   },
   toPayCost: function(){
-    return getCourseCount() * TeacherAudit.getTeacherUnitPrice(this.teacher ? this.teacher._id : null);
+    return cmpToPayCost(this);
   }
 });
 
@@ -75,8 +75,21 @@ Template.order.events({
     $(e.currentTarget).addClass("disabled");
     Session.set("orderShowLoading", true);
 
-    var curOrder = this.order;
-    Meteor.call('updateOrder', curOrder, function(error, result) {
+    this.order.hour = getCourseCount();
+    this.order.cost = cmpToPayCost(this);
+    this.order.price = getTeacherUnitPrice(this);
+    this.order.phases = Session.get("phases");
+    if($('#addressDetail').val()){
+      this.order.addressDetail = $('#addressDetail').val();
+    }
+
+    var lngLat = Session.get("locationLngLat");
+    if(lngLat){
+      this.order.lng = lngLat.lng;
+      this.order.lat = lngLat.lat;
+    }
+
+    Meteor.call('updateOrder', this.order, function(error, result) {
       if(error){
         Session.set("orderShowLoading", false);
         $(e.currentTarget).removeClass("disabled");
@@ -98,3 +111,12 @@ Template.order.events({
     }
   }
 });
+function cmpTotalCost(content){
+  return getCourseCount() * getTeacherUnitPrice(content);
+}
+function cmpToPayCost(content){
+  return cmpTotalCost(content);
+}
+function getTeacherUnitPrice(content){
+  return content && content.teacher ? TeacherAudit.getTeacherUnitPrice(content.teacher._id) : 0;
+}
