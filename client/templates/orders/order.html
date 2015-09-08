@@ -64,7 +64,11 @@
                 </span>
               </div>
             {{/if}}
-            <input id="addressDetail" type="text" placeholder="请输入门牌号等详细信息" value="{{order.addressDetail}}">
+            {{#if order._id}}
+              <div class="order-address">{{order.addressDetail}}</div>
+            {{else}}
+              <input id="addressDetail" type="text" placeholder="请输入门牌号等详细信息" value="{{order.addressDetail}}">
+            {{/if}}
           </div>
           {{/if}}
         {{/if}}

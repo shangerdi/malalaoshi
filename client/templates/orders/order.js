@@ -59,7 +59,7 @@ Template.order.helpers({
     return retStudyCenters;
   },
   studyAddress: function(){
-    return Session.get("locationAddress");
+    return this.order._id ? this.order.address : Session.get("locationAddress");
   },
   totalCost: function(){
     return cmpTotalCost(this);
