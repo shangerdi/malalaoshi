@@ -159,11 +159,11 @@ ProfileSchema = new SimpleSchema({
     optional: true,
     label: 'Star level'
   },
-  unitCost: {
+  price: {
     type: Number,
     decimal: true,
     optional: true,
-    label: 'Unit Cost'
+    label: 'Price'
   },
   maScore: {
     type: Number,

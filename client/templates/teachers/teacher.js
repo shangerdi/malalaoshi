@@ -149,7 +149,7 @@ Template.teacher.helpers({
   activeServiceArea: function(){
     return this.user && this.user.profile && this.user.profile.serviceArea ? this.user.profile.serviceArea.join(" | ") : "";
   },
-  unitCost: function() {
+  price: function() {
     return TeacherAudit.getTeacherUnitPrice(this.user._id);
   },
   commentInfo: function(){
@@ -186,14 +186,14 @@ Template.teacher.events({
 
     var className = "体验课程";
     var hour = "1";
-    var unitCost = "1";
+    var price = "1";
     var cost = "1";
 
     var queryObj = 'userId=' + user._id +
                    '&teacherId=' + teacher._id +
                    '&className=' + className +
                    '&hour=' + hour +
-                   '&unitCost=' + unitCost +
+                   '&price=' + price +
                    '&cost=' + cost;
 
     Router.go('order', {}, {query: queryObj});
