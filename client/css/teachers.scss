@@ -1,5 +1,6 @@
 $greyColor: #b8b8b8;
 $moreGreyColor: #ddd;
+$appBackGroundColor: #FFFFFF;
 
 .teacher-div > div > div:first-child{
   min-height:85px;
@@ -494,9 +495,9 @@ $moreGreyColor: #ddd;
   padding-right: 20px;
   padding-left: 20px;
   float: left;
-  background-color: #FFFFFF;
+  background-color: $appBackGroundColor;
   > div{
-    background-color: #FFFFFF;
+    background-color: $appBackGroundColor;
     border-left: none;
     border-right: none;
     padding-left: 0;
@@ -561,29 +562,29 @@ $moreGreyColor: #ddd;
   padding-right: 14px;
   padding-left: 20px;
   float: left;
-}
-.orders-detail > div{
-  background-color: #f1f1f1;
-  border-left: none;
-  border-right: none;
-  padding-left: 0;
-  padding-right: 0;
-}
-.orders-detail > div > div:nth-child(1){
-  color: $greyColor;
-  font-size: 15px;
-  font-weight: bolder;
-}
-.orders-detail .item-icon-right .icon{
-  right: 0;
-}
-.orders-detail .item{
-  background-color: #f1f1f1;
-  border-right: none;
-  border-left: none;
-}
-.orders-detail .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
-  padding-left: 0;
+  background-color: $appBackGroundColor;
+  > div{
+    border-left: none;
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+    > div:nth-child(1){
+      color: $greyColor;
+      font-size: 15px;
+      font-weight: bolder;
+    }
+    .item-icon-right .icon{
+      right: 0;
+    }
+    .item{
+      background-color: $appBackGroundColor;
+      border-right: none;
+      border-left: none;
+    }
+    .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
+      padding-left: 0;
+    }
+  }
 }
 
 .teacher-detail-submit .button-bar > .button{
