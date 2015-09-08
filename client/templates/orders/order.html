@@ -100,12 +100,14 @@
           </div>
         </div>
         {{/ionItem}}
-        {{#ionItem class="item-icon-right"}}
-          <label class="order-detail-head">麻辣奖学金</label>
-          <div class="item-note">
-            <a class="btn pull-right" href="{{pathFor 'parentSettingsEdit'}}">{{> ionIcon icon="ios-arrow-forward" class="button-light greyColor"}}</a>
-          </div>
-        {{/ionItem}}
+        {{#if $not this.order._id}}
+          {{#ionItem class="item-icon-right"}}
+            <label class="order-detail-head">麻辣奖学金</label>
+            <div class="item-note">
+              <a class="btn pull-right" href="{{pathFor 'parentSettingsEdit'}}">{{> ionIcon icon="ios-arrow-forward" class="button-light greyColor"}}</a>
+            </div>
+          {{/ionItem}}
+        {{/if}}
         {{#ionItem}}
         <div>
           <div class="item-note-cost">

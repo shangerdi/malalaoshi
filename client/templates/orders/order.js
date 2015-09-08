@@ -23,7 +23,7 @@ Template.order.helpers({
     }
   },
   timePhases: function() {
-    return Session.get("phases");
+    return this.order._id ? this.order.phases : Session.get("phases");
   },
   convMinutes2Str: function(mins) {
     return ScheduleTable.convMinutes2Str(mins);
@@ -32,7 +32,7 @@ Template.order.helpers({
     return '每周'+ScheduleTable.dayNumWords[d];
   },
   courseCount: function() {
-    return getCourseCount();
+    return this.order._id ? this.order.hour : getCourseCount();
   },
   subject: function(){
     return this.order ? this.order.subject : "";
@@ -62,7 +62,7 @@ Template.order.helpers({
     return this.order._id ? this.order.address : Session.get("locationAddress");
   },
   totalCost: function(){
-    return cmpTotalCost(this);
+    return this.order._id ? this.order.cost : cmpTotalCost(this);
   },
   toPayCost: function(){
     return cmpToPayCost(this);
