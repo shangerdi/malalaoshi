@@ -1,0 +1,54 @@
+<template name="subjectsEditComponent">
+    <div class="subjects-edit-component">
+      <div class="selected-subjects">
+        {{#each selectedSubjects}}
+          <span class="subject" school="{{this.school}}" grade="{{this.grade}}" subject="{{this.subject}}">
+            <a>{{getSubjectStr this}}</a>
+          </span>
+        {{/each}}
+      </div>
+      <div class="subjects-selecting-area">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          {{#each getEduSchools}}
+            <li data-key="{{this.key}}">
+              <a href="#{{this.key}}" aria-controls="{{this.key}}" role="tab" data-toggle="tab">{{this.text}}</a>
+            </li>
+          {{/each}}
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          {{#each getEduSchools}}
+            <div role="tabpanel" class="tab-pane panel-group" id="{{this.key}}">
+              <div class="panel">
+                <div class="panel-heading" role="tab" id="heading{{this.key}}">
+                  <a role="button" data-toggle="collapse" data-parent="#{{this.key}}" href="#collapse{{this.key}}_all" aria-controls="collapse{{this.key}}_all">{{this.text}}</a>
+                </div>
+                <div id="collapse{{this.key}}_all" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{this.key}}_all">
+                  {{#each getEduSubjects this.key 'all'}}
+                    <div class="subject-item" school="{{../key}}" grade="all" subject="{{this.key}}">
+                      <span>{{this.text}}</span><a class="btn-add-subject"><span class="ion-plus"></span></a>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+              {{#each getEduGrades this.key}}
+                <div class="panel">
+                  <div class="panel-heading" role="tab" id="heading{{this.key}}">
+                    <a role="button" data-toggle="collapse" data-parent="#{{../key}}" href="#collapse{{this.key}}" aria-controls="collapse{{this.key}}">{{this.text}}</a>
+                  </div>
+                  <div id="collapse{{this.key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{this.key}}">
+                    {{#each getEduSubjects ../key this.key}}
+                      <div class="subject-item" school="{{../../key}}" grade="{{../key}}" subject="{{this.key}}">
+                        <span>{{this.text}}</span><a class="btn-add-subject"><span class="ion-plus"></span></a>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+</template>
