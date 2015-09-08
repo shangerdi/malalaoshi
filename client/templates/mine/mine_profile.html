@@ -43,17 +43,22 @@
       {{/ionList}}
       <!-- 教学信息 -->
       {{#ionList class="teaching-info-list"}}
-        {{#ionItem path="" iconRight=true}}
+        {{#ionItem path="mineProfileDegree" iconRight=true}}
           最高学历
           <span class="item-note">
-            本科TODO
+            {{getDegreeStr}}
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
-        {{#ionItem path="" iconRight=true}}
+        {{#ionItem path="mineProfileCollege" iconRight=true}}
           院校
+          {{#unless currentUser.profile.college}}
           <span class="item-note no-float">
             请填写毕业/就读院校(必填)
+          </span>
+          {{/unless}}
+          <span class="item-note">
+            {{currentUser.profile.college}}
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}

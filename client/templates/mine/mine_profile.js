@@ -6,5 +6,12 @@ Template.mineProfile.helpers({
       return moment([year,month-1,day]).format('YYYY年M月D日');
     }
     return '';
+  },
+  getDegreeStr: function() {
+    var degree = Meteor.user().profile.degree;
+    if (degree) {
+      return getEduDegreeText(degree);
+    }
+    return '';
   }
 });

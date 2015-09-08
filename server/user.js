@@ -110,6 +110,16 @@ ProfileSchema = new SimpleSchema({
     label: 'State',
     optional: true
   },
+  degree: {
+    type: String,
+    label: 'Highest Degree',
+    optional: true
+  },
+  college: {
+    type: String,
+    label: 'College',
+    optional: true
+  },
   selfIntro: {
     type: String,
     optional: true,
