@@ -41,6 +41,102 @@
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
       {{/ionList}}
+      <!-- 教学信息 -->
+      {{#ionList class="teaching-info-list"}}
+        {{#ionItem path="" iconRight=true}}
+          最高学历
+          <span class="item-note">
+            本科TODO
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          院校
+          <span class="item-note no-float">
+            请填写毕业/就读院校(必填)
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          科目年级
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          教龄
+          <span class="item-note">
+            {{currentUser.profile.teachingAge}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          资质认证
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          所在机构
+          <span class="item-note no-float">
+            请填写您现在的工作单位
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          地址管理
+          <span class="item-note no-float">
+            请填写常用教学地点
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          所属学习中心
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          可上门授课范围
+          <span class="item-note no-float">
+            请填写可上门授课区域
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/ionList}}
+      <!-- 其他设置：个人介绍、经历、时间安排 -->
+      {{#ionList class="other-info-list"}}
+        {{#ionItem path="" iconRight=true}}
+          介绍
+          <span class="item-note no-float">
+            请填写自我介绍
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          过往经历
+          <span class="item-note no-float">
+            请填写个人经历
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          可上课时间
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          成果展示
+          <span class="item-note no-float">
+            请填写教学成功成果
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="" iconRight=true}}
+          照片
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/ionList}}
+      <!-- 系统设置 -->
+      {{#ionList class="system-setting-list"}}
+        {{#ionItem path="" iconRight=true}}
+          设置
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
 </template>
