@@ -37,8 +37,8 @@ function doStarLevelAry(self){
   }
   return ary;
 }
-function doUnitCost(self){
-  return accounting.formatNumber(self.profile.unitCost, 0);
+function doPrice(self){
+  return accounting.formatNumber(self.profile.price, 0);
 }
 Template.teacherItem.helpers({
   subject: function(){
@@ -47,8 +47,8 @@ Template.teacherItem.helpers({
   starLevelAry: function(){
     return doStarLevelAry(this);
   },
-  unitCost: function(){
-    return doUnitCost(this);
+  price: function(){
+    return doPrice(this);
   }
 });
 Template.teacherItemRecommend.helpers({
@@ -58,7 +58,7 @@ Template.teacherItemRecommend.helpers({
   starLevelAry: function(){
     return doStarLevelAry(this);
   },
-  unitCost: function(){
-    return doUnitCost(this);
+  price: function(){
+    return doPrice(this);
   }
 });

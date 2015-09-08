@@ -29,19 +29,30 @@ Meteor.methods({
       if(curUser.role != "admin" && old.student.id != curUser._id){
         throw new Meteor.Error('权限不足', "不能删除别人的订单");
       }
-      Orders.update({_id: order._id}, {$set: order});
+      Orders.update({_id: order._id}, {$set: order});   //TODO only satus can by set.
       return old._id;
     }else{
+      //check submit order[price, cost, coupon] matched server
+      var teacherAudit = TeacherAudit.findOne({"userId": order.teacher.id});
+      if(!teacherAudit){
+        throw new Meteor.Error('老师错误', "老师审核信息错误！");
+      }
+      //TODO check coupon
+      if(teacherAudit.price != order.price || order.price * order.hour != order.cost){
+        throw new Meteor.Error('单价错误', "老师课程单价已经变化，请返回重新提交！");
+      }
+
       var teacherCount = Meteor.users.find({"_id": order.teacher.id, "role": "teacher", "status.basic": "approved"}).count();
       if(teacherCount == 0){
         throw new Meteor.Error('老师错误', "所选老师状态发生变化，请返回！");
       }
 
+/** //TODO add new rule
       var count = Orders.find({"student.id": order.student.id, "teacher.id": order.teacher.id, "className": order.className, "subject": order.subject, "status": {$in: ['submited', 'paid']}}).count();
       if(count > 0){
         throw new Meteor.Error('订单错误', "同一老师相同课程只能预约一次！");
       }
-
+*/
       return Orders.insert(order);
     }
   },

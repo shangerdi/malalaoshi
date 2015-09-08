@@ -55,8 +55,8 @@ Template.comment.helpers({
   subject: function(){
     return doSubject(this.teacher);
   },
-  unitCost: function(){
-    return accounting.formatNumber(this.teacher.profile.unitCost, 0);
+  price: function(){
+    return accounting.formatNumber(this.teacher.profile.price, 0);
   },
   maStars: function(){
     return Session.get("commentMaDuStars");
