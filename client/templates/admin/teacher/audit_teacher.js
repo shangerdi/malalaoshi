@@ -9,6 +9,14 @@ var convStatus2Str = function(status) {
   }
   return "-";
 }
+var convStatus2Indicator = function(status) {
+  var statusDict = {'approved':"success",'submited':"warning",'rejected':"danger"};
+  var str = statusDict[status];
+  if (str) {
+    return str;
+  }
+  return "warning";
+}
 var getPartAuditInfo = function(auditInfo, part) {
   return auditInfo[part+'Info'];
 }
@@ -47,6 +55,11 @@ Template.auditTeacher.helpers({
     var auditInfo = TeacherAudit.findOne({'userId': Router.current().params.userId});
     var status = getAuditStatus(auditInfo, part);
     return convStatus2Str(status);
+  },
+  getAuditStatusIndicator: function(part) {
+    var auditInfo = TeacherAudit.findOne({'userId': Router.current().params.userId});
+    var status = getAuditStatus(auditInfo, part);
+    return convStatus2Indicator(status);
   },
   getAuditTime: function(part) {
     var auditInfo = TeacherAudit.findOne({'userId': Router.current().params.userId});

@@ -265,9 +265,9 @@ Meteor.methods({
       throw new Meteor.Error('无效设置', "参数设置错误");
     }
 
-    var oldProfile = Meteor.users.findOne({_id: userId});
-    if (oldProfile) {
-      profile = _.extend(oldProfile, profile);
+    var oldUser = Meteor.users.findOne({_id: userId});
+    if (oldUser) {
+      profile = _.extend(oldUser.profile, profile);
     }
 
     var curUser = Meteor.user();
