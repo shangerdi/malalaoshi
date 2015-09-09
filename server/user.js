@@ -8,6 +8,16 @@ UserLocationSchema = new SimpleSchema({
     type: Number,
     decimal: true,
     label: 'Latitude'
+  },
+  title:{
+    type: String,
+    optional: true,
+    label: 'Title'
+  },
+  address:{
+    type: String,
+    optional: true,
+    label: 'Address'
   }
 });
 UserStatusSchema = new SimpleSchema({
@@ -110,6 +120,21 @@ ProfileSchema = new SimpleSchema({
     label: 'State',
     optional: true
   },
+  degree: {
+    type: String,
+    label: 'Highest Degree',
+    optional: true
+  },
+  college: {
+    type: String,
+    label: 'College',
+    optional: true
+  },
+  company: { // 所在机构
+    type: String,
+    label: 'Company',
+    optional: true
+  },
   selfIntro: {
     type: String,
     optional: true,
@@ -125,7 +150,7 @@ ProfileSchema = new SimpleSchema({
     type: UserAddressSchema
   },
   teachingAge: {
-    type: Number,
+    type: String,
     optional: true,
     label: "Teaching Age"
   },
