@@ -1,4 +1,6 @@
 $greyColor: #b8b8b8;
+$moreGreyColor: #ddd;
+$appBackGroundColor: #FFFFFF;
 
 .teacher-div > div > div:first-child{
   min-height:85px;
@@ -96,7 +98,7 @@ $greyColor: #b8b8b8;
   padding-right: 20px;
   padding-left: 20px;
   background: white;
-  border: solid #ddd 1px;
+  border: solid $moreGreyColor 1px;
   border-bottom: none;
   border-top: none;
 }
@@ -493,22 +495,50 @@ $greyColor: #b8b8b8;
   padding-right: 20px;
   padding-left: 20px;
   float: left;
+  background-color: $appBackGroundColor;
+  > div{
+    background-color: $appBackGroundColor;
+    border-left: none;
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+    > div:nth-child(1){
+      color: $greyColor;
+      font-size: 15px;
+      font-weight: bolder;
+    }
+  }
+  > div:last-child{
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 800px;
+  }
+  .item-note{
+    color: $greyColor;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .item-note-cost{
+    float: right;
+    color: #000000;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: right;
+  }
+  .order-address{
+    margin-top: 6px;
+  }
 }
-.order-detail > div{
-  background-color: #f1f1f1;
-  border-left: none;
-  border-right: none;
-  padding-left: 0;
-  padding-right: 0;
-}.order-detail > div:last-child{
-  border-bottom: none;
-  border-left: none;
-  border-right: none;
+#addressDetail{
+  border: solid $moreGreyColor 1px;
+  margin-top: 6px;
+  padding-left: 5px;
 }
-.order-detail > div > div:nth-child(1){
-  color: $greyColor;
-  font-size: 15px;
-  font-weight: bolder;
+#addressDetail::-moz-placeholder,
+#addressDetail:-ms-input-placeholder,
+#addressDetail::-webkit-input-placeholder{
+  padding-left: 5px;
 }
 .order-detail-head, .index-page-title-head{
   font-size: 21px;
@@ -524,7 +554,7 @@ $greyColor: #b8b8b8;
   margin-top: 10px;
   color: $greyColor;
   font-size: 15px;
-  font-weight: bolder;
+  font-weight: 500;
 }
 
 .orders-detail{
@@ -532,29 +562,29 @@ $greyColor: #b8b8b8;
   padding-right: 14px;
   padding-left: 20px;
   float: left;
-}
-.orders-detail > div{
-  background-color: #f1f1f1;
-  border-left: none;
-  border-right: none;
-  padding-left: 0;
-  padding-right: 0;
-}
-.orders-detail > div > div:nth-child(1){
-  color: $greyColor;
-  font-size: 15px;
-  font-weight: bolder;
-}
-.orders-detail .item-icon-right .icon{
-  right: 0;
-}
-.orders-detail .item{
-  background-color: #f1f1f1;
-  border-right: none;
-  border-left: none;
-}
-.orders-detail .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
-  padding-left: 0;
+  background-color: $appBackGroundColor;
+  > div{
+    border-left: none;
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+    > div:nth-child(1){
+      color: $greyColor;
+      font-size: 15px;
+      font-weight: bolder;
+    }
+    .item-icon-right .icon{
+      right: 0;
+    }
+    .item{
+      background-color: $appBackGroundColor;
+      border-right: none;
+      border-left: none;
+    }
+    .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
+      padding-left: 0;
+    }
+  }
 }
 
 .teacher-detail-submit .button-bar > .button{
@@ -1142,7 +1172,7 @@ $greyColor: #b8b8b8;
   text-align: center;
   padding: 20px 0 20px 0;
   font-size: 20px;
-  color: #b8b8b8;
+  color: $greyColor;
   cursor: pointer;
 }
 .teacher-detail-tab-content{
@@ -1178,7 +1208,7 @@ $greyColor: #b8b8b8;
   font-size: 20px;
 }
 .teacher-detial-star-content > div > p:last-child{
-  color: #b8b8b8;
+  color: $greyColor;
   margin-top: 19px;
   font-size: 18px;
   font-family: fantasy;
@@ -1213,7 +1243,7 @@ $greyColor: #b8b8b8;
 }
 .teacher-more-info{
   float: right;
-  color: #b8b8b8;
+  color: $greyColor;
   font-size: 15px;
   font-weight: bolder;
   cursor: pointer;
@@ -1258,6 +1288,8 @@ $greyColor: #b8b8b8;
     }
     > div:first-child{
       float: right;
+      width: auto;
+      white-space: nowrap;
     }
     > div:nth-child(2){
       float: left;
@@ -1422,7 +1454,7 @@ $greyColor: #b8b8b8;
   text-align: center;
   padding: 20px 0 20px 0;
   font-size: 20px;
-  color: #b8b8b8;
+  color: $greyColor;
   cursor: pointer;
 }
 .comments-page-comment-avt{
@@ -1436,6 +1468,8 @@ $greyColor: #b8b8b8;
   > div:first-child{
     > div:first-child{
       float: right;
+      width: auto;
+      white-space: nowrap;
     }
     > div:last-child{
       font-size: 17px;
@@ -1471,4 +1505,13 @@ $greyColor: #b8b8b8;
 }
 .element-clear-both{
   clear: both;
+}
+.study-address-order{
+  font-size: 20px;
+  margin-top: 10px;
+  span{
+    margin-left: 2px;
+    font-size: 15px;
+    color: #988c8d;
+  }
 }

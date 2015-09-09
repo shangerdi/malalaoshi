@@ -140,7 +140,7 @@ Template.comments.helpers({
     $('#poolComments').html('差评(' + ct + ')');
     return ct;
   },
-  unitCost: function(){
+  price: function(){
     return this.teacherAudit && this.teacherAudit.price ? this.teacherAudit.price : 0;
   },
   allComments: function(){
