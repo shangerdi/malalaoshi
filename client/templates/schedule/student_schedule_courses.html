@@ -7,11 +7,29 @@
 
   {{#ionView}}
     {{#ionContent}}
-      student courses list({{tab}})
       {{#ionList class="schedule-courses"}}
         {{#each courses}}
-        {{#ionItem buttonRight=true avatar=true class="schedule-course-item"}}
-          {{this}}
+        {{#ionItem class="schedule-course-item"}}
+          <div class="course-info">
+            <div class="pull-left">
+              <div class="course-subject">{{teacher.name}} | {{this.detail.subject}}</div>
+              <div class="course-time">{{getCourseTime this.attendTime}} {{convMinutes2Str this.phase.start}}--{{convMinutes2Str this.phase.end}}</div>
+            </div>
+            <div class="teacher-avatar">
+              <img src="{{getAvatarUrl teacher.id}}" class="img-responsive img-circle" >
+            </div>
+          </div>
+          <div class="row btn-box" data-itemid="{{this._id}}">
+            {{#if $eq this.state 1}}
+              <button class="btn button button-positive btn-confirm">确认课时</button>
+            {{/if}}
+            {{#if $eq this.state 2}}
+              <button class="btn button button-positive btn-comment">评价</button>
+            {{/if}}
+            {{#if $eq this.state 3}}
+              已评价
+            {{/if}}
+          </div>
         {{/ionItem}}
         {{/each}}
       {{/ionList}}

@@ -1,14 +1,14 @@
 /* 约课处理锁缓存，{_id:teacherId, lockTime:timestamp}*/
 var Fiber = Npm.require('fibers');
 
-doReserveCourses = function(student, teacher, lessonCount, phases) {
+doReserveCourses = function(student, teacher, lessonCount, phases, order) {
   var curFiber = Fiber.current, error = false;
   // console.log('teacher:'+teacher._id+", student:"+student._id);
   AsyncLocks.lock(teacher._id, Meteor.bindEnvironment(function(leaveCallback) {
     try {
       // console.log("in callback");
       // sleep(5000);
-      var toInsertList = ScheduleTable.generateReserveCourseRecords(student, teacher, lessonCount, phases);
+      var toInsertList = ScheduleTable.generateReserveCourseRecords(student, teacher, lessonCount, phases, false, order);
       // console.log(toInsertList);
       // insert into DB
       // CourseAttendances.insert(toInsertList);
@@ -66,6 +66,14 @@ Meteor.methods({
     } else {
       TeacherAvailableTimes.insert({'teacher': {'id': teacherId, 'name': teacherName}, 'phases': phases});
     }
+    return true;
+  },
+  confirmCourseAttended: function(itemId) {
+    var curUser = Meteor.user();
+    if (!curUser) {
+      throw new Meteor.Error('权限不足', "需要登录");
+    }
+    CourseAttendances.update({'_id': itemId, 'student.id': curUser._id},{$set:{state:ScheduleTable.attendanceStateDict["attended"].value}});
     return true;
   }
 });
