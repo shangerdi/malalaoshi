@@ -120,6 +120,11 @@ ProfileSchema = new SimpleSchema({
     label: 'College',
     optional: true
   },
+  company: { // 所在机构
+    type: String,
+    label: 'Company',
+    optional: true
+  },
   selfIntro: {
     type: String,
     optional: true,

@@ -77,10 +77,15 @@
           资质认证
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
-        {{#ionItem path="" iconRight=true}}
+        {{#ionItem path="mineProfileCompany" iconRight=true}}
           所在机构
+          {{#unless currentUser.profile.company}}
           <span class="item-note no-float">
             请填写您现在的工作单位
+          </span>
+          {{/unless}}
+          <span class="item-note">
+            {{currentUser.profile.company}}
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
