@@ -8,6 +8,16 @@ UserLocationSchema = new SimpleSchema({
     type: Number,
     decimal: true,
     label: 'Latitude'
+  },
+  title:{
+    type: String,
+    optional: true,
+    label: 'Title'
+  },
+  address:{
+    type: String,
+    optional: true,
+    label: 'Address'
   }
 });
 UserStatusSchema = new SimpleSchema({
