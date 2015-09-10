@@ -30,8 +30,14 @@
         </div>
       </div>
       <div class="teacher-detail-tab-content" id="teacherNav">
-        <div id="mainPageInScroll" class="teacher-detail-tab {{activeTabClass 'mainPage'}}">个人资料</div>
-        <div id="evaluationInScroll" class="teacher-detail-tab {{activeTabClass 'evaluation'}}">评价</div>
+        <ul class="nav">
+          <li>
+            <a href="#teacherSpInfo">个人资料</a>
+          </li>
+          <li>
+            <a id="evaluationInScroll" class="teacher-detail-tab" href="#teacherEvaluation">评价</a>
+          </li>
+        </ul>
       </div>
       <div class="teacher-detail-sp-info" id="teacherSpInfo">
           <div>特殊头衔</div>

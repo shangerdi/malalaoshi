@@ -6,50 +6,28 @@ Template.teacher.onCreated(function(){
   Session.set('hasTabsTop',false);
 });
 Template.teacher.onRendered(function(){
-  var self = this;
-  //on Android (< 2.3) devices, elements that are set to position: fixed; in CSS behave as if they are ‘static’ or part of the normal document flow
-  var addNavElement = '' +
-  '  <div class="teacher-detail-tab-content nav-fixed-top" id="teacherNavStatic"> ' +
-  '    <div id="mainPage" class="teacher-detail-tab">个人资料</div> ' +
-  '    <div id="evaluation" class="teacher-detail-tab">评价</div> ' +
-  '  </div>';
-
-  $('body').append(addNavElement);
-
-  $('#mainPage').click(mainPageClick);
-  $('#evaluation').click(evaluationClick);
-
-  IonNavigation.skipTransitions = true;
-  Session.set('teacherDetialPageAcitveTab', null);
-  var detailScrollTop = $('.teacher-detail').scrollTop();
-  var teacherDetailOffTop = $(".teacher-detail").offset().top;
-  var barHeaderHeight = $(".bar-header").outerHeight(true);
-  var navStaticHeight = $("#teacherNavStatic").outerHeight(true);
-  teacherNavHeight = $("#teacherNav").outerHeight();
-  maxNavOffsetTop = $("#teacherNav").offset().top - $(".teacher-detail").offset().top + detailScrollTop;
-  auditMoveHeight = detailScrollTop + $("#teacherAudit").offset().top - barHeaderHeight - navStaticHeight;
-  evaluationMoveHeight = detailScrollTop + $("#teacherEvaluation").offset().top - barHeaderHeight - navStaticHeight;
-  $('.teacher-detail').scroll(function(){
-    if($("#teacherNav").offset().top <= teacherDetailOffTop){
-      $('#teacherNavStatic').css('display','block');
-    }else{
-      $('#teacherNavStatic').css('display','none');
-    }
-  });
   var swiper = new Swiper('.teacher-swiper-container', {
       slidesPerView: 3,
       spaceBetween: 7,
       freeMode: true
   });
-  self.autorun(function(){
-    var actId = Session.get('teacherDetialPageAcitveTab');
-    if(actId == "mainPage"){
-      $('#mainPage').addClass('teacher-detail-tab-active');
-      $('#evaluation').removeClass('teacher-detail-tab-active');
-    }else if(actId == "evaluation"){
-      $('#evaluation').addClass('teacher-detail-tab-active');
-      $('#mainPage').removeClass('teacher-detail-tab-active');
-    }
+
+  var top = $('#teacherNav').offset().top - $('.app-layout-nav-bar').outerHeight();
+  $('#teacherNav').affix({
+    offset:{
+      top: top
+    },
+    target:$('.teacher-detail')
+  });
+  $('#teacherNav').on('affix.bs.affix', function(){
+    $('#teacherSpInfo').css('margin-top', parseInt($('#teacherSpInfo').css('margin-top')) + $('#teacherNav').outerHeight() + 'px');
+  });
+  $('#teacherNav').on('affix-top.bs.affix', function(){
+    $('#teacherSpInfo').css('margin-top', parseInt($('#teacherSpInfo').css('margin-top')) - $('#teacherNav').outerHeight() + 'px');
+  });
+
+  $('.teacher-detail').scrollspy({
+    target:'#teacherNav'
   });
 });
 Template.teacher.helpers({
@@ -110,13 +88,6 @@ Template.teacher.helpers({
   submitActiv: function(){
     return !this.user;
   },
-  activeTabClass: function(id){
-    var actId = Session.get('teacherDetialPageAcitveTab');
-    if(actId == id){
-      return "teacher-detail-tab-active";
-    }
-    return "";
-  },
   experience: function(){
     return this.teacherAudit && this.teacherAudit.experience || "";
   },
@@ -176,6 +147,11 @@ Template.teacher.helpers({
 });
 
 Template.teacher.events({
+  'click #teacherNav li a': function(e) {
+    e.preventDefault();
+    var des = $(e.target.getAttribute('href'));
+    $('.teacher-detail').scrollTo(des);
+  },
   'click #tryExperienceCourse': function(e) {
     e.preventDefault();
     var user = Meteor.user();
@@ -219,12 +195,6 @@ Template.teacher.events({
       $('#experience').css('height', '76px');
     }
   },
-  'click #mainPageInScroll': function(e){
-    mainPageClick(e);
-  },
-  'click #evaluationInScroll': function(e){
-    evaluationClick(e);
-  },
   'click #moreEvaluation': function(e){
     e.preventDefault();
     Router.go('comments', {'tid': this.user._id});
@@ -238,9 +208,6 @@ Template.teacherPersonalPhotosShow.onRendered(function(){
       slidesPerView: 1,
       spaceBetween: 0
   });
-});
-Template.teacher.onDestroyed(function(){
-  $('#teacherNavStatic').remove();
 });
 function doStarLevelAry(self){
   var ary = [];
@@ -256,13 +223,4 @@ function doStarLevelAry(self){
   }
   return ary;
 }
-var mainPageClick = function(e){
-  e.preventDefault();
-  Session.set('teacherDetialPageAcitveTab', "mainPage");
-  $('.teacher-detail').scrollTo(auditMoveHeight+'px',500);
-}
-var evaluationClick = function(e){
-  e.preventDefault();
-  Session.set('teacherDetialPageAcitveTab', "evaluation");
-  $('.teacher-detail').scrollTo(evaluationMoveHeight+'px',500);
-}
+
