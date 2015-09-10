@@ -71,5 +71,18 @@ Meteor.methods({
     }
 
     return Orders.update({_id: id}, {$set: {"status": "deleted"}});
+  },
+  findOrderLastCourseAttendanceEndTime: function(ids){
+    var ret = [];
+    _.each(ids, function(id){
+      var ca = CourseAttendances.findOne({'detail.orderId': id}, {sort: {'endTime': -1}, limit: 1});
+      if(ca && ca.endTime){
+        ret[ret.length] = {
+          id: id,
+          endTime: ca.endTime
+        };
+      }
+    });
+    return ret;
   }
 });
