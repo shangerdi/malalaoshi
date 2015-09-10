@@ -1,0 +1,43 @@
+<template name="mineProfileCert">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">认证资质</h1>
+  {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#ionView class="mine-profile-view mine-profile-cert-view"}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#ionItem href=pathForId iconRight=true}}
+          身份认证
+          <span class="item-note">
+            {{getAuditStatusStr 'identity'}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem href=pathForTeacher iconRight=true}}
+          教师证认证
+          <span class="item-note">
+            {{getAuditStatusStr 'teacher'}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem href=pathForEdu iconRight=true}}
+          学历认证
+          <span class="item-note">
+            {{getAuditStatusStr 'education'}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem href=pathForProfession iconRight=true}}
+          专业资质认证
+          <span class="item-note">
+            {{getAuditStatusStr 'profession'}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

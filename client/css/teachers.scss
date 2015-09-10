@@ -493,8 +493,8 @@ $malaRed: #e14123;
 }
 .order-detail{
   width: 100%;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
   float: left;
   background-color: $appBackGroundColor;
   > div{
@@ -560,8 +560,8 @@ $malaRed: #e14123;
 
 .orders-detail{
   width: 100%;
-  padding-right: 14px;
-  padding-left: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
   float: left;
   background-color: $appBackGroundColor;
   > div{
@@ -569,21 +569,31 @@ $malaRed: #e14123;
     border-right: none;
     padding-left: 0;
     padding-right: 0;
-    > div:nth-child(1){
-      color: $greyColor;
-      font-size: 15px;
-      font-weight: bolder;
-    }
-    .item-icon-right .icon{
-      right: 0;
-    }
-    .item{
-      background-color: $appBackGroundColor;
-      border-right: none;
-      border-left: none;
-    }
-    .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
-      padding-left: 0;
+  }
+}
+.orders-detail-order{
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  > div:first-child{
+    float: right;
+    font-size: 15px;
+    color: $greyColor;
+  }
+  > div:nth-child(2){
+    margin-top: 15px;
+    color: #000;
+    font-size: 17px;
+  }
+  > div:nth-child(3){
+    margin-top: 10px;
+  }
+  > div:last-child{
+    text-align: right;
+    .button{
+      min-height: 30px;
+      line-height: 30px;
+      margin-left: 10px;
     }
   }
 }
@@ -1125,6 +1135,7 @@ $malaRed: #e14123;
   line-height: 44px;
   vertical-align: middle;
   text-align: right;
+  white-space: nowrap;
 }
 .teacher-subject-grade-info{
   color: #988c8d;
@@ -1376,8 +1387,8 @@ $malaRed: #e14123;
   height: 0;
 }
 .view-both-side-margin{
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 .course-attendance-comment-head{
   margin-top: 20px;
@@ -1515,5 +1526,25 @@ $malaRed: #e14123;
     margin-left: 2px;
     font-size: 15px;
     color: #988c8d;
+  }
+}
+.top-tab-nav{
+  .tabs{
+    border: none;
+  }
+  .tabs .tab-item{
+    font-size: 20px;
+  }
+  a{
+    border: solid $moreGreyColor 1px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  a:first-child{
+    margin-left: 10px;
+  }
+  a:last-child{
+    margin-right: 10px;
   }
 }

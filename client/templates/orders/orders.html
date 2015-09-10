@@ -2,29 +2,37 @@
   {{#contentFor "headerTitle"}}
     <h1 class="title normal-title">我的订单</h1>
   {{/contentFor}}
-  {{#contentFor "headerButtonRight"}}
-    <button class="button pull-right button-light btn-settings">
-      设置
-    </button>
-  {{/contentFor}}
+
+  {{#ionTabs class="tabs-top tabs-striped top-tab-nav"}}
+    {{> ionTab title="待支付" path="ordersNoPaid"}}
+    {{> ionTab title="已支付" path="ordersPaidOk"}}
+  {{/ionTabs}}
 
   {{#ionView}}
-    {{#ionContent}}
-      {{#ionList class="orders-detail"}}
-        {{#each orders}}
-        <a class="" href="{{pathFor 'order' id=this._id}}">
-        {{#ionItem buttonRight=true avatar=true class="item-icon-right"}}
-          <div class="order-detail-avatar">
-            <span class="order-detail-head">
-              {{className}}
-            </span>
-            <div class="order-detail-detail">
-              {{teacher.name}} | {{subject}}
+    {{#ionContent class="orders-detail"}}
+      {{#ionList}}
+        {{#each showOrders}}
+          <div class="orders-detail-order">
+            <div>{{orderTime}}</div>
+            <div>
+              {{subject}}
+            </div>
+            <div>
+              <span>共{{courseHour}}课时</span>
+              <span>合计：￥{{payMoney}}</span>
+            </div>
+            <div>
+              <button class="button button-light order-detail-view-btn">
+                查看订单
+              </button>
+              {{#if $eq status 'submited'}}
+              <button class="button button-dark">
+                支付
+              </button>
+              {{/if}}
             </div>
           </div>
-          {{> ionIcon icon="ios-arrow-forward" class="button-light greyColor"}}
-        {{/ionItem}}
-        </a>
+          <div class="element-clear-both"><hr></div>
         {{/each}}
       {{/ionList}}
       {{#if empty}}

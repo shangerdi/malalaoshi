@@ -48,6 +48,9 @@ appSetDefaultCity = function() {
   Session.set("locationDefaultCity", "北京市");
 };
 
+mapCallbackFunction = function() { // 地图定位后callback方法
+}
+
 genScoreStarsAry = function(val, max){
   var ret = [];
   if(typeof val != 'number'){

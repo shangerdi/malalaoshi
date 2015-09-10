@@ -1,4 +1,3 @@
-var maxSubjectsCount = 4;
 var getSelectedSubjects = function() {
   return Session.get('subjects');
 }
@@ -31,6 +30,19 @@ Template.applicationInfo.onRendered(function(){
     centeredSlides: true
   });
   $(".swiper-wrapper").width(width);
+  // init teachingAge
+  var teachingAge = Meteor.user().profile.teachingAge;
+  if (teachingAge) {
+    var slideIndex = 0;
+    this.teachingAgeSwiper.slides.each(function(){
+      var val = $(this).data('value');
+      if(val==teachingAge){
+        return false;// end each loop
+      }
+      slideIndex++;
+    });
+    this.teachingAgeSwiper.slideTo(slideIndex);
+  }
   var subjects = Meteor.user().profile.subjects;
   Session.set('subjects', subjects?subjects:[]);
   var address = Meteor.user().profile.address;
@@ -46,6 +58,7 @@ Template.applicationInfo.helpers({
     for (i=1;i<=20;i++) {
       a.push(i);
     }
+    a.push('20+');
     return a;
   },
   hasSubjects: function() {
@@ -90,7 +103,8 @@ Template.applicationInfo.events({
     var profile = {};
     profile.name = $("input[name=name]").val();
     profile.gender = $("input[name=gender]:checked").val();
-    profile.teachingAge = Template.instance().teachingAgeSwiper.activeIndex + 1;
+    var teachingAgeSwiper = Template.instance().teachingAgeSwiper;
+    profile.teachingAge = $(teachingAgeSwiper.slides[teachingAgeSwiper.activeIndex]).data('value');
     profile.subjects = getSelectedSubjects();
     profile.city = $("input[name=city]:checked").val();
     // console.log(profile);
@@ -121,82 +135,5 @@ Template.applicationInfo.events({
     var name = ele.name;
     errors[name]='';
     Session.set("errors", errors);
-  }
-});
-
-
-Template._subjectsModal.onRendered(function(){
-  $('#elementary').addClass('active');
-  $('a[aria-controls="elementary"]').closest('li').addClass('active');
-  $('#elementary').tab('show');
-});
-Template._subjectsModal.helpers({
-  selectedSubjects: function() {
-    return getSelectedSubjects();
-  },
-  getSubjectStr: function(obj) {
-    return getSubjectStr(obj);
-  },
-  getEduSchools: function() {
-    var a=[], d = getEduSchoolDict();
-    _.each(d, function(obj) {
-      a.push({'key':obj.key,'text':obj.text});
-    });
-    return a;
-  },
-  getEduGrades: function(school) {
-    var d = getEduGradeDict(), a = [];
-    var schText = getEduSchoolText(school);
-    _.each(d, function(obj) {
-      if (obj.key.indexOf(school) < 0) {
-        return false;
-      }
-      a.push({'key':obj.key, 'text':schText+obj.text});
-    });
-    return a;
-  },
-  getEduSubjects: function(school, grade) {
-    var d = getEduSubjectDict(), a = [], s = getSelectedSubjects();
-    _.each(d, function(obj) {
-      if (school == 'elementary' && !obj.only_elementary) {
-        return false;
-      }
-      // 过滤掉已选择的
-      var isSelected = _.find(s, function(tmp) {
-        return tmp.school===school && tmp.grade===grade && tmp.subject===obj.key;
-      });
-      if (isSelected) {
-        return false;
-      }
-      a.push({'key':obj.key, 'text':obj.text});
-    });
-    return a;
-  }
-});
-Template._subjectsModal.events({
-  'click .btn-add-subject': function(e) {
-    var ele = e.target, $ele = $(ele), $subjectItem = $ele.closest('.subject-item');
-    var school = $subjectItem.attr('school'), grade = $subjectItem.attr('grade'), subject = $subjectItem.attr('subject');
-    var subjects = getSelectedSubjects();
-    if (subjects && subjects.length >= maxSubjectsCount) {
-      alert('最多可以添加'+maxSubjectsCount+'个科目');
-      return;
-    }
-    subjects.push({'school': school, 'subject': subject, 'grade': grade});
-    Session.set('subjects', subjects);
-    var errors = Session.get("errors");
-    if (errors) {
-      errors['subjects']='';
-      Session.set("errors", errors);
-    }
-  },
-  'click .selected-subjects span': function(e) {
-    var ele = e.target, $ele = $(ele), $ele = $ele.closest(".subject");
-    var school = $ele.attr('school'), grade = $ele.attr('grade'), subject = $ele.attr('subject');
-    var subjects = getSelectedSubjects();
-    subjects = _.reject(subjects, function(tmp) {
-      return tmp.school===school && tmp.grade===grade && tmp.subject===subject;
-    });
-    Session.set('subjects', subjects);
   }
 });

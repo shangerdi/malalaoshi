@@ -148,7 +148,7 @@ Meteor.publish('teachers', function(parameters) {
   return [];
 });
 Meteor.publish('teacher', function(userId) {
-  if (this.userId) {
+  if (this.userId && userId) {
     var teacher = Meteor.users.findOne({"_id": userId, "status.basic": "approved"},{"studyCenter": 1});
     var studyCenterIds = teacher && teacher.profile && teacher.profile.studyCenter ? teacher.profile.studyCenter : [];
     return [
