@@ -1,6 +1,7 @@
 $greyColor: #b8b8b8;
 $moreGreyColor: #ddd;
 $appBackGroundColor: #FFFFFF;
+$malaRed: #e14123;
 
 .teacher-div > div > div:first-child{
   min-height:85px;
@@ -1164,20 +1165,25 @@ $appBackGroundColor: #FFFFFF;
   font-size: 17px;
   float:left;
 }
-.teacher-detail-tab{
-  width: 50%;
-  float: left;
-  border-style: solid;
-  border-width: 2px 0 2px 0;
-  text-align: center;
-  padding: 20px 0 20px 0;
-  font-size: 20px;
-  color: $greyColor;
-  cursor: pointer;
-}
-.teacher-detail-tab-content{
-  width: 100%;
-  margin-top: 15px;
+.teacher-detail .nav{
+  li{
+    width: 50%;
+    float: left;
+    border-style: solid;
+    border-width: 2px 0;
+    color: $greyColor;
+    >a {
+      padding: 20px 0;
+      text-align: center;
+      cursor: pointer;
+      font-size: 20px;
+      margin:0;
+    }
+  }
+  li.active{
+    color: $malaRed;
+    border-color: $malaRed;
+  }
 }
 .teacher-detial-star-content > div:first-child{
   padding: 15px;
@@ -1498,10 +1504,6 @@ $appBackGroundColor: #FFFFFF;
   padding-right: 20px;
   padding-left: 20px;
   display: none;
-}
-.teacher-detail-tab-active{
-  color: #000000;
-  border-color: #000000;
 }
 .element-clear-both{
   clear: both;
