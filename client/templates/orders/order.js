@@ -75,10 +75,12 @@ Template.order.events({
     $(e.currentTarget).addClass("disabled");
     Session.set("orderShowLoading", true);
 
-    this.order.hour = getCourseCount();
-    this.order.cost = cmpToPayCost(this);
-    this.order.price = getTeacherUnitPrice(this);
-    this.order.phases = Session.get("phases");
+    if (!this.order._id) {
+      this.order.hour = getCourseCount();
+      this.order.cost = cmpToPayCost(this);
+      this.order.price = getTeacherUnitPrice(this);
+      this.order.phases = Session.get("phases");
+    }
     if($('#addressDetail').val()){
       this.order.addressDetail = $('#addressDetail').val();
     }

@@ -34,6 +34,11 @@ function selectPoint(addRess, street, point){
   Session.set("locationAddress", addRess);
   Session.set("locationStreet", street);
 
+  if (mapCallbackFunction && _.isFunction(mapCallbackFunction)) {
+    mapCallbackFunction();
+    mapCallbackFunction = null;
+    return;
+  }
   Router.go("teachersFilter", null, {hash: "setAddress"});
 }
 Template.map.rendered=function(){

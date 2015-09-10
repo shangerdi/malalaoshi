@@ -1009,7 +1009,7 @@ input[type=text].browser {
     }
   }
 }
-.subjects-modal-box {
+.subjects-edit-component {
   .selected-subjects{
     min-height: 30px;
     line-height: 30px;
@@ -1024,6 +1024,9 @@ input[type=text].browser {
       margin-right: 35px;
     }
   }
+}
+.no-float {
+  float: none;
 }
 .birthday-swiper-comp {
   > div {
@@ -1052,3 +1055,57 @@ input[type=text].browser {
     }
   }
 }
+#teacherNav{
+  background-color:white;
+}
+.cert-img-upload-view {
+  .content{
+    padding: 20px;
+  }
+  .cert-img-box {
+    margin: 16px 0;
+    min-width: 161px;
+    position: relative;
+    .img-box {
+      width: 100%;
+      height: 212px;
+      line-height: 212px;
+      overflow: hidden;
+      background: #ddd;
+      text-align: center;
+      img{
+        max-width: 100%;
+        max-height: 100%;
+        vertical-align: middle;
+      }
+    }
+    .uploading-hint-box {
+      display: none;
+    }
+    .file-input-mask{
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      overflow: hidden;
+      input {
+        position: absolute;
+        top: -100px;
+        right: 0;
+        margin: 0;
+        width: 100%;
+        height: 200px;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        transform: translate(-300px,0) scale(4);
+        font-size: 16px;
+        direction: ltr;
+        cursor: pointer;
+        color: transparent;
+      }
+    }
+  }
+  .action-btn-box {
+    margin-top: 20px;
+  }
+}
+
