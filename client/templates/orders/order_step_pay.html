@@ -25,6 +25,7 @@
         </div>
         {{> ionIcon icon="checkmark" class="radio-icon"}}
       {{/ionItem}}
+      {{#if isCordova}} <!-- 微信支付只有客户端（web方式是公共号） -->
       {{#ionItem class="item-radio"}}
         <input type="radio" name="payType" value="weixin">
         <div class="item-content">
@@ -32,6 +33,7 @@
         </div>
         {{> ionIcon icon="checkmark" class="radio-icon"}}
       {{/ionItem}}
+      {{/if}}
       <span class="help-block">{{errorMessage 'pay'}}</span>
      </div>
     {{/ionList}}
