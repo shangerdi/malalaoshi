@@ -69,7 +69,11 @@ Template.orderStepPay.events({
         if (result=='cancel') {
           // TODO
         } else {
-          alert("支付失败!");
+          if (result=='invalid' && channel=='weixin') {
+            alert("请先安装微信应用程序！");
+          } else {
+            alert("支付失败!");
+          }
         }
         Session.set("orderShowLoading", false);
         $(e.currentTarget).removeClass("disabled");
