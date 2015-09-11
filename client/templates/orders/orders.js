@@ -50,18 +50,14 @@ Template.orders.helpers({
     if(this.status != 'paid' && this.status != 'end'){
       return false;
     }
-    var thisId = this._id;
     var courseAttendance = Template.instance().getOrderLastCourseAttendances.get();
-    var ck = false;
     if(courseAttendance){
-      for(var i=0;i<courseAttendance.length;i++){
-        if(courseAttendance[i].id == thisId && new Date().getTime() < (courseAttendance[i].endTime + ScheduleTable.timeForRenew)){
-          ck = true;
-          break;
-        }
+      var obj = courseAttendance[this._id];
+      if(obj && obj.canRenew){
+        return true;
       }
     }
-    return ck;
+    return false;
   }
 });
 Template.orders.events({
