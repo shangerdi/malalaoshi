@@ -22,12 +22,17 @@
               <span>合计：￥{{payMoney}}</span>
             </div>
             <div>
-              <button class="button button-light order-detail-view-btn">
+              <button class="button button-light order-detail-view-btn-inorders">
                 查看订单
               </button>
               {{#if $eq status 'submited'}}
-              <button class="button button-dark">
+              <button class="button button-dark order-detail-submit-btn-onorders">
                 支付
+              </button>
+              {{/if}}
+              {{#if canRenew}}
+              <button class="button button-dark order-detail-new-order-btn-inorders">
+                续单
               </button>
               {{/if}}
             </div>
