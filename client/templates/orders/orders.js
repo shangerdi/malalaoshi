@@ -46,7 +46,7 @@ Template.orders.helpers({
   payMoney: function(){
     return this.cost ? accounting.formatNumber(this.cost, 2) : "";
   },
-  reOrder: function(){
+  canRenew: function(){
     if(this.status != 'paid' && this.status != 'end'){
       return false;
     }
