@@ -7,6 +7,52 @@ var findAvailablePhase = function(i, start, end) {
   });
   return tmp;
 }
+var saveScheduleWeekly = function(e) {
+  var phases = [], errors={hasError:false}, changed = false;
+  $("td.phase").each(function(){
+    $this = $(this);
+    if ($this.hasClass('removed')) {
+      changed = true;
+      return;
+    }
+    if (!$this.hasClass('available') && !$this.hasClass('chosen')) {
+      return;
+    }
+    if ($this.hasClass('chosen')) {
+      changed = true;
+    }
+    i = $this.data('weekday'), start = $this.data('start'), end = $this.data('end');
+    phases.push({weekday:i, phase:{start:start, end:end}})
+  });
+  // console.log(phases);
+  if (!changed) {
+    errors.save = "没有变化";
+    errors.hasError=true;
+  }
+  Session.set('errors', errors);
+  if (errors.hasError) {
+    return;
+  }
+
+  $(e.currentTarget).addClass("disabled");
+  Meteor.call('saveAvailableTime', {'phases':phases}, function(err, result) {
+    if(err){
+      errors.save=err.reason;
+      Session.set('errors', errors);
+      $(e.currentTarget).removeClass("disabled");
+      return throwError(err.reason);
+    }
+    alert("保存成功");
+    $(e.currentTarget).removeClass("disabled");
+    $("td.phase").removeClass("removed").removeClass("chosen");
+    // go back
+    if (Meteor.isCordova) {
+      navigator.app && navigator.app.backHistory && navigator.app.backHistory();
+    // } else {
+    //   history.back();
+    }
+  });
+}
 Template.scheduleWeekly.onCreated(function() {
   // define cache data
   this.cacheData = this.cacheData || {};
@@ -33,6 +79,11 @@ Template.scheduleWeekly.onCreated(function() {
   this.cacheData.timePhases = timePhases.sort(function(a,b){return a.start-b.start;});
   Session.set('errors','');
 });
+
+Template.scheduleWeekly.onRendered(function(){
+  $("[data-action=save-schedule-weekly]").click(saveScheduleWeekly);
+});
+
 Template.scheduleWeekly.helpers({
   errorMessage: function(field) {
     return Session.get('errors')[field];
@@ -74,43 +125,6 @@ Template.scheduleWeekly.events({
     }
   },
   'click .btn-save': function(e) {
-    var phases = [], errors={hasError:false}, changed = false;
-    $("td.phase").each(function(){
-      $this = $(this);
-      if ($this.hasClass('removed')) {
-        changed = true;
-        return;
-      }
-      if (!$this.hasClass('available') && !$this.hasClass('chosen')) {
-        return;
-      }
-      if ($this.hasClass('chosen')) {
-        changed = true;
-      }
-      i = $this.data('weekday'), start = $this.data('start'), end = $this.data('end');
-      phases.push({weekday:i, phase:{start:start, end:end}})
-    });
-    // console.log(phases);
-    if (!changed) {
-      errors.save = "没有变化";
-      errors.hasError=true;
-    }
-    Session.set('errors', errors);
-    if (errors.hasError) {
-      return;
-    }
-
-    $(e.currentTarget).addClass("disabled");
-    Meteor.call('saveAvailableTime', {'phases':phases}, function(err, result) {
-      if(err){
-        errors.save=err.reason;
-        Session.set('errors', errors);
-        $(e.currentTarget).removeClass("disabled");
-        return throwError(err.reason);
-      }
-      alert("保存成功");
-      $(e.currentTarget).removeClass("disabled");
-      $("td.phase").removeClass("removed").removeClass("chosen");
-    });
+    saveScheduleWeekly(e);
   }
 });
