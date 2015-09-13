@@ -1,0 +1,32 @@
+<template name="mineProfileExperiences">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">过往经历</h1>
+  {{/contentFor}}
+
+
+{{#ionView}}
+  {{#ionContent}}
+
+    {{#ionList class="profile-experience-list"}}
+      {{#each experienceList}}
+        {{#ionItem path="mineProfileExperience" data=this query=this iconRight=true}}
+          <span>{{startDate}}~{{endDate}}</span>
+          <div class="item-note">
+            {{content}}
+          </div>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/each}}
+      {{#ionItem path="mineProfileExperience" iconRight=true}}
+        添加过往经历
+        {{> ionIcon icon="plus"}}
+      {{/ionItem}}
+    {{/ionList}}
+
+  {{/ionContent}}
+{{/ionView}}
+</template>
