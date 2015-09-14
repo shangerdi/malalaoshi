@@ -11,8 +11,11 @@ Template.teacher.onRendered(function(){
       spaceBetween: 7,
       freeMode: true
   });
+  var top = $('.above-tabs').outerHeight();
 
-  var top = $('#teacherNav').offset().top - $('.app-layout-nav-bar').outerHeight();
+  console.log($('#teacherNav').offset().top);
+  console.log($('.app-layout-nav-bar').outerHeight());
+  console.log(top);
   $('#teacherNav').affix({
     offset:{
       top: top
@@ -20,15 +23,16 @@ Template.teacher.onRendered(function(){
     target:$('.teacher-detail')
   });
   $('#teacherNav').on('affix.bs.affix', function(){
-    $('#teacherSpInfo').css('margin-top', parseInt($('#teacherSpInfo').css('margin-top')) + $('#teacherNav').outerHeight() + 'px');
+    $('#teacherSpInfo').css('padding-top', $('#teacherNav').outerHeight() + 'px');
   });
   $('#teacherNav').on('affix-top.bs.affix', function(){
-    $('#teacherSpInfo').css('margin-top', parseInt($('#teacherSpInfo').css('margin-top')) - $('#teacherNav').outerHeight() + 'px');
+    $('#teacherSpInfo').css('padding-top', '0');
   });
 
   $('.teacher-detail').scrollspy({
     target:'#teacherNav'
   });
+
 });
 Template.teacher.helpers({
   starLevelAry: function(){
