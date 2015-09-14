@@ -13,9 +13,6 @@ Template.teacher.onRendered(function(){
   });
   var top = $('.above-tabs').outerHeight();
 
-  console.log($('#teacherNav').offset().top);
-  console.log($('.app-layout-nav-bar').outerHeight());
-  console.log(top);
   $('#teacherNav').affix({
     offset:{
       top: top
