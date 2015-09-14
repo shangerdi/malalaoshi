@@ -9,24 +9,26 @@
 
   {{#ionView}}
     {{#ionContent class="teacher-detail"}}
-      <div class="teacher-detail-head" id="teacherDetailHead">
-        <div>
-          <img src="{{user.profile.avatarUrl}}" class="img-responsive img-circle">
+      <div class="above-tabs">
+        <div class="teacher-detail-head" id="teacherDetailHead">
+          <div>
+            <img src="{{user.profile.avatarUrl}}" class="img-responsive img-circle">
+          </div>
+          <div>
+            {{user.profile.name}} {{#if genderMale}}<i class="icon ion-male"></i>{{else}}{{#if genderFemale}}<i class="icon ion-female"></i>{{/if}}{{/if}}
+          </div>
+          <div>{{user.profile.selfIntro}}</div>
         </div>
-        <div>
-          {{user.profile.name}} {{#if genderMale}}<i class="icon ion-male"></i>{{else}}{{#if genderFemale}}<i class="icon ion-female"></i>{{/if}}{{/if}}
-        </div>
-        <div>{{user.profile.selfIntro}}</div>
-      </div>
-      <div class="teacher-detial-star-content" id="teacherStarContent">
-        <div>
-          <p>麻度 {{maDu}}分</p>
-          <p>上课老好了，一学就会</p>
-        </div>
-        <div></div>
-        <div>
-          <p>辣度 {{laDu}}分</p>
-          <p>老师太棒了，必须点赞</p>
+        <div class="teacher-detial-star-content" id="teacherStarContent">
+          <div>
+            <p>麻度 {{maDu}}分</p>
+            <p>上课老好了，一学就会</p>
+          </div>
+          <div></div>
+          <div>
+            <p>辣度 {{laDu}}分</p>
+            <p>老师太棒了，必须点赞</p>
+          </div>
         </div>
       </div>
       <div class="teacher-detail-tab-content" id="teacherNav">
