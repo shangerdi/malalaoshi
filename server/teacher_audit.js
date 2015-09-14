@@ -129,5 +129,15 @@ Meteor.methods({
       TeacherAudit.update({'userId': curUserId, 'eduResults.id': obj.id},
         {$set: { "eduResults.$.title" : obj.title, "eduResults.$.doneDate" : obj.doneDate, "eduResults.$.content" : obj.content}});
     }
+  },
+  addPersonalPhoto: function(photoUrl) {
+    var curUserId = Meteor.userId();
+    if (!curUserId) {
+      throw new Meteor.Error('没有权限', '请登录');
+    }
+    if (!photoUrl || !photoUrl.trim()) {
+      throw new Meteor.Error('参数错误', '参数错误');
+    }
+    TeacherAudit.update({'userId': curUserId}, {$push: {'personalPhoto': photoUrl}});
   }
 });
