@@ -13,9 +13,6 @@ Template.teacher.onRendered(function(){
   });
   var top = $('.above-tabs').outerHeight();
 
-  console.log($('#teacherNav').offset().top);
-  console.log($('.app-layout-nav-bar').outerHeight());
-  console.log(top);
   $('#teacherNav').affix({
     offset:{
       top: top
@@ -35,9 +32,6 @@ Template.teacher.onRendered(function(){
 
 });
 Template.teacher.helpers({
-  starLevelAry: function(){
-    return doStarLevelAry(this.user);
-  },
   genderFemale: function(v){
     return this.user.profile && this.user.profile.gender == '女';
   },
@@ -213,18 +207,3 @@ Template.teacherPersonalPhotosShow.onRendered(function(){
       spaceBetween: 0
   });
 });
-function doStarLevelAry(self){
-  var ary = [];
-  if(self.profile && self.profile.starLevel){
-    for(var i=0; i<self.profile.starLevel; i++){
-      ary[i] = 0;
-    }
-  }
-  if(ary.length < 5){
-    for(var i = ary.length; i < 5; i++){
-      ary[i] = 1;
-    }
-  }
-  return ary;
-}
-
