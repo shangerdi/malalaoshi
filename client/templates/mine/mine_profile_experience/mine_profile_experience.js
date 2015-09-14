@@ -30,8 +30,8 @@ Template.mineProfileExperience.onRendered(function(){
     $("#content").val(obj.content);
   }
 });
-Template.mineProfileExperience.events({
-  'click .ion-ios-close-empty': function(e) {
-    $("#experience").val('');
+Template.mineProfileExperience.helpers({
+  'getId': function() {
+    return Router.current().params.id;
   }
 });

@@ -30,8 +30,8 @@ Template.mineProfileEduResult.onRendered(function(){
     $("#content").val(obj.content);
   }
 });
-Template.mineProfileEduResult.events({
-  'click .ion-ios-close-empty': function(e) {
-    $("#eduResult").val('');
+Template.mineProfileEduResult.helpers({
+  'getId': function() {
+    return Router.current().params.id;
   }
 });
