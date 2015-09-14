@@ -1,4 +1,18 @@
 <template name="scheduleWeekly">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">修改可上课时间</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear button-light" data-action="save-schedule-weekly">
+      保存
+    </button>
+  {{/contentFor}}
+
 {{#ionView}}
   {{#ionContent}}
     <div class="course-table-box">
