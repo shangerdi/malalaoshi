@@ -1,6 +1,7 @@
 $greyColor: #b8b8b8;
 $moreGreyColor: #ddd;
 $appBackGroundColor: #FFFFFF;
+$malaRed: #e14123;
 
 .teacher-div > div > div:first-child{
   min-height:85px;
@@ -492,8 +493,8 @@ $appBackGroundColor: #FFFFFF;
 }
 .order-detail{
   width: 100%;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
   float: left;
   background-color: $appBackGroundColor;
   > div{
@@ -559,8 +560,8 @@ $appBackGroundColor: #FFFFFF;
 
 .orders-detail{
   width: 100%;
-  padding-right: 14px;
-  padding-left: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
   float: left;
   background-color: $appBackGroundColor;
   > div{
@@ -568,21 +569,32 @@ $appBackGroundColor: #FFFFFF;
     border-right: none;
     padding-left: 0;
     padding-right: 0;
-    > div:nth-child(1){
-      color: $greyColor;
-      font-size: 15px;
-      font-weight: bolder;
-    }
-    .item-icon-right .icon{
-      right: 0;
-    }
-    .item{
-      background-color: $appBackGroundColor;
-      border-right: none;
-      border-left: none;
-    }
-    .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
-      padding-left: 0;
+  }
+}
+.orders-detail-order{
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  > div:first-child{
+    float: right;
+    font-size: 15px;
+    color: $greyColor;
+    white-space:nowrap;
+  }
+  > div:nth-child(2){
+    margin-top: 15px;
+    color: #000;
+    font-size: 17px;
+  }
+  > div:nth-child(3){
+    margin-top: 10px;
+  }
+  > div:last-child{
+    text-align: right;
+    .button{
+      min-height: 30px;
+      line-height: 30px;
+      margin-left: 10px;
     }
   }
 }
@@ -1124,6 +1136,7 @@ $appBackGroundColor: #FFFFFF;
   line-height: 44px;
   vertical-align: middle;
   text-align: right;
+  white-space: nowrap;
 }
 .teacher-subject-grade-info{
   color: #988c8d;
@@ -1164,20 +1177,25 @@ $appBackGroundColor: #FFFFFF;
   font-size: 17px;
   float:left;
 }
-.teacher-detail-tab{
-  width: 50%;
-  float: left;
-  border-style: solid;
-  border-width: 2px 0 2px 0;
-  text-align: center;
-  padding: 20px 0 20px 0;
-  font-size: 20px;
-  color: $greyColor;
-  cursor: pointer;
-}
-.teacher-detail-tab-content{
-  width: 100%;
-  margin-top: 15px;
+.teacher-detail .nav{
+  li{
+    width: 50%;
+    float: left;
+    border-style: solid;
+    border-width: 2px 0;
+    color: $greyColor;
+    >a {
+      padding: 20px 0;
+      text-align: center;
+      cursor: pointer;
+      font-size: 20px;
+      margin:0;
+    }
+  }
+  li.active{
+    color: $malaRed;
+    border-color: $malaRed;
+  }
 }
 .teacher-detial-star-content > div:first-child{
   padding: 15px;
@@ -1370,8 +1388,8 @@ $appBackGroundColor: #FFFFFF;
   height: 0;
 }
 .view-both-side-margin{
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 .course-attendance-comment-head{
   margin-top: 20px;
@@ -1499,10 +1517,6 @@ $appBackGroundColor: #FFFFFF;
   padding-left: 20px;
   display: none;
 }
-.teacher-detail-tab-active{
-  color: #000000;
-  border-color: #000000;
-}
 .element-clear-both{
   clear: both;
 }
@@ -1513,5 +1527,25 @@ $appBackGroundColor: #FFFFFF;
     margin-left: 2px;
     font-size: 15px;
     color: #988c8d;
+  }
+}
+.top-tab-nav{
+  .tabs{
+    border: none;
+  }
+  .tabs .tab-item{
+    font-size: 20px;
+  }
+  a{
+    border: solid $moreGreyColor 1px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  a:first-child{
+    margin-left: 10px;
+  }
+  a:last-child{
+    margin-right: 10px;
   }
 }
