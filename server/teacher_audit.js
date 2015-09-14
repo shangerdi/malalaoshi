@@ -113,5 +113,21 @@ Meteor.methods({
       TeacherAudit.update({'userId': curUserId, 'experience.id': obj.id},
         {$set: { "experience.$.startDate" : obj.startDate, "experience.$.endDate" : obj.endDate, "experience.$.content" : obj.content}});
     }
+  },
+  updateEduResult: function(obj) {
+    var curUserId = Meteor.userId();
+    if (!curUserId) {
+      throw new Meteor.Error('没有权限', '请登录');
+    }
+    if (!obj || !obj.title || !obj.doneDate || !obj.content) {
+      throw new Meteor.Error('参数错误', '参数错误');
+    }
+    if (!obj.id) { // 新增
+      obj.id = new Mongo.ObjectID()._str;
+      TeacherAudit.update({'userId': curUserId}, {$push: {'eduResults': obj}});
+    } else {
+      TeacherAudit.update({'userId': curUserId, 'eduResults.id': obj.id},
+        {$set: { "eduResults.$.title" : obj.title, "eduResults.$.doneDate" : obj.doneDate, "eduResults.$.content" : obj.content}});
+    }
   }
 });
