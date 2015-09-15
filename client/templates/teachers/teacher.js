@@ -1,7 +1,3 @@
-var maxNavOffsetTop = 0;
-var auditMoveHeight = 0;
-var evaluationMoveHeight = 0;
-var teacherNavHeight = 0;
 Template.teacher.onCreated(function(){
   Session.set('hasTabsTop',false);
 });
@@ -11,25 +7,29 @@ Template.teacher.onRendered(function(){
       spaceBetween: 7,
       freeMode: true
   });
-  var top = $('.above-tabs').outerHeight();
 
-  $('#teacherNav').affix({
-    offset:{
-      top: top
-    },
-    target:$('.teacher-detail')
+  $('body').append($('.sticky-nav').clone(true));
+  var $fixedNav = $('body>.sticky-nav');
+  var $staticNav = $('.teacher-detail .sticky-nav');
+  $('.teacher-detail').scroll(function() {
+    if ($staticNav.offset().top <= $('.bar-header').outerHeight()) {
+      $fixedNav.css('display', 'block');
+    }
+    else {
+      $fixedNav.css('display', 'none');
+    }
   });
-  $('#teacherNav').on('affix.bs.affix', function(){
-    $('#teacherSpInfo').css('padding-top', $('#teacherNav').outerHeight() + 'px');
-  });
-  $('#teacherNav').on('affix-top.bs.affix', function(){
-    $('#teacherSpInfo').css('padding-top', '0');
-  });
-
   $('.teacher-detail').scrollspy({
-    target:'#teacherNav'
+    target:'.sticky-nav'
   });
-
+  $('.sticky-nav a').click(function(e) {
+    e.preventDefault();
+    var des = $(e.target.getAttribute('href'));
+    $('.teacher-detail').scrollTo(des);
+  });
+});
+Template.teacher.onDestroyed(function(){
+  $('body>.sticky-nav').remove();
 });
 Template.teacher.helpers({
   genderFemale: function(v){
@@ -145,11 +145,6 @@ Template.teacher.helpers({
 });
 
 Template.teacher.events({
-  'click #teacherNav li a': function(e) {
-    e.preventDefault();
-    var des = $(e.target.getAttribute('href'));
-    $('.teacher-detail').scrollTo(des);
-  },
   'click #tryExperienceCourse': function(e) {
     e.preventDefault();
     var user = Meteor.user();

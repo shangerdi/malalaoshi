@@ -19,26 +19,21 @@
           </div>
           <div>{{user.profile.selfIntro}}</div>
         </div>
-        <div class="teacher-detial-star-content" id="teacherStarContent">
-          <div>
+        <div class="star-content row" id="teacherStarContent">
+          <div class="col-xs-6">
             <p>麻度 {{maDu}}分</p>
             <p>上课老好了，一学就会</p>
           </div>
-          <div></div>
-          <div>
+          <div class="col-xs-6">
             <p>辣度 {{laDu}}分</p>
             <p>老师太棒了，必须点赞</p>
           </div>
         </div>
       </div>
-      <div class="teacher-detail-tab-content" id="teacherNav">
+      <div class="teacher-detail-tab-content sticky-nav">
         <ul class="nav">
-          <li>
-            <a href="#teacherSpInfo">个人资料</a>
-          </li>
-          <li>
-            <a id="evaluationInScroll" class="teacher-detail-tab" href="#teacherEvaluation">评价</a>
-          </li>
+          <li><a href="#teacherStarContent">个人资料</a></li>
+          <li><a id="evaluationInScroll" class="teacher-detail-tab" href="#teacherEvaluation">评价</a></li>
         </ul>
       </div>
       <div class="teacher-detail-sp-info" id="teacherSpInfo">
