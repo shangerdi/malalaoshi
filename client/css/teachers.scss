@@ -400,36 +400,6 @@ $malaRed: #e14123;
   font-style: normal;
   color: #FFFFFF;
 }
-.teacher-detail {
-  background-color: #FFFFFF;
-}
-.teacher-detail > div:nth-child(n+1){
-  padding-right: 20px;
-  padding-left: 20px;
-  float: left;
-}
-.teacher-detail > div:first-child{
-  padding-right: 0;
-  padding-left: 0;
-  float: left;
-}
-.teacher-detail > div:first-child{
-  margin-top: none;
-  width: 100%;
-}
-.teacher-detail > div:nth-child(n+2){
-  width: 100%;
-}
-.teacher-detail > div:nth-child(n+4){
-  float: left;
-}
-.teacher-detail > div:nth-last-child(1){
-  border-bottom: none;
-  margin-bottom: 100px;
-}
-.teacher-detail > div:nth-last-child(2){
-  border-bottom: none;
-}
 .teacher-detail-name{
   height:30px;
 }
@@ -1177,7 +1147,18 @@ $malaRed: #e14123;
   font-size: 17px;
   float:left;
 }
-.teacher-detail .nav{
+.sticky-nav{
+  width:100%;
+}
+body>.sticky-nav{
+  position:absolute;
+  z-index:8;
+  background-color:white;
+  top:44px;
+  padding:0;
+  display:none;
+}
+.sticky-nav .nav{
   li{
     width: 50%;
     float: left;
@@ -1197,41 +1178,38 @@ $malaRed: #e14123;
     border-color: $malaRed;
   }
 }
-.teacher-detial-star-content > div:first-child{
-  padding: 15px;
-  padding-right: 5px;
-  padding-left: 5px;
-  height: 80px;
-  width: 50%;
-  float: left;
+.teacher-detail {
+  background-color: white;
+  >div{
+    padding:0 20px;
+    width:100%;
+  }
+  >div.above-tabs,>div.sticky-nav{
+    padding:0;
+  }
+  .row{
+    margin:0;
+  }
+  .star-content{
+    > div{
+      padding-top:15px;
+      > p:first-child{
+        color: #000000;
+        font-size: 20px;
+      }
+      > p:last-child{
+        color: $greyColor;
+        margin-top: 19px;
+        font-size: 18px;
+        line-height: 20px;
+      }
+    }
+    > div:first-child{
+      border-right: solid #a4a4a4 1px;
+    }
+  }
 }
-.teacher-detial-star-content > div:nth-child(2){
-  float: left;
-  margin-top: 11px;
-  border-right: solid #a4a4a4 1px;
-  height: 70px;
-  width: 0px;
-}
-.teacher-detial-star-content > div:last-child{
-  padding: 15px;
-  padding-right: 5px;
-  padding-left: 5px;
-  float: left;
-  height: 80px;
-  width: 49%;
-  float: right;
-}
-.teacher-detial-star-content > div > p:first-child{
-  color: #000000;
-  font-size: 20px;
-}
-.teacher-detial-star-content > div > p:last-child{
-  color: $greyColor;
-  margin-top: 19px;
-  font-size: 18px;
-  font-family: fantasy;
-  line-height: 20px;
-}
+
 .teacher-detail-sp-info{
   width: 100%;
   margin-top: 25px;
@@ -1384,9 +1362,6 @@ $malaRed: #e14123;
   margin-right: 0;
   width: 100%;
 }
-#teacherNavPlaceholder{
-  height: 0;
-}
 .view-both-side-margin{
   margin-right: 10px;
   margin-left: 10px;
@@ -1508,15 +1483,6 @@ $malaRed: #e14123;
   width: 100%;
   margin-top: 15px;
 }
-.nav-fixed-top{
-  position: absolute;
-  z-index: 8;
-  background-color: #FFFFFF;
-  top: 27px;
-  padding-right: 20px;
-  padding-left: 20px;
-  display: none;
-}
 .element-clear-both{
   clear: both;
 }
@@ -1549,3 +1515,4 @@ $malaRed: #e14123;
     margin-right: 10px;
   }
 }
+
