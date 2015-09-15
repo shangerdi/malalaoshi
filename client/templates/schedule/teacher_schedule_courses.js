@@ -8,8 +8,7 @@ Template.teacherScheduleCourses.helpers({
   convMinutes2Str: function(mins) {
     return ScheduleTable.convMinutes2Str(mins);
   },
-  getStateStr: function(itemId) {
-    var item = CourseAttendances.findOne(itemId);
+  getStateStr: function(item) {
     var now = new Date(), nowTime = now.getTime();
     if (nowTime>=item.attendTime && nowTime<item.endTime) {
       return '上课中';
@@ -29,5 +28,49 @@ Template.teacherScheduleCourses.helpers({
         return '已评价';
       }
     }
+  },
+  isCommented: function(item) {
+    return (item && item.state==ScheduleTable.attendanceStateDict['commented'].value);
+  },
+  commentStars: function(item){
+    var comment = Comment.findOne({'courseAttendanceId': item._id});
+    if (!comment) return;
+    var maScore = _.isNumber(comment.maScore) ? comment.maScore : 0;
+    var laScore = _.isNumber(comment.laScore) ? comment.laScore : 0;
+    return genScoreStarsAry((maScore + laScore)/2, 5);
+  },
+  starClass: function(val){
+    return val == 3 ? "ion-ios-star" : val == 2 ? "ion-ios-star-half" : val == 1 ? "ion-ios-star-outline" : "";
+  },
+  getCommentTimeStr: function(item) {
+    var comment = Comment.findOne({'courseAttendanceId': item._id});
+    if (!comment) return;
+    return moment(comment.createdAt).format('M月D日 HH:mm');
+  },
+  getCommentContent: function(item) {
+    var comment = Comment.findOne({'courseAttendanceId': item._id});
+    if (!comment) return;
+    return comment.comment;
+  },
+  getAvatarUrl: function(userId) {
+    var user = Meteor.users.findOne(userId);
+    if (user && user.profile) {
+      return user.profile.avatarUrl;
+    }
+  }
+});
+Template.teacherScheduleCourses.events({
+  'click .btn-show-comment': function (e) {
+    var ele = e.target, $ele = $(ele), $item = $ele.closest('.item'), $commentBox = $item.find(".comment-box");
+    var id = $ele.data('id');
+    if (!$commentBox.hasClass('hide')) {
+      $commentBox.addClass('hide');
+      $ele.text("查看评价");
+      return;
+    }
+    Meteor.subscribe("commentsByCourseAttendanceId", {'find':{'courseAttendanceId': id}}, function(){
+      $commentBox.removeClass('hide');
+      $ele.text("隐藏评价");
+    });
   }
 });
