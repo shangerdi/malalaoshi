@@ -22,6 +22,7 @@ Template.orders.onCreated(function(){
 });
 Template.orders.onRendered(function (){
   $('.view').css("background-color","#FFFFFF");
+  setMarginBottom();
 });
 Template.orders.helpers({
   empty: function(){
@@ -29,6 +30,7 @@ Template.orders.helpers({
   },
   showOrders: function(){
     var cutTab = Session.get('ionTab.current');
+    setMarginBottom();
     if(cutTab == 'ordersNoPaid'){
       return Orders.find({"status": "submited", "student.id": Meteor.userId()}, this.terms.options);
     }else if(cutTab == 'ordersPaidOk'){
@@ -79,3 +81,6 @@ Template.orders.events({
     Router.go('orderStepSchedule');
   }
 });
+function setMarginBottom(){
+  $('.orders-detail > div:last-child').css('margin-bottom', ($('.orders-detail').height() - 50)+'px');
+}

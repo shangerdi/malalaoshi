@@ -88,7 +88,6 @@ Template.comments.onRendered(function(){
       $('#commentsNavStatic').css('display','none');
     }
   });
-
 });
 Template.comments.helpers({
   commentStars: function(){
@@ -242,7 +241,9 @@ var commentsPageAcitveTabClick = function(id){
   commentsLimit = defalutIncrement;
   Session.set('commentsPageAcitveTab', id);
   if($('.view-page-common').scrollTop() != navMoveHeight){
-    $('.view-page-common').scrollTo(navMoveHeight+'px',500);
+    setMarginBottom();
+    $('.view-page-common').scrollTo(navMoveHeight+'px',500, function(){
+    });
   }
 }
 function cmpTotalScore(teacher){
@@ -275,4 +276,7 @@ function setNavClass(actId){
       });
     }
   }
+}
+function setMarginBottom(){
+  $('.view-page-common > div:last-child').css('margin-bottom', ($('.view-page-common').height() - 63)+'px');
 }
