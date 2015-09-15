@@ -1,0 +1,30 @@
+<template name="mineProfileStudyCenter">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">所属学习中心</h1>
+  {{/contentFor}}
+
+
+{{#ionView}}
+  {{#ionContent}}
+
+    {{#ionList class="profile-study-center-list"}}
+      {{#each studyCenterList}}
+        {{#ionItem}}
+          <div class="pull-left photo-box">
+            <img src="{{avatar}}">
+          </div>
+          <div class="pull-left">
+            <h2>{{name}}({{city}})</h2>
+            <div>{{address}}</div>
+          </div>
+        {{/ionItem}}
+      {{/each}}
+    {{/ionList}}
+
+  {{/ionContent}}
+{{/ionView}}
+</template>

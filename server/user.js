@@ -179,11 +179,6 @@ ProfileSchema = new SimpleSchema({
     allowedValues: ['goHome', 'studyCenter'],
     label: 'Teacher type'
   },
-  starLevel: {
-    type: Number,
-    optional: true,
-    label: 'Star level'
-  },
   price: {
     type: Number,
     decimal: true,

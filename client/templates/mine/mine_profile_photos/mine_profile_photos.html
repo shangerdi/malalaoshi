@@ -1,0 +1,29 @@
+<template name="mineProfilePhotos">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">照片</h1>
+  {{/contentFor}}
+
+
+{{#ionView}}
+  {{#ionContent}}
+
+    {{#ionList class="profile-photo-list"}}
+      {{#each photoList}}
+        {{#ionItem class="photo"}}
+          <img src="{{this}}">
+        {{/ionItem}}
+      {{/each}}
+      {{#ionItem class="add-photo file-input-mask"}}
+        <!-- 添加照片 -->
+        {{> ionIcon icon="plus"}}
+        <input title="请选择图片" type="file" name="photo" multiple="">
+      {{/ionItem}}
+    {{/ionList}}
+
+  {{/ionContent}}
+{{/ionView}}
+</template>

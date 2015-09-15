@@ -1,0 +1,36 @@
+<template name="mineProfileExperience">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">{{#if getId}}查看{{else}}添加{{/if}}过往经历</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear button-light" data-action="save-profile-experience">
+      保存
+    </button>
+  {{/contentFor}}
+
+
+{{#ionView}}
+  {{#ionContent}}
+
+    {{#ionList class="parent-settings-box"}}
+      {{#ionItem class="item-input"}}
+        <span class="input-label">开始时间</span>
+        <input type="text" id="startDate" name="startDate" value="{{startDate}}">
+      {{/ionItem}}
+      {{#ionItem class="item-input"}}
+        <span class="input-label">结束时间</span>
+        <input type="text" id="endDate" name="endDate" value="{{endDate}}">
+      {{/ionItem}}
+      {{#ionItem class="item-input"}}
+        <textarea rows="8" type="text" id="content" name="content" value="{{content}}" placeHolder="例如：在某地重点高中担任班主任">{{content}}</textarea>
+      {{/ionItem}}
+    {{/ionList}}
+
+  {{/ionContent}}
+{{/ionView}}
+</template>

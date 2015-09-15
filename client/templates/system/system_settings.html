@@ -1,0 +1,29 @@
+<template name="systemSettings">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">设置</h1>
+  {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#ionView class="system-settings-view"}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#ionItem}}
+          版本号
+          <span class="item-note">
+            1.0.1
+          </span>
+        {{/ionItem}}
+        {{#ionItem path="feedback" iconRight=true}}
+          意见反馈
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+
+  {{#ionFooterBar}}
+    <button class="btn btn-success button button-block button-assertive btn-logout" type="button">退出登录</button>
+  {{/ionFooterBar}}
+</template>

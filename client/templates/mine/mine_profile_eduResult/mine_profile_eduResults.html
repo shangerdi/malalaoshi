@@ -1,0 +1,32 @@
+<template name="mineProfileEduResults">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">成果分享</h1>
+  {{/contentFor}}
+
+
+{{#ionView}}
+  {{#ionContent}}
+
+    {{#ionList class="profile-edu-result-list"}}
+      {{#each eduResultList}}
+        {{#ionItem path="mineProfileEduResult" data=this query=this iconRight=true}}
+          <span>{{title}}~{{doneDate}}</span>
+          <div class="item-note">
+            {{content}}
+          </div>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/each}}
+      {{#ionItem path="mineProfileEduResult" iconRight=true}}
+        添加成果
+        {{> ionIcon icon="plus"}}
+      {{/ionItem}}
+    {{/ionList}}
+
+  {{/ionContent}}
+{{/ionView}}
+</template>

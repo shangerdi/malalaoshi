@@ -28,14 +28,23 @@ function doSubject(self){
   }
   return school + " | " + subject;
 }
-function doStarLevelAry(self){
-  var ary = [];
-  if(self.profile && self.profile.starLevel){
-    for(var i=0; i<self.profile.starLevel; i++){
-      ary[i] = 0;
-    }
+function genCommentStarsVal(self){
+  var score = 0;
+
+  if(self.profile){
+    var maScore = self.profile.maScore;
+    var laScore = self.profile.laScore;
+    maScore = _.isNumber(maScore) ? maScore : 0;
+    laScore = _.isNumber(laScore) ? laScore : 0;
+
+    var maCount = self.profile.maCount;
+    var laCount = self.profile.laCount;
+    maCount = _.isNumber(maCount) ? maCount : 0;
+    laCount = _.isNumber(laCount) ? laCount : 0;
+
+    score = genScoreStarsAry((maCount + laCount) == 0 ? 0 : (maScore + laScore)/(maCount + laCount), 5);
   }
-  return ary;
+  return score;
 }
 function doPrice(self){
   return accounting.formatNumber(self.profile.price, 0);
@@ -44,8 +53,11 @@ Template.teacherItem.helpers({
   subject: function(){
     return doSubject(this);
   },
-  starLevelAry: function(){
-    return doStarLevelAry(this);
+  commentStars: function(){
+    return genCommentStarsVal(this);
+  },
+  starClass: function(val){
+    return val == 3 ? "ion-ios-star" : val == 2 ? "ion-ios-star-half" : val == 1 ? "ion-ios-star-outline" : "";
   },
   price: function(){
     return doPrice(this);
@@ -55,8 +67,11 @@ Template.teacherItemRecommend.helpers({
   subject: function(){
     return doSubject(this);
   },
-  starLevelAry: function(){
-    return doStarLevelAry(this);
+  commentStars: function(){
+    return genCommentStarsVal(this);
+  },
+  starClass: function(val){
+    return val == 3 ? "ion-ios-star" : val == 2 ? "ion-ios-star-half" : val == 1 ? "ion-ios-star-outline" : "";
   },
   price: function(){
     return doPrice(this);
