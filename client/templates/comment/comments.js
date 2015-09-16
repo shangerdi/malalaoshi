@@ -242,8 +242,7 @@ var commentsPageAcitveTabClick = function(id){
   Session.set('commentsPageAcitveTab', id);
   if($('.view-page-common').scrollTop() != navMoveHeight){
     setMarginBottom();
-    $('.view-page-common').scrollTo(navMoveHeight+'px',500, function(){
-    });
+    $('.view-page-common').scrollTo(navMoveHeight+'px',500);
   }
 }
 function cmpTotalScore(teacher){
