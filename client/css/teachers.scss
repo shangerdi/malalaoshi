@@ -795,7 +795,6 @@ $malaRed: #e14123;
   border-right: solid rgb(160, 160, 160) 1px;
 }
 .index-swiper .swiper-slide, .index-swiper img, .index-swiper a{
-  width: 100%;
   height: 100%;
 }
 .page-view{
@@ -1384,9 +1383,6 @@ body>.sticky-nav{
   textarea{
     border: solid #c2c2c2 1px;
     padding: 10px;
-  }
-  > div:last-child{
-    margin-bottom: 800px;
   }
 }
 .course-attendance-comment-evaluate{
