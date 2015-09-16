@@ -129,11 +129,7 @@ Template.mylogin.events({
           $loginBtn.val("登录");
           return Session.set('myloginErrors', {checkCode: result.msg});
         }
-        if (role=="parent") {
-          Router.go('teachers');
-        } else {
-          Router.go('dashboard');
-        }
+        Router.go('index');
       }
     });
   }
