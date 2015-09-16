@@ -219,6 +219,16 @@ ProfileSchema = new SimpleSchema({
     type: serviceAreaSchema,
     optional: true,
     label: 'Go home area'
+  },
+  school: { // 所在学校，家长端
+    type: String,
+    optional: true,
+    label: 'School Name'
+  },
+  grade: { // 就读年级，家长端
+    type: String,
+    optional: true,
+    label: 'Grade'
   }
 });
 
