@@ -143,7 +143,36 @@ Meteor.publish('pages', function() {
 });
 Meteor.publish('teachers', function(parameters) {
   if (this.userId) {
-    return Meteor.users.find(parameters.find, parameters.options);
+    var find = {};
+    var p = parameters.find;
+    if(p){
+      if(p['status.basic']){
+        find = _.extend(find, {'status.basic': p['status.basic']});
+      }
+      if(p['profile.subjects.subject']){
+        find = _.extend(find, {'profile.subjects.subject': p['profile.subjects.subject']});
+      }
+      if(p['profile.teacherType']){
+        find = _.extend(find, {'profile.teacherType': p['profile.teacherType']});
+      }
+      if(p['profile.studyCenter']){
+        find = _.extend(find, {'profile.studyCenter': p['profile.studyCenter']});
+      }
+      if(p['profile.subjects.grade']){
+        var v = p['profile.subjects.grade'];
+        if(v.startsWith('all')){
+          // find = _.extend(find, {'profile.subjects.grade': 'all'});
+          find = _.extend(find, {'profile.subjects.school': v.substring(4)});
+        }else{
+          find = _.extend(find, {'profile.subjects.grade': {$in : [v, 'all']}});
+          find = _.extend(find, {'profile.subjects.school': v.substring(0, v.indexOf('_'))});
+        }
+      }
+    }
+    if(_.isEqual(find, {})){
+      return [];
+    }
+    return Meteor.users.find(find, parameters.options);
   }
   return [];
 });

@@ -50,7 +50,9 @@ Template.teachersFilter.onCreated(function(){
   this.data.eduSubjectList = subjectOptionList;
   var gradeDict = getEduGradeDict();
   gradeOptionList = [];
-  gradeOptionList.push({key:"all",text:"-全部-"});
+  gradeOptionList.push({key:"all_elementary",text:"小学"});
+  gradeOptionList.push({key:"all_middle",text:"初中"});
+  gradeOptionList.push({key:"all_high",text:"高中"});
   _.each(gradeDict, function(obj){
     gradeOptionList.push({key:obj.key, text:obj.text});
   });
