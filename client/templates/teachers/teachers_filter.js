@@ -79,15 +79,15 @@ Template.teachersFilter.onRendered(function(){
     }
   });
   self.autorun(function(){
-    $('.buttom-btn-view').removeClass("buttom-btn-view-active");
-    $('.buttom-btn-view').addClass("buttom-btn-view-no-active");
+    $('.bottom-btn-view').removeClass("bottom-btn-view-active");
+    $('.bottom-btn-view').addClass("bottom-btn-view-no-active");
 
     if(checkCondition(self.data.setAddress)){
-      $('.buttom-btn-view').removeClass("buttom-btn-view-no-active");
-      $('.buttom-btn-view').addClass("buttom-btn-view-active");
+      $('.bottom-btn-view').removeClass("bottom-btn-view-no-active");
+      $('.bottom-btn-view').addClass("bottom-btn-view-active");
     }else{
-      $('.buttom-btn-view').removeClass("buttom-btn-view-active");
-      $('.buttom-btn-view').addClass("buttom-btn-view-no-active");
+      $('.bottom-btn-view').removeClass("bottom-btn-view-active");
+      $('.bottom-btn-view').addClass("bottom-btn-view-no-active");
     }
   });
 });
