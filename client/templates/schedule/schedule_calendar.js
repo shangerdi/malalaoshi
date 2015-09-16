@@ -1,15 +1,15 @@
 var weekFirstDay = 7; // 定义每周的第一天：周日
-var weekdays = null;
+var cacheData = {'today': new Date()};
 var getWeekdays = function() {
-  if (weekdays) {
-    return weekdays;
+  if (cacheData.weekdays) {
+    return cacheData.weekdays;
   }
   var i, a=[];
   for (i=0; i<7; i++) {
     var d=i+weekFirstDay;
     a.push(d>7?d-7:d);
   }
-  weekdays = a;
+  cacheData.weekdays = a;
   return a;
 }
 var getIndexOfWeekday = function(weekday) {
@@ -26,10 +26,9 @@ var getViewType = function() {
   return v;
 }
 var getCurYear = function() {
-  // return Template.instance().data?Template.instance().data.year:new Date().getFullYear();
   var y = Session.get('year');
   if (!y) {
-    y = new Date().getFullYear();
+    y = cacheData.today.getFullYear();
     Session.set('year', y);
   }
   return y;
@@ -37,7 +36,7 @@ var getCurYear = function() {
 var getCurMonth = function() {
   var m = Session.get('month');
   if (!m) {
-    var today = new Date();
+    var today = cacheData.today;
     var y = getCurYear();
     if (y!=today.getFullYear()) {
       m = 1;
@@ -48,9 +47,46 @@ var getCurMonth = function() {
   }
   return m;
 }
+var getIndexFirstDay = function(y,m) {
+  if (!cacheData.indexFirstDay) {
+    cacheData.indexFirstDay = {};
+  }
+  var key = y+'_'+m;
+  if (cacheData.indexFirstDay[key]) {
+    return cacheData.indexFirstDay[key];
+  }
+  var tmp = getIndexOfWeekday(new Date(y,m-1,1).getDay());
+  cacheData.indexFirstDay[key] = tmp;
+  return tmp;
+}
+var getMaxDay = function(y,m) {
+  if (!cacheData.maxDay) {
+    cacheData.maxDay = {};
+  }
+  var key = y+'_'+m;
+  if (cacheData.maxDay[key]) {
+    return cacheData.maxDay[key];
+  }
+  var tmp = moment([y,m-1]).endOf('month').date();
+  cacheData.maxDay[key] = tmp;
+  return tmp;
+}
+var getIndexLastDay = function(y,m) {
+  if (!cacheData.indexLastDay) {
+    cacheData.indexLastDay = {};
+  }
+  var key = y+'_'+m;
+  if (cacheData.indexLastDay[key]) {
+    return cacheData.indexLastDay[key];
+  }
+  var maxDay = getMaxDay(y,m);
+  var tmp = getIndexOfWeekday(new Date(y,m-1,maxDay).getDay());
+  cacheData.indexLastDay[key] = tmp;
+  return tmp;
+}
 var getDateByTable = function(m, row, col) {
   var y = getCurYear();
-  var indexFirstDay = getIndexOfWeekday(new Date(y,m-1,1).getDay()), maxDay = moment([y,m-1]).endOf('month').date();
+  var indexFirstDay = getIndexFirstDay(y,m), maxDay = getMaxDay(y,m);
   var d = row*7+col-indexFirstDay+1;
   var flag = true; // is it in this month
   if (d<1) {
@@ -68,12 +104,12 @@ var getDateByTable = function(m, row, col) {
       y+=1;
       m=1;
     }
-    d = col - getIndexOfWeekday(new Date(y,m-1,maxDay).getDay());
+    d = col - getIndexLastDay(y,m);
   }
   return {year:y, month:m, date:d, flag:flag};
 }
 var getTdDateClass = function(date) {
-  var classStr = "", today = new Date();
+  var classStr = "", today = cacheData.today;
   if (today.getFullYear() == date.year && today.getMonth() == date.month-1 && today.getDate() == date.date) {
     classStr+=" today";
   }
@@ -128,7 +164,6 @@ Template.scheduleCalendar.onRendered(function(){
     $(".year-view-box").show();
     subscribe(getCurYear());
   }
-  console.log(getCurYear()+"-"+getCurMonth());
 });
 Template.scheduleCalendar.helpers({
   showLoading: function(){
@@ -138,7 +173,7 @@ Template.scheduleCalendar.helpers({
     return getCurYear();
   },
   isShowToToday: function() {
-    var v = getViewType(), today = new Date();
+    var v = getViewType(), today = cacheData.today;
     if (v!='month') {
       return today.getFullYear() != getCurYear();
     }
@@ -182,7 +217,7 @@ Template.scheduleCalendar.helpers({
     if (!m) {
       m = getCurMonth();
     }
-    var indexFirstDay = getIndexOfWeekday(new Date(y,m-1,1).getDay()), maxDay = moment([y,m-1]).endOf('month').date();
+    var indexFirstDay = getIndexFirstDay(y,m), maxDay = getMaxDay(y,m);
     var daysInFirstWeek = 7-indexFirstDay;
     var rows = Math.ceil((maxDay-daysInFirstWeek)/7);
     var i, a=[];
@@ -238,31 +273,27 @@ Template.scheduleCalendar.events({
     }
   },
   'click .btn-change-view': function(e) {
+    cacheData.today = new Date();
     var v = getViewType();
     if (v=='month') {
-      v='year';
+      Session.set('view', 'year');
       $('.year-view-box').show();
       $('.month-view-box').hide();
-      e.target.value="按月";
       subscribe(getCurYear());
     } else {
-      v='month';
+      Session.set('view', 'month');
       $('.year-view-box').hide();
       $('.month-view-box').show();
-      e.target.value="按年";
       subscribe(getCurYear(),getCurMonth());
     }
-    Session.set('view', v);
   },
   'click .amonth': function(e) {
     var ele=e.target, $ele = $(ele).closest('.amonth');
     var m = $ele.data('month');
     Session.set('month', m);
-    v='month';
     $('.year-view-box').hide();
     $('.month-view-box').show();
-    $('.btn-change-view').val("按年");
-    Session.set('view', v);
+    Session.set('view', 'month');
     subscribe(getCurYear(),m);
   },
   'click .month-nav a': function(e) {
