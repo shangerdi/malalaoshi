@@ -44,9 +44,8 @@ function selectPoint(addRess, street, point){
 Template.map.rendered=function(){
   IonLoading.show({backdrop:true});
   var self = this;
-  $.when(
-    $.getScript("http://api.map.baidu.com/getscript?v=2.0&ak="+Meteor.settings.public.baiduAK)
-  ).done(function(){
+
+  $.getScript("http://api.map.baidu.com/getscript?v=2.0&ak="+Meteor.settings.public.baiduAK).done(function(){
     IonLoading.hide();
     var map = new BMap.Map("allmap");
 
