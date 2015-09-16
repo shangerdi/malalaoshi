@@ -160,6 +160,12 @@ Meteor.publish('teacher', function(userId) {
   }
   return [];
 });
+Meteor.publish('studyCenters', function(params){
+  if (!params || !params.find) {
+    return StudyCenter.find();
+  }
+  return StudyCenter.find(params.find, params.options);
+});
 Meteor.publish('order', function(parameters) {
   if (this.userId && parameters) {
     var ret = [];
