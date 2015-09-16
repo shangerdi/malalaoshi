@@ -144,6 +144,13 @@ Template.scheduleCalendar.helpers({
     }
     return today.getFullYear() != getCurYear() || today.getMonth() != getCurMonth()-1;
   },
+  changeViewBtnText: function() {
+    var v = getViewType();
+    if (v=='month') {
+      return "按年";
+    }
+    return '按月';
+  },
   monthNavText: function(i) {
     var m = getCurMonth()
     m = m + i -3;
