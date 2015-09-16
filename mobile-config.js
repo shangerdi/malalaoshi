@@ -58,3 +58,5 @@ App.accessRule("*://enginex.kadira.io/*");
 App.accessRule("*://*.map.baidu.com/*");
 App.accessRule("*://*.map.bdimg.com/*");
 
+App.setPreference('SplashScreen', 'CDVSplashScreen')
+App.setPreference('fullscreen', 'false')
