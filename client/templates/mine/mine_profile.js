@@ -1,3 +1,16 @@
+Template.mineProfile.onCreated(function(){
+  var user = Meteor.user();
+  if (user && user.profile && user.profile.serviceArea) {
+    var serviceArea = user.profile.serviceArea, areaCodes = [];
+    if (serviceArea.upperCode) {
+      areaCodes.push(serviceArea.upperCode);
+    }
+    if (!_.isEmpty(serviceArea.areas)) {
+      areaCodes = areaCodes.concat(serviceArea.areas);
+    }
+    Meteor.subscribe('areas', areaCodes);
+  }
+});
 Template.mineProfile.helpers({
   getBirthDayStr: function() {
     var birthday = Meteor.user().profile.birthday;
@@ -25,6 +38,27 @@ Template.mineProfile.helpers({
     } else {
       return '未设置';
     }
+  },
+  getServiceAreaNames: function() {
+    var user = Meteor.user();
+    if (user && user.profile && user.profile.serviceArea) {
+      var serviceArea = user.profile.serviceArea, parentArea = null;
+      if (serviceArea.upperCode) {
+        parentArea = Areas.findOne({'code': serviceArea.upperCode});
+      }
+      if (!parentArea) {
+        return;
+      }
+      if (_.isEmpty(serviceArea.areas) || serviceArea.areas[0]==serviceArea.upperCode) {
+        return parentArea.name;
+      }
+      var areas = Areas.find({'code': {$in: serviceArea.areas}}).fetch();
+      var names = "";
+      _.each(areas, function(obj) {
+        names += obj.name + "  ";
+      });
+      return names;
+    }
   }
 });
 Template.mineProfile.events({
@@ -45,5 +79,16 @@ Template.mineProfile.events({
       }
     }
     Router.go('map');
+  },
+  'click #mineProfileServiceArea': function(e) {
+    var user = Meteor.user();
+    if (user && user.profile && user.profile.serviceArea) {
+      var serviceArea = user.profile.serviceArea;
+      if (serviceArea.upperCode) {
+        Router.go("mineProfileServiceArea", {}, {'query': {'code': serviceArea.upperCode}});
+        return;
+      }
+    }
+    Router.go("mineProfileServiceAreaList");
   }
 });

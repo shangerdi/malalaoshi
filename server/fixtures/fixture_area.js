@@ -1,9 +1,10 @@
 if (Areas.find().count() === 0) {
 
   (function (options) {
+    var directCityCode = ['11', '12', '31', '50'];
     var areaArr = [
       {code: "110000", name: "北京市", type: 1},
-      {code: "110100", name: "市辖区"},
+      // {code: "110100", name: "市辖区"},
       {code: "110101", name: "东城区"},
       {code: "110102", name: "西城区"},
       {code: "110105", name: "朝阳区"},
@@ -18,11 +19,11 @@ if (Areas.find().count() === 0) {
       {code: "110115", name: "大兴区"},
       {code: "110116", name: "怀柔区"},
       {code: "110117", name: "平谷区"},
-      {code: "110200", name: "县"},
+      // {code: "110200", name: "县"},
       {code: "110228", name: "密云县"},
       {code: "110229", name: "延庆县"},
       {code: "120000", name: "天津市", type: 1},
-      {code: "120100", name: "市辖区"},
+      // {code: "120100", name: "市辖区"},
       {code: "120101", name: "和平区"},
       {code: "120102", name: "河东区"},
       {code: "120103", name: "河西区"},
@@ -36,7 +37,7 @@ if (Areas.find().count() === 0) {
       {code: "120114", name: "武清区"},
       {code: "120115", name: "宝坻区"},
       {code: "120116", name: "滨海新区"},
-      {code: "120200", name: "县"},
+      // {code: "120200", name: "县"},
       {code: "120221", name: "宁河县"},
       {code: "120223", name: "静海县"},
       {code: "120225", name: "蓟县"},
@@ -862,7 +863,7 @@ if (Areas.find().count() === 0) {
       {code: "232722", name: "塔河县"},
       {code: "232723", name: "漠河县"},
       {code: "310000", name: "上海市", type: 1},
-      {code: "310100", name: "市辖区"},
+      // {code: "310100", name: "市辖区"},
       {code: "310101", name: "黄浦区"},
       {code: "310104", name: "徐汇区"},
       {code: "310105", name: "长宁区"},
@@ -879,7 +880,7 @@ if (Areas.find().count() === 0) {
       {code: "310117", name: "松江区"},
       {code: "310118", name: "青浦区"},
       {code: "310120", name: "奉贤区"},
-      {code: "310200", name: "县"},
+      // {code: "310200", name: "县"},
       {code: "310230", name: "崇明县"},
       {code: "320000", name: "江苏省"},
       {code: "320100", name: "南京市"},
@@ -2464,7 +2465,7 @@ if (Areas.find().count() === 0) {
       {code: "469029", name: "保亭黎族苗族自治县"},
       {code: "469030", name: "琼中黎族苗族自治县"},
       {code: "500000", name: "重庆市", type: 1},
-      {code: "500100", name: "市辖区"},
+      // {code: "500100", name: "市辖区"},
       {code: "500101", name: "万州区"},
       {code: "500102", name: "涪陵区"},
       {code: "500103", name: "渝中区"},
@@ -2486,7 +2487,7 @@ if (Areas.find().count() === 0) {
       {code: "500119", name: "南川区"},
       {code: "500120", name: "璧山区"},
       {code: "500151", name: "铜梁区"},
-      {code: "500200", name: "县"},
+      // {code: "500200", name: "县"},
       {code: "500223", name: "潼南县"},
       {code: "500226", name: "荣昌县"},
       {code: "500228", name: "梁平县"},
@@ -3517,46 +3518,49 @@ if (Areas.find().count() === 0) {
     ];
 
     init = function() {
+      var heap = {};
       _.each(areaArr, function (obj) {
         if (obj.code.substr(2,4)=="0000") {
           obj.level = 1;
+          obj.parentCode = null;
         } else if (obj.code.substr(4,2)=="00") {
           obj.level = 2;
+          obj.parentCode = obj.code.substr(0,2)+"0000";
         } else {
-          obj.level = 3;
+          var preCode = obj.code.substr(0,2);
+          if (_.contains(directCityCode, preCode)) {
+            obj.level = 2;
+            obj.parentCode = obj.code.substr(0,2)+"0000";
+          } else {
+            obj.level = 3;
+            obj.parentCode = obj.code.substr(0,4)+"00";
+          }
+        }
+        heap[obj.code] = obj;
+      });
+      // set relation parent <-> child
+      _.each(areaArr, function (obj) {
+        var parentCode = obj.parentCode;
+        if (!parentCode) {
+          return;
+        }
+        var parent = heap[parentCode];
+        if (parent) {
+          if (!parent.children) {
+            parent.children = [];
+          }
+          parent.children.push(obj);
         }
       });
-    }
-
-    findArea = function(code) {
-      return _.find(areaArr, function(obj){return code==obj.code;});
-    }
-
-    getProvince = function() {
-      return _.filter(areaArr, function(obj){return obj.level==1;});
-    }
-
-    getSubAreas = function(code) {
-      var theArea = findArea(code);
-      if (!theArea) {
-        return;
-      }
-      if (theArea.type && theArea.type==1) { // 获取直辖市下县区
-        return _.filter(areaArr, function(obj){
-          return obj.level==3 && theArea.code.substr(0,2)==obj.code.substr(0,2);
-        });
-      } else {
-        if (theArea.level == 1) {// 获取市
-          return _.filter(areaArr, function(obj){
-            return obj.level == 2 && theArea.code.substr(0,2)==obj.code.substr(0,2);
-          });
-        } else if (theArea.level == 2) { // 获取县
-          return _.filter(areaArr, function(obj){
-            return obj.level == 3 && theArea.code.substr(0,4)==obj.code.substr(0,4);
-          });
+      // calc depth
+      _.each(areaArr, function (obj) {
+        var depth = 1, tmp = obj;
+        while (tmp.children) {
+          tmp = tmp.children[0];
+          depth++;
         }
-      }
-      return theArea;
+        obj.depth = depth;
+      });
     }
 
     initIntoDb = function() {
@@ -3565,12 +3569,12 @@ if (Areas.find().count() === 0) {
       //   insert: function(userId, obj) { return true; }
       // });
       _.each(areaArr, function (obj) {
+        obj.children = null; // unset children
         Areas.insert(obj);
       });
     }
 
     init();
-    // return {findArea:findArea,getProvince:getProvince,getSubAreas:getSubAreas,initIntoDb:initIntoDb};
     initIntoDb();
   })();
 }

@@ -1,0 +1,32 @@
+<template name="mineProfileSchool">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">修改所在学校</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear button-light" data-action="save-profile-school">
+      保存
+    </button>
+  {{/contentFor}}
+
+
+{{#ionView}}
+  {{#ionContent}}
+
+    {{#ionList class="parent-settings-box"}}
+      {{#ionItem class="item-icon-right"}}
+        <label class="input-label" for="school">学校名称</label>
+        <label class="item-input">
+          <i class="icon ion-ios-close-empty placeholder-icon"></i>
+          <input type="text" id="school" name="school" value="{{currentUser.profile.school}}"/>
+        </label>
+      {{/ionItem}}
+    {{/ionList}}
+
+  {{/ionContent}}
+{{/ionView}}
+</template>

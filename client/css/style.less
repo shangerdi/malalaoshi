@@ -1036,6 +1036,9 @@ input[type=text].browser {
       margin-right: 35px;
     }
   }
+  a {
+    cursor: pointer;
+  }
 }
 .no-float {
   float: none;
@@ -1174,6 +1177,26 @@ input[type=text].browser {
 }
 .with-bottom-btn{
   margin-bottom:67px;
+}
+.profile-service-area-view {
+  .content {
+    padding: 0 20px;
+  }
+  .areas-box {
+    .area {
+      display: inline-block;
+      width: 150px;
+      height: 40px;
+      line-height: 40px;
+      margin: 3px auto;
+      background-color: #ececec;
+      text-align: center;
+      &.selected {
+        background-color: #333;
+        color: #fff;
+      }
+    }
+  }
 }
 .bottom-btn-view .button.button-full{
   margin-bottom:0;
