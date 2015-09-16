@@ -93,6 +93,16 @@ UserSubjectsSchema = new SimpleSchema({
     label: 'Grade'
   }
 });
+var serviceAreaSchema = new SimpleSchema({
+  upperCode: {
+    type: String,
+    label: 'Upper Code'
+  },
+  areas: {
+    type: [String],
+    label: 'Areas Code'
+  }
+});
 ProfileSchema = new SimpleSchema({
   name:{
     type: String,
@@ -206,7 +216,7 @@ ProfileSchema = new SimpleSchema({
     label: 'La Du count'
   },
   serviceArea: {
-    type: [String],
+    type: serviceAreaSchema,
     optional: true,
     label: 'Go home area'
   }
@@ -324,6 +334,22 @@ Meteor.methods({
     var now = Date.now();
     Meteor.users.update({_id: userId}, {$set: {'profile': profile, "status.basic": "submited"}});
     TeacherAudit.update({userId:Meteor.userId()},{$set:{name:profile.name,submitTime:now,basicInfo:{submitTime:now, status: 'submited'}}},{upsert:true});
+    return true;
+  },
+  updateServiceArea: function(serviceArea) {
+    if (!Meteor.user() || Meteor.user().role!=='teacher') {
+      throw new Meteor.Error('权限不足', "当前用户权限不足");
+    }
+    if (!serviceArea) {
+      throw new Meteor.Error('参数错误', "参数错误");
+    }
+    var userId = Meteor.userId(), user = Meteor.user();
+    if (user && user.profile && user.profile.serviceArea) {
+      if (_.isEqual(serviceArea, user.profile.serviceArea)) {
+        return true;
+      }
+    }
+    Meteor.users.update({_id: userId}, {$set: {'profile.serviceArea': serviceArea}});
     return true;
   }
 });
