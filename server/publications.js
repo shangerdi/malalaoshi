@@ -253,3 +253,20 @@ Meteor.publish('commentsByType', function(params){
   }
   return [];
 });
+
+Meteor.publish('areas', function(code) {
+  if (!code) return null;
+  if (typeof code === 'string') {
+    return Areas.find({"code":code});
+  } else if (_.isArray(code) && !_.isEmpty(code)) {
+    return Areas.find({"code": {$in:code}});
+  }
+  return null;
+});
+Meteor.publish('areaProvinces', function(){
+  return Areas.find({"level":1});
+});
+Meteor.publish('areasByParent', function(pCode){
+  if (!pCode) return Areas.find({"level":1});
+  return Areas.find({$or: [{'code': pCode}, {"parentCode":pCode}]});
+});

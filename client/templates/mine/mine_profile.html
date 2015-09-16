@@ -89,7 +89,7 @@
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
-        {{#ionItem id="teachingLocationItem" iconRight=true}}
+        {{#ionItem id="teachingLocationItem" href="" iconRight=true}}
           地址管理
           <span class="item-note no-float">
             请填写常用教学地点
@@ -106,10 +106,15 @@
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
-        {{#ionItem path="" iconRight=true}}
+        {{#ionItem id="mineProfileServiceArea" href="" iconRight=true}}
           可上门授课范围
+          {{#unless currentUser.profile.serviceArea}}
           <span class="item-note no-float">
             请填写可上门授课区域
+          </span>
+          {{/unless}}
+          <span class="item-note">
+            {{getServiceAreaNames}}
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}

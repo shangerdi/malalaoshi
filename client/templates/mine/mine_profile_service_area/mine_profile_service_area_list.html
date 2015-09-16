@@ -1,0 +1,29 @@
+<template name="mineProfileServiceAreaList">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">所在地</h1>
+  {{/contentFor}}
+
+{{#ionView class="profile-service-area-view"}}
+  {{#ionContent}}
+
+    {{#ionList}}
+      {{#if parentArea}}
+        {{#ionItem href="" class="parent-area" id=parentArea._id iconRight=true}}
+          {{parentArea.name}}
+          {{> ionIcon icon="arrow-return-left"}}
+        {{/ionItem}}
+      {{/if}}
+      {{#each areaList}}
+        {{#ionItem href="" class="area" id=this._id}}
+          {{this.name}}
+        {{/ionItem}}
+      {{/each}}
+    {{/ionList}}
+
+  {{/ionContent}}
+{{/ionView}}
+</template>
