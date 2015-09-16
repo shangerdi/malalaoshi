@@ -55,3 +55,6 @@ App.accessRule("*://sissi.pingxx.com/*");
 App.accessRule("*://wappaygw.alipay.com/*");
 App.accessRule("*://www.google-analytics.com/*");
 App.accessRule("*://enginex.kadira.io/*");
+App.accessRule("*://*.map.baidu.com/*");
+App.accessRule("*://*.map.bdimg.com/*");
+
