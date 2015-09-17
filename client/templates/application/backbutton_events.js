@@ -9,13 +9,14 @@ if (Meteor.isCordova) {
       IonPopup.close();
       return;
     }
+
     var curRouter = Router.current();
     var curRouterName = curRouter.route.getName();
     // console.log("curRouterName is: "+curRouterName);
     var parentRouterName = navStack && navStack.findParent(curRouterName);
     // TODO: rewrite navigation stack, ps: path router's data
     // console.log("parentRouterName is: "+parentRouterName);
-    if (!parentRouterName) {
+    if (window.history.length === 0) {
       IonPopup.confirm({
         title: '退出提示',
         template: '您确定要退出应用吗？',
@@ -28,7 +29,7 @@ if (Meteor.isCordova) {
         onCancel: function() {}
       });
     } else {
-      Router.go(parentRouterName);
+      window.history.back();
     }
   };
   document.addEventListener("backbutton", onBackButtonPressed, false);

@@ -1,0 +1,76 @@
+<template name="mineProfileParent">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">我的资料</h1>
+  {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+
+  {{#ionView class="mine-profile-view"}}
+    {{#ionContent}}
+      <!-- 基本信息 -->
+      {{#ionList class="basic-info-list"}}
+        {{#ionItem path="mineProfileAvatar" avatar="right" iconRight=true}}
+          头像
+          <img src="{{currentUser.profile.avatarUrl}}">
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="mineProfileName" iconRight=true}}
+          学生姓名
+          <span class="item-note">
+            {{currentUser.profile.name}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="mineProfileGender" iconRight=true}}
+          性别
+          <span class="item-note">
+            {{#unless currentUser.profile.gender}}未设置{{/unless}}
+            {{currentUser.profile.gender}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem id="teachingLocationItem" href="" iconRight=true}}
+          上课位置
+          {{#unless currentUser.profile.location}}
+          <span class="item-note no-float">
+            请填写您的地理位置
+          </span>
+          {{/unless}}
+          <span class="item-note">
+            {{currentUser.profile.location.title}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="mineProfileSchool" iconRight=true}}
+          所在学校
+          {{#unless currentUser.profile.school}}
+          <span class="item-note no-float">
+            请填写您的孩子正在就读的学校名称
+          </span>
+          {{/unless}}
+          <span class="item-note">
+            {{currentUser.profile.school}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="mineProfileGrade" iconRight=true}}
+          年级
+          <span class="item-note">
+            {{getGradeStr}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem href="" iconRight=true}}
+          麻辣奖学金（TODO）
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem path="systemSettings" iconRight=true}}
+          设置
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

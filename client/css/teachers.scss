@@ -483,7 +483,6 @@ $malaRed: #e14123;
     border-bottom: none;
     border-left: none;
     border-right: none;
-    margin-bottom: 800px;
   }
   .item-note{
     color: $greyColor;
@@ -796,7 +795,6 @@ $malaRed: #e14123;
   border-right: solid rgb(160, 160, 160) 1px;
 }
 .index-swiper .swiper-slide, .index-swiper img, .index-swiper a{
-  width: 100%;
   height: 100%;
 }
 .page-view{
@@ -838,7 +836,7 @@ $malaRed: #e14123;
 .teachers-filter > div > div{
   text-align: center;
 }
-.buttom-btn-view{
+.bottom-btn-view{
   position: fixed;
   bottom: 0px;
   width: 100%;
@@ -847,7 +845,7 @@ $malaRed: #e14123;
   text-align: center;
   z-index: 20;
 }
-.buttom-btn-view-no-active button{
+.bottom-btn-view-no-active button{
   border-color: #7b7b7b;
   background-color: #7b7b7b;
   color: #fff;
@@ -856,14 +854,14 @@ $malaRed: #e14123;
   border-right-width: 1px;
   border-left-width: 1px;
 }
-.buttom-btn-view-active button{
+.bottom-btn-view-active button{
   border-color: #4a4a4a;
   background-color: #4a4a4a;
   color: #fff;
   font-size: 24px;
   width: 100%;
 }
-.buttom-btn-view .button:hover{
+.bottom-btn-view .button:hover{
   color: #fff;
 }
 .place-holder-div{
@@ -1180,7 +1178,6 @@ body>.sticky-nav{
 }
 .teacher-detail {
   background-color: white;
-  padding-bottom:67px;
   >div{
     padding:0 20px;
     width:100%;
@@ -1296,14 +1293,14 @@ body>.sticky-nav{
     }
   }
 }
-.teacher-buttom-btn-view{
+.teacher-bottom-btn-view{
   background-color: #f1f1f1;
   font-size: 18px;
 }
-.teacher-buttom-btn-view .row{
+.teacher-bottom-btn-view .row{
   padding: 0;
 }
-.teacher-buttom-btn-view .col{
+.teacher-bottom-btn-view .col{
   padding: 0;
 }
 .teachers-filter .teachers-filter-study-center-item{

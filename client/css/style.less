@@ -926,7 +926,7 @@ input[type=text].browser {
     color: transparent;
     padding-bottom: 100px;
   }
-  .buttom-btn-view {
+  .bottom-btn-view {
     padding: 0;
     background-color: #f1f1f1;
     color: #333;
@@ -1035,6 +1035,9 @@ input[type=text].browser {
     img:first-child {
       margin-right: 35px;
     }
+  }
+  a {
+    cursor: pointer;
   }
 }
 .no-float {
@@ -1171,4 +1174,33 @@ input[type=text].browser {
       font-size: 32px;
     }
   }
+}
+.with-bottom-btn{
+  margin-bottom:67px;
+}
+.profile-service-area-view {
+  .content {
+    padding: 0 20px;
+  }
+  .areas-box {
+    .area {
+      display: inline-block;
+      width: 150px;
+      height: 40px;
+      line-height: 40px;
+      margin: 3px auto;
+      background-color: #ececec;
+      text-align: center;
+      &.selected {
+        background-color: #333;
+        color: #fff;
+      }
+    }
+  }
+}
+.bottom-btn-view .button.button-full{
+  margin-bottom:0;
+}
+body.keyboard-open .platform-android .content.overflow-scroll {
+  bottom: 0px !important;
 }

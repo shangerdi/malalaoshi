@@ -8,7 +8,7 @@
   {{/contentFor}}
 
   {{#ionView}}
-    {{#ionContent class="teacher-detail"}}
+    {{#ionContent class="teacher-detail with-bottom-btn"}}
       <div class="above-tabs">
         <div class="teacher-detail-head" id="teacherDetailHead">
           <div>
@@ -159,7 +159,7 @@
       <div><hr></div>
     {{/ionContent}}
     {{# if $neq currentUser._id user._id }}
-    <div class="buttom-btn-view teacher-buttom-btn-view buttom-btn-view-active">
+    <div class="bottom-btn-view teacher-bottom-btn-view bottom-btn-view-active">
       <div class="row row-center">
         <div class="pull-left col">
           ￥{{price}}/课时
