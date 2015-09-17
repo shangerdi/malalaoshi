@@ -11,7 +11,7 @@ Meteor.methods({
     }
 
     //TODO with transaction
-    Comment.insert(comment, function(error, result){
+    Comments.insert(comment, function(error, result){
       if(!error){
         CourseAttendances.update({_id: comment.courseAttendanceId}, {$set: {'state': ScheduleTable.attendanceStateDict['commented'].value}});
         Meteor.users.update({_id: comment.teacher.id}, {$inc: {"profile.maScore": comment.maScore, "profile.maCount": 1, "profile.laScore": comment.laScore, "profile.laCount": 1}});

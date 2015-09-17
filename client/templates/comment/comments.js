@@ -146,7 +146,7 @@ Template.comments.helpers({
     Template.instance().commentsData.get();
     var currentData = Template.currentData();
     if(this.commentsSub && this.commentsSub.ready() && this.commentsParams){
-      var all = Comment.find({'teacher.id': this.commentsParams.teacherId}, this.commentsParams.options);
+      var all = Comments.find({'teacher.id': this.commentsParams.teacherId}, this.commentsParams.options);
       Template.instance().commentsCount.set(all.count());
       return all;
     }

@@ -226,13 +226,13 @@ Meteor.publish('orders', function(parameters) {
 });
 Meteor.publish('commentsByCourseAttendanceId', function(params) {
   if (this.userId && params) {
-    return Comment.find({'courseAttendanceId': params.find.courseAttendanceId}, params.options);
+    return Comments.find({'courseAttendanceId': params.find.courseAttendanceId}, params.options);
   }
   return null;
 });
 Meteor.publish('commentsWidthUserDetail', function(params) {
   if (this.userId && params) {
-    var comments = Comment.find(params.find, params.options);
+    var comments = Comments.find(params.find, params.options);
     var userIds = [];
     comments.forEach(function(ct){
       userIds[userIds.length] = ct.teacher.id;
@@ -268,7 +268,7 @@ Meteor.publish('commentsByType', function(params){
     if(!cond.$where){
       return [];
     }
-    comments = Comment.find(cond, params.options);
+    comments = Comments.find(cond, params.options);
     var userIds = [];
     comments.forEach(function(ct){
       userIds[userIds.length] = ct.teacher.id;
