@@ -78,6 +78,11 @@ Template.comment.helpers({
   }
 });
 Template.comment.events({
+  'focus textarea': function(e) {
+    $('.content').animate({
+      scrollTop: $('textarea').offset().top
+    }, 500);
+  },
   'click i[name="maDu"]': function(e){
     e.preventDefault();
     if($('.bottom-btn-view').hasClass("bottom-btn-view-no-active")){

@@ -38,7 +38,6 @@ zhonglijunyi:meteor-pingpp
 zhonglijunyi:ionic
 browser-policy
 percolate:synced-cron
-dispatch:reload-on-resume
 peerlibrary:async
 node-async-locks
 msavin:mongol
