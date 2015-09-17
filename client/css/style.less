@@ -437,16 +437,17 @@ background: rgba(0, 0, 0, 0.1); }
 }
 .account-entry-box{
   margin: 0;
-  height: 806px;
   background: url('/images/home_bg.png') no-repeat 50% 0%;
   text-align: center;
   .listbox{
-    position: relative;
-    max-width:500px;
+    position: absolute;
+    bottom:0;
+    width:100%;
     margin:0 auto;
     padding:0 25px;
    .list-group .list-group-item{
-      margin-top: 20px;
+      margin: 20px auto;
+      max-width:600px;
       border: 0;
       color: #fff;
       &:first-child{
