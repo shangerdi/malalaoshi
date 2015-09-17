@@ -15,6 +15,7 @@
         <input class="btn btn-change-view" type="button" name="changeView" value="{{changeViewBtnText}}">
       </div>
     </div>
+    {{#unless isMonthView}}
     <div class="year-view-box">
       <div class="year-nav">
         <h3>{{year}}年</h3>
@@ -39,6 +40,8 @@
         {{/each}}
       </div>
     </div>
+    {{/unless}}
+    {{#if isMonthView}}
     <div class="month-view-box">
       <div class="month-nav">
         <ul>
@@ -68,6 +71,7 @@
         </table>
       </div>
     </div>
+    {{/if}}
     {{#if showLoading}}
       {{> loading}}
     {{/if}}

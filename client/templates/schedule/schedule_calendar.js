@@ -1,5 +1,5 @@
 var weekFirstDay = 7; // 定义每周的第一天：周日
-var cacheData = {'today': new Date()};
+var cacheData = {};
 var getWeekdays = function() {
   if (cacheData.weekdays) {
     return cacheData.weekdays;
@@ -28,7 +28,7 @@ var getViewType = function() {
 var getCurYear = function() {
   var y = Session.get('year');
   if (!y) {
-    y = cacheData.today.getFullYear();
+    y = cacheData.today.get().getFullYear();
     Session.set('year', y);
   }
   return y;
@@ -36,7 +36,7 @@ var getCurYear = function() {
 var getCurMonth = function() {
   var m = Session.get('month');
   if (!m) {
-    var today = cacheData.today;
+    var today = cacheData.today.get();
     var y = getCurYear();
     if (y!=today.getFullYear()) {
       m = 1;
@@ -109,13 +109,13 @@ var getDateByTable = function(m, row, col) {
   return {year:y, month:m, date:d, flag:flag};
 }
 var getTdDateClass = function(date) {
-  var classStr = "", today = cacheData.today;
+  var classStr = "", today = cacheData.today.get();
   if (today.getFullYear() == date.year && today.getMonth() == date.month-1 && today.getDate() == date.date) {
     classStr+=" today";
   }
   var items = ScheduleTable.findAttendancesByDate(Meteor.user(), date);
   if (items && items.length) {
-    var nowTime = new Date().getTime();
+    var nowTime = cacheData.now.get().getTime();
     var unfinished = _.some(items, function(obj){
       return obj.endTime>nowTime && obj.state==ScheduleTable.attendanceStateDict["reserved"].value;
     });
@@ -153,6 +153,21 @@ var subscribe = function(year, month) {
     Session.set("orderShowLoading", false);
   });
 }
+Template.scheduleCalendar.onCreated(function(){
+  var _now = new Date();
+  cacheData.today = new ReactiveVar(_now, function(a,b){
+    return (a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate())
+  });
+  cacheData.now = new ReactiveVar(_now);
+  cacheData.nowInterval = Meteor.setInterval(function () {
+    var _tmp = new Date();
+    cacheData.now.set(_tmp);
+    cacheData.today.set(_tmp);
+  }, 30000);
+});
+Template.scheduleCalendar.onDestroyed(function(){
+  Meteor.clearInterval(cacheData.nowInterval); // must do
+});
 Template.scheduleCalendar.onRendered(function(){
   var v = getViewType();
   if (v=='month') {
@@ -173,11 +188,14 @@ Template.scheduleCalendar.helpers({
     return getCurYear();
   },
   isShowToToday: function() {
-    var v = getViewType(), today = cacheData.today;
+    var v = getViewType(), today = cacheData.today.get();
     if (v!='month') {
       return today.getFullYear() != getCurYear();
     }
     return today.getFullYear() != getCurYear() || today.getMonth() != getCurMonth()-1;
+  },
+  isMonthView: function() {
+    return getViewType()==='month';
   },
   changeViewBtnText: function() {
     var v = getViewType();
@@ -273,7 +291,6 @@ Template.scheduleCalendar.events({
     }
   },
   'click .btn-change-view': function(e) {
-    cacheData.today = new Date();
     var v = getViewType();
     if (v=='month') {
       Session.set('view', 'year');
@@ -291,9 +308,11 @@ Template.scheduleCalendar.events({
     var ele=e.target, $ele = $(ele).closest('.amonth');
     var m = $ele.data('month');
     Session.set('month', m);
-    $('.year-view-box').hide();
-    $('.month-view-box').show();
-    Session.set('view', 'month');
+    if (getViewType()!=='month') {
+      Session.set('view', 'month');
+      $('.year-view-box').hide();
+      $('.month-view-box').show();
+    }
     subscribe(getCurYear(),m);
   },
   'click .month-nav a': function(e) {
