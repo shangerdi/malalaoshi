@@ -173,7 +173,7 @@ ProfileSchema = new SimpleSchema({
     optional: true,
     type: UserLocationSchema
   },
-  studyCenter: {
+  studyCenters: {
     type: [String],
     optional: true,
     label: 'Study center'

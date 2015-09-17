@@ -1,5 +1,5 @@
 function getStudyCentersByCity(city){
-  return StudyCenter.find({"city": city});
+  return StudyCenters.find({"city": city});
 }
 
 Meteor.methods({

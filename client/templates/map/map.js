@@ -44,9 +44,8 @@ function selectPoint(addRess, street, point){
 Template.map.rendered=function(){
   IonLoading.show({backdrop:true});
   var self = this;
-  $.when(
-    $.getScript("http://api.map.baidu.com/getscript?v=2.0&ak="+Meteor.settings.public.baiduAK)
-  ).done(function(){
+
+  $.getScript("http://api.map.baidu.com/getscript?v=2.0&ak="+Meteor.settings.public.baiduAK).done(function(){
     IonLoading.hide();
     var map = new BMap.Map("allmap");
 
@@ -55,6 +54,7 @@ Template.map.rendered=function(){
     Template.map.geolocationControl = geolocationControl;
     Template.map.geoc = new BMap.Geocoder();
     geolocationControl.addEventListener("locationSuccess", function(e){
+      IonLoading.hide();
       $('.BMap_geolocationContainer').find('.BMap_geolocationAddress').remove();
       if(lastAct === "auto"){
         mapMoveAndOverlay(map, e);
@@ -78,11 +78,13 @@ Template.map.rendered=function(){
       }
     });
     geolocationControl.addEventListener("locationError",function(e){
+      IonLoading.hide();
       $('.BMap_geolocationContainer').find('.BMap_geolocationAddress').remove();
       Session.set("locationPlaceholder", "定位错误，请手动输入位置");
     });
     $('.BMap_geolocationContainer').find('.BMap_geolocationAddress').remove();
     lastAct = "auto";
+    IonLoading.show({backdrop:true});
     geolocationControl.location();
     map.addControl(geolocationControl);
 

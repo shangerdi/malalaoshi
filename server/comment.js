@@ -23,7 +23,7 @@ Meteor.methods({
           UserSummary.update({'userId': comment.teacher.id}, {$inc: {'poolComments': 1}}, {upsert: true});
         }else if(total > 2 && total < 8){
           UserSummary.update({'userId': comment.teacher.id}, {$inc: {'averageComments': 1}}, {upsert: true});
-        }else if(total >= 8){
+        }else if(total >= 8 && total <= 10){
           UserSummary.update({'userId': comment.teacher.id}, {$inc: {'goodComments': 1}}, {upsert: true});
         }
       }
