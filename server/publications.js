@@ -155,8 +155,8 @@ Meteor.publish('teachers', function(parameters) {
       if(p['profile.teacherType']){
         find = _.extend(find, {'profile.teacherType': p['profile.teacherType']});
       }
-      if(p['profile.studyCenter']){
-        find = _.extend(find, {'profile.studyCenter': p['profile.studyCenter']});
+      if(p['profile.studyCenters']){
+        find = _.extend(find, {'profile.studyCenters': p['profile.studyCenters']});
       }
       if(p['profile.subjects.grade']){
         var v = p['profile.subjects.grade'];
@@ -178,22 +178,22 @@ Meteor.publish('teachers', function(parameters) {
 });
 Meteor.publish('teacher', function(userId) {
   if (this.userId && userId) {
-    var teacher = Meteor.users.findOne({"_id": userId, "status.basic": "approved"},{"studyCenter": 1});
-    var studyCenterIds = teacher && teacher.profile && teacher.profile.studyCenter ? teacher.profile.studyCenter : [];
+    var teacher = Meteor.users.findOne({"_id": userId, "status.basic": "approved"},{"studyCenters": 1});
+    var studyCenterIds = teacher && teacher.profile && teacher.profile.studyCenters ? teacher.profile.studyCenters : [];
     return [
       Meteor.users.find({"_id": userId, "status.basic": "approved"}),
       UserEducation.find({'userId': userId}),
       TeacherAudit.find({'userId': userId}),
-      StudyCenter.find({"_id": {$in: studyCenterIds}})
+      StudyCenters.find({"_id": {$in: studyCenterIds}})
     ];
   }
   return [];
 });
 Meteor.publish('studyCenters', function(params){
   if (!params || !params.find) {
-    return StudyCenter.find();
+    return StudyCenters.find();
   }
-  return StudyCenter.find(params.find, params.options);
+  return StudyCenters.find(params.find, params.options);
 });
 Meteor.publish('order', function(parameters) {
   if (this.userId && parameters) {
