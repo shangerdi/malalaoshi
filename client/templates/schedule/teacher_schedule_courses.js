@@ -33,7 +33,7 @@ Template.teacherScheduleCourses.helpers({
     return (item && item.state==ScheduleTable.attendanceStateDict['commented'].value);
   },
   commentStars: function(item){
-    var comment = Comment.findOne({'courseAttendanceId': item._id});
+    var comment = Comments.findOne({'courseAttendanceId': item._id});
     if (!comment) return;
     var maScore = _.isNumber(comment.maScore) ? comment.maScore : 0;
     var laScore = _.isNumber(comment.laScore) ? comment.laScore : 0;
@@ -43,12 +43,12 @@ Template.teacherScheduleCourses.helpers({
     return val == 3 ? "ion-ios-star" : val == 2 ? "ion-ios-star-half" : val == 1 ? "ion-ios-star-outline" : "";
   },
   getCommentTimeStr: function(item) {
-    var comment = Comment.findOne({'courseAttendanceId': item._id});
+    var comment = Comments.findOne({'courseAttendanceId': item._id});
     if (!comment) return;
     return moment(comment.createdAt).format('M月D日 HH:mm');
   },
   getCommentContent: function(item) {
-    var comment = Comment.findOne({'courseAttendanceId': item._id});
+    var comment = Comments.findOne({'courseAttendanceId': item._id});
     if (!comment) return;
     return comment.comment;
   },
