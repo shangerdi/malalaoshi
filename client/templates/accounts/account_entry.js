@@ -11,12 +11,6 @@ var getRole = function() {
 Template.accountEntry.onCreated(function() {
   Session.set("selectedRole", getRole());
 });
-Template.accountEntry.onRendered(function() {
-  var viewHeight = $(window).height();
-  viewHeight -= 44;
-  $(".account-entry-box").height(viewHeight);
-  $(".listbox").css('top', (viewHeight-170)+"px");
-});
 Template.accountEntry.helpers({
   isParent: function() {
     return getRole()==="parent";

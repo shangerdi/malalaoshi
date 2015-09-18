@@ -2,6 +2,7 @@ $greyColor: #b8b8b8;
 $moreGreyColor: #ddd;
 $appBackGroundColor: #FFFFFF;
 $malaRed: #e14123;
+$pagepadding: 3.9vmin;
 
 .teacher-div > div > div:first-child{
   min-height:85px;
@@ -96,8 +97,8 @@ $malaRed: #e14123;
   background: white;
 }
 .teacher-item-out{
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: $pagepadding;
+  padding-left: $pagepadding;
   background: white;
   border: solid $moreGreyColor 1px;
   border-bottom: none;
@@ -225,7 +226,7 @@ $malaRed: #e14123;
   border-radius: 3px;
   margin-bottom: 10px;
   background: white;
-  padding: 20px;
+  padding: $pagepadding;
   font-size: 16px;
 }
 
@@ -244,7 +245,7 @@ $malaRed: #e14123;
 }
 
 .no-teachers {
-  padding: 20px;
+  padding: $pagepadding;
   border: 1px solid rgba(0,0,0,0.1);
   font-size: 14px;
   border-radius: 3px;
@@ -410,7 +411,7 @@ $malaRed: #e14123;
   vertical-align: bottom;
   height: auto;
   background-color: #967878;
-  padding: 20px;
+  padding: $pagepadding;
 }
 .teacher-detail-head > div{
   bottom: 0;
@@ -463,8 +464,8 @@ $malaRed: #e14123;
 }
 .order-detail{
   width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: $pagepadding;
+  padding-left: $pagepadding;
   float: left;
   background-color: $appBackGroundColor;
   > div{
@@ -529,8 +530,8 @@ $malaRed: #e14123;
 
 .orders-detail{
   width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: $pagepadding;
+  padding-left: $pagepadding;
   float: left;
   background-color: $appBackGroundColor;
   > div{
@@ -680,8 +681,8 @@ $malaRed: #e14123;
 
 .order-empty{
   width: 100%;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: $pagepadding;
+  padding-left: $pagepadding;
   display: inline;
   text-align: center;
 }
@@ -840,9 +841,11 @@ $malaRed: #e14123;
   position: fixed;
   bottom: 0px;
   width: 100%;
+  height:67px;
   left: 0;
   right: 0;
   text-align: center;
+  line-height:67px;
   z-index: 20;
 }
 .bottom-btn-view-no-active button{
@@ -930,7 +933,7 @@ $malaRed: #e14123;
 }
 .location-map-info > div:last-child{
   margin-top: 3px;
-  padding-left: 20px;
+  padding-left: $pagepadding;
   color: #a4a4a4;
   font-size: 16px;
 }
@@ -1071,7 +1074,7 @@ $malaRed: #e14123;
 }
 .teachers-filter-study-center-item-info{
   text-align: left;
-  padding-left: 20px;
+  padding-left: $pagepadding;
 }
 .teachers-filter-study-center-item-info span{
   line-height: 25px;
@@ -1179,7 +1182,7 @@ body>.sticky-nav{
 .teacher-detail {
   background-color: white;
   >div{
-    padding:0 20px;
+    padding:0 $pagepadding;
     width:100%;
   }
   >div.above-tabs,>div.sticky-nav{
@@ -1272,7 +1275,7 @@ body>.sticky-nav{
   > div:last-child{
     color: $greyColor;
     clear: both;
-    padding-left: 30px;
+    padding-left: $pagepadding;
     margin-top: -1px;
   }
   > div:first-child{
@@ -1515,7 +1518,7 @@ body>.sticky-nav{
   z-index: 8;
   background-color: #FFFFFF;
   top: 27px;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: $pagepadding;
+  padding-left: $pagepadding;
   display: none;
 }

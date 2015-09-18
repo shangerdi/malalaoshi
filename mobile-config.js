@@ -19,6 +19,7 @@ App.icons({
   'ipad_2x': 'resources/icons/icon.png'
 });
 
+/*
 App.launchScreens({
   'iphone': 'resources/icons/icon.png',
   'iphone_2x': 'resources/icons/icon.png',
@@ -39,6 +40,7 @@ App.launchScreens({
   'android_xhdpi_portrait': 'resources/icons/icon.png',
   'android_xhdpi_landscape': 'resources/icons/icon.png'
 });
+*/
 
 App.configurePlugin('cn.jpush.phonegap.JPushPlugin', {
   'JPUSH_APPKEY': '5d4d4dc079a022deee259fb1',
