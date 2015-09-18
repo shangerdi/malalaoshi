@@ -75,5 +75,27 @@ Meteor.methods({
     }
     CourseAttendances.update({'_id': itemId, 'student.id': curUser._id},{$set:{state:ScheduleTable.attendanceStateDict["attended"].value, 'detail.confirmType': 1}});
     return true;
+  },
+  checkConflictCourseSchedule: function(params) {
+    var curUser = Meteor.user();
+    if (!curUser){
+      throw new Meteor.Error('权限不足', "当前用户权限不足");
+    }
+    var count = params.courseCount, phases = params.phases;
+    var result = {};
+    // 检测自己的时间安排是否冲突
+    if (ScheduleTable.isConflictWithOwnCourses(curUser, count, phases)) {
+      result.own = true;
+    }
+    // 检测老师的时间安排是否冲突
+    try {
+      var curUser = Meteor.user(), teacher = Meteor.users.findOne({'_id':params.teacherId});
+      if (phases && _.isArray(phases)) {
+        ScheduleTable.generateReserveCourseRecords(curUser, teacher, count, phases, true);
+      }
+    } catch (ex) { // 没有异常即表示时间安排没有冲突
+      result.teacher = true;
+    }
+    return result;
   }
 });
