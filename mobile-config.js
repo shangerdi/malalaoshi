@@ -60,7 +60,10 @@ App.accessRule("*://enginex.kadira.io/*");
 App.accessRule("*://*.map.baidu.com/*");
 App.accessRule("*://*.map.bdimg.com/*");
 
-App.setPreference('SplashScreen', 'CDVSplashScreen')
-App.setPreference('fullscreen', 'false')
-App.setPreference('android-windowSoftInputMode', 'stateVisible|adjustResize')
+App.setPreference('fullscreen', 'false');
+App.setPreference('android-windowSoftInputMode', 'stateVisible|adjustResize');
+
+App.setPreference('webviewbounce', 'true');
+App.setPreference('DisallowOverscroll', 'false');
+App.setPreference('AutoHideSplashScreen', 'true');
 
