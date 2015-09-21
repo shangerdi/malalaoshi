@@ -1,0 +1,23 @@
+<template name="commented">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false path="coursesConfirmed"}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title"></h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent class="alter-page-view"}}
+      <div style="text-align: center;">
+        评价成功
+      </div>
+      <div>
+        <button id='getCoupon'>赢取麻辣奖学金</button>
+      </div>
+      <div>
+        <button id='doMoreConfirm'>给钱也不要</button>
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>

@@ -88,7 +88,33 @@ Template.orderStepSchedule.events({
     }
     Session.set("courseCount", courseCount);
     Session.set("phases", phases);
-    Router.go('orderStepConfirm');
+    // 检测课程是否冲突
+    var params = {'courseCount': courseCount, 'phases': phases, 'teacherId': getTeacherId()}
+    Meteor.call('checkConflictCourseSchedule', params, function(err, result){
+      if (err) {
+        errors.phases="请求失败，请稍后重试！";
+        Session.set('errors', errors);
+        return;
+      }
+      if (result && result.teacher) {
+        errors.phases="您选择的上课时间和别人冲突了，请选择其他时间段！";
+        Session.set('errors', errors);
+        return;
+      }
+      if (result && result.own) {
+        IonPopup.confirm({
+          title: '确认课时',
+          template: '您已经在相同的时间段预约了课程，是否继续？',
+          cancelText: '取消',
+          okText: '继续购买',
+          onOk: function() {
+            Router.go('orderStepConfirm');
+          },
+          onCancel: function() {
+          }
+        });
+      }
+    });
   },
   'keyup #courseCount, change #courseCount': function(e) {
     calcTotalCost();
