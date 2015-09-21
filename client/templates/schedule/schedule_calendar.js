@@ -175,7 +175,10 @@ var gotoMonth = function(m) {
   subscribe(y,m);
 }
 var initMonthViewSwiper = function() {
-  var monthNavSwiper = new Swiper('.month-nav .swiper-container', {
+  if (cacheData.monthViewSwiper) {
+    return;
+  }
+  cacheData.monthNavSwiper = new Swiper('.month-nav .swiper-container', {
     initialSlide: 3,
     slidesPerView: 7,
     freeMode: true,
@@ -186,7 +189,7 @@ var initMonthViewSwiper = function() {
     freeModeSticky: true,
     centeredSlides: true
   });
-  monthNavSwiper.on("slideChangeEnd", function(swiper){
+  cacheData.monthNavSwiper.on("slideChangeEnd", function(swiper){
     console.log('month-nav slideChangeEnd');
     var i = swiper.activeIndex, m = getCurMonth();
     i -= 3;
@@ -195,10 +198,10 @@ var initMonthViewSwiper = function() {
     gotoMonth(m);
     swiper.slideTo(3, false, true);
   });
-  var monthViewSwiper = new Swiper('.month-view .swiper-container', {
+  cacheData.monthViewSwiper = new Swiper('.month-view .swiper-container', {
     initialSlide: 1
   });
-  monthViewSwiper.on("slideChangeEnd", function(swiper){
+  cacheData.monthViewSwiper.on("slideChangeEnd", function(swiper){
     // console.log('month-view slideChangeEnd');
     var curIdx = swiper.activeIndex, m = getCurMonth();
     if (curIdx>1) {
@@ -210,6 +213,31 @@ var initMonthViewSwiper = function() {
     }
     gotoMonth(m);
     swiper.slideTo(1, false, true);
+  });
+}
+var initYearViewSwiper = function() {
+  if (cacheData.yearViewSwiper) {
+    return;
+  }
+  cacheData.yearViewSwiper = new Swiper('.year-view-box .swiper-container', {
+    direction: 'vertical',
+    slidesPerView: 1,
+    initialSlide: 1
+  });
+  cacheData.yearViewSwiper.on("slideChangeEnd", function(swiper){
+    // console.log('year-view slideChangeEnd');
+    var i = swiper.activeIndex, y = getCurYear();
+    if (i>1) {
+      y++;
+    } else if (i<1)  {
+      y--;
+    } else {
+      return;
+    }
+    Session.set('year', y);
+    subscribe(y);
+    swiper.slideTo(1, false, true);
+    $(swiper.slides[1]).height('auto');
   });
 }
 Template.scheduleCalendar.onCreated(function(){
@@ -226,6 +254,7 @@ Template.scheduleCalendar.onCreated(function(){
 });
 Template.scheduleCalendar.onDestroyed(function(){
   Meteor.clearInterval(cacheData.nowInterval); // must do
+  cacheData = {};
 });
 Template.scheduleCalendar.onRendered(function(){
   var v = getViewType();
@@ -238,6 +267,7 @@ Template.scheduleCalendar.onRendered(function(){
     $(".month-view-box").hide();
     $(".year-view-box").show();
     subscribe(getCurYear());
+    initYearViewSwiper();
   }
 });
 Template.scheduleCalendar.helpers({
@@ -357,6 +387,7 @@ Template.scheduleCalendar.events({
       $('.year-view-box').show();
       $('.month-view-box').hide();
       subscribe(getCurYear());
+      initYearViewSwiper();
     } else {
       Session.set('view', 'month');
       $('.year-view-box').hide();
