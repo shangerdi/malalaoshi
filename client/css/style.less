@@ -717,26 +717,18 @@ input[type=text].browser {
 .schedule-calendar .month-nav {
   border-bottom: 1px #888 solid;
   clear: both;
-  ul {
-    padding: 5px;
-    line-height: 40px;
-    text-align: center;
-    li {
-      display: inline-block;
-      width: 100/7-1%;
-      text-align: center;
-      padding: 5px 0;
-      a {
-        display: inline-block;
-        width: 40px;
-        color: #000;
-        cursor: pointer;
-      }
-      &.cur-month a {
-        border: 1px solid @today-color;
-        border-radius: 50%;
-      }
-    }
+  line-height: 40px;
+  padding: 5px;
+  text-align: center;
+  a {
+    display: inline-block;
+    min-width: 40px;
+    color: #000;
+    cursor: pointer;
+  }
+  .swiper-slide-active a {
+    border: 1px solid @today-color;
+    border-radius: 50%;
   }
 }
 .schedule-calendar .month-view {

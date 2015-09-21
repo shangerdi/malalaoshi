@@ -156,7 +156,45 @@ var subscribe = function(year, month) {
     Session.set("orderShowLoading", false);
   });
 }
+var gotoMonth = function(m) {
+  var y = getCurYear(), flag = false;
+  if (m<=0) {
+    y-=1;
+    m+=12;
+    flag = true;
+  }
+  if (m>=13) {
+    y+=1;
+    m-=12;
+    flag = true;
+  }
+  Session.set('month', m);
+  if (flag) {
+    Session.set('year', y);
+  }
+  subscribe(y,m);
+}
 var initMonthViewSwiper = function() {
+  var monthNavSwiper = new Swiper('.month-nav .swiper-container', {
+    initialSlide: 3,
+    slidesPerView: 7,
+    freeMode: true,
+    freeModeMomentum: true,
+    freeModeMomentumRatio: 0.3,
+    freeModeMomentumBounce: true,
+    freeModeMomentumBounceRatio: 1,
+    freeModeSticky: true,
+    centeredSlides: true
+  });
+  monthNavSwiper.on("slideChangeEnd", function(swiper){
+    console.log('month-nav slideChangeEnd');
+    var i = swiper.activeIndex, m = getCurMonth();
+    i -= 3;
+    if (i==0) return;
+    m = m + i;
+    gotoMonth(m);
+    swiper.slideTo(3, false, true);
+  });
   var monthViewSwiper = new Swiper('.month-view .swiper-container', {
     initialSlide: 1
   });
@@ -170,22 +208,7 @@ var initMonthViewSwiper = function() {
     } else {
       return;
     }
-    var y = getCurYear(), flag = false;
-    if (m<=0) {
-      y-=1;
-      m+=12;
-      flag = true;
-    }
-    if (m>=13) {
-      y+=1;
-      m-=12;
-      flag = true;
-    }
-    Session.set('month', m);
-    if (flag) {
-      Session.set('year', y);
-    }
-    subscribe(y,m);
+    gotoMonth(m);
     swiper.slideTo(1, false, true);
   });
 }
@@ -354,25 +377,11 @@ Template.scheduleCalendar.events({
     subscribe(getCurYear(),m);
   },
   'click .month-nav a': function(e) {
-    var ele=e.target, $ele = $(ele), i = $ele.data('i'), m = getCurMonth(), y = getCurYear(), flag = false;
+    var ele=e.target, $ele = $(ele), i = $ele.data('i'), m = getCurMonth();
     i -= 3;
     if (i==0) return;
     m = m + i;
-    if (m<=0) {
-      y-=1;
-      m+=12;
-      flag = true;
-    }
-    if (m>=13) {
-      y+=1;
-      m-=12;
-      flag = true;
-    }
-    Session.set('month', m);
-    if (flag) {
-      Session.set('year', y);
-    }
-    subscribe(y,m);
+    gotoMonth(m);
   },
   'click .month-view td.date': function(e) {
     var ele=e.target, $ele = $(ele).closest('td');

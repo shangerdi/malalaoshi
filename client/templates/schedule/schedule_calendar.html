@@ -47,11 +47,15 @@
     {{#if isMonthView}} -->
     <div class="month-view-box">
       <div class="month-nav">
-        <ul>
-          {{#each indexNum}}
-            <li class="{{#if $eq this 3}}cur-month{{/if}}"><a data-i="{{this}}">{{monthNavText this}}</a></li>
-          {{/each}}
-        </ul>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            {{#each indexNum}}
+            <div class="swiper-slide">
+              <a class="{{#if $eq this 3}}cur-month{{/if}}" data-i="{{this}}">{{monthNavText this}}</a>
+            </div>
+            {{/each}}
+          </div>
+        </div>
       </div>
       <div class="month-view">
         <div class="swiper-container">
