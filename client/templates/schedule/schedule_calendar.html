@@ -18,7 +18,7 @@
         <input class="btn btn-change-view" type="button" name="changeView" value="{{changeViewBtnText}}">
       </div>
     </div>
-    {{#unless isMonthView}}
+    <!-- {{#unless isMonthView}} -->
     <div class="year-view-box">
       <div class="year-nav">
         <h3>{{year}}年</h3>
@@ -43,8 +43,8 @@
         {{/each}}
       </div>
     </div>
-    {{/unless}}
-    {{#if isMonthView}}
+    <!-- {{/unless}}
+    {{#if isMonthView}} -->
     <div class="month-view-box">
       <div class="month-nav">
         <ul>
@@ -54,18 +54,26 @@
         </ul>
       </div>
       <div class="month-view">
-        <table class="table">
-          <thead><tr class="week-row">{{#each weekdays}}<td class="{{getWeekdayClass this}}">{{weekdayText this}}</td>{{/each}}</tr></thead>
-          <tbody>
-            {{#each weekrows}}
-            <tr>
-              {{#each indexNum}}
-                <td class="date {{dateClass2 .. this}}" data-row="{{..}}" data-col="{{this}}"><div>{{dateText2 .. this}}</div></td>
-              {{/each}}
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"></div>
+            <div class="swiper-slide">
+              <table class="table">
+                <thead><tr class="week-row">{{#each weekdays}}<td class="{{getWeekdayClass this}}">{{weekdayText this}}</td>{{/each}}</tr></thead>
+                <tbody>
+                  {{#each weekrows}}
+                  <tr>
+                    {{#each indexNum}}
+                      <td class="date {{dateClass2 .. this}}" data-row="{{..}}" data-col="{{this}}"><div>{{dateText2 .. this}}</div></td>
+                    {{/each}}
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+            <div class="swiper-slide"></div>
+          </div>
+        </div>
       </div>
       <div class="course-items">
         <h4 class="title">课程安排</h4>
@@ -74,7 +82,7 @@
         </table>
       </div>
     </div>
-    {{/if}}
+    <!-- {{/if}} -->
     {{#if showLoading}}
       {{> loading}}
     {{/if}}

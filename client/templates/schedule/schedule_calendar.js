@@ -113,6 +113,9 @@ var getTdDateClass = function(date) {
   if (today.getFullYear() == date.year && today.getMonth() == date.month-1 && today.getDate() == date.date) {
     classStr+=" today";
   }
+  if (getViewType()==='month' && getCurMonth()!=date.month) {
+    return classStr; // short return: don't show the courses info of not visible date
+  }
   var items = ScheduleTable.findAttendancesByDate(Meteor.user(), date);
   if (items && items.length) {
     var nowTime = cacheData.now.get().getTime();
@@ -153,6 +156,39 @@ var subscribe = function(year, month) {
     Session.set("orderShowLoading", false);
   });
 }
+var initMonthViewSwiper = function() {
+  var monthViewSwiper = new Swiper('.month-view .swiper-container', {
+    initialSlide: 1
+  });
+  monthViewSwiper.on("slideChangeEnd", function(swiper){
+    // console.log('month-view slideChangeEnd');
+    var curIdx = swiper.activeIndex, m = getCurMonth();
+    if (curIdx>1) {
+      m++;
+    } else if (curIdx<1)  {
+      m--;
+    } else {
+      return;
+    }
+    var y = getCurYear(), flag = false;
+    if (m<=0) {
+      y-=1;
+      m+=12;
+      flag = true;
+    }
+    if (m>=13) {
+      y+=1;
+      m-=12;
+      flag = true;
+    }
+    Session.set('month', m);
+    if (flag) {
+      Session.set('year', y);
+    }
+    subscribe(y,m);
+    swiper.slideTo(1, false, true);
+  });
+}
 Template.scheduleCalendar.onCreated(function(){
   var _now = new Date();
   cacheData.today = new ReactiveVar(_now, function(a,b){
@@ -174,6 +210,7 @@ Template.scheduleCalendar.onRendered(function(){
     $(".year-view-box").hide();
     $(".month-view-box").show();
     subscribe(getCurYear(),getCurMonth());
+    initMonthViewSwiper();
   } else {
     $(".month-view-box").hide();
     $(".year-view-box").show();
@@ -302,6 +339,7 @@ Template.scheduleCalendar.events({
       $('.year-view-box').hide();
       $('.month-view-box').show();
       subscribe(getCurYear(),getCurMonth());
+      initMonthViewSwiper();
     }
   },
   'click .amonth': function(e) {
