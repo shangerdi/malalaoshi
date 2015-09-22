@@ -22,7 +22,7 @@
     <div class="year-view-box">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"></div>
+          <div class="swiper-slide"><div class="prev-year">上一年</div></div>
           <div class="swiper-slide">
            <div class="year-view-con">
             <div class="year-nav">
@@ -49,7 +49,7 @@
             </div>
            </div>
           </div>
-          <div class="swiper-slide"></div>
+          <div class="swiper-slide"><div class="next-year">下一年</div></div>
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@
       <div class="month-view">
         <div class="swiper-container">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"></div>
+            <div class="swiper-slide"><div class="prev-month">上个月</div></div>
             <div class="swiper-slide">
               <table class="table">
                 <thead><tr class="week-row">{{#each weekdays}}<td class="{{getWeekdayClass this}}">{{weekdayText this}}</td>{{/each}}</tr></thead>
@@ -85,7 +85,7 @@
                 </tbody>
               </table>
             </div>
-            <div class="swiper-slide"></div>
+            <div class="swiper-slide"><div class="next-month">下个月</div></div>
           </div>
         </div>
       </div>
