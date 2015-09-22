@@ -4,11 +4,11 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title">评价课程</h1>
+  <h1 class="title normal-title">评价课程</h1>
   {{/contentFor}}
 
   {{#ionView}}
-    {{#ionContent class="view-page-common with-bottom-btn"}}
+  {{#ionContent class="view-page-common {{# if $not commented }}with-bottom-btn{{/if}}"}}
       <div class="teacher-detail-sp-info view-both-side-margin course-attendance-comment-head">
         <div>
           <img src="{{teacher.profile.avatarUrl}}" class="img-responsive img-circle">
@@ -44,13 +44,15 @@
       </div>
       <div class="view-both-side-margin"><hr></div>
       <div class="view-both-side-margin">
-        <textarea rows='3' {{readOnly}}>{{commentInfo}}</textarea>
+        <textarea rows="3" {{readOnly}}>{{commentInfo}}</textarea>
       </div>
     {{/ionContent}}
-    <div class="bottom-btn-view {{submitBtnClass}}">
-      <button class="button button-full">
+    {{# if $not commented }}
+    <div class="bottom-btn-view">
+      <button class="btn btn-lg btn-success col-xs-12">
         发表评价
       </button>
     </div>
+    {{/ if }}
   {{/ionView}}
 </template>

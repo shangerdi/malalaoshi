@@ -67,8 +67,8 @@ Template.comment.helpers({
   starClass: function(val){
     return val ? "ion-ios-star" : "ion-ios-star-outline";
   },
-  submitBtnClass: function(){
-    return (this.courseAttendance && this.courseAttendance.state == 3) ? "bottom-btn-view-no-active" : "bottom-btn-view-active";
+  commented: function(){
+    return this.courseAttendance && this.courseAttendance.state == 3;
   },
   commentInfo: function(){
     return this.comment && this.comment.comment ? this.comment.comment : "";
@@ -85,23 +85,14 @@ Template.comment.events({
   },
   'click i[name="maDu"]': function(e){
     e.preventDefault();
-    if($('.bottom-btn-view').hasClass("bottom-btn-view-no-active")){
-      return;
-    }
     Session.set("commentMaDuStars", genStarsAry(this.index));
   },
   'click i[name="laDu"]': function(e){
     e.preventDefault();
-    if($('.bottom-btn-view').hasClass("bottom-btn-view-no-active")){
-      return;
-    }
     Session.set("commentLaDuStars", genStarsAry(this.index));
   },
-  'click .bottom-btn-view .button': function(e){
+  'click .bottom-btn-view button': function(e){
     e.preventDefault();
-    if($('.bottom-btn-view').hasClass("bottom-btn-view-no-active")){
-      return;
-    }
     var maScore = Session.get("commentMaDuStars");
     var laScore = Session.get("commentLaDuStars");
     var comment = $('textarea').val();
@@ -123,8 +114,7 @@ Template.comment.events({
           template: '<div class="pop-remind-template">评价成功</div>',
           buttons: []
       });
-      $('.bottom-btn-view').removeClass("bottom-btn-view-active");
-      $('.bottom-btn-view').addClass("bottom-btn-view-no-active");
+      $('.bottom-btn-view').remove();
       Meteor.setTimeout(function() {
          IonPopup.close();
        }, 700);

@@ -1,6 +1,8 @@
-@pagepadding: 3.9vmin;
+@page-padding: 14px;
+@btn-margin: 10px;
 @page-max-width: 1080px;
-@bodyTextColor: #7d7d7d;
+@bodyTextColor: #5d5d5d;
+@greyColor: #f7f7f7;
 
 @import "custom.bootstrap.import.less";
 html.browser{
@@ -16,7 +18,7 @@ html.browser{
 }
 .grid-block, .post, .comments li, .comment-form {
   background: #fff;
-  padding: @pagepadding;
+  padding: @page-padding;
   margin-bottom: 10px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
@@ -342,7 +344,7 @@ background: rgba(0, 0, 0, 0.1); }
   display: none;
 }
 .footer{
-  padding:30px @pagepadding;
+  padding:30px @page-padding;
   max-width: @page-max-width;
   margin-right: auto;
   margin-left: auto;
@@ -424,7 +426,7 @@ background: rgba(0, 0, 0, 0.1); }
   position: fixed;
   left: 0;
   top: 0;
-  padding: 200px @pagepadding;
+  padding: 200px @page-padding;
   width: 100%;
   height: 100%;
   border: 1px solid #000;
@@ -444,7 +446,7 @@ background: rgba(0, 0, 0, 0.1); }
     bottom:0;
     width:100%;
     margin:0 auto;
-    padding:0 @pagepadding;
+    padding:0 @page-padding;
    .list-group .list-group-item{
       margin: 20px auto;
       max-width:600px;
@@ -493,10 +495,10 @@ background: rgba(0, 0, 0, 0.1); }
 @lgLabelColor: @bodyTextColor;
 @lgBolorColor: lighten(@lgLabelColor, 10%);
 .login-form {
-  padding-top: @pagepadding;
+  padding-top: @page-padding;
 }
 .login-form .form-group{
-  padding:0 @pagepadding;
+  padding:0 @page-padding;
 }
 .login-form .form-group:first-child{
   padding:0;
@@ -927,7 +929,7 @@ input[type=text].browser {
 .order-view {
   background-color: #fff;
   .content{
-    padding: 0 @pagepadding;
+    padding: 0 @page-padding;
     .list .item {
       border-left: 0;
       border-right: 0;
@@ -940,16 +942,18 @@ input[type=text].browser {
     color: transparent;
     padding-bottom: 100px;
   }
-  .bottom-btn-view {
-    padding: 0;
-    background-color: #f1f1f1;
-    color: #333;
-    font-size: 20px;
-    .row {
-      margin: 0;
-      padding: 0;
-    }
-  }
+}
+.bottom-btn-view{
+  position: absolute;
+  padding:@btn-margin @page-padding;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  line-height: 46px;
+  z-index: 20;
+  background-color:@greyColor;
+  font-size:18px;
 }
 .bar.bar-footer {
   height: 54px;
@@ -1086,7 +1090,7 @@ input[type=text].browser {
 }
 .cert-img-upload-view {
   .content{
-    padding: @pagepadding;
+    padding: @page-padding;
   }
   .cert-img-box {
     margin: 16px 0;
@@ -1137,7 +1141,7 @@ input[type=text].browser {
 
 .profile-study-center-list{
   .item{
-    padding-left: @pagepadding;
+    padding-left: @page-padding;
     .photo-box{
       height: 100px;
       width: 200px;
@@ -1190,11 +1194,11 @@ input[type=text].browser {
   }
 }
 .with-bottom-btn{
-  margin-bottom:67px;
+  margin-bottom:66px;
 }
 .profile-service-area-view {
   .content {
-    padding: 0 @pagepadding;
+    padding: 0 @page-padding;
   }
   .areas-box {
     .area {
@@ -1217,4 +1221,9 @@ body.keyboard-open .platform-android .content.overflow-scroll {
 }
 .row{
   padding:0;
+  width:initial;
+  display:block;
+}
+.btn{
+  font-weight:600;
 }
