@@ -53,9 +53,8 @@ var _upadteDaySwiperSlides = function() {
 
 Template.dateSwiperComponent.onRendered(function(){
   // create swiper
-  var n = 5;
-  this.yearSwiper = new Swiper('.swiper-container.year-swiper', {
-    slidesPerView: n,
+  var swiperOption = {
+    slidesPerView: 5,
     freeMode: true,
     freeModeMomentum: true,
     freeModeMomentumRatio: 0.3,
@@ -64,29 +63,10 @@ Template.dateSwiperComponent.onRendered(function(){
     freeModeSticky: true,
     centeredSlides: true,
     direction: 'vertical'
-  });
-  this.monthSwiper = new Swiper('.swiper-container.month-swiper', {
-    slidesPerView: n,
-    freeMode: true,
-    freeModeMomentum: true,
-    freeModeMomentumRatio: 0.3,
-    freeModeMomentumBounce: true,
-    freeModeMomentumBounceRatio: 0.01,
-    freeModeSticky: true,
-    centeredSlides: true,
-    direction: 'vertical'
-  });
-  this.daySwiper = new Swiper('.swiper-container.day-swiper', {
-    slidesPerView: n,
-    freeMode: true,
-    freeModeMomentum: true,
-    freeModeMomentumRatio: 0.3,
-    freeModeMomentumBounce: true,
-    freeModeMomentumBounceRatio: 0.01,
-    freeModeSticky: true,
-    centeredSlides: true,
-    direction: 'vertical'
-  });
+  };
+  this.yearSwiper = new Swiper('.swiper-container.year-swiper', swiperOption);
+  this.monthSwiper = new Swiper('.swiper-container.month-swiper', swiperOption);
+  this.daySwiper = new Swiper('.swiper-container.day-swiper', swiperOption);
   dateSwipers = this;
   var _yearSwiperChange = function(swiper){
     var year = $(swiper.slides[swiper.activeIndex]).data('value');
