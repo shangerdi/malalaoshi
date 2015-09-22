@@ -237,8 +237,8 @@ var initYearViewSwiper = function() {
     Session.set('year', y);
     subscribe(y);
     swiper.slideTo(1, false, true);
-    $(swiper.slides[1]).height('auto');
   });
+  $(".year-view-box").height($(cacheData.yearViewSwiper.slides[1]).height());
 }
 Template.scheduleCalendar.onCreated(function(){
   var _now = new Date();
