@@ -174,12 +174,25 @@ var gotoMonth = function(m) {
   }
   subscribe(y,m);
 }
+var monthNavNumMid = 10;
+var monthNavNumCount = 2*monthNavNumMid + 1;
+var getMonthNavNum = function() {
+  if (cacheData.monthNavNum) {
+    return cacheData.monthNavNum;
+  }
+  var i, a=[];
+  for (i=0; i<monthNavNumCount;i++) {
+    a.push(i);
+  }
+  cacheData.monthNavNum = a;
+  return a;
+}
 var initMonthViewSwiper = function() {
   if (cacheData.monthViewSwiper) {
     return;
   }
   cacheData.monthNavSwiper = new Swiper('.month-nav .swiper-container', {
-    initialSlide: 3,
+    initialSlide: monthNavNumMid,
     slidesPerView: 7,
     freeMode: true,
     freeModeMomentum: true,
@@ -190,13 +203,13 @@ var initMonthViewSwiper = function() {
     centeredSlides: true
   });
   cacheData.monthNavSwiper.on("slideChangeEnd", function(swiper){
-    console.log('month-nav slideChangeEnd');
+    // console.log('month-nav slideChangeEnd');
     var i = swiper.activeIndex, m = getCurMonth();
-    i -= 3;
+    i -= monthNavNumMid;
     if (i==0) return;
     m = m + i;
     gotoMonth(m);
-    swiper.slideTo(3, false, true);
+    swiper.slideTo(monthNavNumMid, false, true);
   });
   cacheData.monthViewSwiper = new Swiper('.month-view .swiper-container', {
     initialSlide: 1
@@ -296,14 +309,23 @@ Template.scheduleCalendar.helpers({
   },
   monthNavText: function(i) {
     var m = getCurMonth()
-    m = m + i -3;
+    m = m + i - monthNavNumMid;
     if (m<=0) {
       m+=12;
     }
     if (m>=13) {
       m-=12;
     }
-    return (i==3?m+'月':m);
+    return (i==monthNavNumMid?m+'月':m);
+  },
+  monthNavClass: function(i) {
+    if (i==monthNavNumMid) {
+      return "cur-month";
+    }
+    return "";
+  },
+  monthNavNum: function() {
+    return getMonthNavNum();
   },
   monthNum: function() {
     return [1,2,3,4,5,6,7,8,9,10,11,12];
@@ -400,16 +422,15 @@ Template.scheduleCalendar.events({
     var ele=e.target, $ele = $(ele).closest('.amonth');
     var m = $ele.data('month');
     Session.set('month', m);
-    if (getViewType()!=='month') {
-      Session.set('view', 'month');
-      $('.year-view-box').hide();
-      $('.month-view-box').show();
-    }
+    Session.set('view', 'month');
+    $('.year-view-box').hide();
+    $('.month-view-box').show();
     subscribe(getCurYear(),m);
+    initMonthViewSwiper();
   },
   'click .month-nav a': function(e) {
     var ele=e.target, $ele = $(ele), i = $ele.data('i'), m = getCurMonth();
-    i -= 3;
+    i -= monthNavNumMid;
     if (i==0) return;
     m = m + i;
     gotoMonth(m);

@@ -59,9 +59,9 @@
       <div class="month-nav">
         <div class="swiper-container">
           <div class="swiper-wrapper">
-            {{#each indexNum}}
+            {{#each monthNavNum}}
             <div class="swiper-slide">
-              <a class="{{#if $eq this 3}}cur-month{{/if}}" data-i="{{this}}">{{monthNavText this}}</a>
+              <a class="{{monthNavClass this}}" data-i="{{this}}">{{monthNavText this}}</a>
             </div>
             {{/each}}
           </div>
