@@ -4,7 +4,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 underscore
 coffeescript
 iron:router
@@ -43,5 +42,17 @@ node-async-locks
 msavin:mongol
 reactive-var
 johnantoni:meteor-scrollto
-sanjo:jasmine
-velocity:html-reporter
+standard-minifiers
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
