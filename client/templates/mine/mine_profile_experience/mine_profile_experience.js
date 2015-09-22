@@ -35,3 +35,13 @@ Template.mineProfileExperience.helpers({
     return Router.current().params.id;
   }
 });
+Template.mineProfileExperience.events({
+  'click #startDate': function(e) {
+    Session.set('dateSelectTargetId', 'startDate');
+    IonModal.open("_dateSelectModal", {'title': "开始时间"});
+  },
+  'click #endDate': function(e) {
+    Session.set('dateSelectTargetId', 'endDate');
+    IonModal.open("_dateSelectModal", {'title': "结束时间"});
+  }
+});
