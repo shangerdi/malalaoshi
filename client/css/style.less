@@ -719,29 +719,29 @@ input[type=text].browser {
 .schedule-calendar .month-nav {
   border-bottom: 1px #888 solid;
   clear: both;
-  ul {
-    padding: 5px;
-    line-height: 40px;
-    text-align: center;
-    li {
-      display: inline-block;
-      width: 100/7-1%;
-      text-align: center;
-      padding: 5px 0;
-      a {
-        display: inline-block;
-        width: 40px;
-        color: #000;
-        cursor: pointer;
-      }
-      &.cur-month a {
-        border: 1px solid @today-color;
-        border-radius: 50%;
-      }
-    }
+  line-height: 40px;
+  padding: 5px;
+  text-align: center;
+  a {
+    display: inline-block;
+    min-width: 40px;
+    color: #000;
+    cursor: pointer;
+  }
+  .swiper-slide-active a {
+    border: 1px solid @today-color;
+    border-radius: 50%;
   }
 }
 .schedule-calendar .month-view {
+  .prev-month {
+    text-align: right;
+    width: 100%;
+  }
+  .next-month {
+    text-align: left;
+    width: 100%;
+  }
   border-bottom: 1px #666 solid;
   text-align: center;
   thead tr td{
@@ -778,6 +778,18 @@ input[type=text].browser {
   left: 0;
   top: 0;
 }
+.schedule-calendar .year-view-box {
+  .prev-year {
+    position: absolute; bottom: 20px
+  }
+  .next-year {
+    position: absolute; top: 20px
+  }
+  .year-view-con {
+    text-align: left;
+    width: 100%;
+  }
+}
 .schedule-calendar .year-nav {
   padding: 10px 0;
 }
@@ -785,6 +797,7 @@ input[type=text].browser {
   a{
     color: black;
     font-weight: bold;
+    cursor: pointer;
   }
   .table {
     cursor: pointer;
@@ -811,6 +824,9 @@ input[type=text].browser {
   }
 }
 .schedule-calendar {
+  .swiper-slide {
+    height: auto;
+  }
   td.done > div{
     background-color: @course-done-bgcolor;
   }

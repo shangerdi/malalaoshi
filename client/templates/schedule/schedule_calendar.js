@@ -113,6 +113,9 @@ var getTdDateClass = function(date) {
   if (today.getFullYear() == date.year && today.getMonth() == date.month-1 && today.getDate() == date.date) {
     classStr+=" today";
   }
+  if (getViewType()==='month' && getCurMonth()!=date.month) {
+    return classStr; // short return: don't show the courses info of not visible date
+  }
   var items = ScheduleTable.findAttendancesByDate(Meteor.user(), date);
   if (items && items.length) {
     var nowTime = cacheData.now.get().getTime();
@@ -153,6 +156,103 @@ var subscribe = function(year, month) {
     Session.set("orderShowLoading", false);
   });
 }
+var gotoMonth = function(m) {
+  var y = getCurYear(), flag = false;
+  if (m<=0) {
+    y-=1;
+    m+=12;
+    flag = true;
+  }
+  if (m>=13) {
+    y+=1;
+    m-=12;
+    flag = true;
+  }
+  Session.set('month', m);
+  if (flag) {
+    Session.set('year', y);
+  }
+  subscribe(y,m);
+}
+var monthNavNumMid = 10;
+var monthNavNumCount = 2*monthNavNumMid + 1;
+var getMonthNavNum = function() {
+  if (cacheData.monthNavNum) {
+    return cacheData.monthNavNum;
+  }
+  var i, a=[];
+  for (i=0; i<monthNavNumCount;i++) {
+    a.push(i);
+  }
+  cacheData.monthNavNum = a;
+  return a;
+}
+var initMonthViewSwiper = function() {
+  if (cacheData.monthViewSwiper) {
+    return;
+  }
+  cacheData.monthNavSwiper = new Swiper('.month-nav .swiper-container', {
+    initialSlide: monthNavNumMid,
+    slidesPerView: 7,
+    freeMode: true,
+    freeModeMomentum: true,
+    freeModeMomentumRatio: 0.3,
+    freeModeMomentumBounce: true,
+    freeModeMomentumBounceRatio: 1,
+    freeModeSticky: true,
+    centeredSlides: true
+  });
+  cacheData.monthNavSwiper.on("slideChangeEnd", function(swiper){
+    // console.log('month-nav slideChangeEnd');
+    var i = swiper.activeIndex, m = getCurMonth();
+    i -= monthNavNumMid;
+    if (i==0) return;
+    m = m + i;
+    gotoMonth(m);
+    swiper.slideTo(monthNavNumMid, false, true);
+  });
+  cacheData.monthViewSwiper = new Swiper('.month-view .swiper-container', {
+    initialSlide: 1
+  });
+  cacheData.monthViewSwiper.on("slideChangeEnd", function(swiper){
+    // console.log('month-view slideChangeEnd');
+    var curIdx = swiper.activeIndex, m = getCurMonth();
+    if (curIdx>1) {
+      m++;
+    } else if (curIdx<1)  {
+      m--;
+    } else {
+      return;
+    }
+    gotoMonth(m);
+    swiper.slideTo(1, false, true);
+  });
+}
+var initYearViewSwiper = function() {
+  if (cacheData.yearViewSwiper) {
+    return;
+  }
+  cacheData.yearViewSwiper = new Swiper('.year-view-box .swiper-container', {
+    direction: 'vertical',
+    slidesPerView: 1,
+    initialSlide: 1
+  });
+  cacheData.yearViewSwiper.on("slideChangeEnd", function(swiper){
+    // console.log('year-view slideChangeEnd');
+    var i = swiper.activeIndex, y = getCurYear();
+    if (i>1) {
+      y++;
+    } else if (i<1)  {
+      y--;
+    } else {
+      return;
+    }
+    Session.set('year', y);
+    subscribe(y);
+    swiper.slideTo(1, false, true);
+  });
+  $(".year-view-box").height($(cacheData.yearViewSwiper.slides[1]).height());
+}
 Template.scheduleCalendar.onCreated(function(){
   var _now = new Date();
   cacheData.today = new ReactiveVar(_now, function(a,b){
@@ -167,6 +267,7 @@ Template.scheduleCalendar.onCreated(function(){
 });
 Template.scheduleCalendar.onDestroyed(function(){
   Meteor.clearInterval(cacheData.nowInterval); // must do
+  cacheData = {};
 });
 Template.scheduleCalendar.onRendered(function(){
   var v = getViewType();
@@ -174,10 +275,12 @@ Template.scheduleCalendar.onRendered(function(){
     $(".year-view-box").hide();
     $(".month-view-box").show();
     subscribe(getCurYear(),getCurMonth());
+    initMonthViewSwiper();
   } else {
     $(".month-view-box").hide();
     $(".year-view-box").show();
     subscribe(getCurYear());
+    initYearViewSwiper();
   }
 });
 Template.scheduleCalendar.helpers({
@@ -206,14 +309,23 @@ Template.scheduleCalendar.helpers({
   },
   monthNavText: function(i) {
     var m = getCurMonth()
-    m = m + i -3;
+    m = m + i - monthNavNumMid;
     if (m<=0) {
       m+=12;
     }
     if (m>=13) {
       m-=12;
     }
-    return (i==3?m+'月':m);
+    return (i==monthNavNumMid?m+'月':m);
+  },
+  monthNavClass: function(i) {
+    if (i==monthNavNumMid) {
+      return "cur-month";
+    }
+    return "";
+  },
+  monthNavNum: function() {
+    return getMonthNavNum();
   },
   monthNum: function() {
     return [1,2,3,4,5,6,7,8,9,10,11,12];
@@ -297,44 +409,31 @@ Template.scheduleCalendar.events({
       $('.year-view-box').show();
       $('.month-view-box').hide();
       subscribe(getCurYear());
+      initYearViewSwiper();
     } else {
       Session.set('view', 'month');
       $('.year-view-box').hide();
       $('.month-view-box').show();
       subscribe(getCurYear(),getCurMonth());
+      initMonthViewSwiper();
     }
   },
   'click .amonth': function(e) {
     var ele=e.target, $ele = $(ele).closest('.amonth');
     var m = $ele.data('month');
     Session.set('month', m);
-    if (getViewType()!=='month') {
-      Session.set('view', 'month');
-      $('.year-view-box').hide();
-      $('.month-view-box').show();
-    }
+    Session.set('view', 'month');
+    $('.year-view-box').hide();
+    $('.month-view-box').show();
     subscribe(getCurYear(),m);
+    initMonthViewSwiper();
   },
   'click .month-nav a': function(e) {
-    var ele=e.target, $ele = $(ele), i = $ele.data('i'), m = getCurMonth(), y = getCurYear(), flag = false;
-    i -= 3;
+    var ele=e.target, $ele = $(ele), i = $ele.data('i'), m = getCurMonth();
+    i -= monthNavNumMid;
     if (i==0) return;
     m = m + i;
-    if (m<=0) {
-      y-=1;
-      m+=12;
-      flag = true;
-    }
-    if (m>=13) {
-      y+=1;
-      m-=12;
-      flag = true;
-    }
-    Session.set('month', m);
-    if (flag) {
-      Session.set('year', y);
-    }
-    subscribe(y,m);
+    gotoMonth(m);
   },
   'click .month-view td.date': function(e) {
     var ele=e.target, $ele = $(ele).closest('td');
