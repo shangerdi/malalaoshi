@@ -5,6 +5,6 @@ Template.commented.events({
   },
   'click #getCoupon': function(e){
     e.preventDefault();
-    Router.go('genCoupon', {'cid': this.courseAttendanceId});
+    Router.go('raffle', {'cid': this.courseAttendanceId});
   }
 });

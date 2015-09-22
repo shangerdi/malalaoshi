@@ -8,11 +8,54 @@
   {{/contentFor}}
 
   {{#ionView}}
-    {{#ionContent}}
-      <div>
+    {{#ionContent class="raffle-page-content"}}
+      <div class="raffle-view">
+        <div>
+          <div id="raffleA">
+            <img src="{{img}}"/>
+            <div class="raffle-money-view">
+              <div>￥</div>
+              <div></div>
+            </div>
+          </div>
+          <div id="raffleB">
+            <img src="{{img}}"/>
+            <div class="raffle-money-view">
+              <div>￥</div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div id="raffleC">
+            <img src="{{img}}"/>
+            <div class="raffle-money-view">
+              <div>￥</div>
+              <div></div>
+            </div>
+          </div>
+          <div id="raffleD">
+            <img src="{{img}}"/>
+            <div class="raffle-money-view">
+              <div>￥</div>
+              <div></div>
+            </div>
+          </div>
+        </div>
       </div>
       <div>
-        <span>选一个试试手气</span>
+        {{#if $eq hasCouponStatus 2}}
+          <span>选一个试试手气</span>
+        {{else}}
+          {{#if $eq hasCouponStatus 1}}
+            <span>恭喜你打败了87%的用户</span>
+          {{else}}
+            {{#if $eq hasCouponStatus 3}}
+            <span>已经抽过了</span>
+            {{/if}}
+          {{/if}}
+          <button class="button button-assertive">确认</button>
+        {{/if}}
       </div>
     {{/ionContent}}
   {{/ionView}}

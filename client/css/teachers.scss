@@ -1525,3 +1525,77 @@ body>.sticky-nav{
 .alter-page-view{
   text-align: center;
 }
+.raffle-page-content{
+  text-align: center;
+  margin-top: 20px;
+  > div:last-child{
+    margin-top: 20px;
+    span{
+      display: block;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    button{
+      width: 200px;
+    }
+  }
+}
+.raffle-view{
+  > div > div{
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    border: solid red 1px;
+    border-radius: 50%;
+    margin-top: 5px;
+    margin-left: 5px;
+    background-color: #d8d8d8;
+    cursor: pointer;
+  }
+  img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+}
+.raffle-money-view{
+  display: none;
+  > div{
+    float: left;
+  }
+  > div:first-child{
+    font-size: 23px;
+    margin-left: 20px;
+    margin-top: -19px;
+  }
+  > div:last-child{
+    font-size: 50px;
+  }
+}
+.raffle-money-selected{
+  background-color: #D26060;
+}
+@-webkit-keyframes raffle-rotate{
+  from{-webkit-transform: rotateY(0deg);}
+  to{-webkit-transform: rotateY(360deg);}
+}
+@-moz-keyframes raffle-rotate{
+  from{-moz-transform: rotateY(0deg);}
+  to{-moz-transform: rotateY(360deg);}
+}
+@-ms-keyframes raffle-rotate{
+  from{-ms-transform: rotateY(0deg);}
+  to{-ms-transform: rotateY(360deg);}
+}
+@-o-keyframes raffle-rotate{
+  from{-o-transform: rotateY(0deg);}
+  to{-o-transform: rotateY(360deg);}
+}
+.raffle-animate{
+    -webkit-animation: .2s linear 0s normal none infinite raffle-rotate;
+       -moz-animation: .2s linear 0s normal none infinite raffle-rotate;
+        -ms-animation: .2s linear 0s normal none infinite raffle-rotate;
+         -o-animation: .2s linear 0s normal none infinite raffle-rotate;
+            animation: .2s linear 0s normal none infinite raffle-rotate;
+}
