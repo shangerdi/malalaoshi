@@ -47,6 +47,11 @@ var _upadteDaySwiperSlides = function() {
     daySwiper.removeAllSlides(); //移除全部
     daySwiper.appendSlide(slidesHtml);
     var dayIndex = _getSlideIndex(daySwiper, Session.get("curSwiperDay"));
+    if (dayIndex==-1) {
+      day = getDayList(year, month)[0].key;
+      Session.set("curSwiperDay", day);
+      dayIndex = 0;
+    }
     daySwiper.slideTo(dayIndex, 0, null);
   }
 }
