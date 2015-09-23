@@ -109,16 +109,8 @@ Template.comment.events({
         return throwError(error.reason);
       }
 
-      IonPopup.show({
-          title: false,
-          template: '<div class="pop-remind-template">评价成功</div>',
-          buttons: []
-      });
       $('.bottom-btn-view').remove();
-      Meteor.setTimeout(function() {
-         IonPopup.close();
-       }, 700);
+      Router.go('commented', {'cid': saveObj.courseAttendanceId});
      });
-
   }
 });
