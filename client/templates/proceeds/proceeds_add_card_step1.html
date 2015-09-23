@@ -9,7 +9,17 @@
 
   {{#ionView}}
     {{#ionContent}}
-
+      {{#ionList}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          持卡人<input type="text" />
+        {{/ionItem}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          卡号<input type="text" />
+        {{/ionItem}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          <button data-action="add-card-step2">下一步</button>
+        {{/ionItem}}
+      {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
 </template>

@@ -9,7 +9,17 @@
 
   {{#ionView}}
     {{#ionContent}}
-
+      {{#ionList}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          请输入手机号 158****0996 收到的短信校验码
+        {{/ionItem}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          <input type="text" />
+        {{/ionItem}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          <button data-action="add-card-step3">下一步</button>
+        {{/ionItem}}
+      {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
 </template>

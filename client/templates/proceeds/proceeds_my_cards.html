@@ -4,12 +4,15 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title">银行卡(列表)</h1>
+    <h1 class="title normal-title">银行卡</h1>
   {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent}}
-
+      {{#ionItem class="item-icon-right" path="proceedsAddCardStep1" iconRight=true}}
+        添加银行卡
+        {{> ionIcon icon="ios-plus"}}
+      {{/ionItem}}
     {{/ionContent}}
   {{/ionView}}
 </template>
