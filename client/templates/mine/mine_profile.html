@@ -35,7 +35,6 @@
         {{#ionItem path="mineProfileBirthday" iconRight=true}}
           出生日期
           <span class="item-note">
-            {{#unless currentUser.profile.birthday}}未设置{{/unless}}
             {{getBirthDayStr}}
           </span>
           {{> ionIcon icon="ios-arrow-right"}}

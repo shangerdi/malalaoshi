@@ -18,14 +18,14 @@ Template.mineProfile.helpers({
       var a = birthday.split('-'), year = a[0], month = a[1], day = a[2];
       return moment([year,month-1,day]).format('YYYY年M月D日');
     }
-    return '';
+    return '未设置';
   },
   getDegreeStr: function() {
     var degree = Meteor.user().profile.degree;
     if (degree) {
       return getEduDegreeText(degree);
     }
-    return '';
+    return '未设置';
   },
   getTeachingAgeStr: function() {
     var teachingAge = Meteor.user().profile.teachingAge;

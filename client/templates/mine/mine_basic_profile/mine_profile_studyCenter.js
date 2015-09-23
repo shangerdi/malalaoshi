@@ -7,7 +7,7 @@ Template.mineProfileStudyCenter.onCreated(function(){
 Template.mineProfileStudyCenter.helpers({
   studyCenterList: function() {
     var studyCenterIds = Meteor.user().profile.studyCenters;
-    if (studyCenterIds) {
+    if (studyCenterIds && studyCenterList.length) {
       return StudyCenters.find({'_id': {$in: studyCenterIds}});
     }
   }
