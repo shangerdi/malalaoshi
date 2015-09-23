@@ -12,6 +12,9 @@ Template.proceedsAddCardStep1.onCreated(function() {
 
 Template.proceedsAddCardStep1.onRendered(function() {
   //add your statement here
+  $("[data-action=add-card-step2]").click(function(e) {
+    Router.go('proceedsAddCardStep2');
+  });
 });
 
 Template.proceedsAddCardStep1.onDestroyed(function() {

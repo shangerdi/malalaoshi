@@ -9,7 +9,20 @@
 
   {{#ionView}}
     {{#ionContent}}
-
+      {{#ionList}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          卡类型<input type="text" />
+        {{/ionItem}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          手机号<input type="text" />
+        {{/ionItem}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          同意《服务协议》
+        {{/ionItem}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          <button data-action="add-card-step3">下一步</button>
+        {{/ionItem}}
+      {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
 </template>

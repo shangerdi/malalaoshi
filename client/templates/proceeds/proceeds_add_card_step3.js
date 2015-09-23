@@ -12,6 +12,9 @@ Template.proceedsAddCardStep3.onCreated(function() {
 
 Template.proceedsAddCardStep3.onRendered(function() {
   //add your statement here
+  $("[data-action=add-card-step3]").click(function(e) {
+    alert('开通成功!');
+  });
 });
 
 Template.proceedsAddCardStep3.onDestroyed(function() {

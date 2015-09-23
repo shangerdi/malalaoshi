@@ -7,9 +7,29 @@
     <h1 class="title normal-title">收入</h1>
   {{/contentFor}}
 
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear button-light" data-action="proceeds-security">
+      账户安全
+    </button>
+  {{/contentFor}}
+
   {{#ionView}}
     {{#ionContent}}
-
+      <p>我的收入</p>
+      <p>0</p>
+      <button class="button button-dark" data-action="proceeds-withdraw">
+        提现
+      </button>
+      {{#ionList}}
+        {{#ionItem class="item-icon-right" path="proceedsDetails" iconRight=true}}
+          收支明细
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+        {{#ionItem class="item-icon-right" path="proceedsMyCards" iconRight=true}}
+          我的银行卡
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/ionList}}
     {{/ionContent}}
   {{/ionView}}
 </template>
