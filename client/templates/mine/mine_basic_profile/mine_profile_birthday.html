@@ -16,38 +16,7 @@
 
 {{#ionView}}
   {{#ionContent}}
-    <div class="birthday-swiper-comp">
-      <div>
-        <div class="swiper-container year-swiper">
-          <div class="swiper-wrapper">
-            {{#each yearList}}
-              <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
-            {{/each}}
-          </div>
-          <div class="swiper-button-prev"></div><div class="swiper-middle-line"></div>
-        </div>
-      </div>
-      <div>
-        <div class="swiper-container month-swiper">
-          <div class="swiper-wrapper">
-            {{#each monthList}}
-              <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
-            {{/each}}
-          </div>
-          <div class="swiper-button-prev"></div><div class="swiper-middle-line"></div>
-        </div>
-      </div>
-      <div>
-        <div class="swiper-container day-swiper">
-          <div class="swiper-wrapper">
-            {{#each dayList}}
-              <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
-            {{/each}}
-          </div>
-          <div class="swiper-button-prev"></div>
-        </div>
-      </div>
-    </div>
+    {{> dateSwiperComponent}}
   {{/ionContent}}
 {{/ionView}}
 </template>

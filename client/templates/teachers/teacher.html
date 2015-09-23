@@ -58,6 +58,7 @@
             <div><i class="icon ion-checked {{#if specialty}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>专业资质</span></div>
             <div><i class="icon ion-checked {{#if maLaCert}}ion-checkmark-circled{{else}}ion-ios-circle-outline{{/if}}"></i> <span>麻辣认证</span></div>
           </div>
+          <div class="clearfix"></div>
         </div>
       </div>
       <div><hr></div>
@@ -160,13 +161,13 @@
       <div><hr></div>
     {{/ionContent}}
     {{# if $neq currentUser._id user._id }}
-    <div class="bottom-btn-view teacher-bottom-btn-view bottom-btn-view-active">
+    <div class="bottom-btn-view">
       <div class="row">
         <div class="col-xs-6">
           ￥{{price}}/课时
         </div>
         <div class="col-xs-6">
-          <button id="reserveCourse" class="button button-full">
+          <button id="reserveCourse" class="btn btn-lg btn-success col-xs-12">
             马上约课
           </button>
         </div>

@@ -1,8 +1,7 @@
-$greyColor: #b8b8b8;
-$moreGreyColor: #ddd;
-$appBackGroundColor: #FFFFFF;
-$malaRed: #e14123;
-$pagepadding: 3.9vmin;
+$greyColor: #f7f7f7;
+$appBackGroundColor: white;
+$malaRed: #ff9290;
+$pagepadding: 14px;
 
 .teacher-div > div > div:first-child{
   min-height:85px;
@@ -100,7 +99,7 @@ $pagepadding: 3.9vmin;
   padding-right: $pagepadding;
   padding-left: $pagepadding;
   background: white;
-  border: solid $moreGreyColor 1px;
+  border: solid $greyColor 1px;
   border-bottom: none;
   border-top: none;
 }
@@ -298,9 +297,7 @@ $pagepadding: 3.9vmin;
   float: right;
 }
 .teacher-cert span{
-  color: $greyColor;
   font-size: 15px;
-  font-weight: bolder;
 }
 .ion-checked{
   color: #59e3c3;
@@ -502,7 +499,7 @@ $pagepadding: 3.9vmin;
   }
 }
 #addressDetail{
-  border: solid $moreGreyColor 1px;
+  border: solid $greyColor 1px;
   margin-top: 6px;
   padding-left: 5px;
 }
@@ -836,36 +833,6 @@ $pagepadding: 3.9vmin;
 }
 .teachers-filter > div > div{
   text-align: center;
-}
-.bottom-btn-view{
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  height:67px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  line-height:67px;
-  z-index: 20;
-}
-.bottom-btn-view-no-active button{
-  border-color: #7b7b7b;
-  background-color: #7b7b7b;
-  color: #fff;
-  font-size: 24px;
-  width: 100%;
-  border-right-width: 1px;
-  border-left-width: 1px;
-}
-.bottom-btn-view-active button{
-  border-color: #4a4a4a;
-  background-color: #4a4a4a;
-  color: #fff;
-  font-size: 24px;
-  width: 100%;
-}
-.bottom-btn-view .button:hover{
-  color: #fff;
 }
 .place-holder-div{
   float: left;
@@ -1296,16 +1263,6 @@ body>.sticky-nav{
     }
   }
 }
-.teacher-bottom-btn-view{
-  background-color: #f1f1f1;
-  font-size: 18px;
-}
-.teacher-bottom-btn-view .row{
-  padding: 0;
-}
-.teacher-bottom-btn-view .col{
-  padding: 0;
-}
 .teachers-filter .teachers-filter-study-center-item{
   margin: 0 auto 20px auto;
 }
@@ -1364,8 +1321,8 @@ body>.sticky-nav{
   width: 100%;
 }
 .view-both-side-margin{
-  margin-right: 10px;
-  margin-left: 10px;
+  margin-right: $pagepadding;
+  margin-left: $pagepadding;
 }
 .course-attendance-comment-head{
   margin-top: 20px;
@@ -1501,7 +1458,7 @@ body>.sticky-nav{
     font-size: 20px;
   }
   a{
-    border: solid $moreGreyColor 1px;
+    border: solid $greyColor 1px;
     border-top: none;
     border-left: none;
     border-right: none;

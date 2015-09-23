@@ -113,7 +113,10 @@ Template.orderStepSchedule.events({
           onCancel: function() {
           }
         });
+        return;
       }
+      // 没有任何冲突
+      Router.go('orderStepConfirm');
     });
   },
   'keyup #courseCount, change #courseCount': function(e) {

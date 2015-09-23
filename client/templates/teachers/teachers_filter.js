@@ -81,15 +81,10 @@ Template.teachersFilter.onRendered(function(){
     }
   });
   self.autorun(function(){
-    $('.bottom-btn-view').removeClass("bottom-btn-view-active");
-    $('.bottom-btn-view').addClass("bottom-btn-view-no-active");
+    $('.bottom-btn-view button').addClass("disabled");
 
     if(checkCondition(self.data.setAddress)){
-      $('.bottom-btn-view').removeClass("bottom-btn-view-no-active");
-      $('.bottom-btn-view').addClass("bottom-btn-view-active");
-    }else{
-      $('.bottom-btn-view').removeClass("bottom-btn-view-active");
-      $('.bottom-btn-view').addClass("bottom-btn-view-no-active");
+      $('.bottom-btn-view button').removeClass("disabled");
     }
   });
 });

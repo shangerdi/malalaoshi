@@ -16,12 +16,6 @@ var selectRole = function(role) {
   Session.set('selectedRole', role);
   $(".role-select li.active").removeClass('active');
   $(".role-select li.tab-"+role).addClass('active');
-  if (role=="parent") {
-    text = "家长姓名";
-  } else {
-    text = "老师姓名";
-  }
-  $("label[for=name]").text(text);
 }
 Template.register.helpers({
   errorMessage: function(field) {

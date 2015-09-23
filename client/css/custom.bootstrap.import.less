@@ -24,8 +24,8 @@
 @gray-lighter:           lighten(@gray-base, 93.5%); // #eee
 
 @brand-primary:         darken(#db3e00, 6.5%); // #337ab7
-@brand-success:         #db3e00;
-@brand-info:            spin(@brand-success, 90);
+@brand-success:         #e8413e;
+@brand-info:            #e5e5e5;
 @brand-warning:         spin(@brand-success, 150);
 @brand-danger:          spin(@brand-success, 210);
 
@@ -42,7 +42,7 @@
 //** Global textual link color.
 @link-color:            @brand-primary;
 //** Link hover color set via `darken()` function.
-@link-hover-color:      darken(@link-color, 15%);
+@link-hover-color:      darken(@link-color, 30%);
 //** Link hover decoration.
 @link-hover-decoration: initial;
 
@@ -113,9 +113,9 @@
 @line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
 @line-height-small:         1.5;
 
-@border-radius-base:        0;
-@border-radius-large:       0;
-@border-radius-small:       0;
+@border-radius-base:        3.3px;
+@border-radius-large:       3.3px;
+@border-radius-small:       3.3px;
 
 // Allows for customizing button radius independently from global border radius
 @btn-border-radius-base:         @border-radius-base;

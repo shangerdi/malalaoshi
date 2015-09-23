@@ -35,3 +35,10 @@ Template.mineProfileEduResult.helpers({
     return Router.current().params.id;
   }
 });
+
+Template.mineProfileEduResult.events({
+  'click #doneDate': function(e) {
+    Session.set('dateSelectTargetId', 'doneDate');
+    IonModal.open("_dateSelectModal", {'title': "时间"});
+  }
+});
