@@ -1,11 +1,44 @@
+
+function writeObj(obj){
+  var description = "";
+  for(var i in obj){
+    var property=obj[i];
+    description+=i+" = "+property+"\n";
+  }
+  return description;
+}
+
 Meteor.methods({
   getCardInfo: function(cardNumber) {
-    var cardInfo = {};
-    cardInfo.cardNumber = cardNumber;
-    cardInfo.bankName = "招商银行";
-    cardInfo.type = "借记卡";
     //TODO: process the cardNumber matching
     //fetchCardInfo(cardNumber);
+
+    var binCodeSizeArray = [];
+    BankCardRules.find({}, {fields: {binCodeSize: 1}, sort: {'binCodeSize': -1}})
+      .forEach(function(item) {
+        //if (!binCodeSizeArray.contains(item.binCodeSize))
+        console.log('binCodeSize: ' + writeObj(item));
+      });
+
+      /*
+      .forEach(function (item) {
+        console.log('binCodeSize: ' + writeObj(item));
+    });
+    */
+
+    var binCodeSize = 6;
+    var binCode = cardNumber.substring(0, binCodeSize);
+    var totalSize = cardNumber.length;
+
+    var cardInfo = BankCardRules.findOne({
+      binCodeSize: binCodeSize,
+      binCode: binCode,
+      totalSize: totalSize
+    });
+    if (!cardInfo) {
+      throw new Meteor.Error('卡号错误', '卡号无法识别');
+    }
+    cardInfo.cardNumber = cardNumber;
     return cardInfo;
   },
   addNewCard: function(params) {
