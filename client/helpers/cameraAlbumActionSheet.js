@@ -26,6 +26,15 @@
         }
         return false;
       },
+      convertBase64UrlToBlob: function(urlData) {
+        var bytes = window.atob(urlData.split(',')[1]); //去掉url的头，并转换为byte
+        //处理异常,将ascii码小于0的转换为大于0
+        var ia = new Uint8Array(bytes.length);
+        for (var i = 0; i < bytes.length; i++) {
+          ia[i] = bytes.charCodeAt(i);
+        }
+        return new Blob([ia], {type: 'image/jpeg'});
+      },
       showCamera: function(selCallback, cancelCallback) {
         IonActionSheet.show({
           titleText: '选择方式',
