@@ -61,6 +61,7 @@ App.accessRule("*://*.map.baidu.com/*");
 App.accessRule("*://*.map.bdimg.com/*");
 
 App.setPreference('fullscreen', 'false');
+App.setPreference('StatusBarOverlaysWebView', 'true');
 App.setPreference('android-windowSoftInputMode', 'stateVisible|adjustResize');
 
 App.setPreference('webviewbounce', 'true');
