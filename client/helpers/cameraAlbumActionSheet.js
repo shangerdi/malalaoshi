@@ -169,6 +169,8 @@
               navigator.camera.getPicture(onSuccess, onFail, {
                 quality: 20,
                 allowEdit: true,
+                targetWidth: 300,
+                targetHeight: 300,
                 destinationType: destinationType.DATA_URL,
                 sourceType: index == 1 ? pictureSource.PHOTOLIBRARY : pictureSource.CAMERA
               });
@@ -239,3 +241,52 @@
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }).call(this);
+
+appUploadUserAvatarListener = function(e) {
+  var ele = e.target, $ele = $(ele);
+  if ($ele.attr('disabled')) {
+    alert("Please wait!");
+    return;
+  }
+  var imgEle = $ele.find("img")[0], oldAvatarUrl = Meteor.user().profile.avatarUrl;
+  CameraAlbumActionSheet.showCameraAlbum_one_canEdit(function(one_image_base64){
+    // console.log(one_image_base64);
+    imgEle.src=one_image_base64;
+    // return;
+    $ele.attr("disabled", true);
+    $ele.css("cursor", "wait");
+    IonLoading.show({backdrop: true});
+    var file = CameraAlbumActionSheet.convertBase64UrlToBlob(one_image_base64);
+    var uploader = new Slingshot.Upload("imgUploads");
+    var error = uploader.validate(file);
+    if (error) {
+      imgEle = oldAvatarUrl;
+      console.log(error);
+      alert(error.reason);
+      $ele.removeAttr("disabled");
+      $ele.css("cursor", "pointer");
+      IonLoading.hide();
+      return false;
+    }
+    // ready to upload
+    uploader.send(file, function(error, downloadUrl) {
+      if (error) {
+        imgEle = oldAvatarUrl;
+        console.log(error);
+        alert(error.reason);
+        $ele.removeAttr("disabled");
+        $ele.css("cursor", "pointer");
+        IonLoading.hide();
+        return;
+      }
+      // console.log(downloadUrl);
+      // do save downloadUrl to db
+      Meteor.users.update(Meteor.userId(), {$set: {"profile.avatarUrl": downloadUrl}});
+      $ele.removeAttr("disabled");
+      $ele.css("cursor", "pointer");
+      IonLoading.hide();
+    });
+  }, function(err){
+    console.log(err);
+  });
+}
