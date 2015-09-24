@@ -90,5 +90,12 @@ Template.mineProfile.events({
       }
     }
     Router.go("mineProfileServiceAreaList");
+  },
+  'click #mineProfileAvatar': function(e) {
+    if (Meteor.isCordova) {
+      appUploadUserAvatarListener(e);
+    } else {
+      Router.go('mineProfileAvatar');
+    }
   }
 });
