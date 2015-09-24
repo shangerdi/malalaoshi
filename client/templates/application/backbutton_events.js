@@ -9,6 +9,10 @@ if (Meteor.isCordova) {
       IonPopup.close();
       return;
     }
+    if ($('body').hasClass('modal-open')) {
+      IonModal.close();
+      return;
+    }
 
     var curRouter = Router.current();
     var curRouterName = curRouter.route.getName();
