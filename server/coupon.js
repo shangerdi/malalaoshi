@@ -17,7 +17,7 @@ Meteor.methods({
     if(!order){
       throw new Meteor.Error('数据不正确', '订单不存在');
     }
-    var lambda = order.cost / order.hour / 20;
+    var lambda = order.cost / order.hour / 10;
     var ret = [];
     var coupon = Coupons.findOne({courseAttendanceId: courseAttendanceId});
     if(coupon){
@@ -30,10 +30,11 @@ Meteor.methods({
     }
     for(var i=0; i < count; i++){
       ret[ret.length] = {
-        value: Math.floor(Math.random()*lambda)
+        value: Math.floor(normalDistribution(0,lambda))
       }
     }
     ret[0].select = true;
+    ret[0].proportion = ret[0].value / lambda;
     var newCoupon = {
       courseAttendanceId: courseAttendanceId,
       value:  ret[0].value,
