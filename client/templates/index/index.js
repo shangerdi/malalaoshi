@@ -11,11 +11,20 @@ Template.index.onRendered(function () {
     paginationClickable: true
   });
 });
-Template.index.onCreated(function() {
-});
-
 Template.index.helpers({
   show: function(){
+    return [
+      {
+        imgSrc: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/test_1234/1438334988731.png",
+        id: "HWQLWZ59GxtrdEoz3"
+      },
+      {
+        imgSrc: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12323232323/1437113067545.jpg",
+        id: "uCMX3NyPbpzvgNJn5"
+      }
+    ];
+  },
+  recommendedTeachers: function(){
     return [
       {
         imgSrc: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/test_1234/1438334988731.png",
