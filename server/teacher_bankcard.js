@@ -10,36 +10,30 @@ function writeObj(obj){
 
 Meteor.methods({
   getCardInfo: function(cardNumber) {
-    //TODO: process the cardNumber matching
-    //fetchCardInfo(cardNumber);
-
-    var binCodeSizeArray = [];
+    var result = {};
+    var binCodeSizefetched = [];
     BankCardRules.find({}, {fields: {binCodeSize: 1}, sort: {'binCodeSize': -1}})
       .forEach(function(item) {
-        //if (!binCodeSizeArray.contains(item.binCodeSize))
-        console.log('binCodeSize: ' + writeObj(item));
+        if (binCodeSizefetched.indexOf(item.binCodeSize) === -1) {
+          binCodeSizefetched.push(item.binCodeSize);
+          var binCodeSize = item.binCodeSize;
+          var binCode = cardNumber.substring(0, binCodeSize);
+          var totalSize = cardNumber.length;
+          var cardInfo = BankCardRules.findOne({
+            binCodeSize: binCodeSize,
+            binCode: binCode,
+            totalSize: totalSize
+          });
+          if (cardInfo) {
+            result = cardInfo;
+            result.cardNumber = cardNumber;
+          }
+        }
       });
-
-      /*
-      .forEach(function (item) {
-        console.log('binCodeSize: ' + writeObj(item));
-    });
-    */
-
-    var binCodeSize = 6;
-    var binCode = cardNumber.substring(0, binCodeSize);
-    var totalSize = cardNumber.length;
-
-    var cardInfo = BankCardRules.findOne({
-      binCodeSize: binCodeSize,
-      binCode: binCode,
-      totalSize: totalSize
-    });
-    if (!cardInfo) {
-      throw new Meteor.Error('卡号错误', '卡号无法识别');
+    if (!result.cardNumber) {
+      throw new Meteor.Error('卡号无法识别', '卡号无法识别');
     }
-    cardInfo.cardNumber = cardNumber;
-    return cardInfo;
+    return result;
   },
   addNewCard: function(params) {
     //TODO: verify following information

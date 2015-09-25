@@ -11,10 +11,10 @@
     {{#ionContent}}
       {{#ionList}}
         {{#ionItem class="item-icon-right" iconRight=true}}
-          持卡人<input type="text" />
+          持卡人<input id="cardUserName" disabled type="text" value="{{currentUser.profile.name}}" placeholder="持卡人真实姓名"/>
         {{/ionItem}}
         {{#ionItem class="item-icon-right" iconRight=true}}
-          卡号<input id="cardNumber" type="text" />
+          卡号<input id="cardNumber" type="text" value="{{cardInfo.cardNumber}}" placeholder="储蓄卡号"/>
         {{/ionItem}}
         {{#ionItem class="item-icon-right" iconRight=true}}
           <button data-action="add-card-step2">下一步</button>
