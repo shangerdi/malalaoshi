@@ -139,5 +139,15 @@ Meteor.methods({
       throw new Meteor.Error('参数错误', '参数错误');
     }
     TeacherAudit.update({'userId': curUserId}, {$push: {'personalPhoto': photoUrl}});
+  },
+  deletePersonalPhoto: function(photoUrls) {
+    var curUserId = Meteor.userId();
+    if (!curUserId) {
+      throw new Meteor.Error('没有权限', '请登录');
+    }
+    if (!photoUrls || !photoUrls.length) {
+      throw new Meteor.Error('参数错误', '参数错误');
+    }
+    TeacherAudit.update({'userId': curUserId}, {$pullAll: {'personalPhoto': photoUrls}});
   }
 });

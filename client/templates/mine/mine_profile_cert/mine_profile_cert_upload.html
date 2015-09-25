@@ -12,7 +12,13 @@
         <div class="cert-img-box">
           <div class="img-box"><img src={{getCertImgUrl}}></div>
           <div class="uploading-hint-box">{{>loading}}</div>
-          <a class="btn btn-success file-input-mask"><span>点击上传图片</span><input title="请选择图片" type="file" name="photo" multiple=""></a>
+          <a class="btn btn-success file-input-mask">
+            <span>点击上传图片</span>
+
+            {{#unless isCordova}} <!-- if is Cordova, call app native camera or album -->
+              <input title="请选择图片" type="file" name="photo" multiple="">
+            {{/unless}}
+          </a>
         </div>
         <p>请保证图片清晰正确</p>
         <span class="help-block"></span>

@@ -1,10 +1,25 @@
 <template name="mineProfilePhotos">
   {{#contentFor "headerButtonLeft"}}
+    <button class="button button-clear button-light {{#unless isManaging}}hide{{/unless}}" data-action="cancle-manage">
+      取消
+    </button>
+    {{#unless isManaging}}
     {{>ionNavBackButton class="button-clear button-light" text=false}}
+    {{/unless}}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
     <h1 class="title normal-title">照片</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear button-light" data-action="manage-profile-photos">
+      {{#if isManaging}}
+        删除({{toDeleteCount}})
+      {{else}}
+        管理
+      {{/if}}
+    </button>
   {{/contentFor}}
 
 
@@ -15,8 +30,12 @@
       {{#each photoList}}
         {{#ionItem class="photo"}}
           <img src="{{this}}">
+          <div class="manage-box {{#unless isManaging}}hide{{/unless}}">
+            <span class="flag ion-checkmark-circled"></span>
+          </div>
         {{/ionItem}}
       {{/each}}
+      {{#unless isHideAddButton}}
       {{#ionItem class="add-photo file-input-mask"}}
         {{> ionIcon icon="ios-plus-outline"}}
         添加照片
@@ -24,6 +43,7 @@
         <input title="请选择图片" type="file" name="photo" multiple="">
         {{/unless}}
       {{/ionItem}}
+      {{/unless}}
     {{/ionList}}
 
   {{/ionContent}}
