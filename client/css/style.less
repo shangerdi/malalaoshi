@@ -1200,6 +1200,28 @@ input[type=text].browser {
       display: block;
     }
   }
+  .manage-box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.2);
+    span {
+      display: block;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+    }
+    &.checked {
+      span {
+        color: green;
+      }
+    }
+  }
 }
 .with-bottom-btn{
   margin-bottom:66px;

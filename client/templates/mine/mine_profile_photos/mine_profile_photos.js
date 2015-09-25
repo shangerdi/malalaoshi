@@ -1,10 +1,83 @@
-var maxPhotosCount = 20;
+var maxPhotosCount = 5;
+var toDeleteCount = new ReactiveVar(0);
+var isManaging = new ReactiveVar(false);
+var init = function() {
+  toDeleteCount.set(0);
+  isManaging.set(false);
+  $(".manage-box").removeClass('checked');
+}
+var doManage = function(e) {
+  isManaging.set(true);
+  toDeleteCount.set($(".manage-box.checked").length);
+}
+var doDelete = function(e) {
+  if (toDeleteCount.get()===0) {
+    alert("请选择照片");
+    return;
+  }
+  IonPopup.confirm({
+    title: '操作提示',
+    template: '你确定要删除所选择的照片吗？',
+    cancelText: '取消',
+    okText: '确定',
+    onOk: function() {
+      IonLoading.show({backdrop: true, customTemplate: "正在删除..."});
+      var photoUrls = [];
+      $(".manage-box.checked").each(function(){
+        $photoItem = $(this).closest(".photo");
+        var img = $photoItem.find("img")[0];
+        photoUrls.push(img.src);
+      });
+      Meteor.call('deletePersonalPhoto', photoUrls, function(error, result) {
+        IonLoading.hide();
+        if (error) {
+          console.log(error);
+          alert(error.reason);
+          return throwError(error.reason);
+        }
+        init();
+      });
+    }
+  });
+}
+var manageButtonHandler = function(e) {
+  if (!isManaging.get()) {
+    doManage(e);
+  } else {
+    doDelete(e);
+  }
+}
+var cancleManageHandler = function(e){
+  isManaging.set(false);
+  $(".manage-box").removeClass('checked');
+}
+Template.mineProfilePhotos.onRendered(function(){
+  init();
+  $("[data-action=manage-profile-photos]").click(manageButtonHandler);
+  $("[data-action=cancle-manage]").click(cancleManageHandler);
+});
 Template.mineProfilePhotos.helpers({
   photoList: function() {
     var teacherAudit = TeacherAudit.findOne({'userId': Meteor.userId()});
     if (teacherAudit) {
       return teacherAudit.personalPhoto;
     }
+  },
+  isHideAddButton: function() {
+    if (isManaging.get()) {
+      return true;
+    }
+    var teacherAudit = TeacherAudit.findOne({'userId': Meteor.userId()});
+    if (teacherAudit && teacherAudit.personalPhoto && teacherAudit.personalPhoto.length) {
+      return teacherAudit.personalPhoto.length >= maxPhotosCount;
+    }
+    return false;
+  },
+  toDeleteCount: function() {
+    return toDeleteCount.get();
+  },
+  isManaging: function() {
+    return isManaging.get();
   }
 });
 Template.mineProfilePhotos.events({
@@ -115,5 +188,10 @@ Template.mineProfilePhotos.events({
       }
       return true;
     }
+  },
+  'click .manage-box': function(e) {
+    var ele = e.target, $ele = $(ele);
+    $ele.toggleClass('checked');
+    toDeleteCount.set($(".manage-box.checked").length);
   }
 });
