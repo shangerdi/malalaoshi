@@ -1,0 +1,27 @@
+<template name="couponConfirm">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title"></h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      <div class="coupon-confirm-view-head">
+        <div>
+          <div>￥</div>
+          <div>{{coupon.value}}</div>
+        </div>
+        <div>麻辣奖学金</div>
+        <div>满{{coupon.minCost}}元使用</div>
+      </div>
+      <div class="coupon-confirm-view-note">已经自动存入您的账户中</div>
+      <div class="coupon-confirm-view-button">
+        <button id="allCouponBtn" class="button button-assertive">查看奖学金</button>
+        <button id="commentBtn" class="button button-assertive">继续评价</button>
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>

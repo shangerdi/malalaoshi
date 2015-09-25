@@ -686,6 +686,7 @@ $pagepadding: 14px;
 .order-empty button{
   max-width: 150px;
   display: inline;
+  float: none;
 }
 .order-empty > div:first-child{
   font-size: 217px;
@@ -1555,4 +1556,119 @@ body>.sticky-nav{
         -ms-animation: .2s linear 0s normal none infinite raffle-rotate;
          -o-animation: .2s linear 0s normal none infinite raffle-rotate;
             animation: .2s linear 0s normal none infinite raffle-rotate;
+}
+.coupon-confirm-view-button{
+  padding: 0 $pagepadding;
+  text-align: center;
+  border-top-style: dotted;
+  border-top-width: 2px;
+  border-top-color: #DED5D5;
+  padding-top: 20px;
+}
+.coupon-confirm-view-head{
+  width: 250px;
+  margin-top: 30px;
+  background-color: #F9E5E5;
+  margin-left: auto;
+  margin-right: auto;
+  border: solid #ECC6C6 1px;
+  text-align: center;
+  > div:first-child{
+    margin-top: 30px;
+    margin-left: -25px;
+    > div{
+      float: left;
+      width: 50%;
+    }
+    > div:first-child{
+      text-align: right;
+      font-size: 20px;
+      margin-top: -8px;
+      font-family: -webkit-pictograph;
+    }
+    > div:last-child{
+      text-align: left;
+      font-size: 40px;
+    }
+  }
+  > div:nth-child(2){
+    clear: both;
+    font-size: 30px;
+    margin-top: 80px;
+  }
+  > div:nth-child(3){
+    font-size: 18px;
+    margin-top: 12px;
+    margin-left: -45px;
+    margin-bottom: 20px;
+  }
+}
+.coupon-confirm-view-note{
+  width: 250px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+.coupons-list{
+  width: 100%;
+  padding-right: $pagepadding;
+  padding-left: $pagepadding;
+  float: left;
+  background-color: $appBackGroundColor;
+  > div{
+    border-left: none;
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+.coupons-list-detail{
+  padding-top: 10px;
+  > div{
+    padding: 25px;
+    background-color: #dfdfdf;
+    height: 130px;
+    line-height: 130px;
+    vertical-align: middle;
+  }
+  > div:nth-child(2){
+    float: right;
+    font-size: 50px;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: #D6C3C3;
+  }
+  > div:last-child{
+    width: auto;
+    padding-left: 150px;
+    > div:first-child{
+      font-size: 20px;
+      line-height: normal;
+    }
+    > div:nth-child(n+2){
+      font-size: 15px;
+      line-height: normal;
+      margin-top: 3px;
+    }
+  }
+  > div:first-child{
+    float: left;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: #D8D0D0;
+    > div:first-child{
+      font-family: -webkit-pictograph;
+      font-size: 30px;
+      line-height: normal;
+    }
+    > div:last-child{
+      font-size: 15px;
+      margin-top: 7px;
+      line-height: normal;
+    }
+  }
+}
+.coupons-empty{
+  @extend .order-empty;
 }

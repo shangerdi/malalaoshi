@@ -299,3 +299,13 @@ Meteor.publish('areasByParent', function(pCode){
   if (!pCode) return Areas.find({"level":1});
   return Areas.find({$or: [{'code': pCode}, {"parentCode":pCode}]});
 });
+Meteor.publish('coupon', function(param){
+  if(this.userId && param){
+    if(param.type == 'allUseable'){
+      return Coupons.find();
+    }else{
+      return Coupons.find({_id: param.id});
+    }
+  }
+  return [];
+});
