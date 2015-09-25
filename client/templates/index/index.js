@@ -24,11 +24,7 @@ Template.index.helpers({
       }
     ];
   },
-  isTeacher: function(){
-    var u = Meteor.user();
-    return u && u.role == 'teacher';
-  },
-  show_teacher: function(){
+  recommendedTeachers: function(){
     return [
       {
         imgSrc: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/test_1234/1438334988731.png",

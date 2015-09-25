@@ -1,11 +1,11 @@
 <template name="index">
   {{#ionView}}
     {{#ionContent class="index-page"}}
-      {{#if isTeacher}}
+      {{#if $eq currentUser.role 'teacher'}}
       <div class="inde-page-swiper">
         <div class="swiper-container index-swiper">
             <div class="swiper-wrapper">
-              {{#each show_teacher}}
+              {{#each recommendedTeachers}}
                 <div class="swiper-slide" data-value="{{key}}">
                   <a href="{{pathFor 'teacher' id=id}}">
                     <img src="{{imgSrc}}">
