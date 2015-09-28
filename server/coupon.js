@@ -39,7 +39,8 @@ Meteor.methods({
       courseAttendanceId: courseAttendanceId,
       value:  ret[0].value,
       minCost: order.cost * 2 / order.hour,
-      status: 'new'
+      status: 'new',
+      userId: curUser._id
     };
 
     ret[0].id = Coupons.insert(newCoupon);

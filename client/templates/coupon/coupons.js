@@ -6,7 +6,7 @@ Template.coupons.helpers({
     return v ? moment(v).format('YYYY年MM月DD日') : '';
   }
 });
-Templates.coupons.events({
+Template.coupons.events({
   'click #goCoursesComment': function(e){
     e.preventDefault();
     Router.go('coursesConfirmed');
