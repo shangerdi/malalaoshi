@@ -53,6 +53,11 @@ var saveScheduleWeekly = function(e) {
     }
   });
 }
+var isPartTime = function() {
+  if (!Meteor.userId()) return null;
+  var auditObj = TeacherAudit.findOne({'userId': Meteor.userId()});
+  return auditObj && auditObj.type==='partTime';
+}
 Template.scheduleWeekly.onCreated(function() {
   // define cache data
   this.cacheData = this.cacheData || {};
@@ -112,10 +117,17 @@ Template.scheduleWeekly.helpers({
     } else {
       return 'unavailable';
     }
+  },
+  isPartTime: function() {
+    return isPartTime();
   }
 });
 Template.scheduleWeekly.events({
   'click td.phase': function(e) {
+    if (!isPartTime()) {
+      return;
+    }
+    Session.set('errors','');
     var ele=e.target, $ele = $(ele);
     // alert('周'+ScheduleTable.dayNumWords[$ele.data('weekday')]+"  "+convMinutes2Str($ele.data('start'))+"  "+convMinutes2Str($ele.data('end')));
     if ($ele.hasClass("available")) {
