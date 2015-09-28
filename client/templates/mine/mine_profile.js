@@ -59,8 +59,8 @@ Template.mineProfile.helpers({
       }
       var areas = Areas.find({'code': {$in: serviceArea.areas}}).fetch();
       var names = "";
-      _.each(areas, function(obj) {
-        names += obj.name + "  ";
+      _.each(areas, function(obj, i) {
+        names += obj.name + (i<(areas.length-1)?" | ":"");
       });
       return names;
     }
