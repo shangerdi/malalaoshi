@@ -108,7 +108,7 @@ Template.orderStepSchedule.events({
           cancelText: '取消',
           okText: '继续购买',
           onOk: function() {
-            Router.go('orderStepConfirm');
+            Router.go('order');
           },
           onCancel: function() {
           }
@@ -116,7 +116,7 @@ Template.orderStepSchedule.events({
         return;
       }
       // 没有任何冲突
-      Router.go('orderStepConfirm');
+      Router.go('order');
     });
   },
   'keyup #courseCount, change #courseCount': function(e) {
