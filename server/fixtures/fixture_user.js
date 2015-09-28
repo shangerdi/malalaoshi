@@ -133,3 +133,17 @@ if (Meteor.users.find().count() === 0) {
     console.log("Error: init test parent accounts");
   }
 })();
+
+//init for TeacherBalance(after all user init done)
+TeacherBalance.remove({});
+(function() {
+  Meteor.users.find({"role": "teacher"}).
+    forEach(function(teacher) {
+      var found = TeacherBalance.findOne({"userId": teacher._id});
+      if (!found) {
+        // todo: for test will assign 500 RMB to every teacher
+        // MUST BE DELETED before online!!!!!
+        TeacherBalance.insert({userId: teacher._id, balance: 500, bankCards: []});
+      }
+    });
+})();

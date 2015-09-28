@@ -49,5 +49,15 @@ Meteor.methods({
     }
 
     return result;
+  },
+  resetWithdrawPass: function(newPass) {
+    //todo: 假定通过了认证，允许重置密码
+    if (newPass && newPass.length !== 0) {
+      TeacherBalance.update({userId: this.userId}, {$set: {withdrawPass: newPass}});
+    }
+    else {
+      console.log("resetWithdrawPass Error!");
+      throw new Meteor.Error('密码不能为空', '密码不能为空');
+    }
   }
 });

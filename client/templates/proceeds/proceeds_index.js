@@ -1,5 +1,8 @@
 Template.proceedsIndex.helpers({
   //add you helpers here
+  teacherBalance: function() {
+    return TeacherBalance.findOne();
+  }
 });
 
 Template.proceedsIndex.events({

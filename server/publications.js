@@ -309,3 +309,7 @@ Meteor.publish('coupon', function(param){
   }
   return [];
 });
+
+Meteor.publish("teacherBalance", function() {
+  return TeacherBalance.find({userId: this.userId}, {fields: {userId: 1, balance: 1, isSetPass: 1, bankCards: 1}});
+});
