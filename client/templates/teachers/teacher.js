@@ -1,5 +1,16 @@
 Template.teacher.onCreated(function(){
   Session.set('hasTabsTop',false);
+  var user = Meteor.user();
+  if (user && user.profile && user.profile.serviceArea) { // 上门授课区域
+    var serviceArea = user.profile.serviceArea, areaCodes = [];
+    if (serviceArea.upperCode) {
+      areaCodes.push(serviceArea.upperCode);
+    }
+    if (!_.isEmpty(serviceArea.areas)) {
+      areaCodes = areaCodes.concat(serviceArea.areas);
+    }
+    Meteor.subscribe('areas', areaCodes);
+  }
 });
 Template.teacher.onRendered(function(){
   var swiper = new Swiper('.teacher-swiper-container', {
@@ -116,7 +127,25 @@ Template.teacher.helpers({
     return retStudyCenters;
   },
   activeServiceArea: function(){
-    return this.user && this.user.profile && this.user.profile.serviceArea ? this.user.profile.serviceArea.join(" | ") : "";
+    var user = Meteor.user();
+    if (user && user.profile && user.profile.serviceArea) {
+      var serviceArea = user.profile.serviceArea, parentArea = null;
+      if (serviceArea.upperCode) {
+        parentArea = Areas.findOne({'code': serviceArea.upperCode});
+      }
+      if (!parentArea) {
+        return;
+      }
+      if (_.isEmpty(serviceArea.areas) || serviceArea.areas[0]==serviceArea.upperCode) {
+        return parentArea.name;
+      }
+      var areas = Areas.find({'code': {$in: serviceArea.areas}}).fetch();
+      var names = "";
+      _.each(areas, function(obj, i) {
+        names += obj.name + (i<(areas.length-1)?" | ":"");
+      });
+      return names;
+    }
   },
   price: function() {
     return TeacherAudit.getTeacherUnitPrice(this.user._id);
