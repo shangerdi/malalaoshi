@@ -55,7 +55,7 @@ Template.subjectsEditComponent.helpers({
       }
       // 过滤掉已选择的
       var isSelected = _.find(s, function(tmp) {
-        return tmp.school===school && tmp.grade===grade && tmp.subject===obj.key;
+        return tmp.school===school && (tmp.grade===grade || tmp.grade==='all') && tmp.subject===obj.key;
       });
       if (isSelected) {
         return false;
@@ -70,10 +70,15 @@ Template.subjectsEditComponent.events({
     var ele = e.target, $ele = $(ele), $subjectItem = $ele.closest('.subject-item');
     var school = $subjectItem.attr('school'), grade = $subjectItem.attr('grade'), subject = $subjectItem.attr('subject');
     var subjects = getSelectedSubjects();
+    // 去重（或全部年级时去除单个已选年级）
+    subjects = _.reject(subjects, function(tmp){
+      return tmp.school===school && (tmp.grade===grade || grade==='all') && tmp.subject===subject;
+    });
     if (subjects && subjects.length >= maxSubjectsCount) {
       alert('最多可以添加'+maxSubjectsCount+'个科目');
       return;
     }
+    // 添加新的
     subjects.push({'school': school, 'subject': subject, 'grade': grade});
     Session.set('subjects', subjects);
     var errors = Session.get("errors");

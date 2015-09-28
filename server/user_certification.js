@@ -39,6 +39,9 @@ Meteor.methods({
       throw new Meteor.Error('参数错误', '没有数据');
     }
     UserCertification.update({userId:Meteor.userId()},{$set:setObj},{upsert:true});
-    // TODO: 审核记录，用户操作日志
+    var now = Date.now(), curUserProfile = Meteor.user().profile;
+    var name = curUserProfile?curUserProfile.name:"";
+    TeacherAudit.update({userId:Meteor.userId()},{$set:{'name':name,submitTime:now,certInfo:{submitTime:now, status: 'submited'}}},{upsert:true});
+    // TODO：用户操作日志 UserOpLogs
   }
 })
