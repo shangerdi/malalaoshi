@@ -11,10 +11,10 @@
     {{#ionContent}}
       {{#ionList}}
         {{#ionItem class="item-icon-right" iconRight=true}}
-          卡类型<input type="text" />
+          卡类型<input type="text" value="{{cardInfo.bankName}} - {{cardInfo.cardType}}"/>
         {{/ionItem}}
         {{#ionItem class="item-icon-right" iconRight=true}}
-          手机号<input type="text" />
+          手机号<input id="cardPhoneNumber" type="text" value="{{currentUser.phoneNo}}"/>
         {{/ionItem}}
         {{#ionItem class="item-icon-right" iconRight=true}}
           同意《服务协议》
