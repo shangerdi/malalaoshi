@@ -11,6 +11,11 @@ Template.mineProfile.onCreated(function(){
     Meteor.subscribe('areas', areaCodes);
   }
 });
+Template.mineProfile.onRendered(function(){
+  $("[data-action=preview-profile]").click(function(e){
+    Router.go("teacher", {'id': Meteor.userId()});
+  });
+});
 Template.mineProfile.helpers({
   getBirthDayStr: function() {
     var birthday = Meteor.user().profile.birthday;
