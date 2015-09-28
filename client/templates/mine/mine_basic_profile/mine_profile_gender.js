@@ -23,6 +23,6 @@ Template.mineProfileGender.onRendered(function(){
 Template.mineProfileGender.events({
   'click .item-radio': function(e) {
     var ele = e.target, $ele = $(ele).closest(".item-radio");
-    $ele.find("input")[0].click();
+    $ele.find("input").prop('checked', true);
   }
 });
