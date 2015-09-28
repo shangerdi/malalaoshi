@@ -985,11 +985,21 @@ input[type=text].browser {
         left: 12px;
       }
     }
-    &.ok .flag{
-      color: @progressOkColor;
+    &.ok {
+      .flag{
+        color: @progressOkColor;
+      }
+      .v-line{
+        border-color: @progressOkColor;
+      }
     }
-    &.ok .v-line{
-      border-color: @progressOkColor;
+    &.fail {
+      .flag{
+        color: @progressOkColor;
+      }
+      .hint-info{
+        color: red;
+      }
     }
     &:last-child .v-line {
       display: none;
