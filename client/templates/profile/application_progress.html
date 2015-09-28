@@ -24,7 +24,7 @@
         <p class="hint-info">
           请完善您的个人资料
         </p>
-        <div class="time-info">今天13:39</div>
+        <div class="time-info">{{getTime 'register'}}</div>
       </div>
       <div class="progress-row profress-submit {{getClass 'submit'}}">
         <div class="progress-mark">
@@ -35,18 +35,18 @@
         <p class="hint-info">
           我们会在3个工作日内给您答复
         </p>
-        <div class="time-info">今天15:39</div>
+        <div class="time-info">{{getTime 'submit'}}</div>
       </div>
       <div class="progress-row profress-audit  {{getClass 'audit'}}">
         <div class="progress-mark">
           <div class="v-line"></div>
           <span class="flag ion-checkmark-circled"></span>
         </div>
-        <h4>您的资料审核成功</h4>
+        <h4>您的资料审核{{#if isProfileAuditedFail}}失败{{else}}成功{{/if}}</h4>
         <p class="hint-info">
-          敬请等待
+          {{getAuditMsg}}
         </p>
-        <div class="time-info">今天19:39</div>
+        <div class="time-info">{{getTime 'audit'}}</div>
       </div>
       <div class="progress-row profress-complete  {{getClass 'complete'}}">
         <div class="progress-mark">
@@ -57,7 +57,7 @@
         <p class="hint-info">
           您可以继续完善资料、查看收入、查看课程安排等信息
         </p>
-        <div class="time-info">今天21:39</div>
+        <div class="time-info">{{getTime 'complete'}}</div>
       </div>
     {{/ionContent}}
   {{/ionView}}

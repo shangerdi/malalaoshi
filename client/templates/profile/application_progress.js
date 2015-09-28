@@ -10,9 +10,13 @@ var isProfileAudited = function() {
   var auditObj = getAuditObj();
   return auditObj && auditObj.basicInfo && auditObj.basicInfo.status==='approved';
 }
+var isProfileAuditedFail = function() {
+  var auditObj = getAuditObj();
+  return auditObj && auditObj.basicInfo && auditObj.basicInfo.status==='rejected';
+}
 var isPassed = function() {
   var auditObj = getAuditObj();
-  return auditObj && auditObj.applyStatus==='passed';
+  return auditObj && (auditObj.applyStatus==='passed' || auditObj.applyStatus==='started');
 }
 Template.applicationProgress.helpers({
   getClass: function(step) {
@@ -22,15 +26,51 @@ Template.applicationProgress.helpers({
     if (step==='submit' && isProfileSubmited()) {
       return 'ok';
     }
-    if (step==='audit' && isProfileAudited()) {
-      return 'ok';
+    if (step==='audit') {
+      if (isProfileAudited()) {
+        return 'ok';
+      }
+      if (isProfileAuditedFail()) {
+        return 'fail';
+      }
     }
     if (step==='complete' && isPassed()) {
       return 'ok';
     }
   },
+  getTime: function(step) {
+    if (step==='register') {
+      return moment(Meteor.user().createdAt).fromNow();
+    }
+    var auditObj = getAuditObj();
+    if (step==='submit' && isProfileSubmited()) {
+      return moment(auditObj.basicInfo.submitTime).fromNow();
+    }
+    if (step==='audit') {
+      if (isProfileAudited() || isProfileAuditedFail()) {
+        return moment(auditObj.basicInfo.auditTime).fromNow();
+      }
+      return "...";
+    }
+    if (step==='complete' && isPassed()) {
+      return moment(auditObj.auditTime).fromNow();
+    }
+  },
   isProfileAudited: function() {
     return isProfileAudited();
+  },
+  isProfileAuditedFail: function() {
+    return isProfileAuditedFail();
+  },
+  getAuditMsg: function() {
+    var auditObj = getAuditObj();
+    if (isProfileAuditedFail()) {
+      return auditObj.basicInfo.msg;
+    }
+    if (isProfileAudited()) {
+      return '审核成功';
+    }
+    return "敬请期待";
   },
   isPassed: function() {
     return isPassed();

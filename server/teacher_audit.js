@@ -93,6 +93,9 @@ Meteor.methods({
       throw new Meteor.Error('没有权限', '您没有权限，若有疑问请联系管理员');
     }
     var auditObj = TeacherAudit.findOne({'userId': this.userId});
+    if (auditObj && auditObj.applyStatus==='started') {
+      return true;
+    }
     if (!auditObj || auditObj.applyStatus!='passed') {
       throw new Meteor.Error('没有权限', '您还没有通过审核，若有疑问请联系管理员');
     }

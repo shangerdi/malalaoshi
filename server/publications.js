@@ -8,7 +8,7 @@ var ifHasRole = function(userId, role) {
 Meteor.publish("userData", function () {
   if (this.userId) {
     var subs = [Meteor.users.find({_id: this.userId},
-                             {fields: {'role': 1, 'phoneNo': 1}})];
+                             {fields: {'role': 1, 'phoneNo': 1, 'createdAt': 1}})];
     var curUser = Meteor.users.findOne(this.userId);
     if (curUser.role==='teacher') {
       subs.push(TeacherAudit.find({userId: this.userId}));
