@@ -6,6 +6,14 @@
     {{>ionNavBackButton class="button-clear button-light" text=false}}
   {{/contentFor}}
 
+  {{#if $eq currentUser.role 'teacher'}}
+    {{#contentFor "headerButtonRight"}}
+      <button class="button button-clear button-light" data-action="preview-profile">
+        预览
+      </button>
+    {{/contentFor}}
+  {{/if}}
+
   {{> mineAppTabs}}
 
   {{#ionView class="mine-profile-view"}}
