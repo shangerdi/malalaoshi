@@ -1,0 +1,46 @@
+<template name="introduce">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">麻辣老师</h1>
+  {{/contentFor}}
+
+  {{#ionTabs class="tabs-top tabs-striped top-tab-nav"}}
+    {{> ionTab title="明星老师" path="intTeacher"}}
+    {{> ionTab title="平台介绍" path="intPlatform"}}
+  {{/ionTabs}}
+
+  {{#ionView}}
+    {{#ionContent}}
+      {{#ionList}}
+        {{#if isIntTeacherTab}}
+          <div class="introduce-view introduce-view-video">
+            <video src="http://www.w3school.com.cn/example/html5/mov_bbb.mp4" controls="controls">
+              您的手机/浏览器暂不支持该视频
+            </video>
+          </div>
+          <div class="introduce-view">
+            <h3>如何成为麻辣老师</h3>
+          </div>
+          <div class="introduce-view">
+            麻辣老师，国内排名第一的O2O中小学课外辅导供应商，隶属于北京麻辣教育科技有限公司。
+            基于10年K12线下经验和对教师、家长、学生三大群体的深刻洞察，我们与1200名全职伙伴共同启动麻辣老师项目。
+            麻辣老师创始团队由来自传统教育行业的精英团队和知名互联网公司的技术团队共同组成，
+            致力于让家长依赖最公开的评价，最便捷的流程为孩子找到最好的个性化老师。
+          </div>
+          <div class="introduce-view">
+            麻辣老师如何评级
+          </div>
+          <div class="introduce-view"></div>
+          <div class="element-clear-both"><hr></div>
+        {{else}}
+          <div class="introduce-view">
+            平台介绍
+          </div>
+        {{/if}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>
