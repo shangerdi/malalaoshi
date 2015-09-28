@@ -86,7 +86,7 @@ Template.applicationProgress.events({
         alert(err.reason);
         return;
       }
-      Router.go('dashboard');
+      Router.go('index');
     });
   }
 });
