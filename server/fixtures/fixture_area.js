@@ -1,5 +1,6 @@
-if (Areas.find().count() === 0) {
-
+var oneArea = Areas.findOne();
+if (!oneArea || typeof oneArea.depth === 'undefined') {
+  Areas.remove({});
   (function (options) {
     var directCityCode = ['11', '12', '31', '50'];
     var areaArr = [
