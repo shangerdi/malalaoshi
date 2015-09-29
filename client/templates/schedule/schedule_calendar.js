@@ -136,7 +136,11 @@ var getWeekdayClass = function(weekday) {
   }
   return "";
 }
-var subscribe = function(year, month) {
+var subscribe = function(year, month, callback) {
+  if (_.isFunction(month)) {
+    callback = month;
+    month = null;
+  }
   var param = {find:{},options:{}};
   var role = Meteor.user().role;
   if (role==='teacher') {
@@ -153,6 +157,9 @@ var subscribe = function(year, month) {
   param.find.attendTime = {$gte: startTime, $lt: endTime};
   Session.set("orderShowLoading", true);
   Meteor.subscribe('courseAttendances', param, function(){
+    if (callback) {
+      callback();
+    }
     Session.set("orderShowLoading", false);
   });
 }
@@ -248,8 +255,10 @@ var initYearViewSwiper = function() {
       return;
     }
     Session.set('year', y);
-    subscribe(y);
-    swiper.slideTo(1, false, true);
+    subscribe(y, function() {
+      swiper.slideTo(1, false, true);
+      $(swiper.slides[1]).height('auto');
+    });
   });
   $(".year-view-box").height($(cacheData.yearViewSwiper.slides[1]).height());
 }
