@@ -7,7 +7,6 @@ Template.index.onRendered(function () {
   this.data = this.data || {};
   this.data.swiperObj = new Swiper('.index-swiper', {
     pagination: '.swiper-pagination',
-    loop: true,
     paginationClickable: true
   });
 });
