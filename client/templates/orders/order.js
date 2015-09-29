@@ -5,6 +5,10 @@ var getCourseCount = function() {
   var courseCount = Session.get("courseCount");
   return courseCount?courseCount:0;
 }
+Template.order.onCreated(function(){
+  this.selectedCoupon = new ReactiveVar(Session.get('selectedCoupon'));
+  Session.set('selectedCoupon', null);
+});
 Template.order.onRendered(function () {
   IonNavigation.skipTransitions = true;
   Session.set("orderShowLoading", false);
@@ -66,6 +70,14 @@ Template.order.helpers({
   },
   toPayCost: function(){
     return cmpToPayCost(this);
+  },
+  couponId: function(){
+    var cp = Template.instance().selectedCoupon ? Template.instance().selectedCoupon.get() : null;
+    return cp && cp.id;
+  },
+  couponValue: function(){
+    var cp = Template.instance().selectedCoupon ? Template.instance().selectedCoupon.get() : null;
+    return cp ? cp.value : "";
   }
 });
 
@@ -80,6 +92,12 @@ Template.order.events({
       this.order.cost = cmpToPayCost(this);
       this.order.price = getTeacherUnitPrice(this);
       this.order.phases = Session.get("phases");
+
+      var cp = Template.instance().selectedCoupon ? Template.instance().selectedCoupon.get() : null;
+      if(cp){
+        this.order.couponId = cp.id;
+        this.order.couponValue = cp.value;
+      }
     }
     if($('#addressDetail').val()){
       this.order.addressDetail = $('#addressDetail').val();
@@ -111,13 +129,19 @@ Template.order.events({
         Router.go("orders");
       });
     }
+  },
+  'click .item-icon-right': function(e){
+    e.preventDefault();
+
+    Router.go('coupons', {get: 'get'});
   }
 });
 function cmpTotalCost(content){
   return getCourseCount() * getTeacherUnitPrice(content);
 }
 function cmpToPayCost(content){
-  return cmpTotalCost(content);
+  var cp = Template.instance().selectedCoupon ? Template.instance().selectedCoupon.get() : null;
+  return cmpTotalCost(content) - (cp ? cp.value : 0);
 }
 function getTeacherUnitPrice(content){
   return content && content.teacher ? TeacherAudit.getTeacherUnitPrice(content.teacher._id) : 0;

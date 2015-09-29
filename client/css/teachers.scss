@@ -1672,3 +1672,20 @@ body>.sticky-nav{
 .coupons-empty{
   @extend .order-empty;
 }
+.introduce-view{
+  width: 100%;
+  padding-right: $pagepadding;
+  padding-left: $pagepadding;
+}
+.introduce-view:first-child{
+  margin-top: $pagepadding;
+}
+.introduce-view-video{
+  text-align: center;
+  > video{
+    width: 100%;
+  }
+}
+.coupon-selected{
+  color: #000000;
+}

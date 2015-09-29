@@ -104,7 +104,7 @@
           {{#ionItem class="item-icon-right"}}
             <label class="order-detail-head">麻辣奖学金</label>
             <div class="item-note">
-              <a class="btn pull-right" href="{{pathFor 'parentSettingsEdit'}}">{{> ionIcon icon="ios-arrow-forward" class="button-light greyColor"}}</a>
+              <a class="btn pull-right" href="#">{{> ionIcon icon="ios-arrow-forward" class="button-light greyColor"}}</a>
             </div>
           {{/ionItem}}
         {{/if}}
@@ -115,7 +115,9 @@
               ￥{{money totalCost}}
             </div>
             <div>
-              <!-- for coupon- ￥500 -->
+              {{#if couponId}}
+              - ￥{{money couponValue}}
+              {{/if}}
             </div>
           </div>
           <div>
