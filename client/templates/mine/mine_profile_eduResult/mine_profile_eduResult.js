@@ -21,12 +21,20 @@ var saveProfileEduResult = function(e) {
     }
   });
 }
+var formatDate = function(datetime) {
+  var momentObj = moment(parseInt(datetime));
+  if (!momentObj.isValid()) {
+    return datetime;
+  }
+  return momentObj.format('YYYY年M月D日')
+}
 Template.mineProfileEduResult.onRendered(function(){
   $("[data-action=save-profile-eduResult]").click(saveProfileEduResult);
   var obj = Router.current().params.query;
   if (obj) {
     $("#title").val(obj.title);
     $("#doneDate").val(obj.doneDate);
+    $("#doneDateText").val(formatDate(obj.doneDate));
     $("#content").val(obj.content);
   }
 });
@@ -37,7 +45,7 @@ Template.mineProfileEduResult.helpers({
 });
 
 Template.mineProfileEduResult.events({
-  'click #doneDate': function(e) {
+  'click #doneDateText': function(e) {
     Session.set('dateSelectTargetId', 'doneDate');
     IonModal.open("_dateSelectModal", {'title': "时间"});
   }

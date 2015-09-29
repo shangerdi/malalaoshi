@@ -103,6 +103,13 @@ Template.teacher.helpers({
   eduResults: function(){
     return this.teacherAudit && this.teacherAudit.eduResults || "";
   },
+  formatDate: function(datetime) {
+    var momentObj = moment(parseInt(datetime));
+    if (!momentObj.isValid()) {
+      return datetime;
+    }
+    return momentObj.format('YYYY年M月D日')
+  },
   personalPhoto: function(){
     return this.teacherAudit && this.teacherAudit.personalPhoto ? this.teacherAudit.personalPhoto : [];
   },
