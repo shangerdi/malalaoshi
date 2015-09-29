@@ -302,7 +302,7 @@ Meteor.publish('areasByParent', function(pCode){
 Meteor.publish('coupon', function(param){
   if(this.userId && param){
     if(param.type == 'allUseable'){
-      return Coupons.find({userId: this.userId});
+      return Coupons.find({userId: this.userId, status: 'new'});
     }else{
       return Coupons.find({_id: param.id, userId: this.userId});
     }
