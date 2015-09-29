@@ -160,7 +160,7 @@ Meteor.publish('teachers', function(parameters) {
       }
       if(p['profile.subjects.grade']){
         var v = p['profile.subjects.grade'];
-        if(v.startsWith('all')){
+        if(v.toString().indexOf('all_') == 0){
           // find = _.extend(find, {'profile.subjects.grade': 'all'});
           find = _.extend(find, {'profile.subjects.school': v.substring(4)});
         }else{
