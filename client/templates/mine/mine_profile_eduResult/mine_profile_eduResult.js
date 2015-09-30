@@ -21,13 +21,6 @@ var saveProfileEduResult = function(e) {
     }
   });
 }
-var formatDate = function(datetime) {
-  var momentObj = moment(parseInt(datetime));
-  if (!momentObj.isValid()) {
-    return datetime;
-  }
-  return momentObj.format('YYYY年M月D日')
-}
 Template.mineProfileEduResult.onRendered(function(){
   $("[data-action=save-profile-eduResult]").click(saveProfileEduResult);
   var obj = Router.current().params.query;

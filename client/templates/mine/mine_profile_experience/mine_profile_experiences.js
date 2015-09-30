@@ -4,12 +4,5 @@ Template.mineProfileExperiences.helpers({
     if (teacherAudit) {
       return teacherAudit.experience;
     }
-  },
-  formatDate: function(datetime) {
-    var momentObj = moment(parseInt(datetime));
-    if (!momentObj.isValid()) {
-      return datetime;
-    }
-    return momentObj.format('YYYY年M月D日')
   }
 });
