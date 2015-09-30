@@ -6,13 +6,21 @@
     {{>ionNavBackButton class="button-clear button-light" text=false}}
   {{/contentFor}}
 
+  {{#if $eq currentUser.role 'teacher'}}
+    {{#contentFor "headerButtonRight"}}
+      <button class="button button-clear button-light" data-action="preview-profile">
+        预览
+      </button>
+    {{/contentFor}}
+  {{/if}}
+
   {{> mineAppTabs}}
 
   {{#ionView class="mine-profile-view"}}
     {{#ionContent}}
       <!-- 基本信息 -->
       {{#ionList class="basic-info-list"}}
-        {{#ionItem path="mineProfileAvatar" avatar="right" iconRight=true}}
+        {{#ionItem id="mineProfileAvatar" href="" avatar="right" iconRight=true}}
           头像
           <img src="{{currentUser.profile.avatarUrl}}">
           {{> ionIcon icon="ios-arrow-right"}}

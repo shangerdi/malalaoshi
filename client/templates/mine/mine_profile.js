@@ -11,6 +11,11 @@ Template.mineProfile.onCreated(function(){
     Meteor.subscribe('areas', areaCodes);
   }
 });
+Template.mineProfile.onRendered(function(){
+  $("[data-action=preview-profile]").click(function(e){
+    Router.go("teacher", {'id': Meteor.userId()});
+  });
+});
 Template.mineProfile.helpers({
   getBirthDayStr: function() {
     var birthday = Meteor.user().profile.birthday;
@@ -54,8 +59,8 @@ Template.mineProfile.helpers({
       }
       var areas = Areas.find({'code': {$in: serviceArea.areas}}).fetch();
       var names = "";
-      _.each(areas, function(obj) {
-        names += obj.name + "  ";
+      _.each(areas, function(obj, i) {
+        names += obj.name + (i<(areas.length-1)?" | ":"");
       });
       return names;
     }
@@ -90,5 +95,12 @@ Template.mineProfile.events({
       }
     }
     Router.go("mineProfileServiceAreaList");
+  },
+  'click #mineProfileAvatar': function(e) {
+    if (Meteor.isCordova) {
+      appUploadUserAvatarListener(e);
+    } else {
+      Router.go('mineProfileAvatar');
+    }
   }
 });

@@ -44,6 +44,18 @@ Template.registerHelper('runEnv', function() {
   return 'Beta';
 });
 
+formatDate = function(datetime) {
+  var momentObj = moment(parseInt(datetime));
+  if (!momentObj.isValid()) {
+    return datetime;
+  }
+  return momentObj.format('YYYY年M月D日');
+}
+
+Template.registerHelper('formatDate', function(datetime) {
+  return formatDate(datetime);
+});
+
 appSetDefaultCity = function() {
   Session.set("locationDefaultCity", "北京市");
 };

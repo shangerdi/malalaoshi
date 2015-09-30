@@ -695,7 +695,12 @@ input[type=text].browser {
 @course-todo-bgcolor: #000;
 @course-todo-color: #d8d8d8;
 @today-color: blue;
-.schedule-calendar .top {
+.schedule-calendar-header {
+  position: absolute;
+  top: 93px;
+  width: 100%;
+  z-index: 2;
+  background-color: #f1f1f1;
   border-bottom: 1px #aaa solid;
   > div {
     display: inline-block;
@@ -712,9 +717,17 @@ input[type=text].browser {
       margin-right: 5px;
     }
   }
-  .btns-box .btn{
-    margin-left: 15px;
+  .btns-box {
+    min-width: 150px;
+    padding-top: 10px;
+    text-align: right;
+    .btn{
+      margin-right: 15px;
+    }
   }
+}
+.schedule-calendar {
+  padding-top: 61px;
 }
 .schedule-calendar .month-nav {
   border-bottom: 1px #888 solid;
@@ -746,6 +759,7 @@ input[type=text].browser {
   text-align: center;
   thead tr td{
     line-height: 40px;
+    padding: 8px 0;
   }
   td{
     border: 0;
@@ -794,7 +808,9 @@ input[type=text].browser {
   padding: 10px 0;
 }
 .schedule-calendar .year-view {
+  margin-right: 0;
   a{
+    margin-left: 15px;
     color: black;
     font-weight: bold;
     cursor: pointer;
@@ -808,6 +824,7 @@ input[type=text].browser {
   td{
     border: 0;
     padding: 0;
+    text-align: center;
   }
   td > div{
     display: inline-block;
@@ -985,11 +1002,21 @@ input[type=text].browser {
         left: 12px;
       }
     }
-    &.ok .flag{
-      color: @progressOkColor;
+    &.ok {
+      .flag{
+        color: @progressOkColor;
+      }
+      .v-line{
+        border-color: @progressOkColor;
+      }
     }
-    &.ok .v-line{
-      border-color: @progressOkColor;
+    &.fail {
+      .flag{
+        color: @progressOkColor;
+      }
+      .hint-info{
+        color: red;
+      }
     }
     &:last-child .v-line {
       display: none;
@@ -1178,7 +1205,8 @@ input[type=text].browser {
   .file-input-mask {
     position: relative;
     overflow: hidden;
-    padding: 0;
+    padding: 18px 0;
+    line-height: 32px;
     input {
       position: absolute;
       top: -16px;
@@ -1196,6 +1224,29 @@ input[type=text].browser {
     }
     .icon{
       font-size: 32px;
+      display: block;
+    }
+  }
+  .manage-box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.2);
+    span {
+      display: block;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+    }
+    &.checked {
+      span {
+        color: green;
+      }
     }
   }
 }

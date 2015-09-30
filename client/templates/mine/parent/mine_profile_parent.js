@@ -25,5 +25,12 @@ Template.mineProfileParent.events({
       }
     }
     Router.go('map');
+  },
+  'click #mineProfileAvatar': function(e) {
+    if (Meteor.isCordova) {
+      appUploadUserAvatarListener(e);
+    } else {
+      Router.go('mineProfileAvatar');
+    }
   }
 });

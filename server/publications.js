@@ -8,7 +8,7 @@ var ifHasRole = function(userId, role) {
 Meteor.publish("userData", function () {
   if (this.userId) {
     var subs = [Meteor.users.find({_id: this.userId},
-                             {fields: {'role': 1, 'phoneNo': 1}})];
+                             {fields: {'role': 1, 'phoneNo': 1, 'createdAt': 1}})];
     var curUser = Meteor.users.findOne(this.userId);
     if (curUser.role==='teacher') {
       subs.push(TeacherAudit.find({userId: this.userId}));
@@ -76,14 +76,16 @@ Meteor.publish('areaTimePhasesByTeacher', function(teacherId) {
     return null;
   }
   var address = teacher.profile.address, code=[];
-  if (address.province.code) {
-    code.push(address.province.code);
-  }
-  if (address.city.code) {
-    code.push(address.city.code);
-  }
-  if (address.district.code) {
-    code.push(address.district.code);
+  if (address) {
+    if (address.province && address.province.code) {
+      code.push(address.province.code);
+    }
+    if (address.city && address.city.code) {
+      code.push(address.city.code);
+    }
+    if (address.district && address.district.code) {
+      code.push(address.district.code);
+    }
   }
   return [
     Meteor.users.find({_id: teacherId}, {fields: {'profile': 1}}),
@@ -160,7 +162,7 @@ Meteor.publish('teachers', function(parameters) {
       }
       if(p['profile.subjects.grade']){
         var v = p['profile.subjects.grade'];
-        if(v.startsWith('all')){
+        if(v.toString().indexOf('all_') == 0){
           // find = _.extend(find, {'profile.subjects.grade': 'all'});
           find = _.extend(find, {'profile.subjects.school': v.substring(4)});
         }else{
@@ -298,4 +300,18 @@ Meteor.publish('areaProvinces', function(){
 Meteor.publish('areasByParent', function(pCode){
   if (!pCode) return Areas.find({"level":1});
   return Areas.find({$or: [{'code': pCode}, {"parentCode":pCode}]});
+});
+Meteor.publish('coupon', function(param){
+  if(this.userId && param){
+    if(param.type == 'allUseable'){
+      return Coupons.find({userId: this.userId, status: 'new'});
+    }else{
+      return Coupons.find({_id: param.id, userId: this.userId});
+    }
+  }
+  return [];
+});
+
+Meteor.publish("teacherBalance", function() {
+  return TeacherBalance.find({userId: this.userId}, {fields: {userId: 1, balance: 1, isSetPass: 1, bankCards: 1}});
 });

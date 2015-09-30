@@ -1,7 +1,7 @@
 Template.orders.onCreated(function(){
   IonNavigation.skipTransitions = true;
   var self = this;
-  if(!Session.get('ionTab.current')){
+  if(Session.get('ionTab.current') != 'ordersPaidOk' && Session.get('ionTab.current') != 'ordersNoPaid'){
     Session.set('ionTab.current', "ordersNoPaid");
   }
   var paidOrders = Orders.find({"status": {$in: ['paid', 'end']}, "student.id": Meteor.userId()});
@@ -12,7 +12,7 @@ Template.orders.onCreated(function(){
     }
   });
   this.getOrderLastCourseAttendances = new ReactiveVar();
-  Meteor.call('findOrderLastCourseAttendanceEndTime', orderIds, function(error, result) {
+  Meteor.call('findOrderLastCourseAttendanceEndTime', orderIds, function(error, result){
     if(error){
       self.getOrderLastCourseAttendances.set(null);
     }else{

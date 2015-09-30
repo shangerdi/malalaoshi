@@ -111,7 +111,7 @@ Template.profileEditCert.events({
       if (!ele.value || !ele.files) {
         return false;
       }
-      //验证上传文件格式是否正确   
+      //验证上传文件格式是否正确
       if (!RegExp("\.(" + imgType.join("|") + ")$", "i").test(ele.value.toLowerCase())) {
         $uploadBox.addClass('has-error');
         $uploadBox.find('.help-block').text('选择图片类型错误');

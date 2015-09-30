@@ -5,7 +5,9 @@ var clearUploadErr = function($uploadBox) {
 var getCertType = function() {
   return Router.current().params.certType;
 }
+var fileToUpload = null;
 Template.mineProfileCertUpload.onCreated(function(){
+  fileToUpload = null;
   Meteor.subscribe('curUserCertification');
 });
 Template.mineProfileCertUpload.helpers({
@@ -91,11 +93,26 @@ Template.mineProfileCertUpload.events({
       return true;
     }
   },
-  'click .action-btn-box .btn-confirm': function(e) {
+  'click .file-input-mask': function(e) {
     var ele = e.target, $ele = $(ele);
     var $uploadBox = $ele.closest(".cert-upload-box");
     clearUploadErr($uploadBox);
-    var file = $uploadBox.find("input[type=file]")[0].files[0];
+    if (Meteor.isCordova) {
+      CameraAlbumActionSheet.showCameraAlbum_one(function(one_image_base64){
+        console.log(one_image_base64);
+        fileToUpload = CameraAlbumActionSheet.convertBase64UrlToBlob(one_image_base64);
+        $uploadBox.find(".cert-img-box img").attr("src", one_image_base64);
+      }, function(err){
+        console.log(err);
+      });
+    }
+  },
+  'click #submit': function(e) {
+    var ele = e.target, $ele = $(ele);
+    var $uploadBox = $ele.closest(".cert-upload-box");
+    clearUploadErr($uploadBox);
+    var inputEle = $uploadBox.find("input[type=file]")[0];
+    var file = fileToUpload ? fileToUpload : (inputEle ? inputEle.files[0] : null);
     if (!file) {
       $uploadBox.addClass('has-error');
       $uploadBox.find('.help-block').text('请先选择图片');
@@ -142,7 +159,10 @@ Template.mineProfileCertUpload.events({
           return throwError(error.reason);
         }
         $uploadBox.find('.help-block').text("保存成功");
-        $uploadBox.find("input[type=file]")[0].value=null;
+        fileToUpload = null;
+        if (inputEle) {
+          inputEle.value=null;
+        }
       });
     });
   }

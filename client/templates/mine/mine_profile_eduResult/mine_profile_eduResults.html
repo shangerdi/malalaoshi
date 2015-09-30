@@ -14,7 +14,7 @@
     {{#ionList class="profile-edu-result-list"}}
       {{#each eduResultList}}
         {{#ionItem path="mineProfileEduResult" data=this query=this iconRight=true}}
-          <span>{{title}}~{{doneDate}}</span>
+          <span>{{title}}~{{formatDate doneDate}}</span>
           <div class="item-note">
             {{content}}
           </div>

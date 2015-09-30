@@ -86,7 +86,12 @@
           </span>
         </div>
         <div id="moreEduResults" class="teacher-more-info">展开查看全部</div>
-        <div id="eduReults">{{user.profile.eduResults}}</div>
+        <div id="eduReults">
+          {{#each eduResults}}
+            <div>{{this.title}}（{{formatDate this.doneDate}}）</div>
+            <div>{{this.content}}</div>
+          {{/each}}
+        </div>
       </div>
       <div><hr></div>
       <div class="teacher-edu-results">
@@ -96,7 +101,12 @@
           </span>
         </div>
         <div id="moreExperience" class="teacher-more-info">展开查看全部</div>
-        <div id="experience">{{experience}}</div>
+        <div id="experience">
+          {{#each experience}}
+            <div>{{formatDate this.startDate}}至{{formatDate this.endDate}}</div>
+            <div>{{this.content}}</div>
+          {{/each}}
+        </div>
       </div>
       <div><hr></div>
       {{#if $eq user.profile.teacherType "studyCenter"}}

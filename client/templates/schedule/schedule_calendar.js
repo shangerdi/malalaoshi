@@ -136,7 +136,11 @@ var getWeekdayClass = function(weekday) {
   }
   return "";
 }
-var subscribe = function(year, month) {
+var subscribe = function(year, month, callback) {
+  if (_.isFunction(month)) {
+    callback = month;
+    month = null;
+  }
   var param = {find:{},options:{}};
   var role = Meteor.user().role;
   if (role==='teacher') {
@@ -153,6 +157,9 @@ var subscribe = function(year, month) {
   param.find.attendTime = {$gte: startTime, $lt: endTime};
   Session.set("orderShowLoading", true);
   Meteor.subscribe('courseAttendances', param, function(){
+    if (callback) {
+      callback();
+    }
     Session.set("orderShowLoading", false);
   });
 }
@@ -230,26 +237,83 @@ var initMonthViewSwiper = function() {
 }
 var initYearViewSwiper = function() {
   if (cacheData.yearViewSwiper) {
+    cacheData.yearViewSwiper.slideTo(1, false, true);
     return;
   }
   cacheData.yearViewSwiper = new Swiper('.year-view-box .swiper-container', {
     direction: 'vertical',
     slidesPerView: 1,
-    initialSlide: 1
+    initialSlide: 1,
+    freeMode: true,
+    freeModeMomentum: true,
+    freeModeMomentumRatio: 0.5,
+    freeModeMomentumBounce: true,
+    freeModeMomentumBounceRatio: 3,
+    freeModeSticky: false
   });
   cacheData.yearViewSwiper.on("slideChangeEnd", function(swiper){
     // console.log('year-view slideChangeEnd');
-    var i = swiper.activeIndex, y = getCurYear();
-    if (i>1) {
-      y++;
-    } else if (i<1)  {
-      y--;
-    } else {
+    $(".prev-year,.next-year").hide();
+    var i = swiper.activeIndex;
+    if (i==1) {
       return;
     }
-    Session.set('year', y);
-    subscribe(y);
     swiper.slideTo(1, false, true);
+  });
+  cacheData.yearViewSwiper.on("setTranslate", function(swiper){
+    // console.log('setTranslate: '+swiper.translate);
+    $(".prev-year,.next-year").hide();
+    var trans = Math.abs(swiper.translate), h1 = $(swiper.slides[0]).height();
+    if (trans < h1) {
+      if (h1 - trans >= 200) {
+        $(".prev-year,.next-year").show();
+        return;
+      }
+    } else {
+      var h2 = $(swiper.slides[1]).height(), slideVisibleHeight = $(window).height()-$('.year-view-box').offset().top;
+      var slide2ndBottomTrans = h1+h2-slideVisibleHeight;
+      if (trans > slide2ndBottomTrans) {
+        if (trans - slide2ndBottomTrans >= 200) {
+          $(".prev-year,.next-year").show();
+          return;
+        }
+      }
+    }
+  });
+  cacheData.yearViewSwiper.on("touchEnd", function(swiper){
+    // console.log('touchEnd: '+swiper.translate);
+    $(".prev-year,.next-year").hide();
+    var trans = Math.abs(swiper.translate), h1 = $(swiper.slides[0]).height();
+    var diff = 0;
+    if (trans < h1) {
+      if (h1 - trans < 200) {
+        swiper.setWrapperTranslate(-h1);
+        return;
+      }
+      // console.log('go to prev year');
+      diff = -1;
+    } else {
+      var h2 = $(swiper.slides[1]).height(), slideVisibleHeight = $(window).height()-$('.year-view-box').offset().top;
+      var slide2ndBottomTrans = h1+h2-slideVisibleHeight;
+      if (trans > slide2ndBottomTrans) {
+        if (trans - slide2ndBottomTrans < 200) {
+          swiper.setWrapperTranslate(-slide2ndBottomTrans);
+          return;
+        }
+        // console.log('go to next year');
+        diff = 1;
+      }
+    }
+    if (diff === 0) {
+      return;
+    }
+    var y = getCurYear() + diff;
+    Session.set("orderShowLoading", true);
+    Session.set('year', y);
+    subscribe(y, function() {
+      swiper.slideTo(1, false, true);
+      Session.set("orderShowLoading", false);
+    });
   });
   $(".year-view-box").height($(cacheData.yearViewSwiper.slides[1]).height());
 }

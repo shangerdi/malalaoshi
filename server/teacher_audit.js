@@ -93,6 +93,9 @@ Meteor.methods({
       throw new Meteor.Error('没有权限', '您没有权限，若有疑问请联系管理员');
     }
     var auditObj = TeacherAudit.findOne({'userId': this.userId});
+    if (auditObj && auditObj.applyStatus==='started') {
+      return true;
+    }
     if (!auditObj || auditObj.applyStatus!='passed') {
       throw new Meteor.Error('没有权限', '您还没有通过审核，若有疑问请联系管理员');
     }
@@ -139,5 +142,15 @@ Meteor.methods({
       throw new Meteor.Error('参数错误', '参数错误');
     }
     TeacherAudit.update({'userId': curUserId}, {$push: {'personalPhoto': photoUrl}});
+  },
+  deletePersonalPhoto: function(photoUrls) {
+    var curUserId = Meteor.userId();
+    if (!curUserId) {
+      throw new Meteor.Error('没有权限', '请登录');
+    }
+    if (!photoUrls || !photoUrls.length) {
+      throw new Meteor.Error('参数错误', '参数错误');
+    }
+    TeacherAudit.update({'userId': curUserId}, {$pullAll: {'personalPhoto': photoUrls}});
   }
 });

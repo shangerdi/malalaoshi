@@ -69,6 +69,7 @@ lsun:slingshot@0.7.1_1
 malaicon@0.0.1
 markdown@1.0.5
 meteor@1.1.9
+mdg:camera@1.2.0
 meteor-base@1.0.1
 meteorhacks:inject-initial@1.0.2
 meteorhacks:kadira@2.23.4

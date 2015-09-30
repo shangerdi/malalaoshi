@@ -1,0 +1,52 @@
+<template name="coupons">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">麻辣奖学金</h1>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent class="coupons-list"}}
+      {{#ionList}}
+      {{#each coupons}}
+          <div class="coupons-list-detail">
+            <div>
+              <div>￥{{this.value}}</div>
+              <div>满{{this.minCost}}使用</div>
+            </div>
+            <div>
+              {{#if $eq ../getCoupon 'get'}}
+              <div>
+                <i class="icon ion-checkmark-circled"></i>
+              </div>
+              {{/if}}
+            </div>
+            <div>
+              <div>麻辣奖学金</div>
+              <div>有效期至{{getDate this.expireDate}}</div>
+              <div>仅在线支付可用</div>
+            </div>
+          </div>
+      {{/each}}
+      {{/ionList}}
+      {{#if empty}}
+        <div class="coupons-empty">
+          <div>
+            <i class="icon ion-checkmark-circled"></i>
+          </div>
+          <div>
+            你还没有奖学金，评价课程之后可以抽取
+          </div>
+          <div>
+            <button id="goCoursesComment" class="btn btn-lg btn-success col-xs-12">
+              去评价
+            </button>
+          </div>
+        </div>
+      {{/if}}
+      <div></div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>

@@ -7,15 +7,20 @@ Template.index.onRendered(function () {
   this.data = this.data || {};
   this.data.swiperObj = new Swiper('.index-swiper', {
     pagination: '.swiper-pagination',
-    loop: true,
     paginationClickable: true
   });
 });
-Template.index.onCreated(function() {
-});
-
 Template.index.helpers({
   show: function(){
+    return [
+      {
+        imgSrc: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/test_1234/1438334988731.png",
+        id: "HWQLWZ59GxtrdEoz3",
+        thisPath: 'introduce'
+      }
+    ];
+  },
+  recommendedTeachers: function(){
     return [
       {
         imgSrc: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/test_1234/1438334988731.png",

@@ -38,8 +38,18 @@ Meteor.methods({
         throw new Meteor.Error('老师错误', "老师审核信息错误！");
       }
       //TODO check coupon
-      if(teacherAudit.price != order.price || order.price * order.hour != order.cost){
+      if(teacherAudit.price != order.price || order.price * order.hour - (order.couponValue ? order.couponValue : 0) != order.cost){
         throw new Meteor.Error('单价错误', "老师课程单价已经变化，请返回重新提交！");
+      }
+      if(order.couponId || order.couponValue){
+        var cp = Coupons.findOne({_id: order.couponId, status: 'new'});
+        if(!cp || order.couponValue != cp.value){
+          throw new Meteor.Error('奖学金信息错误', "奖学金信息错误！");
+        }
+        order.discount = {
+          id: order.couponId,
+          value: order.couponValue
+        };
       }
 
       var teacherCount = Meteor.users.find({"_id": order.teacher.id, "role": "teacher", "status.basic": "approved"}).count();
@@ -53,6 +63,9 @@ Meteor.methods({
         throw new Meteor.Error('订单错误', "同一老师相同课程只能预约一次！");
       }
 */
+      if(order.couponId){
+        Coupons.update({_id: order.couponId, status: 'new'}, {$set: {status: 'used'}});
+      }
       return Orders.insert(order);
     }
   },

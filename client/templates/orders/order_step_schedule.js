@@ -17,7 +17,6 @@ var calcTotalCost = function() {
   $("#totalCost").text(courseCount * getUnitPrice());
 }
 Template.orderStepSchedule.onCreated(function(){
-  console.log(Session.get("orderTeacherId"));
   Session.set('errors','');
 });
 Template.orderStepSchedule.onRendered(function(){
@@ -77,7 +76,6 @@ Template.orderStepSchedule.events({
       i = $this.data('weekday'), start = $this.data('start'), end = $this.data('end');
       phases.push({weekday:i, start:start, end:end})
     });
-    console.log(phases);
     if(phases.length==0) {
       errors.phases="请点击上面方格选择时间段";
       errors.hasError=true;
@@ -108,7 +106,7 @@ Template.orderStepSchedule.events({
           cancelText: '取消',
           okText: '继续购买',
           onOk: function() {
-            Router.go('orderStepConfirm');
+            Router.go('order');
           },
           onCancel: function() {
           }
@@ -116,7 +114,7 @@ Template.orderStepSchedule.events({
         return;
       }
       // 没有任何冲突
-      Router.go('orderStepConfirm');
+      Router.go('order');
     });
   },
   'keyup #courseCount, change #courseCount': function(e) {

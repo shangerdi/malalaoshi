@@ -61,7 +61,7 @@ if (Meteor.users.find().count() === 0) {
 
       var t = Meteor.users.findOne({username: id});
       var ta = {
-        userId: id,
+        userId: t._id,
         name: t.profile.name,
         applyStatus: i % 2 ? 'passed' : 'started',
         type: i % 3 ? 'fullTime' : 'partTime',
@@ -91,20 +91,22 @@ if (Meteor.users.find().count() === 0) {
         auditUserId: 'robot',
         experience: [{
           id: 'I do not know what this is for',
-          startDate: Date().now,
-          endDate: Date().now,
+          startDate: 'To Be Defined',
+          endDate: 'To Be Defined',
           content: '在新东方工作'
         }],
         eduResults: [{
           id: 'I do not know what this is for',
           title: '博士毕业',
-          doneDate: Date().now,
+          doneDate: 'To Be Defined',
           content: '海南大学'
         }],
         personalPhoto: [
         ]
       };
       TeacherAudit.insert(ta);
+      var phases = ScheduleTable.geneWeeklyTimePhases(ta.type==='fullTime'?false:Math.random());
+      TeacherAvailableTimes.insert({'teacher': {'id': t._id, 'name': t.profile.name}, 'phases': phases});
     }
   } catch (ex) {
     console.log("Error: init test teacher accounts");
@@ -132,4 +134,18 @@ if (Meteor.users.find().count() === 0) {
   } catch (ex) {
     console.log("Error: init test parent accounts");
   }
+})();
+
+//init for TeacherBalance(after all user init done)
+TeacherBalance.remove({});
+(function() {
+  Meteor.users.find({"role": "teacher"}).
+    forEach(function(teacher) {
+      var found = TeacherBalance.findOne({"userId": teacher._id});
+      if (!found) {
+        // todo: for test will assign 500 RMB to every teacher
+        // MUST BE DELETED before online!!!!!
+        TeacherBalance.insert({userId: teacher._id, balance: 500, bankCards: []});
+      }
+    });
 })();
