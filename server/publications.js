@@ -76,14 +76,16 @@ Meteor.publish('areaTimePhasesByTeacher', function(teacherId) {
     return null;
   }
   var address = teacher.profile.address, code=[];
-  if (address.province.code) {
-    code.push(address.province.code);
-  }
-  if (address.city.code) {
-    code.push(address.city.code);
-  }
-  if (address.district.code) {
-    code.push(address.district.code);
+  if (address) {
+    if (address.province && address.province.code) {
+      code.push(address.province.code);
+    }
+    if (address.city && address.city.code) {
+      code.push(address.city.code);
+    }
+    if (address.district && address.district.code) {
+      code.push(address.district.code);
+    }
   }
   return [
     Meteor.users.find({_id: teacherId}, {fields: {'profile': 1}}),

@@ -88,7 +88,7 @@
         <div id="moreEduResults" class="teacher-more-info">展开查看全部</div>
         <div id="eduReults">
           {{#each eduResults}}
-            <div>{{this.title}}（{{this.doneDate}}）</div>
+            <div>{{this.title}}（{{formatDate this.doneDate}}）</div>
             <div>{{this.content}}</div>
           {{/each}}
         </div>
@@ -103,7 +103,7 @@
         <div id="moreExperience" class="teacher-more-info">展开查看全部</div>
         <div id="experience">
           {{#each experience}}
-            <div>{{this.startDate}}至{{this.endDate}}</div>
+            <div>{{formatDate this.startDate}}至{{formatDate this.endDate}}</div>
             <div>{{this.content}}</div>
           {{/each}}
         </div>
