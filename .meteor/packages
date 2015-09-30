@@ -56,4 +56,6 @@ ejson
 spacebars
 check
 ecmascript
+jparker:crypto-base64
+ekate:openssl-wrapper-wrapper
 mdg:camera
