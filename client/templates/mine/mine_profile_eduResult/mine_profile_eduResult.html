@@ -24,7 +24,8 @@
       {{/ionItem}}
       {{#ionItem class="item-input"}}
         <span class="input-label">时间</span>
-        <input type="text" id="doneDate" name="doneDate" value="{{doneDate}}" readonly="readonly">
+        <input type="hidden" id="doneDate" name="doneDate" value="{{doneDate}}" readonly="readonly">
+        <input type="text" id="doneDateText" name="doneDateText" readonly="readonly">
       {{/ionItem}}
       {{#ionItem class="item-input"}}
         <textarea rows="8" type="text" id="content" name="content" value="{{content}}" placeHolder="例如：在初中时，让一位不爱学数学的学生喜欢上数学">{{content}}</textarea>

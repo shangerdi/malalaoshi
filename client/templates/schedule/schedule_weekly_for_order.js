@@ -11,14 +11,16 @@ Template.scheduleWeeklyForOrder.onCreated(function() {
   this.cacheData.teacher = teacher;
   // 查询时间段
   var address = teacher.profile.address, timePhases=null;
-  if (!timePhases && address.district.code) {
-    timePhases = AreaTimePhases.findOne({code: address.district.code});
-  }
-  if (!timePhases && address.city.code) {
-    timePhases = AreaTimePhases.findOne({code: address.city.code});
-  }
-  if (!timePhases && address.province.code) {
-    timePhases = AreaTimePhases.findOne({code: address.province.code});
+  if (address) {
+    if (!timePhases && address.district && address.district.code) {
+      timePhases = AreaTimePhases.findOne({code: address.district.code});
+    }
+    if (!timePhases && address.city && address.city.code) {
+      timePhases = AreaTimePhases.findOne({code: address.city.code});
+    }
+    if (!timePhases && address.province && address.province.code) {
+      timePhases = AreaTimePhases.findOne({code: address.province.code});
+    }
   }
   if (!timePhases) {
     timePhases = ScheduleTable.defaultTimePhases;

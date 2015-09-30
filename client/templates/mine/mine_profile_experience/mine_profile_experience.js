@@ -26,7 +26,9 @@ Template.mineProfileExperience.onRendered(function(){
   var obj = Router.current().params.query;
   if (obj) {
     $("#startDate").val(obj.startDate);
+    $("#startDateText").val(formatDate(obj.startDate));
     $("#endDate").val(obj.endDate);
+    $("#endDateText").val(formatDate(obj.endDate));
     $("#content").val(obj.content);
   }
 });
@@ -36,11 +38,11 @@ Template.mineProfileExperience.helpers({
   }
 });
 Template.mineProfileExperience.events({
-  'click #startDate': function(e) {
+  'click #startDateText': function(e) {
     Session.set('dateSelectTargetId', 'startDate');
     IonModal.open("_dateSelectModal", {'title': "开始时间"});
   },
-  'click #endDate': function(e) {
+  'click #endDateText': function(e) {
     Session.set('dateSelectTargetId', 'endDate');
     IonModal.open("_dateSelectModal", {'title': "结束时间"});
   }
