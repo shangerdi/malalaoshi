@@ -57,3 +57,5 @@ spacebars
 check
 ecmascript
 mdg:camera
+jparker:crypto-hmac
+jparker:crypto-md5
