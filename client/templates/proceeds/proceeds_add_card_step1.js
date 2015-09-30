@@ -21,6 +21,8 @@ Template.proceedsAddCardStep1.events({
 
       var cardInfo = result;
       if (cardInfo && cardInfo.cardNumber) {
+        var cardUserName = $("#cardUserName").val();
+        cardInfo.cardUserName = cardUserName;
         Session.set('cardInfo', cardInfo);
         Router.go('proceedsAddCardStep2');
       }

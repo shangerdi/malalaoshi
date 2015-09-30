@@ -1,5 +1,8 @@
 Template.proceedsDetails.helpers({
   //add you helpers here
+  transactionDetail: function() {
+    return TransactionDetail.find();
+  }
 });
 
 Template.proceedsDetails.events({

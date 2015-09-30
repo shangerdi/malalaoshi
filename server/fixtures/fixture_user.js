@@ -138,6 +138,7 @@ if (Meteor.users.find().count() === 0) {
 
 //init for TeacherBalance(after all user init done)
 TeacherBalance.remove({});
+//TransactionDetail.remove({});
 (function() {
   Meteor.users.find({"role": "teacher"}).
     forEach(function(teacher) {
@@ -146,6 +147,14 @@ TeacherBalance.remove({});
         // todo: for test will assign 500 RMB to every teacher
         // MUST BE DELETED before online!!!!!
         TeacherBalance.insert({userId: teacher._id, balance: 500, bankCards: []});
+        TransactionDetail.insert({
+          userId: teacher._id,
+          amount: 500,
+          title: '平台测试补助',
+          operator: {
+            role: 'system'
+          }
+        });
       }
     });
 })();
