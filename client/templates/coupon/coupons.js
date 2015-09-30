@@ -18,8 +18,13 @@ Template.coupons.events({
       return false;
     }
 
-    $('.coupons-list-detail').find('i').removeClass('coupon-selected');
-    $(e.target).closest('.coupons-list-detail').find('i').addClass('coupon-selected');
+    var iObj = $(e.target).closest('.coupons-list-detail').find('i');
+    if(iObj.hasClass('coupon-selected')){
+      $('.coupons-list-detail').find('i').removeClass('coupon-selected');
+    }else{
+      $('.coupons-list-detail').find('i').removeClass('coupon-selected');
+      iObj.addClass('coupon-selected');
+    }
     var select = {
       id: this._id,
       value: this.value
