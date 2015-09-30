@@ -59,3 +59,5 @@ ecmascript
 jparker:crypto-base64
 ekate:openssl-wrapper-wrapper
 mdg:camera
+jparker:crypto-hmac
+jparker:crypto-md5

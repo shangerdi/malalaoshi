@@ -1,5 +1,8 @@
 Template.proceedsPassword.helpers({
   //add you helpers here
+  teacherBalance: function() {
+    return TeacherBalance.findOne();
+  }
 });
 
 Template.proceedsPassword.events({
@@ -11,7 +14,6 @@ Template.proceedsPassword.events({
         alert(error.reason);
         return throwError(error.reason);
       }
-
 
       alert('设置密码成功!');
       Router.go('proceedsMyCards');

@@ -7,6 +7,18 @@ Template.proceedsAddCardStep3.helpers({
 
 Template.proceedsAddCardStep3.events({
   //add your events here
+  'click [data-action=add-card]': function() {
+    var cardInfo = Session.get('cardInfo');
+    Meteor.call('addNewCard', cardInfo, function(error, result) {
+      if (error) {
+        alert(error.reason);
+        return throwError(error.reason);
+      }
+
+      alert('开通成功!');
+      Router.go('proceedsIndex');
+    });
+  }
 });
 
 Template.proceedsAddCardStep3.onCreated(function() {
@@ -15,10 +27,6 @@ Template.proceedsAddCardStep3.onCreated(function() {
 
 Template.proceedsAddCardStep3.onRendered(function() {
   //add your statement here
-  $("[data-action=add-card-step3]").click(function(e) {
-    alert('开通成功!');
-    Router.go('proceedsIndex');
-  });
 });
 
 Template.proceedsAddCardStep3.onDestroyed(function() {

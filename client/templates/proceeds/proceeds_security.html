@@ -11,7 +11,11 @@
     {{#ionContent}}
       {{#ionList}}
         {{#ionItem class="item-icon-right" path="proceedsPassword" iconRight=true}}
-          设置提现密码
+          {{#if teacherBalance.isSetPass}}
+            重置提现密码
+          {{else}}
+            设置提现密码
+          {{/if}}
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
       {{/ionList}}

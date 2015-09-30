@@ -35,17 +35,24 @@ Meteor.methods({
     }
     return result;
   },
-  addNewCard: function(params) {
+  addNewCard: function(cardInfo) {
     //TODO: verify following information
-    //params.cardNumber;
-    //params.accountName;
-    //params.reservedPhoneNumber;
+    //cardInfo.cardNumber;
+    //cardInfo.cardUserName;
+    //cardInfo.cardPhoneNumber;
+    //verify(cardInfo);
     var result = {};
     result.success = false;
     result.errorMsg = "户名不匹配 or 信息有误";
     result.errorMsg = "手机号不匹配，到柜台修改";
+    //todo: 假定验证码通过 and 实名认证通过
+    result.success = true;
     if (result.success === true) {
-      //TeacherBalance.insert() or TeacherBalance.update()
+      var bankCard = {};
+      bankCard.cardUserName = cardInfo.cardUserName;
+      bankCard.bankName = cardInfo.bankName;
+      bankCard.cardNumber = cardInfo.cardNumber;
+      TeacherBalance.update({userId: this.userId}, {$addToSet: {bankCards: bankCard}});
     }
 
     return result;
@@ -53,7 +60,9 @@ Meteor.methods({
   resetWithdrawPass: function(newPass) {
     //todo: 假定通过了认证，允许重置密码
     if (newPass && newPass.length !== 0) {
-      TeacherBalance.update({userId: this.userId}, {$set: {withdrawPass: newPass}});
+      var encryptedPass = CryptoJS.HmacMD5(newPass, this.userId).toString();
+      console.log(encryptedPass);
+      TeacherBalance.update({userId: this.userId}, {$set: {withdrawPass: encryptedPass, isSetPass: true}});
     }
     else {
       console.log("resetWithdrawPass Error!");

@@ -9,7 +9,13 @@
 
   {{#ionView}}
     {{#ionContent}}
-
+      {{#each transactionDetail}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          {{title}}<br/>
+          {{amount}}<br/>
+          {{operator.role}}<br/>
+        {{/ionItem}}
+      {{/each}}
     {{/ionContent}}
   {{/ionView}}
 </template>
