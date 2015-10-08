@@ -1,5 +1,8 @@
 Template.proceedsMyCards.helpers({
   //add you helpers here
+  teacherBalance: function() {
+    return TeacherBalance.findOne();
+  }
 });
 
 Template.proceedsMyCards.events({

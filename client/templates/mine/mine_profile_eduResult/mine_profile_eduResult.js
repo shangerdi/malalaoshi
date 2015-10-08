@@ -27,6 +27,7 @@ Template.mineProfileEduResult.onRendered(function(){
   if (obj) {
     $("#title").val(obj.title);
     $("#doneDate").val(obj.doneDate);
+    $("#doneDateText").val(formatDate(obj.doneDate));
     $("#content").val(obj.content);
   }
 });
@@ -37,7 +38,7 @@ Template.mineProfileEduResult.helpers({
 });
 
 Template.mineProfileEduResult.events({
-  'click #doneDate': function(e) {
+  'click #doneDateText': function(e) {
     Session.set('dateSelectTargetId', 'doneDate');
     IonModal.open("_dateSelectModal", {'title': "时间"});
   }

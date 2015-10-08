@@ -695,7 +695,12 @@ input[type=text].browser {
 @course-todo-bgcolor: #000;
 @course-todo-color: #d8d8d8;
 @today-color: blue;
-.schedule-calendar .top {
+.schedule-calendar-header {
+  position: absolute;
+  top: 93px;
+  width: 100%;
+  z-index: 2;
+  background-color: #f1f1f1;
   border-bottom: 1px #aaa solid;
   > div {
     display: inline-block;
@@ -712,9 +717,17 @@ input[type=text].browser {
       margin-right: 5px;
     }
   }
-  .btns-box .btn{
-    margin-left: 15px;
+  .btns-box {
+    min-width: 150px;
+    padding-top: 10px;
+    text-align: right;
+    .btn{
+      margin-right: 15px;
+    }
   }
+}
+.schedule-calendar {
+  padding-top: 61px;
 }
 .schedule-calendar .month-nav {
   border-bottom: 1px #888 solid;
@@ -746,6 +759,7 @@ input[type=text].browser {
   text-align: center;
   thead tr td{
     line-height: 40px;
+    padding: 8px 0;
   }
   td{
     border: 0;
@@ -794,7 +808,9 @@ input[type=text].browser {
   padding: 10px 0;
 }
 .schedule-calendar .year-view {
+  margin-right: 0;
   a{
+    margin-left: 15px;
     color: black;
     font-weight: bold;
     cursor: pointer;
@@ -808,6 +824,7 @@ input[type=text].browser {
   td{
     border: 0;
     padding: 0;
+    text-align: center;
   }
   td > div{
     display: inline-block;

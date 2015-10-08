@@ -14,7 +14,7 @@
     {{#ionList class="profile-experience-list"}}
       {{#each experienceList}}
         {{#ionItem path="mineProfileExperience" data=this query=this iconRight=true}}
-          <span>{{startDate}}~{{endDate}}</span>
+          <span>{{formatDate startDate}}~{{formatDate endDate}}</span>
           <div class="item-note">
             {{content}}
           </div>

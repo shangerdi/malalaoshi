@@ -5,10 +5,7 @@ Template._dateSelectModal.onCreated(function(){
   }
   var dateVal = $("#"+dateTarget).val();
   if (dateVal) {
-    var momentObj = moment(dateVal, 'YYYY年M月D日');
-    if (!momentObj || !momentObj.isValid()) {
-      momentObj = moment(dateVal);
-    }
+    var momentObj = moment(parseInt(dateVal));
     if (momentObj && momentObj.isValid()) {
       Session.set("curSwiperYear", momentObj.year());
       Session.set("curSwiperMonth", momentObj.month()+1);
@@ -33,5 +30,6 @@ Template._dateSelectModal.onDestroyed(function(){
     alert("选择出错，请重新选择");
     return;
   }
-  $("#"+dateTarget).val(momentObj.format('YYYY年M月D日'));
+  $("#"+dateTarget).val(momentObj.valueOf());
+  $("#"+dateTarget+"Text").val(momentObj.format('YYYY年M月D日'));
 });

@@ -9,6 +9,13 @@
 
   {{#ionView}}
     {{#ionContent}}
+      {{#each teacherBalance.bankCards}}
+        {{#ionItem class="item-icon-right" iconRight=true}}
+          {{cardUserName}}<br/>
+          {{bankName}}<br/>
+          {{cardNumber}}<br/>
+        {{/ionItem}}
+      {{/each}}
       {{#ionItem class="item-icon-right" path="proceedsAddCardStep1" iconRight=true}}
         添加银行卡
         {{> ionIcon icon="ios-plus"}}

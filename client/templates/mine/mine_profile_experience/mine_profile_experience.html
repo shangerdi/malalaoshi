@@ -20,11 +20,13 @@
     {{#ionList class="profile-experience"}}
       {{#ionItem class="item-input"}}
         <span class="input-label">开始时间</span>
-        <input type="text" id="startDate" name="startDate" value="{{startDate}}" readonly="readonly">
+        <input type="hidden" id="startDate" name="startDate" value="{{startDate}}" readonly="readonly">
+        <input type="text" id="startDateText" name="startDateText" readonly="readonly">
       {{/ionItem}}
       {{#ionItem class="item-input"}}
         <span class="input-label">结束时间</span>
-        <input type="text" id="endDate" name="endDate" value="{{endDate}}" readonly="readonly">
+        <input type="hidden" id="endDate" name="endDate" value="{{endDate}}" readonly="readonly">
+        <input type="text" id="endDateText" name="endDateText" readonly="readonly">
       {{/ionItem}}
       {{#ionItem class="item-input"}}
         <textarea rows="8" type="text" id="content" name="content" value="{{content}}" placeHolder="例如：在某地重点高中担任班主任">{{content}}</textarea>

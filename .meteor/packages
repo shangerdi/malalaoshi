@@ -56,4 +56,7 @@ ejson
 spacebars
 check
 ecmascript
+jparker:crypto-base64
 mdg:camera
+jparker:crypto-hmac
+jparker:crypto-md5
