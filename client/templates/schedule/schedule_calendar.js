@@ -331,6 +331,15 @@ Template.scheduleCalendar.onCreated(function(){
 });
 Template.scheduleCalendar.onDestroyed(function(){
   Meteor.clearInterval(cacheData.nowInterval); // must do
+  if (cacheData.yearViewSwiper) {
+    cacheData.yearViewSwiper.destroy();
+  }
+  if (cacheData.monthNavSwiper) {
+    cacheData.monthNavSwiper.destroy();
+  }
+  if (cacheData.monthViewSwiper) {
+    cacheData.monthViewSwiper.destroy();
+  }
   cacheData = {};
 });
 Template.scheduleCalendar.onRendered(function(){

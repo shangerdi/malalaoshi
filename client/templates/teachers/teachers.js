@@ -22,7 +22,7 @@ function doSubject(self){
         subject = getEduSubjectText(subjects.subject);
       }
       if(subjects.school){
-        school = getEduSchoolText(subjects.school);
+        school = getEduStageText(subjects.school);
       }
     }
   }
@@ -47,7 +47,8 @@ function genCommentStarsVal(self){
   return score;
 }
 function doPrice(self){
-  return accounting.formatNumber(self.profile.price, 0);
+  return TeacherAudit.getTeacherUnitPrice(self._id);
+  // return accounting.formatNumber(self.profile.price, 0);
 }
 Template.teacherItem.helpers({
   subject: function(){

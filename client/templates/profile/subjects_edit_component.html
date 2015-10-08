@@ -10,7 +10,7 @@
       <div class="subjects-selecting-area">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          {{#each getEduSchools}}
+          {{#each getEduStages}}
             <li data-key="{{this.key}}">
               <a href="#{{this.key}}" aria-controls="{{this.key}}" role="tab" data-toggle="tab">{{this.text}}</a>
             </li>
@@ -18,7 +18,7 @@
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-          {{#each getEduSchools}}
+          {{#each getEduStages}}
             <div role="tabpanel" class="tab-pane panel-group" id="{{this.key}}">
               <div class="panel">
                 <div class="panel-heading" role="tab" id="heading{{this.key}}">

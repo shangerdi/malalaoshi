@@ -5,7 +5,7 @@ var getSubjectStr = function(obj) {
   var s = '';
   if(obj) {
     if (obj.school) {
-      s += getEduSchoolText(obj.school);
+      s += getEduStageText(obj.school);
     }
     if (obj.grade && obj.grade!=='all') {
       s += getEduGradeText(obj.grade);

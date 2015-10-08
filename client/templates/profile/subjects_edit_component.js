@@ -6,7 +6,7 @@ var getSubjectStr = function(obj) {
   var s = '';
   if(obj) {
     if (obj.school) {
-      s += getEduSchoolText(obj.school);
+      s += getEduStageText(obj.school);
     }
     if (obj.grade && obj.grade!=='all') {
       s += getEduGradeText(obj.grade);
@@ -29,8 +29,8 @@ Template.subjectsEditComponent.helpers({
   getSubjectStr: function(obj) {
     return getSubjectStr(obj);
   },
-  getEduSchools: function() {
-    var a=[], d = getEduSchoolDict();
+  getEduStages: function() {
+    var a=[], d = getEduStageDict();
     _.each(d, function(obj) {
       a.push({'key':obj.key,'text':obj.text});
     });
@@ -38,7 +38,7 @@ Template.subjectsEditComponent.helpers({
   },
   getEduGrades: function(school) {
     var d = getEduGradeDict(), a = [];
-    var schText = getEduSchoolText(school);
+    var schText = getEduStageText(school);
     _.each(d, function(obj) {
       if (obj.key.indexOf(school) < 0) {
         return false;

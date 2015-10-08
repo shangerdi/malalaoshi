@@ -47,7 +47,15 @@ if (Meteor.users.find().count() === 0) {
       var id = '0000' + i;
       var t = Meteor.users.findOne({username: id});
       if (t) {
-        return;
+        var ta = TeacherAudit.findOne({userId: t._id});
+        if (!ta || !ta.prices) {
+          Meteor.users.find({username: /^0000.*/}).forEach(function(tmp){
+            Meteor.users.remove({_id: tmp._id});
+            TeacherAudit.remove({userId: tmp._id});
+          });
+        } else {
+          return;
+        }
       }
       var userData = {
         username: id,
@@ -65,40 +73,41 @@ if (Meteor.users.find().count() === 0) {
         name: t.profile.name,
         applyStatus: i % 2 ? 'passed' : 'started',
         type: i % 3 ? 'fullTime' : 'partTime',
-        price: 0.01,
+        // price: 0.01,
+        prices: [{price: 0.01}],
         basicInfo: {
-          submitTime: Date().now,
+          submitTime: Date.now(),
           status: 'approved',
           msg: 'Good good.',
-          auditTime: Date().now,
-          auditUserId: Date().now
+          auditTime: Date.now(),
+          auditUserId: Date.now()
         },
         eduInfo: {
-          submitTime: Date().now,
+          submitTime: Date.now(),
           status: 'approved',
           msg: 'Good good.',
-          auditTime: Date().now,
-          auditUserId: Date().now
+          auditTime: Date.now(),
+          auditUserId: Date.now()
         },
         certInfo: {
-          submitTime: Date().now,
+          submitTime: Date.now(),
           status: 'approved',
           msg: 'Good good.',
-          auditTime: Date().now,
-          auditUserId: Date().now
+          auditTime: Date.now(),
+          auditUserId: Date.now()
         },
-        auditTime: Date().now,
+        auditTime: Date.now(),
         auditUserId: 'robot',
         experience: [{
           id: 'I do not know what this is for',
-          startDate: 'To Be Defined',
-          endDate: 'To Be Defined',
+          startDate: Date.now(),
+          endDate: Date.now(),
           content: '在新东方工作'
         }],
         eduResults: [{
           id: 'I do not know what this is for',
           title: '博士毕业',
-          doneDate: 'To Be Defined',
+          doneDate: Date.now(),
           content: '海南大学'
         }],
         personalPhoto: [

@@ -42,7 +42,7 @@ Template.profileEditBasicForm.helpers({
     return a;
   },
   eduSchoolList: function(val) {
-    var a = getEduSchoolDict(), optionList = [];
+    var a = getEduStageDict(), optionList = [];
     optionList.push({key: "", text: " - 阶段 - "});
     _.each(a, function(obj) {
       var newObj = {key: obj.key, text: obj.text};

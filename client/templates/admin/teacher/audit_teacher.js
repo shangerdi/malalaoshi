@@ -77,8 +77,8 @@ Template.auditTeacher.helpers({
   getStateStr: function(state) {
     return getTeacherStateText(state);
   },
-  getSchoolStr: function(v) {
-    return getEduSchoolText(v);
+  getStageStr: function(v) {
+    return getEduStageText(v);
   },
   getSubjectStr: function(v) {
     return getEduSubjectText(v);
