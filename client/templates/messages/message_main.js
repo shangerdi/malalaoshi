@@ -7,7 +7,7 @@ Template.messageMain.helpers({
     }
     var a = [];
     _.each(Messages.Types, function(type) {
-      var obj = Messages.findOne({userId: userId, type: type}, {sort: {created: -1}});
+      var obj = Messages.findOne({userId: userId, type: type}, {sort: {createdAt: -1}});
       if (!obj) {
         return;
       }

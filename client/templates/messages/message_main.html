@@ -12,7 +12,7 @@
       <!-- 基本信息 -->
       {{#ionList class="message-main-list"}}
         {{#each messageTypeList}}
-          {{#ionItem href="" avatar="left"}}
+          {{#ionItem path="messageList" data=this avatar="left"}}
             <img src="{{getMessgeIcon this.type}}">
             <div class="message-unread-count">
               {{unreadCount}}
