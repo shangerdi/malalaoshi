@@ -22,7 +22,7 @@ function doSubject(self){
         subject = getEduSubjectText(subjects.subject);
       }
       if(subjects.school){
-        school = getEduSchoolText(subjects.school);
+        school = getEduStageText(subjects.school);
       }
     }
   }

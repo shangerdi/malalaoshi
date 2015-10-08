@@ -60,7 +60,7 @@ Template.teacher.helpers({
           retStr += " | ";
         }
         if(subject.school){
-          retStr += getEduSchoolText(subject.school);
+          retStr += getEduStageText(subject.school);
         }
         if(subject.subject){
           retStr += getEduSubjectText(subject.subject);
