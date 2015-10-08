@@ -306,10 +306,66 @@ TeacherBalance.remove({});
       Orders.insert(order);
     });
 
-
     //add some courseAttendances for test
+    var testOrders = Orders.find({'student.name': /^0001/, 'status': 'submited'}).fetch();
+    var addOrdersLength = testOrders.length/2;
+    addOrdersLength = addOrdersLength < 2 ? 0 : addOrdersLength;
 
+    for(var i=0; i<addOrdersLength; i++){
+      var od = testOrders[i];
+      var student = Meteor.users.findOne({_id: od.student.id});
+      var teacher = Meteor.users.findOne({_id: od.teacher.id});
+      var toInsertList = ScheduleTable.generateReserveCourseRecords(student, teacher, od.hour, od.phases, false, od);
+      _.each(toInsertList, function(data){
+        if(CourseAttendances.find({
+          'teacher.id': data.teacher.id,
+          'student.id': data.student.id,
+          'endTime': data.endTime,
+          'weekday': data.weekday,
+          'phase': data.phase,
+          'state': ScheduleTable.attendanceStateDict['reserved'].value,
+          'detai': data.detail
+        }).count() == 0){
+          CourseAttendances.insert(data);
+        }
+      });
+
+      Orders.update({_id: od._id}, {$set: {'status': 'paid'}});
+    }
 
     //add some comments for test
+    var courseAttendancesAry = [];
+    CourseAttendances.find({'state': ScheduleTable.attendanceStateDict['reserved'].value}).forEach(function(csAtt){
+      var u = Meteor.users.findOne({_id: csAtt.student.id});
+      if(u.username.toString().indexOf('0001') == 0){
+        courseAttendancesAry.push(csAtt);
+      }
+    });
+    var courseAttendancesAryLength = courseAttendancesAry.length - 2;
+    for(var i=0; i<courseAttendancesAryLength; i++){
+      var csAtt = courseAttendancesAry[i];
+      var comment = {
+        maScore: Math.floor(Math.random()*5),
+        laScore: Math.floor(Math.random()*5),
+        courseAttendanceId: csAtt._id,
+        comment: '评论测试内容',
+        teacher: csAtt.teacher,
+        student: csAtt.student
+      };
+      Comments.insert(comment, function(error, result){
+        if(!error){
+          CourseAttendances.update({_id: comment.courseAttendanceId}, {$set: {'state': ScheduleTable.attendanceStateDict['commented'].value}});
+          Meteor.users.update({_id: comment.teacher.id}, {$inc: {"profile.maScore": comment.maScore, "profile.maCount": 1, "profile.laScore": comment.laScore, "profile.laCount": 1}});
+          var total = (comment.maScore || 0) + (comment.laScore || 0);
 
+          if(total <= 2){
+            UserSummary.update({'userId': comment.teacher.id}, {$inc: {'poolComments': 1}}, {upsert: true});
+          }else if(total > 2 && total < 8){
+            UserSummary.update({'userId': comment.teacher.id}, {$inc: {'averageComments': 1}}, {upsert: true});
+          }else if(total >= 8 && total <= 10){
+            UserSummary.update({'userId': comment.teacher.id}, {$inc: {'goodComments': 1}}, {upsert: true});
+          }
+        }
+      });
+    }
 })();
