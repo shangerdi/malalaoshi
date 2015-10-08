@@ -149,3 +149,158 @@ TeacherBalance.remove({});
       }
     });
 })();
+
+//add some coupons for test
+(function() {
+  Meteor.users.find({'username': /^0001/, 'role': 'parent'}).
+    forEach(function(parent) {
+      var ct = Coupons.find({userId: parent._id}).count();
+      if(ct == 0){
+        var newCoupon = {
+          value:  Math.floor(Math.random() * 20),
+          minCost: 1,
+          status: 'new',
+          userId: parent._id
+        };
+        Coupons.insert(newCoupon);
+      }
+    });
+})();
+
+//add some orders for test
+(function(){
+  var testPhases = [
+      {
+          "weekday" : 1,
+          "phase" : {
+              "start" : 480,
+              "end" : 600
+          }
+      },
+      {
+          "weekday" : 2,
+          "phase" : {
+              "start" : 600,
+              "end" : 720
+          }
+      },
+      {
+          "weekday" : 4,
+          "phase" : {
+              "start" : 600,
+              "end" : 720
+          }
+      },
+      {
+          "weekday" : 3,
+          "phase" : {
+              "start" : 780,
+              "end" : 900
+          }
+      },
+      {
+          "weekday" : 7,
+          "phase" : {
+              "start" : 780,
+              "end" : 900
+          }
+      },
+      {
+          "weekday" : 1,
+          "phase" : {
+              "start" : 900,
+              "end" : 1020
+          }
+      },
+      {
+          "weekday" : 4,
+          "phase" : {
+              "start" : 900,
+              "end" : 1020
+          }
+      },
+      {
+          "weekday" : 5,
+          "phase" : {
+              "start" : 900,
+              "end" : 1020
+          }
+      },
+      {
+          "weekday" : 5,
+          "phase" : {
+              "start" : 1020,
+              "end" : 1140
+          }
+      },
+      {
+          "weekday" : 6,
+          "phase" : {
+              "start" : 1020,
+              "end" : 1140
+          }
+      },
+      {
+          "weekday" : 3,
+          "phase" : {
+              "start" : 1140,
+              "end" : 1260
+          }
+      },
+      {
+          "weekday" : 7,
+          "phase" : {
+              "start" : 1140,
+              "end" : 1260
+          }
+      }
+  ];
+
+  var testTeachers = Meteor.users.find({'username': /^0000/, 'role': 'teacher'}).fetch();
+  var teacherIndex = 0;
+  var teachersLength = testTeachers.length;
+  Meteor.users.find({'username': /^0001/, 'role': 'parent'}).
+    forEach(function(parent) {
+      var ct = Orders.find({'student.id': parent._id}).count();
+      if(ct > 0){
+        return;
+      }
+      var teacher = testTeachers[(teacherIndex++) % teachersLength];
+      var phase = testPhases[Math.floor(Math.random() * testPhases.length)];
+      var order = {
+        student: {
+          id: parent._id,
+          phoneNo: parent.phoneNo,
+          name: parent.username
+        },
+        teacher: {
+          id: teacher._id,
+          name: teacher.username
+        },
+        subject: '小学语文',
+        status: 'submited',
+        hour: 1,
+        cost: 400,
+        price: 400,
+        phases: [
+          {
+            weekday: phase.weekday,
+            start: phase.phase.start,
+            end: phase.phase.end
+          }
+        ],
+        lng: 116.483572,
+        lat: 39.912365,
+        submitUserId: parent._id
+      };
+
+      Orders.insert(order);
+    });
+
+
+    //add some courseAttendances for test
+
+
+    //add some comments for test
+
+})();
