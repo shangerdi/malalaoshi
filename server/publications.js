@@ -191,6 +191,9 @@ Meteor.publish('teacher', function(userId) {
   }
   return [];
 });
+Meteor.publish("teacherPrices", function(userIds){
+  return TeacherAudit.find({'userId':{$in: userIds}}, {fields: {'userId': 1, 'prices': 1}});
+});
 Meteor.publish('studyCenters', function(params){
   if (!params || !params.find) {
     return StudyCenters.find();
