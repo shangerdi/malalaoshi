@@ -16,7 +16,8 @@ var setMessagesRead = function() {
     if (top < 0 || top >= maxHeight) {
       return true;
     }
-    var msgId = this.id;
+    var msgId = $this.attr('msgid');
+    if (!msgId) return;
     setTimeout(function(){
       var top = $("#"+msgId).offset().top;
       if (top >= maxHeight) {
@@ -41,6 +42,20 @@ Template.messageList.helpers({
   }
 });
 Template.messageList.onRendered(function(){
+  var isIonic = $(".ionic-body")[0];
+  // go to first unread message
+  var firstUnread = $(".message-body .status-unread")[0];
+  var toMsgId = null;
+  if (firstUnread) {
+    toMsgId = $(firstUnread).closest('.message-item')[0].id;
+  } else {
+    toMsgId = $('.message-item').last()[0].id;
+  }
+  if (isIonic) {
+    $(".message-list-view .content").scrollTo('#'+toMsgId);
+  } else {
+    $(document.body).scrollTo('#'+toMsgId);
+  }
   setMessagesRead();
   $(document.body).scroll(function(e) {
     setMessagesRead();
