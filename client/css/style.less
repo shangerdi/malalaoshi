@@ -691,10 +691,11 @@ input[type=text].browser {
     }
   }
 }
-@course-done-bgcolor: #d8d8d8;
-@course-todo-bgcolor: #000;
-@course-todo-color: #d8d8d8;
-@today-color: blue;
+@course-done-bgcolor: #d7d7d7;
+@course-todo-bgcolor: #ff9290;
+@course-todo-color: #fff;
+@today-bgcolor: #e8413e;
+@today-color: #fff;
 .schedule-calendar-header {
   position: absolute;
   top: 93px;
@@ -738,12 +739,21 @@ input[type=text].browser {
   a {
     display: inline-block;
     min-width: 40px;
-    color: #000;
+    color: #e5e5e5;
     cursor: pointer;
   }
   .swiper-slide-active a {
-    border: 1px solid @today-color;
+    background-color: @today-bgcolor;
+    color: @today-color;
     border-radius: 50%;
+  }
+  .swiper-slide-prev a, .swiper-slide-next a {
+    color: #333;
+  }
+  .swiper-slide {
+    a[data-i="2"], a[data-i="-2"] {
+      color: #aaa;
+    }
   }
 }
 .schedule-calendar .month-view {
@@ -774,7 +784,8 @@ input[type=text].browser {
     cursor: pointer;
   }
   td.today > div{
-    border: 2px @today-color solid;
+    background-color: @today-bgcolor;
+    color: @today-color;
   }
 }
 .schedule-calendar .course-items {
@@ -837,7 +848,8 @@ input[type=text].browser {
     border-radius: 50%;
   }
   td.today > div{
-    border: 1px @today-color solid;
+    background-color: @today-bgcolor;
+    color: @today-color;
   }
 }
 .schedule-calendar {

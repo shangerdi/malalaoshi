@@ -189,7 +189,7 @@ var getMonthNavNum = function() {
   }
   var i, a=[];
   for (i=0; i<monthNavNumCount;i++) {
-    a.push(i);
+    a.push(i-monthNavNumMid);
   }
   cacheData.monthNavNum = a;
   return a;
@@ -383,17 +383,17 @@ Template.scheduleCalendar.helpers({
   },
   monthNavText: function(i) {
     var m = getCurMonth()
-    m = m + i - monthNavNumMid;
+    m = m + i;
     if (m<=0) {
       m+=12;
     }
     if (m>=13) {
       m-=12;
     }
-    return (i==monthNavNumMid?m+'月':m);
+    return (i==0?m+'月':m);
   },
   monthNavClass: function(i) {
-    if (i==monthNavNumMid) {
+    if (i==0) {
       return "cur-month";
     }
     return "";
@@ -504,7 +504,6 @@ Template.scheduleCalendar.events({
   },
   'click .month-nav a': function(e) {
     var ele=e.target, $ele = $(ele), i = $ele.data('i'), m = getCurMonth();
-    i -= monthNavNumMid;
     if (i==0) return;
     m = m + i;
     gotoMonth(m);
