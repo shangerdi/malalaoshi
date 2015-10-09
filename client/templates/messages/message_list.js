@@ -5,6 +5,27 @@ var getType = function() {
   }
   return type;
 }
+var setMessagesRead = function() {
+  var maxHeight = $(window).height() - 40;
+  $(".message-body").each(function(){
+    var $this = $(this);
+    if ($this.attr("read")) {
+      return true;
+    }
+    var top = $this.offset().top;
+    if (top < 0 || top >= maxHeight) {
+      return true;
+    }
+    var msgId = this.id;
+    setTimeout(function(){
+      var top = $("#"+msgId).offset().top;
+      if (top >= maxHeight) {
+        return;
+      }
+      Messages.update(msgId,{$set:{read:true}});
+    }, 887);
+  });
+}
 Template.messageList.helpers({
   'messageList': function() {
     var type = getType();
@@ -18,4 +39,13 @@ Template.messageList.helpers({
     var type = getType();
     return Messages.getTitleByType(type);
   }
+});
+Template.messageList.onRendered(function(){
+  setMessagesRead();
+  $(document.body).scroll(function(e) {
+    setMessagesRead();
+  });
+  $(".message-list-view .content").scroll(function(e) {
+    setMessagesRead();
+  });
 });

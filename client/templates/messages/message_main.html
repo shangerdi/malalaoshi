@@ -14,9 +14,11 @@
         {{#each messageTypeList}}
           {{#ionItem path="messageList" data=this avatar="left"}}
             <img src="{{getMessgeIcon this.type}}">
+            {{#if unreadCount}}
             <div class="message-unread-count">
               {{unreadCount}}
             </div>
+            {{/if}}
             <div class="message-body">
               <div class="clearfix message-type-header">
                 <div class="pull-left message-type-title">
