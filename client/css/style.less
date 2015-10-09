@@ -1297,3 +1297,53 @@ body.keyboard-open .platform-android .content.overflow-scroll {
     padding-left: 13px;
   }
 }
+.message-list-view{
+  .message-list {
+    background-color: transparent;
+    .message-item {
+      background-color: transparent;
+      border: 0;
+      .message-time {
+        text-align: center;
+        padding-bottom: 15px;
+      }
+      .message-body {
+        position: relative;
+        padding-left: 72px;
+        min-height: 72px;
+        img {
+          position: absolute;
+          top: 16px;
+          left: 16px;
+          max-width: 40px;
+          max-height: 40px;
+          width: 100%;
+          border-radius: 50%;
+        }
+        .status-unread {
+          position: absolute;
+          top: 5px;
+          left: 55px;
+          width: 10px;
+          height: 10px;
+          background: #e8413d;
+          border-radius: 50%;
+        }
+        .message-content {
+          position: relative;
+          display: inline-block;
+          margin-left: 12px;
+          padding: 15px;
+          background-color: #fff;
+          border-radius: 6px;
+          &:before{
+            content: "<";
+            position: absolute;
+            top: 9px;
+            left: -10px;
+          };
+        }
+      }
+    }
+  }
+}
