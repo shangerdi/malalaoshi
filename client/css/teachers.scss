@@ -768,7 +768,7 @@ $indexBorderColor: #E6E6E6;
   vertical-align: middle;
   text-align: center;
   img{
-    width: 173px;
+    width: 48.8%;
   }
 }
 .index-page-nav > div > div{
@@ -1707,10 +1707,10 @@ body>.sticky-nav{
     text-align: right;
     position: relative;
     display: inline;
-    padding: 3px 10px;
-    bottom: 40px;
-    border-radius: 13px;
-    margin-right: 20px;
+    padding: 0 10px 3px 10px;
+    bottom: 30px;
+    border-radius: 10px;
+    margin-right: 8px;
     background-color: #000000;
     filter:alpha(opacity=50);
     -moz-opacity:0.5;
@@ -1732,15 +1732,16 @@ body>.sticky-nav{
   .swiper-title{
     position: absolute;
     width: 100%;
-    left: 23px;
-    bottom: 21px;
+    left: 12px;
+    bottom: 11px;
     text-align: left;
-    font-size: 25pt;
+    font-size: 14px;
     color: #FFFFFF;
     font-weight: bold;
     img{
-      width: 27px;
-      margin-right: 10px;
+      width: 12px;
+      height: 12px;
+      margin-right: 8px;
     }
   }
 }
