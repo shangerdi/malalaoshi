@@ -442,8 +442,8 @@ Template.scheduleCalendar.helpers({
     if (!date || !date.flag) {
       return "";
     }
-    var weekday = getWeekdays()[col];
-    return getTdDateClass(date) + " " + getWeekdayClass(weekday);
+    // var weekday = getWeekdays()[col];
+    return getTdDateClass(date);// + " " + getWeekdayClass(weekday);
   },
   dateText2: function(row, col) {
     var m = getCurMonth();
@@ -459,8 +459,8 @@ Template.scheduleCalendar.helpers({
     if (!date || !date.flag) {
       return "";
     }
-    var weekday = getWeekdays()[col];
-    return getTdDateClass(date) + " " + getWeekdayClass(weekday);
+    // var weekday = getWeekdays()[col];
+    return getTdDateClass(date);// + " " + getWeekdayClass(weekday);
   }
 });
 Template.scheduleCalendar.events({
