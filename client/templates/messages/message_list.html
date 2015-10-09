@@ -1,0 +1,36 @@
+<template name="messageList">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title normal-title">{{getTitle}}</h1>
+  {{/contentFor}}
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" text=false}}
+  {{/contentFor}}
+
+
+  {{#ionView class="message-list-view"}}
+    {{#ionContent}}
+      <!-- 基本信息 -->
+      {{#ionList class="message-list"}}
+        {{#each messageList}}
+          {{#ionItem id=this._id class="message-item"}}
+            <div class="message-time">
+              {{created}}
+            </div>
+            <div class="message-body" msgid="{{this._id}}" read="{{this.read}}">
+              <img src="{{getIcon}}">
+              <div class="status-{{#unless read}}unread{{/unless}}"></div>
+              <div class="message-content">
+                {{content}}
+              </div>
+            </div>
+          {{/ionItem}}
+        {{/each}}
+        {{#unless messageList}}
+          {{#ionItem}}
+            如果您有任何的消息或回复，你将会在这里看到。
+          {{/ionItem}}
+        {{/unless}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

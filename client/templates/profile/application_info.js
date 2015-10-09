@@ -4,8 +4,8 @@ var getSelectedSubjects = function() {
 var getSubjectStr = function(obj) {
   var s = '';
   if(obj) {
-    if (obj.school) {
-      s += getEduSchoolText(obj.school);
+    if (obj.stage) {
+      s += getEduStageText(obj.stage);
     }
     if (obj.grade && obj.grade!=='all') {
       s += getEduGradeText(obj.grade);

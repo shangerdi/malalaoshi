@@ -124,9 +124,9 @@ Template.orderStepSchedule.events({
     var ele=e.target, $ele = $(ele);
     var courseCount = getCourseCount();
     if ($ele.hasClass('add')) {
-      courseCount++;
+      courseCount+=2;
     } else {
-      courseCount--;
+      courseCount-=2;
       if (courseCount<0) {
         courseCount = 0;
       }
@@ -140,7 +140,7 @@ Template.orderStepSchedule.events({
       $ele.toggleClass("chosen");
     }
     var nChosen = $('td.phase.chosen').length;
-    $('#courseCount').val(Math.max($('#courseCount').val(), nChosen));
+    $('#courseCount').val(Math.max($('#courseCount').val(), nChosen*2));
     calcTotalCost();
   }
 });

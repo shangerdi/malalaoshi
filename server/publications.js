@@ -164,10 +164,10 @@ Meteor.publish('teachers', function(parameters) {
         var v = p['profile.subjects.grade'];
         if(v.toString().indexOf('all_') == 0){
           // find = _.extend(find, {'profile.subjects.grade': 'all'});
-          find = _.extend(find, {'profile.subjects.school': v.substring(4)});
+          find = _.extend(find, {'profile.subjects.stage': v.substring(4)});
         }else{
           find = _.extend(find, {'profile.subjects.grade': {$in : [v, 'all']}});
-          find = _.extend(find, {'profile.subjects.school': v.substring(0, v.indexOf('_'))});
+          find = _.extend(find, {'profile.subjects.stage': v.substring(0, v.indexOf('_'))});
         }
       }
     }
@@ -190,6 +190,9 @@ Meteor.publish('teacher', function(userId) {
     ];
   }
   return [];
+});
+Meteor.publish("teacherPrices", function(userIds){
+  return TeacherAudit.find({'userId':{$in: userIds}}, {fields: {'userId': 1, 'prices': 1}});
 });
 Meteor.publish('studyCenters', function(params){
   if (!params || !params.find) {

@@ -50,7 +50,7 @@ Template.teacher.helpers({
     return this.user && this.user.profile && this.user.profile.gender == '男';
   },
   subject: function(){
-    var school = "", subject = "";
+    var stage = "", subject = "";
     var retStr = "";
     if(this.user && this.user.profile && this.user.profile.subjects){
       var subjects = this.user.profile.subjects;
@@ -59,8 +59,8 @@ Template.teacher.helpers({
         if(i != 0){
           retStr += " | ";
         }
-        if(subject.school){
-          retStr += getEduSchoolText(subject.school);
+        if(subject.stage){
+          retStr += getEduStageText(subject.stage);
         }
         if(subject.subject){
           retStr += getEduSubjectText(subject.subject);

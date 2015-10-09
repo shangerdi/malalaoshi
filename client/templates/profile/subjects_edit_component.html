@@ -2,7 +2,7 @@
     <div class="subjects-edit-component">
       <div class="selected-subjects">
         {{#each selectedSubjects}}
-          <span class="subject" school="{{this.school}}" grade="{{this.grade}}" subject="{{this.subject}}">
+          <span class="subject" s="{{this.stage}}" grade="{{this.grade}}" subject="{{this.subject}}">
             <a>{{getSubjectStr this}}</a>
           </span>
         {{/each}}
@@ -10,7 +10,7 @@
       <div class="subjects-selecting-area">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          {{#each getEduSchools}}
+          {{#each getEduStages}}
             <li data-key="{{this.key}}">
               <a href="#{{this.key}}" aria-controls="{{this.key}}" role="tab" data-toggle="tab">{{this.text}}</a>
             </li>
@@ -18,7 +18,7 @@
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-          {{#each getEduSchools}}
+          {{#each getEduStages}}
             <div role="tabpanel" class="tab-pane panel-group" id="{{this.key}}">
               <div class="panel">
                 <div class="panel-heading" role="tab" id="heading{{this.key}}">
@@ -26,7 +26,7 @@
                 </div>
                 <div id="collapse{{this.key}}_all" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{this.key}}_all">
                   {{#each getEduSubjects this.key 'all'}}
-                    <div class="subject-item" school="{{../key}}" grade="all" subject="{{this.key}}">
+                    <div class="subject-item" stage="{{../key}}" grade="all" subject="{{this.key}}">
                       <span>{{this.text}}</span><a class="btn-add-subject"><span class="ion-plus"></span></a>
                     </div>
                   {{/each}}
@@ -39,7 +39,7 @@
                   </div>
                   <div id="collapse{{this.key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{this.key}}">
                     {{#each getEduSubjects ../key this.key}}
-                      <div class="subject-item" school="{{../../key}}" grade="{{../key}}" subject="{{this.key}}">
+                      <div class="subject-item" stage="{{../../key}}" grade="{{../key}}" subject="{{this.key}}">
                         <span>{{this.text}}</span><a class="btn-add-subject"><span class="ion-plus"></span></a>
                       </div>
                     {{/each}}

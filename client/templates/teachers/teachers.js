@@ -14,19 +14,19 @@ Template.teacherItem.onCreated(function() {
   this.data.user = Meteor.users.findOne({_id: this.data.userId});
 });
 function doSubject(self){
-  var school = "", subject = "";
+  var stage = "", subject = "";
   if(self.profile && self.profile.subjects){
     var subjects = self.profile.subjects[0];
     if(subjects){
       if(subjects.subject){
         subject = getEduSubjectText(subjects.subject);
       }
-      if(subjects.school){
-        school = getEduSchoolText(subjects.school);
+      if(subjects.stage){
+        stage = getEduStageText(subjects.stage);
       }
     }
   }
-  return school + " | " + subject;
+  return stage + " | " + subject;
 }
 function genCommentStarsVal(self){
   var score = 0;
@@ -47,7 +47,8 @@ function genCommentStarsVal(self){
   return score;
 }
 function doPrice(self){
-  return accounting.formatNumber(self.profile.price, 0);
+  return TeacherAudit.getTeacherUnitPrice(self._id);
+  // return accounting.formatNumber(self.profile.price, 0);
 }
 Template.teacherItem.helpers({
   subject: function(){

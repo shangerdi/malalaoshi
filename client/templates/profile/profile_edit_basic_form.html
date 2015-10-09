@@ -85,18 +85,18 @@
             {{#if user.profile.subjects.length}}
               {{#each user.profile.subjects}}
                 <div class="subject-item clearfix">
-                  <select class="form-control" name="school" value="{{school}}">
-                    {{#each eduSchoolList school}}
+                  <select class="form-control" name="stage" value="{{stage}}">
+                    {{#each eduStageList stage}}
                       <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                     {{/each}}
                   </select>
                   <select class="form-control" name="subject" value="{{subject}}">
-                    {{#each eduSubjectList school subject}}
+                    {{#each eduSubjectList stage subject}}
                       <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                     {{/each}}
                   </select>
                   <select class="form-control" name="grade" value="{{grade}}">
-                    {{#each eduGradeList school grade}}
+                    {{#each eduGradeList stage grade}}
                       <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                     {{/each}}
                   </select>
@@ -105,18 +105,18 @@
               {{/each}}
             {{else}}
               <div class="subject-item clearfix">
-                <select class="form-control" name="school" value="{{school}}">
-                  {{#each eduSchoolList school}}
+                <select class="form-control" name="stage" value="{{stage}}">
+                  {{#each eduStageList stage}}
                     <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                   {{/each}}
                 </select>
                 <select class="form-control" name="subject" value="{{subject}}">
-                  {{#each eduSubjectList school subject}}
+                  {{#each eduSubjectList stage subject}}
                     <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                   {{/each}}
                 </select>
                 <select class="form-control" name="grade" value="{{grade}}">
-                  {{#each eduGradeList school grade}}
+                  {{#each eduGradeList stage grade}}
                     <option value="{{key}}" selected="{{selected}}">{{text}}</option>
                   {{/each}}
                 </select>
