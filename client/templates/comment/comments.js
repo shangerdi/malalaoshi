@@ -205,7 +205,7 @@ Template.commentsDetailShow.helpers({
     return this.comment ? moment(this.comment.createdAt).format('YYYY年MM月DD日') : "";
   },
   subject: function(){
-    var school = "", subject = "";
+    var stage = "", subject = "";
     if(this.comment && this.comment.teacher && this.comment.teacher.id){
       var teacher = Meteor.users.findOne({"_id": this.comment.teacher.id});
       if(teacher && teacher.profile && teacher.profile.subjects){
@@ -214,13 +214,13 @@ Template.commentsDetailShow.helpers({
           if(subjects.subject){
             subject = getEduSubjectText(subjects.subject);
           }
-          if(subjects.school){
-            school = getEduStageText(subjects.school);
+          if(subjects.stage){
+            stage = getEduStageText(subjects.stage);
           }
         }
       }
     }
-    return school + subject;
+    return stage + subject;
   }
 });
 Template.comments.events({

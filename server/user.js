@@ -80,9 +80,9 @@ UserAddressSchema = new SimpleSchema({
   }
 });
 UserSubjectsSchema = new SimpleSchema({
-  school:{
+  stage:{
     type: String,
-    label: 'School'
+    label: 'Stage'
   },
   subject: {
     type: String,

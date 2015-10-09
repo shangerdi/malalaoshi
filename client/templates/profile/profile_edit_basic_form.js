@@ -41,7 +41,7 @@ Template.profileEditBasicForm.helpers({
     });
     return a;
   },
-  eduSchoolList: function(val) {
+  eduStageList: function(val) {
     var a = getEduStageDict(), optionList = [];
     optionList.push({key: "", text: " - 阶段 - "});
     _.each(a, function(obj) {
@@ -53,11 +53,11 @@ Template.profileEditBasicForm.helpers({
     });
     return optionList;
   },
-  eduSubjectList: function(school, val) {
-    return getEduSubjectOptionList(school, val);
+  eduSubjectList: function(stage, val) {
+    return getEduSubjectOptionList(stage, val);
   },
-  eduGradeList: function(school, val) {
-    return getEduGradeOptionList(school, val);
+  eduGradeList: function(stage, val) {
+    return getEduGradeOptionList(stage, val);
   }
 });
 
@@ -172,15 +172,15 @@ Template.profileEditBasicForm.events({
       $('.btn-add-edu-item').show();
     }
   },
-  'change .subject-item select[name=school]': function(e) {
-    var ele = e.target, $school = $(e.target), $item = $school.closest(".subject-item");
-    var school = $school.val(), $subjectSelect = $item.find('select[name=subject]'), $gradeSelect = $item.find('select[name=grade]');
-    var subjectOpList = getEduSubjectOptionList(school, $subjectSelect.val());
+  'change .subject-item select[name=stage]': function(e) {
+    var ele = e.target, $stage = $(e.target), $item = $stage.closest(".subject-item");
+    var stage = $stage.val(), $subjectSelect = $item.find('select[name=subject]'), $gradeSelect = $item.find('select[name=grade]');
+    var subjectOpList = getEduSubjectOptionList(stage, $subjectSelect.val());
     $subjectSelect.children().remove();
     _.each(subjectOpList, function(obj) {
       $subjectSelect.append('<option value="' + obj.key + '" ' + (obj.selected ? 'selected="true"' : '') + '>' + obj.text + '</option>');
     });
-    var gradeOpList = getEduGradeOptionList(school, $gradeSelect.val());
+    var gradeOpList = getEduGradeOptionList(stage, $gradeSelect.val());
     $gradeSelect.children().remove();
     _.each(gradeOpList, function(obj) {
       $gradeSelect.append('<option value="' + obj.key + '" ' + (obj.selected ? 'selected="true"' : '') + '>' + obj.text + '</option>');
@@ -250,11 +250,11 @@ Template.profileEditBasicForm.onDestroyed(function() {
   //add your statement here
 });
 
-var getEduSubjectOptionList = function(school, val) {
+var getEduSubjectOptionList = function(stage, val) {
   var a = getEduSubjectDict(), optionList = [];
   optionList.push({key: "", text: " - 科目 - "});
   _.each(a, function(obj) {
-    if (school == 'elementary' && !obj.only_elementary) {
+    if (stage == 'elementary' && !obj.only_elementary) {
       return false;
     }
     var newObj = {key: obj.key, text: obj.text};
@@ -265,10 +265,10 @@ var getEduSubjectOptionList = function(school, val) {
   });
   return optionList;
 }
-var getEduGradeOptionList = function(school, val) {
+var getEduGradeOptionList = function(stage, val) {
   var a = getEduGradeDict(), optionList = [];
   optionList.push({key: "", text: " - 年级 - "});
-  if (!school) {
+  if (!stage) {
     return optionList;
   }
   var newObj = {key: "all", text: "全部"};
@@ -277,7 +277,7 @@ var getEduGradeOptionList = function(school, val) {
   }
   optionList.push(newObj);
   _.each(a, function(obj) {
-    if (!school || obj.key.indexOf(school) < 0) {
+    if (!stage || obj.key.indexOf(stage) < 0) {
       return false;
     }
     var newObj = {key: obj.key, text: obj.text};
@@ -324,10 +324,10 @@ getSubjectsInput = function($form) {
     if (!$(this).is(":visible")) {
       return;
     }
-    var school = $(this).find('[name=school]').val();
+    var stage = $(this).find('[name=stage]').val();
     var subject = $(this).find('[name=subject]').val();
     var grade = $(this).find('[name=grade]').val();
-    subjects.push({school: school, subject: subject, grade: grade});
+    subjects.push({stage: stage, subject: subject, grade: grade});
   });
   return subjects;
 }
