@@ -209,15 +209,16 @@ var initMonthViewSwiper = function() {
     freeModeSticky: true,
     centeredSlides: true
   });
-  cacheData.monthNavSwiper.on("slideChangeEnd", function(swiper){
-    // console.log('month-nav slideChangeEnd');
+  var _monthNavChange = function(swiper){
     var i = swiper.activeIndex, m = getCurMonth();
     i -= monthNavNumMid;
     if (i==0) return;
     m = m + i;
     gotoMonth(m);
     swiper.slideTo(monthNavNumMid, false, true);
-  });
+  };
+  cacheData.monthNavSwiper.on("slideChangeEnd", _monthNavChange);// slideChangeEnd not works well
+  cacheData.monthNavSwiper.on("transitionEnd", _monthNavChange);
   cacheData.monthViewSwiper = new Swiper('.month-view .swiper-container', {
     initialSlide: 1
   });
