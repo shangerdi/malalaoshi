@@ -15,6 +15,9 @@ Template.messageMain.helpers({
       obj.unreadCount = unreadCount;
       a.push(obj);
     });
+    a.sort(function(a,b){ // 时间倒序
+      return b.createdAt - a.createdAt;
+    });
     return a;
   },
   'getMessgeIcon': function(type) {
