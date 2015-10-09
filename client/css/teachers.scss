@@ -2,6 +2,7 @@ $greyColor: #f7f7f7;
 $appBackGroundColor: white;
 $malaRed: #ff9290;
 $pagepadding: 14px;
+$indexBorderColor: #E6E6E6;
 
 .teacher-div > div > div:first-child{
   min-height:85px;
@@ -763,7 +764,12 @@ $pagepadding: 14px;
 .index-page-nav a{
   width: 100%;
   height: 100%;
-  display: table;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  img{
+    width: 173px;
+  }
 }
 .index-page-nav > div > div{
   width: 50%;
@@ -783,15 +789,15 @@ $pagepadding: 14px;
   display: block;
 }
 .index-page-nav > div:first-child > div:first-child{
-  border: solid rgb(160, 160, 160) 1px;
+  border: solid $indexBorderColor 1px;
   border-left: none;
 }
 .index-page-nav > div:first-child > div:last-child{
-  border-top: solid rgb(160, 160, 160) 1px;
-  border-bottom: solid rgb(160, 160, 160) 1px;
+  border-top: solid $indexBorderColor 1px;
+  border-bottom: solid $indexBorderColor 1px;
 }
 .index-page-nav > div:last-child > div:first-child{
-  border-right: solid rgb(160, 160, 160) 1px;
+  border-right: solid $indexBorderColor 1px;
 }
 .index-swiper .swiper-slide, .index-swiper img, .index-swiper a{
   height: 100%;
@@ -1691,4 +1697,50 @@ body>.sticky-nav{
 }
 .coupon-selected{
   color: #000000;
+}
+.inde-page-swiper-parent{
+  background-color: #B19E9E;
+  > div{
+    text-align: right;
+  }
+  .swiper-pagination{
+    text-align: right;
+    position: relative;
+    display: inline;
+    padding: 3px 10px;
+    bottom: 40px;
+    border-radius: 13px;
+    margin-right: 20px;
+    background-color: #000000;
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    opacity:0.5;
+  }
+  .swiper-pagination-bullet{
+    width: 4px;
+    height: 4px;
+    background-color: #cbcbcd;
+  }
+  .swiper-pagination-bullet-active{
+    width: 6.7px;
+    height: 6.7px;
+    background-color: #e8413d;
+  }
+  .swiper-container-horizontal > .swiper-pagination .swiper-pagination-bullet{
+    margin: 0px 3.3px;
+  }
+  .swiper-title{
+    position: absolute;
+    width: 100%;
+    left: 23px;
+    bottom: 21px;
+    text-align: left;
+    font-size: 25pt;
+    color: #FFFFFF;
+    font-weight: bold;
+    img{
+      width: 27px;
+      margin-right: 10px;
+    }
+  }
 }

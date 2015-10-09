@@ -16,6 +16,19 @@ Template.index.helpers({
       {
         imgSrc: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/test_1234/1438334988731.png",
         id: "HWQLWZ59GxtrdEoz3",
+        title: "如何成为麻辣老师",
+        thisPath: 'introduce'
+      },
+      {
+        imgSrc: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12323232323/1437113067545.jpg",
+        id: "uCMX3NyPbpzvgNJn5",
+        title: "关于麻辣老师",
+        thisPath: 'introduce'
+      },
+      {
+        imgSrc: "https://s3-ap-southeast-1.amazonaws.com/my.images.head/12222222229/1437104183029.jpg",
+        id: "9eAWCyRHZ92gAQjzX",
+        title: "成果展示",
         thisPath: 'introduce'
       }
     ];
