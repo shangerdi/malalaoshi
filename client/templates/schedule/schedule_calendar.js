@@ -216,6 +216,7 @@ var initMonthViewSwiper = function() {
     m = m + i;
     gotoMonth(m);
     swiper.slideTo(monthNavNumMid, false, true);
+    clearSelectedDate();
   };
   cacheData.monthNavSwiper.on("slideChangeEnd", _monthNavChange);// slideChangeEnd not works well
   cacheData.monthNavSwiper.on("transitionEnd", _monthNavChange);
@@ -283,6 +284,9 @@ var initYearViewSwiper = function() {
   });
   cacheData.yearViewSwiper.on("touchEnd", function(swiper){
     // console.log('touchEnd: '+swiper.translate);
+    if (getViewType() === 'month') {
+      return;
+    }
     $(".prev-year,.next-year").hide();
     var trans = Math.abs(swiper.translate), h1 = $(swiper.slides[0]).height();
     var diff = 0;
@@ -318,6 +322,9 @@ var initYearViewSwiper = function() {
   });
   $(".year-view-box").height($(cacheData.yearViewSwiper.slides[1]).height());
 }
+var clearSelectedDate = function() {
+  cacheData.selectedDate.set(null);
+}
 Template.scheduleCalendar.onCreated(function(){
   var _now = new Date();
   cacheData.today = new ReactiveVar(_now, function(a,b){
@@ -329,6 +336,7 @@ Template.scheduleCalendar.onCreated(function(){
     cacheData.now.set(_tmp);
     cacheData.today.set(_tmp);
   }, 30000);
+  cacheData.selectedDate = new ReactiveVar();
 });
 Template.scheduleCalendar.onDestroyed(function(){
   Meteor.clearInterval(cacheData.nowInterval); // must do
@@ -461,6 +469,33 @@ Template.scheduleCalendar.helpers({
     }
     // var weekday = getWeekdays()[col];
     return getTdDateClass(date);// + " " + getWeekdayClass(weekday);
+  },
+  courseList: function() {
+    var date = cacheData.selectedDate.get();
+    if (!date) return null;
+    var items = ScheduleTable.findAttendancesByDate(Meteor.user(), date);
+    if (!items) return null;
+    _.each(items, function(obj){
+      Meteor.subscribe("commentsByCourseAttendanceId", {'find':{'courseAttendanceId': obj._id}});
+    });
+    return items;
+  },
+  getCourseStateStr: function(obj) {
+    var state=obj.state, stateStr="", nowTime = cacheData.now.get().getTime();
+    if (state==ScheduleTable.attendanceStateDict["reserved"].value) {
+      if (obj.attendTime>nowTime) {
+        stateStr="待上课";
+      } else if (obj.endTime<=nowTime) {
+        stateStr="待确认";
+      } else {
+        stateStr="上课中";
+      }
+    } else if (state==ScheduleTable.attendanceStateDict["attended"].value) {
+      stateStr="待评价";
+    } else if (state==ScheduleTable.attendanceStateDict["commented"].value) {
+      stateStr="已评价";
+    }
+    return stateStr;
   }
 });
 Template.scheduleCalendar.events({
@@ -475,6 +510,7 @@ Template.scheduleCalendar.events({
     } else {
       subscribe(getCurYear());
     }
+    clearSelectedDate();
   },
   'click .btn-change-view': function(e) {
     var v = getViewType();
@@ -491,6 +527,7 @@ Template.scheduleCalendar.events({
       subscribe(getCurYear(),getCurMonth());
       initMonthViewSwiper();
     }
+    clearSelectedDate();
   },
   'click .amonth': function(e) {
     var ele=e.target, $ele = $(ele).closest('.amonth');
@@ -501,43 +538,20 @@ Template.scheduleCalendar.events({
     $('.month-view-box').show();
     subscribe(getCurYear(),m);
     initMonthViewSwiper();
+    clearSelectedDate();
   },
   'click .month-nav a': function(e) {
     var ele=e.target, $ele = $(ele), i = $ele.data('i'), m = getCurMonth();
     if (i==0) return;
     m = m + i;
     gotoMonth(m);
+    clearSelectedDate();
   },
   'click .month-view td.date': function(e) {
     var ele=e.target, $ele = $(ele).closest('td');
     var m = getCurMonth(), row = $ele.data("row"), col = $ele.data("col");
     var date = getDateByTable(m, row, col);
     // alert(JSON.stringify(date));
-    var curUser = Meteor.user(), userRole = curUser.role, nowTime = new Date().getTime();
-    var items = ScheduleTable.findAttendancesByDate(curUser, date);
-    if (items) {
-      $courseItemsTable = $(".course-items-table");
-      $courseItemsTable.children().remove();
-      _.each(items, function(obj){
-        var state=obj.state, stateStr="";
-        if (state==ScheduleTable.attendanceStateDict["reserved"].value) {
-          if (obj.attendTime>nowTime) {
-            stateStr="待上课";
-          } else if (obj.endTime<=nowTime) {
-            stateStr="待确认";
-          } else {
-            stateStr="上课中";
-          }
-        } else if (state==ScheduleTable.attendanceStateDict["attended"].value) {
-          stateStr="待评价";
-        } else if (state==ScheduleTable.attendanceStateDict["commented"].value) {
-          stateStr="已评价";
-        }
-        var itemHtml = '<tr><td>'+ScheduleTable.convMinutes2Str(obj.phase.start)+'——'+ScheduleTable.convMinutes2Str(obj.phase.end)+'</td>'
-          +'<td>'+(userRole==='teacher'?obj.student.name:obj.teacher.name)+'</td><td>课程名字TODO</td><td>上课地点TODO</td><td>'+stateStr+'</td>'
-          +'</tr>';
-        $courseItemsTable.append(itemHtml);
-      });
-    }
+    cacheData.selectedDate.set(date);
   }
 });

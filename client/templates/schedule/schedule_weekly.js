@@ -1,4 +1,3 @@
-var convMinutes2Str = ScheduleTable.convMinutes2Str;
 var findAvailablePhase = function(i, start, end) {
   var tct = TeacherAvailableTimes.findOne({"teacher.id": Meteor.userId()});
   var availablePhases = (tct && tct.phases)?tct.phases:null;
@@ -106,9 +105,6 @@ Template.scheduleWeekly.helpers({
   },
   days: function() {
     return ScheduleTable.days;
-  },
-  convMinutes2Str: function(mins) {
-    return convMinutes2Str(mins);
   },
   getPhaseState: function(i, start, end) {
     var tmp = findAvailablePhase(i, start, end);

@@ -44,16 +44,23 @@ Template.registerHelper('runEnv', function() {
   return 'Beta';
 });
 
-formatDate = function(datetime) {
+formatDate = function(datetime, pattern) {
   var momentObj = moment(parseInt(datetime));
   if (!momentObj.isValid()) {
     return datetime;
   }
-  return momentObj.format('YYYY年M月D日');
+  if (!pattern || !_.isString(pattern)) {
+    pattern = 'YYYY年M月D日';
+  }
+  return momentObj.format(pattern);
 }
 
-Template.registerHelper('formatDate', function(datetime) {
-  return formatDate(datetime);
+Template.registerHelper('formatDate', function(datetime, pattern) {
+  return formatDate(datetime, pattern);
+});
+
+Template.registerHelper('convMinutes2Str', function(mins) {
+  return ScheduleTable.convMinutes2Str(mins);
 });
 
 appSetDefaultCity = function() {
