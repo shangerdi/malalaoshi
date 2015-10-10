@@ -10,14 +10,17 @@
   {{#ionView}}
     {{#ionContent}}
       {{#ionList}}
-        {{#ionItem class="item-icon-right" path="proceedsPassword" iconRight=true}}
-          {{#if teacherBalance.isSetPass}}
+        {{#if teacherBalance.isSetPass}}
+          {{#ionItem class="item-icon-right" path="proceedsResetPasswordStep1" iconRight=true}}
             重置提现密码
-          {{else}}
+            {{> ionIcon icon="ios-arrow-right"}}
+          {{/ionItem}}
+        {{else}}
+          {{#ionItem class="item-icon-right" path="proceedsPassword" iconRight=true}}
             设置提现密码
-          {{/if}}
-          {{> ionIcon icon="ios-arrow-right"}}
-        {{/ionItem}}
+            {{> ionIcon icon="ios-arrow-right"}}
+          {{/ionItem}}
+        {{/if}}
       {{/ionList}}
     {{/ionContent}}
   {{/ionView}}

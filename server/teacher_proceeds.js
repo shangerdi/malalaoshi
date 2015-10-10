@@ -68,5 +68,20 @@ Meteor.methods({
       console.log("resetWithdrawPass Error!");
       throw new Meteor.Error('密码不能为空', '密码不能为空');
     }
+  },
+  identityVerify: function(params) {
+    //TODO: verify following information
+    //params.cardUserName  持卡人姓名
+    //params.IDNumber  身份证号
+    //params.cardNumber  卡号
+    var result = {};
+    //result.success = false;
+    //result.errorMsg = "信息填写错误";
+    //throw new Meteor.Error('信息填写错误', '信息填写错误');
+
+    //todo: 假定 实名认证通过
+    result.success = true;
+    return result;
+    //todo: 现有方式可直接通过 Router.go() 跳转到重置密码页面，需要完善和解决此处安全问题
   }
 });
