@@ -157,12 +157,12 @@
         <div id="moreEvaluation" class="teacher-more-info">点击查看更多</div>
         <div id="evaluationInfo">
           <div>
-            <div>
+            <div class="comments-stars">
               {{#each commentStars}}
-                <i class="icon {{starClass this}}"></i>
+                <img src="/images/{{starImage this}}" />
               {{/each}}
             </div>
-            <div><img src="{{commentUserAvatarUrl}}" class="img-responsive img-circle"></div>
+            <div><img src="{{commentUserAvatarUrl}}" class="img-responsive img-circle comment-user-avatar"></div>
             <div>{{commentUserName}}</div>
           </div>
           <div>{{commentInfo}}</div>

@@ -157,8 +157,8 @@ Template.teacher.helpers({
     var score = this.comment && this.comment.maScore && this.comment.laScore ? (this.comment.maScore + this.comment.laScore)/2 : 0;
     return genScoreStarsAry(score, 5);
   },
-  starClass: function(val){
-    return val == 3 ? "ion-ios-star" : val == 2 ? "ion-ios-star-half" : val == 1 ? "ion-ios-star-outline" : "";
+  starImage: function(val){
+    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   },
   commentUserName: function(){
     return this.comment && this.comment.student && this.comment.student.name ? this.comment.student.name : "";

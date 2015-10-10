@@ -511,7 +511,7 @@ $indexBorderColor: #E6E6E6;
   padding-left: 5px;
 }
 .order-detail-head, .index-page-title-head{
-  font-size: 21px;
+  font-size: 16px;
   color: #000;
   font-weight: normal;
   letter-spacing: 2px;
@@ -1246,7 +1246,7 @@ body>.sticky-nav{
   i{
     font-size: 20px;
   }
-  img{
+  .comment-user-avatar{
     width: 35px;
     display: inline;
   }
@@ -1371,8 +1371,9 @@ body>.sticky-nav{
   font-size: 30px;
   width: 166px;
 
-  i{
+  img{
     cursor: pointer;
+    width: 25px;
   }
 }
 .pop-remind-template{
@@ -1752,5 +1753,18 @@ body>.sticky-nav{
   text-align: center;
   img{
     height: 39px;
+  }
+}
+.teacher-div-stars{
+  img{
+    width: 13px;
+  }
+  img:nth-child(n+2){
+    margin-left: 3px;
+  }
+}
+.comments-stars{
+  img{
+    width: 17px;
   }
 }
