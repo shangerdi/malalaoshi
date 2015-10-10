@@ -7,27 +7,31 @@
   {{#ionView class="text-center"}}
     {{#ionContent}}
       {{#ionList}}
-        {{#ionItem}}
+        {{#ionItem class="name"}}
           <!-- 1姓名 -->
           <input class="text-center" type="text" name="name" placeholder="姓名" value="{{currentUser.profile.name}}" maxlength="20">
           <span class="error-msg">{{getErrorMsg 'name'}}</span>
         {{/ionItem}}
-        {{#ionItem}}
+        {{#ionItem class="phoneNo"}}
           <!-- 2电话号码 -->
           <span>{{currentUser.phoneNo}}</span>
         {{/ionItem}}
-        {{#ionItem class="radio-group"}}
+      {{/ionList}}
+        <h4>性别</h4>
+      {{#ionList}}
+        {{#ionItem class="gender"}}
           <!-- 3性别 -->
-          <div>
-            <label><input type="radio" name="gender" value="女" checked="{{$eq currentUser.profile.gender '女'}}"/><span>女</span></label>
-            <label><input type="radio" name="gender" value="男" checked="{{$eq currentUser.profile.gender '男'}}"/><span>男</span></label>
+          <div class="radio-group">
+            <label><img src="/images/checked_none.png"><br><input type="radio" name="gender" value="女" checked="{{$eq currentUser.profile.gender '女'}}"/><span>女老师</span></label>
+            <label><img src="/images/checked_none.png"><br><input type="radio" name="gender" value="男" checked="{{$eq currentUser.profile.gender '男'}}"/><span>男老师</span></label>
           </div>
           <span class="error-msg">{{getErrorMsg 'gender'}}</span>
         {{/ionItem}}
-        {{#ionItem}}
+      {{/ionList}}
+        <h4>教龄</h4>
+      {{#ionList}}
+        {{#ionItem class="teaching-age"}}
           <!-- 4教龄 -->
-          <label>教龄</label>
-          <div class="teaching-age">
             <div class="swiper-container">
               <div class="swiper-wrapper">
                 {{#each teachYearNums}}
@@ -37,11 +41,12 @@
               <!-- Add Pagination -->
               <div class="swiper-pagination"></div>
             </div>
-          </div>
         {{/ionItem}}
-        {{#ionItem}}
+      {{/ionList}}
+        <h4>科目年级</h4>
+      {{#ionList}}
+        {{#ionItem class="subjects"}}
           <!-- 5年级科目 -->
-          <div class="subjects">
             <button class="button button-clear btn-add-subject" data-ion-modal="_subjectsModal">
               {{#if hasSubjects}}
                 {{#each selectedSubjects}}
@@ -51,14 +56,16 @@
                 年级 | 科目
               {{/if}}
             </button>
-          </div>
           <span class="error-msg">{{getErrorMsg 'subjects'}}</span>
         {{/ionItem}}
-        {{#ionItem}}
+      {{/ionList}}
+        <h4>所在城市</h4>
+      {{#ionList}}
+        {{#ionItem class="city"}}
           <!-- 6所在城市 -->
-          <label>所在城市</label>
           <div class="radio-group">
-            <label><input type="radio" name="city" value="luoyang"/><span>洛阳</span></label><label><input type="radio" name="city" value="other"/><span>其他</span></label>
+            <label><img src="/images/checked_none.png"><br><input type="radio" name="city" value="luoyang"/><span>洛阳</span></label>
+            <label><img src="/images/checked_none.png"><br><input type="radio" name="city" value="other"/><span>其他</span></label>
           </div>
           <span class="error-msg">{{getErrorMsg 'city'}}</span>
         {{/ionItem}}

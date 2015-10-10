@@ -1035,12 +1035,17 @@ input[type=text].browser {
     }
   }
   &.apply-info {
-    label {
-      font-size: 18px;
-      color: black;
+    .content {
+      padding-top: @page-padding;
     }
-    input[name=name]:focus {
-      border-bottom: 1px solid black;
+    .name {
+      padding: 0;
+      input {
+        height: 52px;
+      }
+      input:focus {
+        border-bottom: 1px solid #e6e6e6;
+      }
     }
     .error-msg {
       font-size: 14px;
@@ -1048,20 +1053,33 @@ input[type=text].browser {
     }
     .radio-group {
       label {
+        width: 50%;
         font-size: 14px;
-        margin-left: 40px;
-        color: gray;
+        color: #828282;
         &:first-child{
-          margin-left: 0;
+          border-right: 1px solid #e6e6e6;
         }
       }
+      img {
+        width: 23px;
+        height: 23px;
+      }
+      input {
+        display: none;
+      }
       input:checked + span {
-        color: black;
+        color: @brand-success;
       }
     }
     .subjects {
       button{
         color: black;
+      }
+      .subject {
+        padding: 10px;
+        color: @brand-success;
+        border: 1px solid @brand-success;
+        border-radius: 4px;
       }
     }
     .teaching-age {
@@ -1069,9 +1087,17 @@ input[type=text].browser {
         .swiper-slide {
           width: 44px;
           height: 44px;
+          color: #d0d0d0;
           &.swiper-slide-active {
-            border: 1px solid black;
+            border: 1px solid @brand-success;
+            color: @brand-success;
             border-radius: 50%;
+          }
+          &.swiper-slide-prev, &.swiper-slide-next {
+            color: #535353;
+          }
+          &.swiper-slide-prev-prev, &.swiper-slide-next-next {
+            color: #9a9a9a;
           }
         }
       }
