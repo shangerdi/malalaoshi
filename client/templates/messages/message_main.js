@@ -21,7 +21,7 @@ Template.messageMain.helpers({
     return a;
   },
   'getMessgeIcon': function(type) {
-
+    return '/images/message/'+type+'.png';
   },
   'getMessageTitle': function(type) {
     return Messages.getTitleByType(type);

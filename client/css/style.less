@@ -1428,19 +1428,55 @@ body.keyboard-open .platform-android .content.overflow-scroll {
   font-weight:600;
 }
 .message-main-view {
+  .content{
+    padding: 0 @page-padding;
+    background-color: #fff;
+    .list .item{
+      padding: 22px 0 22px 66px;
+      border-left: 0;
+      border-right: 0;
+      background: transparent;
+      img{
+        top: 18px;
+        left: 0;
+        max-width: 53px;
+        max-height: 53px;
+        border-radius: 0;
+      }
+    }
+  }
   .message-unread-count {
     position: absolute;
-    top: 5px;
-    left: 55px;
+    top: 14px;
+    left: 42px;
     padding: 0 5px;
-    background: #e8413d;
-    border-radius: 10px;
+    background: @brand-success;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 17px;
   }
   .message-body {
-    padding-left: 13px;
+    line-height: 22px;
+    .message-title {
+      color: #333;
+      font-size: 16px;
+    }
+    .last-time {
+      color: #e7e7e7;
+      font-size: 14px;
+    }
+    .message-content{
+      padding-top: 4px;
+      color: #5d5d5d;
+      font-size: 14px;
+    }
   }
 }
 .message-list-view{
+  .content {
+    background-color: #ebebeb;
+  }
   .message-list {
     background-color: transparent;
     .message-item {
@@ -1449,24 +1485,22 @@ body.keyboard-open .platform-android .content.overflow-scroll {
       .message-time {
         text-align: center;
         padding-bottom: 15px;
+        color: #939393;
       }
       .message-body {
         position: relative;
-        padding-left: 72px;
-        min-height: 72px;
+        padding: 0 42px;
         img {
           position: absolute;
-          top: 16px;
-          left: 16px;
+          left: 0;
           max-width: 40px;
           max-height: 40px;
           width: 100%;
-          border-radius: 50%;
         }
         .status-unread {
           position: absolute;
-          top: 5px;
-          left: 55px;
+          top: -5px;
+          left: 37px;
           width: 10px;
           height: 10px;
           background: #e8413d;
@@ -1476,15 +1510,19 @@ body.keyboard-open .platform-android .content.overflow-scroll {
           position: relative;
           display: inline-block;
           margin-left: 12px;
-          padding: 15px;
+          padding: 14px 10px;
           background-color: #fff;
           border-radius: 6px;
-          &:before{
-            content: "<";
+          white-space: normal;
+          color: #5d5d5d;
+          font-size: 14px;
+          i {
             position: absolute;
-            top: 9px;
-            left: -10px;
-          };
+            left: -8px;
+            top: 14px;
+            font-size: 22px;
+            color: #fff;
+          }
         }
       }
     }
