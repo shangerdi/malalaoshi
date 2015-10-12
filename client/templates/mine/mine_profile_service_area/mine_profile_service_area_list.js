@@ -17,7 +17,7 @@ Template.mineProfileServiceAreaList.helpers({
 });
 Template.mineProfileServiceAreaList.events({
   'click .parent-area': function (e) {
-    var ele=e.target, id = ele.id;
+    var ele=e.target, $a = $(ele).closest('.parent-area'), id = $a[0].id;
     var area = Areas.findOne({_id:id}), query = {};
     if (area.parentCode) {
       query = {'code': area.parentCode};
