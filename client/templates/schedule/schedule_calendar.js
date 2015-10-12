@@ -209,6 +209,26 @@ var initMonthViewSwiper = function() {
     freeModeSticky: true,
     centeredSlides: true
   });
+  var _initMoreNavClass = function(s){
+    var i = s.activeIndex;
+    $(s.slides).each(function(k) {
+      var $slide = $(this);
+      if (k!=i-2) {
+        $slide.removeClass('swiper-slide-prev-prev');
+      } else {
+        $slide.addClass('swiper-slide-prev-prev');
+      }
+      if (k!=i+2) {
+        $slide.removeClass('swiper-slide-next-next');
+      } else {
+        $slide.addClass('swiper-slide-next-next');
+      }
+    });
+  };
+  cacheData.monthNavSwiper.on('init', _initMoreNavClass);
+  cacheData.monthNavSwiper.on('setTranslate', _initMoreNavClass);
+  cacheData.monthNavSwiper.on('transitionEnd', _initMoreNavClass);
+  cacheData.monthNavSwiper.on('slideChangeEnd', _initMoreNavClass);
   var _monthNavChange = function(swiper){
     var i = swiper.activeIndex, m = getCurMonth();
     i -= monthNavNumMid;
