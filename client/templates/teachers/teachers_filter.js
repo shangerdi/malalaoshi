@@ -194,12 +194,8 @@ Template.teachersFilter.helpers({
 function subjectGradeSelectVisible(sgSelectParent, disPlay){
   if(disPlay == 'block'){
     sgSelectParent.css('display', 'block');
-
-    //$('#subjectGradeTitle').parent().css('width', '100%');
   }else if(disPlay == 'none'){
     sgSelectParent.css('display', 'none');
-
-    //$('#subjectGradeTitle').parent().css('width', '95%');
   }
 }
 
