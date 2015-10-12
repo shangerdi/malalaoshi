@@ -47,7 +47,11 @@ function genCommentStarsVal(self){
   return score;
 }
 function doPrice(self){
-  return TeacherAudit.getTeacherUnitPrice(self._id);
+  try {
+    return TeacherAudit.getTeacherUnitPrice(self._id);
+  } catch(e) {
+    return 'X.XX';
+  }
   // return accounting.formatNumber(self.profile.price, 0);
 }
 Template.teacherItem.helpers({

@@ -18,9 +18,6 @@ Template.studentScheduleCourses.helpers({
   getCourseTime: function(timestamp) {
     return moment(timestamp).format('YYYY年MM月DD日');
   },
-  convMinutes2Str: function(mins) {
-    return ScheduleTable.convMinutes2Str(mins);
-  },
   getAvatarUrl: function(userId) {
     var user = Meteor.users.findOne(userId);
     if (user && user.profile) {

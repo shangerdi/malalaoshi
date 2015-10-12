@@ -29,9 +29,6 @@ Template.order.helpers({
   timePhases: function() {
     return this.order._id ? this.order.phases : Session.get("phases");
   },
-  convMinutes2Str: function(mins) {
-    return ScheduleTable.convMinutes2Str(mins);
-  },
   weekdayText: function(d) {
     return '每周'+ScheduleTable.dayNumWords[d];
   },
