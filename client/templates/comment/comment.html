@@ -27,7 +27,7 @@
             <div>
               <div class="course-attendance-comment-evaluate-i">
                 {{#each maStars}}
-                  <i class="icon {{starClass this.value}}" data-index="{{this.index}}" name="maDu"></i>
+                  <img src="/images/{{starImage this.value}}" data-index="{{this.index}}" name="maDu"/>
                 {{/each}}
               </div>
               <div>麻度（上课老好了，一学就会）</div>
@@ -35,7 +35,7 @@
             <div>
               <div class="course-attendance-comment-evaluate-i">
                 {{#each laStars}}
-                  <i class="icon {{starClass this.value}}" data-index="{{this.index}}" name="laDu"></i>
+                  <img src="/images/{{starImage this.value}}" data-index="{{this.index}}" name="laDu"/>
                 {{/each}}
               </div>
               <div>辣度（老师太棒了，必须点赞）</div>

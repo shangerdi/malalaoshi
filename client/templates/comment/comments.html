@@ -11,9 +11,9 @@
     {{#ionContent class="view-page-common"}}
       <div class="view-both-side-margin comments-page-total-score">
         <div>
-          <div>
+          <div class="comments-stars">
             {{#each commentStars}}
-              <i class="icon {{starClass this}}"></i>
+              <img src="/images/{{starImage this}}" />
             {{/each}}
           </div>
           <div>共{{totalComments}}人评价</div>
@@ -71,9 +71,9 @@
       <div class="comments-page-comment-avt"><img src="{{userAvt}}" class="img-responsive img-circle"></div>
       <div class="comments-page-comment-head">
         <div>
-          <div>
+          <div class="comments-stars">
             {{#each commentStars}}
-              <i class="icon {{starClass this}}"></i>
+              <img src="/images/{{starImage this}}" />
             {{/each}}
           </div>
           <div>

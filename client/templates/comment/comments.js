@@ -100,8 +100,8 @@ Template.comments.helpers({
     laCount = _.isNumber(laCount) ? laCount : 0;
     return maCount + laCount;
   },
-  starClass: function(val){
-    return val == 3 ? "ion-ios-star" : val == 2 ? "ion-ios-star-half" : val == 1 ? "ion-ios-star-outline" : "";
+  starImage: function(val){
+    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   },
   maScore: function(){
     var maScore = this.teacher.profile.maScore;
@@ -198,8 +198,8 @@ Template.commentsDetailShow.helpers({
     laScore = _.isNumber(laScore) ? laScore : 0;
     return genScoreStarsAry((maScore + laScore)/2, 5);
   },
-  starClass: function(val){
-    return val == 3 ? "ion-ios-star" : val == 2 ? "ion-ios-star-half" : val == 1 ? "ion-ios-star-outline" : "";
+  starImage: function(val){
+    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   },
   createDate: function(){
     return this.comment ? moment(this.comment.createdAt).format('YYYY年MM月DD日') : "";

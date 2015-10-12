@@ -1,4 +1,9 @@
 <template name="index">
+
+  {{#contentFor "headerTitle"}}
+    <div class="app-index-head"><img src="/images/malalaoshi.png"/></div>
+  {{/contentFor}}
+
   {{#ionView}}
     {{#ionContent class="index-page"}}
       {{#if $eq currentUser.role 'teacher'}}

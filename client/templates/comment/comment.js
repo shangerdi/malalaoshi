@@ -64,8 +64,8 @@ Template.comment.helpers({
   laStars: function(){
     return Session.get("commentLaDuStars");
   },
-  starClass: function(val){
-    return val ? "ion-ios-star" : "ion-ios-star-outline";
+  starImage: function(val){
+    return val ? "star_h.png" : "star_normal.png";
   },
   commented: function(){
     return this.courseAttendance && this.courseAttendance.state == 3;
@@ -83,11 +83,11 @@ Template.comment.events({
       scrollTop: $('textarea').offset().top
     }, 500);
   },
-  'click i[name="maDu"]': function(e){
+  'click img[name="maDu"]': function(e){
     e.preventDefault();
     Session.set("commentMaDuStars", genStarsAry(this.index));
   },
-  'click i[name="laDu"]': function(e){
+  'click img[name="laDu"]': function(e){
     e.preventDefault();
     Session.set("commentLaDuStars", genStarsAry(this.index));
   },
