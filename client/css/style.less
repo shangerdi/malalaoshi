@@ -1104,13 +1104,104 @@ input[type=text].browser {
     }
   }
 }
+.subjects-edit-modal {
+  .bar {
+    width: auto;
+    left: @page-padding;
+    right: @page-padding;
+    color: #333;
+    border-bottom-color: #707070;
+    button.button-icon {
+      position: absolute;
+      left: 0;
+      .icon:before {
+        font-size: 40px;
+      }
+    }
+  }
+}
 .subjects-edit-component {
+  padding-left: @page-padding;
+  padding-right: @page-padding;
   .selected-subjects{
-    min-height: 30px;
-    line-height: 30px;
+    padding: @page-padding;
+    min-height: 65px;
+    text-align: center;
+    .subject {
+      display: inline-block;
+      padding: 10px;
+      color: @brand-success;
+      border: 1px solid @brand-success;
+      border-radius: 4px;
+      margin-left: 14px;
+      &:first-child{
+        margin-left: 0;
+      }
+      &.empty {
+        width: 78px;
+        border: 1px dashed #e5e5e5;
+      }
+    }
   }
   .subjects-selecting-area {
-
+    .nav-tabs {
+      border-top: 1px solid #707070;
+      border-bottom: 1px solid #707070;
+      text-align: center;
+      li {
+        width: 33%;
+      }
+      li > a {
+        border: 0;
+        background: none;
+        color: #939393;
+        padding-left: @page-padding;
+        padding-right: @page-padding;
+      }
+      li.active > a {
+        border-bottom: 2px solid @brand-success;
+        color: #333;
+      }
+    }
+    .panel {
+      margin-top: 0px;
+    }
+    .panel-heading {
+      padding: 14px;
+      border-bottom: 1px solid #e5e5e5;
+      a {
+        display: block;
+        color: #5d5d5d;
+        .arrows {
+          display: inline-block;
+          float: right;
+          font-size: 20px;
+        }
+        .down {
+          display: none;
+        }
+        &.collapsed {
+          .up {
+            display: none;
+          }
+          .down {
+            display: inline-block;
+          }
+        }
+      }
+    }
+    .subject-item {
+      margin-left: 26px;
+      padding: 14px;
+      border-bottom: 1px solid #e5e5e5;
+      color: #939393;
+      a {
+        float: right;
+        color: #939393;
+        cursor: pointer;
+        padding-right: 1px;
+      }
+    }
   }
 }
 .mine-profile-view {

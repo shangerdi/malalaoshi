@@ -24,7 +24,11 @@ Template.subjectsEditComponent.onRendered(function(){
 });
 Template.subjectsEditComponent.helpers({
   selectedSubjects: function() {
-    return getSelectedSubjects();
+    var a = getSelectedSubjects();
+    for (var i=a.length; i<maxSubjectsCount; i++) {
+      a.push({empty:true});
+    }
+    return a;
   },
   getSubjectStr: function(obj) {
     return getSubjectStr(obj);
