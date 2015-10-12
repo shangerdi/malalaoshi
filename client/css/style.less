@@ -996,42 +996,56 @@ input[type=text].browser {
 @progressOkColor: green;
 .apply-progress {
   .progress-row {
+    position: relative;
+    margin: 17px 14px 0 14px;
     padding-left: 40px;
     .progress-mark {
       position: absolute;
       left: 0;
       .flag {
         position: absolute;
+        width: 30px;
+        height: 30px;
         font-size: 30px;
         line-height: 30px;
-        top: -5px;
+        top: 33px;
       }
       .v-line {
         position: absolute;
-        border: 1px solid @bodyTextColor;
-        height: 70px;
-        top: 20px;
-        left: 12px;
-      }
-    }
-    &.ok {
-      .flag{
-        color: @progressOkColor;
-      }
-      .v-line{
-        border-color: @progressOkColor;
+        border: 1px solid @brand-success;
+        height: 120px;
+        top: 59px;
+        left: 14px;
       }
     }
     &.fail {
-      .flag{
-        color: @progressOkColor;
-      }
       .hint-info{
         color: red;
       }
     }
-    &:last-child .v-line {
-      display: none;
+    .progress-info {
+      position: relative;
+      margin-left: 12px;
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 6px;
+      i {
+        position: absolute;
+        left: -14px;
+        top: 28px;
+        font-size: 44px;
+        color: #fff;
+      }
+      h4{
+        color: #333;
+      }
+      .time-info {
+        font-size: 14px;
+        color: #939393;
+      }
+      .hint-info{
+        color: #5d5d5d;
+      }
     }
   }
   &.apply-info {

@@ -18,6 +18,10 @@ var isPassed = function() {
   var auditObj = getAuditObj();
   return auditObj && (auditObj.applyStatus==='passed' || auditObj.applyStatus==='started');
 }
+Template.applicationProgress.onRendered(function(){
+  var $con = $('.apply-progress .content'), $lastVLine = $(".progress-row:last-child .v-line");
+  $lastVLine.height($con.height()+$con.offset().top-$lastVLine.offset().top-2);
+});
 Template.applicationProgress.helpers({
   getClass: function(step) {
     if (step==='register') {
@@ -38,6 +42,27 @@ Template.applicationProgress.helpers({
       return 'ok';
     }
   },
+  getFlagImg: function(step) {
+    var src = '/images/apply/', ok = '-ok.png';
+    if (step==='register') {
+      return src+step+ok;
+    }
+    if (step==='submit' && isProfileSubmited()) {
+      return src+step+ok;
+    }
+    if (step==='audit') {
+      if (isProfileAudited()) {
+        return src+step+ok;
+      }
+      if (isProfileAuditedFail()) {
+        return src+'fail.png';
+      }
+    }
+    if (step==='complete' && isPassed()) {
+      return src+step+ok;
+    }
+    return src+step+'-todo.png';
+  },
   getTime: function(step) {
     if (step==='register') {
       return moment(Meteor.user().createdAt).fromNow();
@@ -50,7 +75,7 @@ Template.applicationProgress.helpers({
       if (isProfileAudited() || isProfileAuditedFail()) {
         return moment(auditObj.basicInfo.auditTime).fromNow();
       }
-      return "...";
+      return "";
     }
     if (step==='complete' && isPassed()) {
       return moment(auditObj.auditTime).fromNow();
