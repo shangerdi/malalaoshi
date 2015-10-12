@@ -2,8 +2,8 @@
     <div class="subjects-edit-component">
       <div class="selected-subjects">
         {{#each selectedSubjects}}
-          <span class="subject" s="{{this.stage}}" grade="{{this.grade}}" subject="{{this.subject}}">
-            <a>{{getSubjectStr this}}</a>
+          <span class="subject {{#if this.empty}}empty{{/if}}" stage="{{this.stage}}" grade="{{this.grade}}" subject="{{this.subject}}">
+            <a>{{#if this.empty}}&nbsp;{{else}}{{getSubjectStr this}}{{/if}}</a>
           </span>
         {{/each}}
       </div>
@@ -22,12 +22,18 @@
             <div role="tabpanel" class="tab-pane panel-group" id="{{this.key}}">
               <div class="panel">
                 <div class="panel-heading" role="tab" id="heading{{this.key}}">
-                  <a role="button" data-toggle="collapse" data-parent="#{{this.key}}" href="#collapse{{this.key}}_all" aria-controls="collapse{{this.key}}_all">{{this.text}}</a>
+                  <a role="button" data-toggle="collapse" data-parent="#{{this.key}}" href="#collapse{{this.key}}_all" aria-controls="collapse{{this.key}}_all">
+                    {{this.text}}
+                    <div class="arrows">
+                      <img class="up" src="/images/panel-up.png" width="20" height="11">
+                      <img class="down" src="/images/panel-down.png" width="20" height="11">
+                    </div>
+                  </a>
                 </div>
                 <div id="collapse{{this.key}}_all" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{this.key}}_all">
                   {{#each getEduSubjects this.key 'all'}}
                     <div class="subject-item" stage="{{../key}}" grade="all" subject="{{this.key}}">
-                      <span>{{this.text}}</span><a class="btn-add-subject"><span class="ion-plus"></span></a>
+                      <span>{{this.text}}</span><a class="btn-add-subject"><img src="/images/plus.png" width="18" height="18"></a>
                     </div>
                   {{/each}}
                 </div>
@@ -35,12 +41,18 @@
               {{#each getEduGrades this.key}}
                 <div class="panel">
                   <div class="panel-heading" role="tab" id="heading{{this.key}}">
-                    <a role="button" data-toggle="collapse" data-parent="#{{../key}}" href="#collapse{{this.key}}" aria-controls="collapse{{this.key}}">{{this.text}}</a>
+                    <a role="button" data-toggle="collapse" data-parent="#{{../key}}" href="#collapse{{this.key}}" aria-controls="collapse{{this.key}}">
+                      {{this.text}}
+                      <div class="arrows">
+                      <img class="up" src="/images/panel-up.png" width="20" height="11">
+                      <img class="down" src="/images/panel-down.png" width="20" height="11">
+                      </div>
+                    </a>
                   </div>
                   <div id="collapse{{this.key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{this.key}}">
                     {{#each getEduSubjects ../key this.key}}
                       <div class="subject-item" stage="{{../../key}}" grade="{{../key}}" subject="{{this.key}}">
-                        <span>{{this.text}}</span><a class="btn-add-subject"><span class="ion-plus"></span></a>
+                        <span>{{this.text}}</span><a class="btn-add-subject"><img src="/images/plus.png" width="18" height="18"></a>
                       </div>
                     {{/each}}
                   </div>

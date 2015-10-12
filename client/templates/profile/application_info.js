@@ -16,8 +16,21 @@ var getSubjectStr = function(obj) {
   }
   return s;
 }
+var updateCheckedCity = function() {
+  $(".city label").each(function(){
+    var $label = $(this), input = $label.find('input')[0];
+    $label.find('img')[0].src = '/images/checked'+(input.checked?'':'_none')+'.png';
+  });
+}
+var updateCheckedGender = function() {
+  $(".gender label").each(function(){
+    var $label = $(this), input = $label.find('input')[0], isMale = (input.value==='男');
+    var imgSrc = '/images/'+(isMale?'male':'female')+(input.checked?'':'_gray')+'.png';
+    $label.find('img')[0].src = imgSrc;
+  });
+}
 Template.applicationInfo.onRendered(function(){
-  var n=6, u=44, width=u*n;
+  var n=4, u=44, width=u*n;
   this.teachingAgeSwiper = new Swiper('.swiper-container', {
     slidesPerView: n,
     width: width,
@@ -30,6 +43,27 @@ Template.applicationInfo.onRendered(function(){
     centeredSlides: true
   });
   $(".swiper-wrapper").width(width);
+  $(".swiper-container").width((2*n-1)*u);
+  var _initMoreNavClass = function(s){
+    var i = s.activeIndex;
+    $(s.slides).each(function(k) {
+      var $slide = $(this);
+      if (k!=i-2) {
+        $slide.removeClass('swiper-slide-prev-prev');
+      } else {
+        $slide.addClass('swiper-slide-prev-prev');
+      }
+      if (k!=i+2) {
+        $slide.removeClass('swiper-slide-next-next');
+      } else {
+        $slide.addClass('swiper-slide-next-next');
+      }
+    });
+  };
+  this.teachingAgeSwiper.on('init', _initMoreNavClass);
+  this.teachingAgeSwiper.on('setTranslate', _initMoreNavClass);
+  this.teachingAgeSwiper.on('transitionEnd', _initMoreNavClass);
+  this.teachingAgeSwiper.on('slideChangeEnd', _initMoreNavClass);
   // init teachingAge
   var teachingAge = Meteor.user().profile.teachingAge;
   if (teachingAge) {
@@ -51,6 +85,8 @@ Template.applicationInfo.onRendered(function(){
   } else {
     $("input[name=city][value=other]").attr("checked", true);
   }
+  updateCheckedCity();
+  updateCheckedGender();
 });
 Template.applicationInfo.helpers({
   teachYearNums: function() {
@@ -127,12 +163,19 @@ Template.applicationInfo.events({
     });
   },
   'click input': function(e) {
+    var ele = e.target;
+    var name = ele.name;
+    if (name==='city') {
+      updateCheckedCity();
+    }
+    if (name==='gender') {
+      updateCheckedGender();
+    }
+    // clear error msg
     var errors = Session.get("errors");
     if (!errors) {
       return;
     }
-    var ele = e.target;
-    var name = ele.name;
     errors[name]='';
     Session.set("errors", errors);
   }

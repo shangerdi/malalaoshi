@@ -34,7 +34,8 @@ Template.messageList.helpers({
     return Messages.find({userId: userId, type: type}, {sort: {createdAt: 1}});
   },
   'getIcon': function() {
-
+    var type = getType();
+    return '/images/message/'+type+'.png';
   },
   'getTitle': function() {
     var type = getType();
