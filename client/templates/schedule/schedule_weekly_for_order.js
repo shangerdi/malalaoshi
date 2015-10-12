@@ -1,4 +1,3 @@
-var convMinutes2Str = ScheduleTable.convMinutes2Str;
 Template.scheduleWeeklyForOrder.onCreated(function() {
   // define cache data
   this.cacheData = this.cacheData || {};
@@ -33,9 +32,6 @@ Template.scheduleWeeklyForOrder.helpers({
   },
   days: function() {
     return ScheduleTable.days;
-  },
-  convMinutes2Str: function(mins) {
-    return convMinutes2Str(mins);
   },
   getPhaseState: function(i, start, end) {
     var teacherId = Template.instance().cacheData.teacherId, tct = TeacherAvailableTimes.findOne({"teacher.id": teacherId});

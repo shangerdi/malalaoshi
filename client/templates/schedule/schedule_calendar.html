@@ -35,7 +35,7 @@
               <div class="col-xs-4 col-sm-4 col-md-3 amonth" data-month="{{this}}">
                 <a>{{this}}月</a>
                 <table class="table">
-                  <!-- <thead><tr class="week-row">{{#each weekdays}}<td class="{{getWeekdayClass this}}">{{weekdayText this}}</td>{{/each}}</tr></thead> -->
+                  <!-- <thead><tr class="week-row">{{#each weekdays}}<td>{{weekdayText this}}</td>{{/each}}</tr></thead> -->
                   <tbody>
                     {{#each weekrows this}}
                     <tr>
@@ -75,7 +75,7 @@
             <div class="swiper-slide"><div class="prev-month">上个月</div></div>
             <div class="swiper-slide">
               <table class="table">
-                <thead><tr class="week-row">{{#each weekdays}}<td class="{{getWeekdayClass this}}">{{weekdayText this}}</td>{{/each}}</tr></thead>
+                <thead><tr class="week-row">{{#each weekdays}}<td>{{weekdayText this}}</td>{{/each}}</tr></thead>
                 <tbody>
                   {{#each weekrows}}
                   <tr>
@@ -93,9 +93,24 @@
       </div>
       <div class="course-items">
         <h4 class="title">课程安排</h4>
-        <table class="table course-items-table">
-          <!-- <tr><td>10:30~12:30</td><td>王琳琳</td><td>初三英语</td><td>学习中心</td></tr> -->
-        </table>
+        {{#ionList}}
+          {{#each courseList}}
+            {{#ionItem}}
+              <div class="clearfix teacher-info">
+                <div class="pull-left">
+                  {{#if $eq currentUser.role 'teacher'}}{{this.student.name}}{{else}}{{this.teacher.name}}{{/if}}
+                  ({{this.detail.subject}})
+                </div>
+                <div class="pull-right">{{formatDate this.attendTime 'MM-DD'}}</div>
+              </div>
+              <div class="clearfix comment-info">星级评价TODO</div>
+              <div class="clearfix attend-info">
+                <div class="pull-left">{{convMinutes2Str this.phase.start}}-{{convMinutes2Str this.phase.end}}</div>
+                <div class="pull-right">{{getCourseStateStr this}}</div>
+              </div>
+            {{/ionItem}}
+          {{/each}}
+        {{/ionList}}
       </div>
     </div>
     <!-- {{/if}} -->

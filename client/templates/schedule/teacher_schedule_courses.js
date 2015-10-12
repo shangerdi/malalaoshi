@@ -5,9 +5,6 @@ Template.teacherScheduleCourses.helpers({
   getCourseTime: function(timestamp) {
     return moment(timestamp).format('MM月DD日');
   },
-  convMinutes2Str: function(mins) {
-    return ScheduleTable.convMinutes2Str(mins);
-  },
   getStateStr: function(item) {
     var now = new Date(), nowTime = now.getTime();
     if (nowTime>=item.attendTime && nowTime<item.endTime) {
