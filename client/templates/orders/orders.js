@@ -43,7 +43,7 @@ Template.orders.helpers({
     return this.createdAt && (momentTime = moment(this.createdAt)) ? (new Date().getTime() - this.createdAt) < 79200000 ? momentTime.fromNow() : momentTime.fromNow() + " " + momentTime.format('HH:mm') : "";
   },
   courseHour: function(){
-    return this.hour ? this.hour : "";
+    return this.hour ? this.hour * 2 : "";
   },
   payMoney: function(){
     return this.cost ? accounting.formatNumber(this.cost, 2) : "";
@@ -60,6 +60,10 @@ Template.orders.helpers({
       }
     }
     return false;
+  },
+  teacherAvt: function(){
+    var tc = Meteor.users.findOne({_id: this.teacher.id});
+    return tc && tc.profile ? tc.profile.avatarUrl : "";
   }
 });
 Template.orders.events({

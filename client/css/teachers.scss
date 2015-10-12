@@ -529,8 +529,6 @@ $indexBorderColor: #E6E6E6;
 
 .orders-detail{
   width: 100%;
-  padding-right: $pagepadding;
-  padding-left: $pagepadding;
   float: left;
   background-color: $appBackGroundColor;
   > div{
@@ -541,29 +539,66 @@ $indexBorderColor: #E6E6E6;
   }
 }
 .orders-detail-order{
+  clear: both;
+  margin-top: 10px;
   color: #000;
   font-size: 16px;
   font-weight: 400;
+  padding-right: $pagepadding;
+  padding-left: $pagepadding;
+  background-color: #FFFFFF;
+  padding-top: 16.7px;
   > div:first-child{
-    float: right;
+    float: left;
+    width: 76.7px;
+    min-height: 76.7px;
     font-size: 15px;
     color: $greyColor;
     white-space:nowrap;
+    margin-bottom: 5px;
+    img{
+      width: 66.7px;
+    }
   }
   > div:nth-child(2){
-    margin-top: 15px;
-    color: #000;
-    font-size: 17px;
-  }
-  > div:nth-child(3){
-    margin-top: 10px;
+    width: auto;
+    > div:first-child{
+      float: right;
+      margin-top: 5px;
+      text-align: right;
+      > div:last-child{
+        margin-top: 7px;
+      }
+    }
+    > div:last-child{
+      margin-top: 10px;
+      float: left;
+      > div:last-child{
+        margin-top: 8px;
+      }
+    }
   }
   > div:last-child{
-    text-align: right;
-    .button{
-      min-height: 30px;
+    line-height: 50px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 100%;
+    margin-top: -20px;
+    > div:first-child{
+      float: right;
+      text-align: right;
       line-height: 30px;
-      margin-left: 10px;
+      margin-top: 10px;
+      width: auto;
+      white-space:nowrap;
+      .button{
+        min-height: 30px;
+        line-height: 30px;
+        margin-left: 10px;
+      }
+    }
+    > div:last-child{
+      float: left;
     }
   }
 }
@@ -1799,5 +1834,31 @@ body>.sticky-nav{
 .comments-stars{
   img{
     width: 17px;
+  }
+}
+.mala-top-tab-nav{
+  > .tabs .tab-item{
+    line-height: 49px;
+  }
+  .tabs{
+    .tab-item{
+      line-height: 49px;
+      color: #000000;
+      display: inline-block;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .active{
+      color: #E8413E;
+      border-color: #E8413E;
+    }
+  }
+  a{
+    text-align: center;
+  }
+}
+.orders-top-nav{
+  a{
+    width: 50%;
   }
 }
