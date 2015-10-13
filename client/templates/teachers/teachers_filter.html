@@ -22,7 +22,7 @@
         {{#ionItem class="selectTeachSubjectTeachersFilter"}}
           {{> Template.dynamic template=selectTeachSubjectTeachersFilter}}
         {{/ionItem}}
-        {{#ionItem class="teachers-filter-head"}}
+        {{#ionItem class="teachers-filter-head teachers-filter-top-border"}}
         <div id="studyPlace">
           <div>
             <span class="index-page-title-head">
@@ -32,35 +32,26 @@
         </div>
         {{/ionItem}}
         {{#ionItem}}
+        <div class="study-address">
+          <img src="/images/location.png" />
+          <span>{{studyAddress}}</span>
+        </div>
+        {{/ionItem}}
+        {{#ionItem class="teachers-filter-head teachers-filter-top-border"}}
         <div>
-          <div>
-              <div class="study-address">
-                <i id="searchIcon" class="icon ion-ios-location location-map-info-i-select"></i>
-                <span>
-                  {{studyAddress}}
-                </span>
-              </div>
-          </div>
+          <span class="index-page-title-head">
+            上课方式
+          </span>
         </div>
         {{/ionItem}}
         {{#ionItem class="teachers-filter-head"}}
-        <div>
-          <div>
-            <span class="index-page-title-head">
-              选择上课位置
-            </span>
-
-            <div class="teacher-way-select2">
-              <div id="teacherWayStudyCenter">
-                <i class="icon ion-home"></i>
-                <span>学习中心</span>
-              </div>
-              <div id="teacherWayGoHome">
-                <i class="icon ion-android-people"></i>
-                <span>老师上门</span>
-              </div>
-            </div>
-          </div>
+        <div id="teacherWayStudyCenter">
+          <img src="/images/{{activeImg 'studyCenter'}}"/>
+          <span>学习中心</span>
+        </div>
+        <div id="teacherWayGoHome">
+          <img src="/images/{{activeImg 'goHome'}}"/>
+          <span>老师上门</span>
         </div>
         {{/ionItem}}
         <div id="teachersFilterNearestStudyCenter">

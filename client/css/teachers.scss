@@ -861,7 +861,7 @@ $indexBorderColor: #E6E6E6;
   width: 100%;
 }
 .page-view{
-  background-color: #FFFFFF;
+  background-color: $appBackGroundColor;
   text-align: center;
 }
 .page-view > div{
@@ -874,24 +874,68 @@ $indexBorderColor: #E6E6E6;
 .page-view .item:last-child{
   border-bottom: none;
 }
-.page-view .item{
-  border-top: 0;
-  padding-left: 0;
-  padding-right: 0;
-  border-right: 0;
-  border-left: 0;
-}
-.page-view .item{
-  margin: 0 auto;
-  width: 95%;
-}
-.page-view .item:nth-child(2){
-  width: 100%;
-}
-.page-view .item:nth-child(n+4){
-  border-bottom: 0;
-  padding-bottom: 0;
-  margin-bottom: 20px;
+.page-view{
+  .item{
+    border-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    border-right: 0;
+    border-left: 0;
+    margin: 0 auto;
+  }
+  .item:nth-child(2){
+    width: 100%;
+  }
+  .item:nth-child(n+4){
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .item:nth-child(3){
+    cursor: pointer;
+  }
+  .item:nth-child(4){
+    cursor: pointer;
+    padding-top: 0;
+    margin-bottom: 0;
+    img{
+      height: 21px;
+      vertical-align: middle;
+    }
+    > div{
+      padding-top: 0;
+    }
+  }
+  .item:nth-child(5){
+    > div{
+      height: 33px;
+    }
+  }
+  .item:nth-child(6){
+    background-color: #FFFFFF;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    span{
+      display: block;
+      color: #5D5D5D;
+      font-size: 12.7px;
+      margin-top: 3px;
+    }
+    img{
+      height: 28px;
+    }
+    > div{
+      cursor: pointer;
+      width: 50%;
+    }
+    > div:first-child{
+      float: left;
+    }
+    > div:last-child{
+      float: right;
+      border-left: solid 1px;
+      border-color: #E5E5E5;
+    }
+  }
 }
 .teachers-filter{
   > div{
@@ -907,6 +951,10 @@ $indexBorderColor: #E6E6E6;
     > div{
       padding-top: 6px;
     }
+  }
+  .teachers-filter-top-border{
+    border-top: solid 1px;
+    border-color: #E5E5E5;
   }
   .teachers-filter-head{
     width: 100%;
@@ -997,14 +1045,15 @@ $indexBorderColor: #E6E6E6;
   margin-bottom: 50px;
 }
 .study-address{
-  font-size: 20px;
-  margin-top: -7px;
-  margin-bottom: -10px;
-}
-.study-address span{
-  margin-left: 2px;
-  font-size: 15px;
-  color: #988c8d;
+  font-size: 19px;
+  height: 44px;
+  line-height: 44px;
+  vertical-align: middle;
+  span{
+    margin-left: 2px;
+    font-size: 15px;
+    color: #988c8d;
+  }
 }
 .teacher-way-select2{
   width: 230px;

@@ -71,13 +71,13 @@ Template.teachersFilter.onRendered(function(){
   var self = this;
   self.autorun(function(){
     var way = Session.get('teachersTeacherWay');
-    $('#teacherWayStudyCenter').css("color","#988c8d");
-    $('#teacherWayGoHome').css("color","#988c8d");
+    $('#teacherWayStudyCenter span').css("color","#5D5D5D");
+    $('#teacherWayGoHome span').css("color","#5D5D5D");
 
     if(way == "goHome"){
-      $('#teacherWayGoHome').css("color","#000000");
+      $('#teacherWayGoHome span').css("color","#e8413d");
     }else if(way == "studyCenter"){
-      $('#teacherWayStudyCenter').css("color","#000000");
+      $('#teacherWayStudyCenter span').css("color","#e8413d");
     }
   });
   self.autorun(function(){
@@ -155,6 +155,14 @@ Template.teachersFilter.onCreated(function () {
   Session.set("selectTeachSubjectTeachersFilter", null);
 });
 Template.teachersFilter.helpers({
+  activeImg: function(type){
+    var way = Session.get('teachersTeacherWay');
+    if(type == "goHome"){
+      return way == "goHome" ? "teacher-gohome-active.png" : "teacher-gohome.png";
+    }else if(type == "studyCenter"){
+      return way == "studyCenter" ? "study-center-active.png" : "study-center.png";
+    }
+  },
   selectTeachSubjectTeachersFilter: function(){
     return Session.get("selectTeachSubjectTeachersFilter");
   },
@@ -210,7 +218,7 @@ Template.teachersFilter.events({
       subjectGradeSelectVisible(sgSelectParent, sgSelectParent.css('display') == 'block' ? 'none' : 'block');
     }
   },
-  'click #studyPlace': function(e){
+  'click .study-address, click #studyPlace': function(e){
     e.preventDefault();
     Router.go("map");
   },
