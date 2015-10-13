@@ -35,7 +35,7 @@ Template.teacher.onRendered(function(){
   });
   $('.sticky-nav a').click(function(e) {
     e.preventDefault();
-    var des = $(e.target.getAttribute('href'));
+    var des = $(e.target).closest('a').attr('href');
     $('.teacher-detail').scrollTo(des);
   });
 });
@@ -43,12 +43,6 @@ Template.teacher.onDestroyed(function(){
   $('body>.sticky-nav').remove();
 });
 Template.teacher.helpers({
-  genderFemale: function(v){
-    return this.user.profile && this.user.profile.gender == '女';
-  },
-  genderMale: function(){
-    return this.user && this.user.profile && this.user.profile.gender == '男';
-  },
   subject: function(){
     var stage = "", subject = "";
     var retStr = "";
@@ -106,13 +100,16 @@ Template.teacher.helpers({
   personalPhoto: function(){
     return this.teacherAudit && this.teacherAudit.personalPhoto ? this.teacherAudit.personalPhoto : [];
   },
-  maDu: function(){
-    return accounting.formatNumber(this.user && this.user.profile && this.user.profile.maCount
-      && this.user.profile.maScore ? this.user.profile.maScore/this.user.profile.maCount : 0, 1);
+  maDuStars: function(){
+    return genScoreStarsAry(this.user && this.user.profile && this.user.profile.maCount
+      && this.user.profile.maScore ? this.user.profile.maScore/this.user.profile.maCount : 0, 5);
   },
-  laDu: function(){
-    return accounting.formatNumber(this.user && this.user.profile && this.user.profile.laCount
-      && this.user.profile.laScore ? this.user.profile.laScore/this.user.profile.laCount : 0, 1);
+  laDuStars: function(){
+    return genScoreStarsAry(this.user && this.user.profile && this.user.profile.laCount
+      && this.user.profile.laScore ? this.user.profile.laScore/this.user.profile.laCount : 0, 5);
+  },
+  starImage: function(val){
+    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   },
   teacherStudyCenters: function(){
     var pointBasic = Session.get("locationLngLat");

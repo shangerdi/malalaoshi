@@ -1,40 +1,36 @@
 <template name="teacher">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton class="button-clear button-light" text=" "}}
-  {{/contentFor}}
-
-  {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title">老师详情</h1>
-  {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent class="teacher-detail with-bottom-btn"}}
-      <div class="above-tabs">
+      <div class="teacher-detail-top">
+        <div>
+          老师详情
+        </div>
         <div class="teacher-detail-head" id="teacherDetailHead">
           <div>
             <img src="{{user.profile.avatarUrl}}" class="img-responsive img-circle">
           </div>
           <div>
-            {{user.profile.name}} {{#if genderMale}}<i class="icon ion-male"></i>{{else}}{{#if genderFemale}}<i class="icon ion-female"></i>{{/if}}{{/if}}
+            {{user.profile.name}}
           </div>
           <div>{{user.profile.selfIntro}}</div>
         </div>
-        <div class="star-content row" id="teacherStarContent">
-          <div class="col-xs-6">
-            <p>麻度 {{maDu}}分</p>
-            <p>上课老好了，一学就会</p>
-          </div>
-          <div class="col-xs-6">
-            <p>辣度 {{laDu}}分</p>
-            <p>老师太棒了，必须点赞</p>
-          </div>
+      </div>
+      <div class="star-content row" id="teacherStarContent">
+        <div class="col-xs-6">
+          <p>麻度 {{#each maDuStars}}<img src="/images/{{starImage this}}" />{{/each}}</p>
+          <p>上课老好了，一学就会</p>
+        </div>
+        <div class="col-xs-6">
+          <p>辣度 {{#each laDuStars}}<img src="/images/{{starImage this}}" />{{/each}}</p>
+          <p>老师太棒了，必须点赞</p>
         </div>
       </div>
       <div id="profileStub"></div>
       <div class="teacher-detail-tab-content sticky-nav">
         <ul class="nav">
-          <li><a href="#profileStub">个人资料</a></li>
-          <li><a id="evaluationInScroll" class="teacher-detail-tab" href="#teacherEvaluation">评价</a></li>
+          <li><a href="#profileStub"><div>个人资料</div></a></li>
+          <li><a id="evaluationInScroll" class="teacher-detail-tab" href="#teacherEvaluation"><div>评价</div></a></li>
         </ul>
       </div>
       <div class="teacher-detail-sp-info" id="teacherSpInfo">
