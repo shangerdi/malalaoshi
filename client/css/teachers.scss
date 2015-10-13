@@ -1,6 +1,7 @@
 $greyColor: #f7f7f7;
 $appBackGroundColor: #F7F7F7;
 $malaRed: #ff9290;
+$malaRed2: #e8413e;
 $pagepadding: 14px;
 $indexBorderColor: #E6E6E6;
 
@@ -409,32 +410,34 @@ $indexBorderColor: #E6E6E6;
   margin: 0 auto;
   vertical-align: bottom;
   height: auto;
-  background-color: #967878;
   padding: $pagepadding;
-}
-.teacher-detail-head > div{
-  bottom: 0;
-  display: -webkit-inline-box;
-}
-.teacher-detail-head > div > img{
-  vertical-align: middle;
-  display: inline;
-  width: 120px;
-  height: 120px;
-}
-.teacher-detail-head > div:nth-child(2){
-  display: block;
-  font-size: 24px;
-  color: #FFFFFF;
-  margin-top: 15px;
-  font-weight: 700;
-}
-.teacher-detail-head > div:last-child{
-  display: block;
-  margin-top: 10px;
-  font-size: 18px;
-  font-weight: 700;
-  color: #FFFFFF;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  > div{
+    bottom: 0;
+    display: -webkit-inline-box;
+    > img{
+      vertical-align: middle;
+      display: inline;
+      width: 84.7px;
+      height: 84.7px;
+      border: solid 2px rgba(255, 255, 255, .8);
+    }
+  }
+  > div:nth-child(2){
+    display: block;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin-top: 20px;
+    font-weight: 500;
+  }
+  > div:last-child{
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #FFFFFF;
+  }
 }
 .teacher-detail-item-head{
   width: 115px;
@@ -454,9 +457,6 @@ $indexBorderColor: #E6E6E6;
 }
 .teacher-detail-item-span{
   font-size: 17px;
-}
-.teacher-detail p{
-  line-height: 12px
 }
 .teacher-detail-submit{
   padding-bottom: 50px;
@@ -1224,32 +1224,49 @@ body>.sticky-nav{
   position:absolute;
   z-index:8;
   background-color:white;
-  top:44px;
+  top: -2px;;
   padding:0;
   display:none;
+  .nav{
+    li.active{
+      div{
+        border-style: solid;
+        border-width: 2px 0;
+        color: $malaRed2;
+        border-color: $malaRed2;
+      }
+    }
+  }
 }
 .sticky-nav .nav{
   li{
     width: 50%;
     float: left;
-    border-style: solid;
-    border-width: 2px 0;
     color: $greyColor;
     >a {
-      padding: 20px 0;
+      padding: 0;
       text-align: center;
       cursor: pointer;
-      font-size: 20px;
+      font-size: 16px;
       margin:0;
+      height: 44px;
+      > div{
+        display: inline-block;
+        height: 100%;
+        padding-top: 14.7px;
+        padding-right: 20px;
+        padding-left: 20px;
+        color: #000000;
+      }
     }
   }
-  li.active{
-    color: $malaRed;
-    border-color: $malaRed;
-  }
 }
-.teacher-detail {
-  background-color: white;
+.teacher-detail{
+  top: 0;
+  background-color: $appBackGroundColor;
+  p{
+    line-height: 12px
+  }
   >div{
     padding:0 $pagepadding;
     width:100%;
@@ -1261,25 +1278,49 @@ body>.sticky-nav{
     margin:0;
   }
   .star-content{
+    background-color: #FFFFFF;
+    img{
+      width: 12.7px;
+    }
     > div{
+      text-align: center;
       padding-top:15px;
       > p:first-child{
         color: #000000;
-        font-size: 20px;
+        font-size: 14px;
+        white-space: nowrap;
+        margin-bottom: 0;
+        > img:nth-child(n+2){
+          margin-left: 3.3px;
+        }
+        > img:first-child{
+          margin-left: 6.7px;
+        }
       }
       > p:last-child{
-        color: $greyColor;
-        margin-top: 19px;
-        font-size: 18px;
+        color: #5D5D5D;
+        margin-top: 7px;
+        font-size: 12px;
         line-height: 20px;
       }
     }
-    > div:first-child{
-      border-right: solid #a4a4a4 1px;
-    }
+  }
+  .teacher-detail-tab-content{
+    background-color: #FFFFFF;
   }
 }
-
+.teacher-detail-top{
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/mala.upload/jMYxtWmz8Q8jiBsdt/a5b1366e-0b4f-40b2-87c0-6a76c461fe64.jpeg);
+  background-size: 100% 100%;
+  background-color: transparent;
+  background-color: #967878;
+  > div:first-child{
+    text-align: center;
+    font-size: 19px;
+    padding-top: 15px;
+    color: #FFFFFF;
+  }
+}
 .teacher-detail-sp-info{
   width: 100%;
   margin-top: 25px;
