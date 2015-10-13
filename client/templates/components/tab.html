@@ -1,0 +1,21 @@
+<template name="maLaTab">
+  <a href="{{url}}" data-ion-tab>
+    {{#if defaultIcon}}
+      {{#if isActive}}
+        {{> ionIcon icon=activeIcon}}
+      {{else}}
+        {{> ionIcon icon=defaultIcon}}
+      {{/if}}
+    {{/if}}
+
+    <div class="{{classes}} {{isActive}}">
+      {{title}}
+    </div>
+
+    {{#if badgeNumber}}
+      <div class="badge badge-{{badgeColor}}">
+        {{badgeNumber}}
+      </div>
+    {{/if}}
+  </a>
+</template>

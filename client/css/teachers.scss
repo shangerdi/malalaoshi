@@ -1,5 +1,5 @@
 $greyColor: #f7f7f7;
-$appBackGroundColor: white;
+$appBackGroundColor: #F7F7F7;
 $malaRed: #ff9290;
 $pagepadding: 14px;
 $indexBorderColor: #E6E6E6;
@@ -529,8 +529,6 @@ $indexBorderColor: #E6E6E6;
 
 .orders-detail{
   width: 100%;
-  padding-right: $pagepadding;
-  padding-left: $pagepadding;
   float: left;
   background-color: $appBackGroundColor;
   > div{
@@ -541,29 +539,66 @@ $indexBorderColor: #E6E6E6;
   }
 }
 .orders-detail-order{
+  clear: both;
+  margin-top: 10px;
   color: #000;
   font-size: 16px;
   font-weight: 400;
+  padding-right: $pagepadding;
+  padding-left: $pagepadding;
+  background-color: #FFFFFF;
+  padding-top: 16.7px;
   > div:first-child{
-    float: right;
+    float: left;
+    width: 76.7px;
+    min-height: 76.7px;
     font-size: 15px;
     color: $greyColor;
     white-space:nowrap;
+    margin-bottom: 5px;
+    img{
+      width: 66.7px;
+    }
   }
   > div:nth-child(2){
-    margin-top: 15px;
-    color: #000;
-    font-size: 17px;
-  }
-  > div:nth-child(3){
-    margin-top: 10px;
+    width: auto;
+    > div:first-child{
+      float: right;
+      margin-top: 5px;
+      text-align: right;
+      > div:last-child{
+        margin-top: 7px;
+      }
+    }
+    > div:last-child{
+      margin-top: 10px;
+      float: left;
+      > div:last-child{
+        margin-top: 8px;
+      }
+    }
   }
   > div:last-child{
-    text-align: right;
-    .button{
-      min-height: 30px;
+    line-height: 50px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 100%;
+    margin-top: -20px;
+    > div:first-child{
+      float: right;
+      text-align: right;
       line-height: 30px;
-      margin-left: 10px;
+      margin-top: 10px;
+      width: auto;
+      white-space:nowrap;
+      .button{
+        min-height: 30px;
+        line-height: 30px;
+        margin-left: 10px;
+      }
+    }
+    > div:last-child{
+      float: left;
     }
   }
 }
@@ -580,14 +615,18 @@ $indexBorderColor: #E6E6E6;
   color: #ef473a;
 }
 .teachers-grid-view{
-  background-color: #ffffff;
+  background-color: $appBackGroundColor;
+  .teachers-recommend-item{
+    margin: 5.7px 6.7px 6.7px 6.7px;
+    background-color: #FFFFFF;
+  }
 }
 .teacher-div > div:first-child{
   margin: 5px;
   border: solid #919191 1px;
 }
 .teacher-div > div > div:first-child{
-  text-align: right;
+  text-align: left;
 }
 .teachers-grid{
   clear: both;
@@ -601,12 +640,13 @@ $indexBorderColor: #E6E6E6;
 
 .teacher-subject{
   position: relative;
-  width: 110px;
-  height: 40px;
-  bottom: 60px;
-  line-height: 40px;
-  font-size: 17px;
-  font-weight: 800;
+  width: 96px;
+  height: 22px;
+  bottom: 32px;
+  left: 10px;
+  line-height: 22px;
+  font-size: 15px;
+  font-weight: 600;
   display: inline-table;
   background-color: #303030;
   color: #ffffff;
@@ -665,19 +705,46 @@ $indexBorderColor: #E6E6E6;
 .swiper-slide-active{
 
 }
-.teach-subject-select .content{
-  text-align: center;
-  margin:0 auto;
+.teach-subject-select{
+  .content{
+    text-align: center;
+    margin:0 auto;
+    > div{
+      height: 100%;
+      > div{
+        float: left;
+        width: 50%;
+        height: 100%;
+      }
+    }
+  }
+  .swiper-button-prev{
+    background-image: none;
+    left: 0;
+    width: 100%;
+    border: none;
+    cursor: auto;
+    background-color: #B9CCA1;
+    opacity: .2;
+  }
+  .swiper-button-disabled{
+    opacity: .6;
+  }
+  .swiper-slide{
+    font-size: 14.7px;
+    color: #e5e5e5;
+  }
+  .swiper-slide-prev, .swiper-slide-next{
+    color: #aaaaaa;
+  }
+  .swiper-slide-active{
+    color: #333333;
+  }
+  .swiper-button-prev{
+    height: 35px;
+    margin-top: -19px;
+  }
 }
-.teach-subject-select .content > div{
-  height: 100%;
-}
-.teach-subject-select .content > div > div{
-  float: left;
-  width: 50%;
-  height: 100%;
-}
-
 .order-empty{
   width: 100%;
   padding-right: $pagepadding;
@@ -700,20 +767,7 @@ $indexBorderColor: #E6E6E6;
 .order-empty > div:last-child{
   margin-top: 30px;
 }
-.teach-subject-select .swiper-button-prev{
-  background-image: none;
-  left: 0;
-  width: 100%;
-  border: solid #D66D6D 1px;
-  border-right: none;
-  border-left: none;
-  cursor: auto;
-  background-color: #A0A2A5;
-  opacity: .2;
-}
-.teach-subject-select .swiper-button-disabled{
-  opacity: .6;
-}
+
 .swiper-wrapper{
   -webkit-overflow-scrolling: touch;
 }
@@ -839,11 +893,25 @@ $indexBorderColor: #E6E6E6;
   padding-bottom: 0;
   margin-bottom: 20px;
 }
-.teachers-filter > div{
-  line-height: 42px;
-}
-.teachers-filter > div > div{
-  text-align: center;
+.teachers-filter{
+  > div{
+    line-height: 18px;
+    > div{
+      text-align: center;
+    }
+  }
+  .item{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: none;
+    > div{
+      padding-top: 6px;
+    }
+  }
+  .teachers-filter-head{
+    width: 100%;
+    background-color: #F7F7F7;
+  }
 }
 .place-holder-div{
   float: left;
@@ -868,10 +936,10 @@ $indexBorderColor: #E6E6E6;
 }
 .swiper-middle-line{
   border-right: solid #a4a4a4 1px;
-  height: 32px;
+  height: 23px;
   width: 0px;
   position: absolute;
-  top: 50%;
+  top: 52%;
   right: 0;
   margin-top: -16px;
 }
@@ -1068,24 +1136,24 @@ $indexBorderColor: #E6E6E6;
 }
 .teacher-item-no-recommend-info{
   width: 100%;
-  height: 50px;
   padding: 3px;
   color: #000000;
-  margin-top: -38px;
-}
-.teacher-item-no-recommend-info > div > div:first-child{
-  float: left;
-  width: 60%;
-  line-height: 1px;
-}
-.teacher-item-no-recommend-info > div > div:last-child{
-  float: right;
-  width: 40%;
-  height: 44px;
-  line-height: 44px;
-  vertical-align: middle;
-  text-align: right;
-  white-space: nowrap;
+  margin-top: -19px;
+  h3{
+    font-size: 17px;
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+  > div{
+    text-align: center;
+    > div:first-child{
+      line-height: 1px;
+    }
+    > div:nth-child(2){
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+  }
 }
 .teacher-subject-grade-info{
   color: #988c8d;
@@ -1093,7 +1161,6 @@ $indexBorderColor: #E6E6E6;
 }
 .teacher-subject-grade-info-recommend{
   @extend teacher-subject-grade-info;
-  float:left;
   font-size: 14px;
   margin-left: 5px;
   color: #988c8d;
@@ -1103,28 +1170,21 @@ $indexBorderColor: #E6E6E6;
   white-space: nowrap;
 }
 .recommend-teacher-body{
-  text-align: right;
-}
-.recommend-teacher-body img{
-  width: 100%;
-  height:180px;
+  text-align: left;
+  img{
+    width: 100%;
+    height:180px;
+  }
 }
 .recommend-teacher-subject{
   font-size: 18px;
   padding: 8px;
-  margin-top: -41px;
-  margin-bottom: 30px;
-}
-.recommend-teacher-subject > div:first-child{
-  float: left;
-}
-.recommend-teacher-subject > div:last-child{
-  float: right;
-  color: #000000;
-}
-.recommend-teacher-subject h3{
-  font-size: 17px;
-  float:left;
+  margin-top: -20px;
+  text-align: center;
+  h3{
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
 }
 .sticky-nav{
   width:100%;
@@ -1766,5 +1826,31 @@ body>.sticky-nav{
 .comments-stars{
   img{
     width: 17px;
+  }
+}
+.mala-top-tab-nav{
+  > .tabs .tab-item{
+    line-height: 49px;
+  }
+  .tabs{
+    .tab-item{
+      line-height: 49px;
+      color: #000000;
+      display: inline-block;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .active{
+      color: #E8413E;
+      border-color: #E8413E;
+    }
+  }
+  a{
+    text-align: center;
+  }
+}
+.orders-top-nav{
+  a{
+    width: 50%;
   }
 }

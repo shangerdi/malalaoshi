@@ -10,7 +10,7 @@
   {{#ionView class="page-view"}}
     {{#ionContent class="with-bottom-btn"}}
       {{#ionList class="teachers-filter"}}
-        {{#ionItem}}
+        {{#ionItem class="teachers-filter-head"}}
         <div id="subjectGradeTitle">
           <div>
             <span class="index-page-title-head">
@@ -22,24 +22,28 @@
         {{#ionItem class="selectTeachSubjectTeachersFilter"}}
           {{> Template.dynamic template=selectTeachSubjectTeachersFilter}}
         {{/ionItem}}
-        {{#ionItem}}
+        {{#ionItem class="teachers-filter-head"}}
         <div id="studyPlace">
           <div>
             <span class="index-page-title-head">
-              预约上课地点
+              上课地点
             </span>
-            {{#if studyAddress}}
+          </div>
+        </div>
+        {{/ionItem}}
+        {{#ionItem}}
+        <div>
+          <div>
               <div class="study-address">
                 <i id="searchIcon" class="icon ion-ios-location location-map-info-i-select"></i>
                 <span>
                   {{studyAddress}}
                 </span>
               </div>
-            {{/if}}
           </div>
         </div>
         {{/ionItem}}
-        {{#ionItem}}
+        {{#ionItem class="teachers-filter-head"}}
         <div>
           <div>
             <span class="index-page-title-head">
@@ -98,7 +102,7 @@
 </template>
 
 <template name="selectTeachSubjectTeachersFilter">
-    <div id="subjectGradeSelect" class="teach-subject-select" style="height: 250px;">
+    <div id="subjectGradeSelect" class="teach-subject-select" style="height: 175px;">
       <div class="content overflow-scroll">
         <div>
           <div>

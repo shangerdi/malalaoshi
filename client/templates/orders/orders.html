@@ -7,24 +7,33 @@
     <h1 class="title normal-title">我的订单</h1>
   {{/contentFor}}
 
-  {{#ionTabs class="tabs-top tabs-striped top-tab-nav"}}
-    {{> ionTab title="待支付" path="ordersNoPaid"}}
-    {{> ionTab title="已支付" path="ordersPaidOk"}}
+  {{#ionTabs class="tabs-top tabs-striped top-tab-nav mala-top-tab-nav orders-top-nav"}}
+    {{> maLaTab title="待支付" path="ordersNoPaid"}}
+    {{> maLaTab title="已支付" path="ordersPaidOk"}}
   {{/ionTabs}}
 
   {{#ionView}}
     {{#ionContent class="orders-detail"}}
       {{#ionList}}
         {{#each showOrders}}
-          <div class="orders-detail-order">
-            <div>{{orderTime}}</div>
+        <div class="orders-detail-order">
+          <div>
+            <img src="{{teacherAvt}}"/>
+          </div>
+          <div>
             <div>
-              {{subject}}
+              <div>￥{{this.price}}/课时</div>
+              <div>×{{courseHour}}</div>
             </div>
             <div>
-              <span>共{{courseHour}}小时</span>
-              <span>合计：￥{{payMoney}}</span>
+              <div>{{this.teacher.name}}</div>
+              <div>
+                {{subject}}
+              </div>
             </div>
+          </div>
+          <div class="element-clear-both"><hr></div>
+          <div>
             <div>
               <button class="button button-light order-detail-view-btn-inorders">
                 查看订单
@@ -40,8 +49,11 @@
               </button>
               {{/if}}
             </div>
+            <div>
+              <span>合计：￥{{payMoney}}</span>
+            </div>
           </div>
-          <div class="element-clear-both"><hr></div>
+        </div>
         {{/each}}
       {{/ionList}}
       {{#if empty}}
