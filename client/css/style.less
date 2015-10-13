@@ -999,14 +999,43 @@ input[type=text].browser {
 }
 .schedule-courses {
   .schedule-course-item {
-    div {
-      padding: 5px 0;
+    margin-top: @page-padding;
+    padding: @page-padding;
+    padding-bottom: 0;
+    border: 0;
+    box-shadow: 0 1px #d6d6d6;
+    img{
+      left: @page-padding;
+      width: 66px;
+      height: 66px;
+      max-width: 66px;
+      max-height: 66px;
+      border-radius: 2px;
     }
-    & > div {
-      clear: both;
+    .course-info{
+      padding: 8px 0 8px 76px;
+      min-height: 94px;
+      border-bottom: 1px solid #d6d6d6;
+      & > div {
+        padding-top: 10px;
+        &:first-child{
+          padding-top: 0;
+        }
+      }
+      .subject {
+        color: #333;
+      }
+      .date {
+        font-size: 12px;
+        color: #939393;
+      }
+      .time {
+        color: #5d5d5d;
+      }
     }
-    .course-info .course-time, .pull-right {
-      color: #9b9b9b;
+    .btn-box {
+      padding: 10px 0;
+      text-align: right;
     }
     .comment-box {
       .row{

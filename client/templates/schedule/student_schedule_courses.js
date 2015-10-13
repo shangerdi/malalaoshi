@@ -23,18 +23,45 @@ Template.studentScheduleCourses.helpers({
     if (user && user.profile) {
       return user.profile.avatarUrl;
     }
+  },
+  isCommented: function(course) {
+    return course.state == ScheduleTable.attendanceStateDict["commented"].value;
+  },
+  commentStars: function(course){
+    var comment = Comments.findOne({'courseAttendanceId': course._id});
+    if (!comment) {
+      return null;
+    }
+    var maScore = comment.maScore;
+    var laScore = comment.laScore;
+    maScore = _.isNumber(maScore) ? maScore : 0;
+    laScore = _.isNumber(laScore) ? laScore : 0;
+    return genScoreStarsAry((maScore + laScore)/2, 5);
+  },
+  starImage: function(val){
+    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   }
 });
 Template.studentScheduleCourses.events({
   'click .btn-confirm': function(e) {
     var ele=e.target, $ele=$(ele);
     var itemId = $ele.closest('div').data('itemid');
-    Meteor.call('confirmCourseAttended', itemId, function(err, result){
-      if (err) {
-        showToastInfo("出错了，请稍后重试");
-        return;
+    IonPopup.confirm({
+      title: '',
+      template: '是否确认课时？',
+      cancelText: '否',
+      okText: '是',
+      onOk: function() {
+        Meteor.call('confirmCourseAttended', itemId, function(err, result){
+          if (err) {
+            showToastInfo("出错了，请稍后重试");
+            return;
+          }
+          showToastInfo("已确认");
+        });
+      },
+      onCancel: function() {
       }
-      showToastInfo("已确认");
     });
   },
   'click .btn-comment': function(e) {
