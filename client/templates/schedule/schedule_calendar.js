@@ -211,7 +211,7 @@ var initMonthViewSwiper = function() {
   });
   var _initMoreNavClass = function(s){
     var i = s.activeIndex;
-    $(s.slides).each(function(k) {
+    s.slides.each(function(k) {
       var $slide = $(this);
       if (k!=i-2) {
         $slide.removeClass('swiper-slide-prev-prev');
@@ -229,6 +229,7 @@ var initMonthViewSwiper = function() {
   cacheData.monthNavSwiper.on('setTranslate', _initMoreNavClass);
   cacheData.monthNavSwiper.on('transitionEnd', _initMoreNavClass);
   cacheData.monthNavSwiper.on('slideChangeEnd', _initMoreNavClass);
+  _initMoreNavClass(cacheData.monthNavSwiper); // init it explicitly, onInit maybe not run
   var _monthNavChange = function(swiper){
     var i = swiper.activeIndex, m = getCurMonth();
     i -= monthNavNumMid;
