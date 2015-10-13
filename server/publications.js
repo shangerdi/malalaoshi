@@ -225,7 +225,17 @@ Meteor.publish('order', function(parameters) {
 
 Meteor.publish('orders', function(parameters) {
   if (this.userId) {
-    return Orders.find(parameters.find, parameters.options);
+    var all = Orders.find({'status': parameters.find.status, 'student.id': parameters.find['student.id']}, parameters.options);
+    var ret = [all];
+    if(parameters.getTeacher){
+      var teacherIds = [];
+      all.forEach(function(od){
+        teacherIds[teacherIds.length] = od.teacher.id;
+      });
+      teacherIds = _.uniq(teacherIds);
+      ret.push(Meteor.users.find({_id: {$in: teacherIds}}));
+    }
+    return ret;
   }
   return [];
 });
