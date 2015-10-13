@@ -73,8 +73,8 @@ if (Meteor.users.find().count() === 0) {
         name: t.profile.name,
         applyStatus: i % 2 ? 'passed' : 'started',
         type: i % 3 ? 'fullTime' : 'partTime',
-        // price: 0.01,
-        prices: [{price: 0.01}],
+        // price: 200, modified by Erdi
+        prices: [{price: 200}],
         basicInfo: {
           submitTime: Date.now(),
           status: 'approved',

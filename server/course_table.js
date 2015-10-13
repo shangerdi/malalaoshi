@@ -73,7 +73,49 @@ Meteor.methods({
     if (!curUser) {
       throw new Meteor.Error('权限不足', "需要登录");
     }
-    CourseAttendances.update({'_id': itemId, 'student.id': curUser._id},{$set:{state:ScheduleTable.attendanceStateDict["attended"].value, 'detail.confirmType': 1}});
+    //Todo: 确认课时，需要修改课程状态，同时添加交易明细，且同时老师帐户增加余额，需要事务性
+    var attendance = CourseAttendances.findOne({'_id': itemId});
+    if (attendance &&
+      attendance.attendTime &&
+      attendance.endTime &&
+      attendance.detail &&
+      attendance.detail.orderId &&
+      attendance.teacher) {
+      var order = Orders.findOne({'_id': attendance.detail.orderId});
+      //课程时长
+      var courseDuration = attendance.endTime - attendance.attendTime; //in DateTime
+      //课程费用 = (endTime - attendTime) * 单价
+      var coursePrice = courseDuration / 1000 / 3600 * order.price;
+      //平台佣金 20% 负数
+      var charges = coursePrice * 0.2 * -1;
+
+      //课程费用 明细
+      var courseDetail = {};
+      courseDetail.userId = attendance.teacher.id;
+      courseDetail.courseId = itemId;
+      courseDetail.amount = coursePrice;
+      courseDetail.title = "课程收入";
+      //todo: operator.role maybe parent or student or system ?
+      courseDetail.operator = {'id': curUser._id, 'role': 'parent'};
+      //平台佣金 明细
+      var chargesDetail = {};
+      chargesDetail.userId = attendance.teacher.id;
+      chargesDetail.courseId = itemId;
+      chargesDetail.amount = charges;
+      chargesDetail.title = "平台佣金";
+      //todo: operator.role maybe parent or student or system ?
+      chargesDetail.operator = {'role': 'system'};
+      //交易明细组合
+      var transactionDetails = [];
+      transactionDetails.push(courseDetail);
+      transactionDetails.push(chargesDetail);
+      //提交交易
+      submitTransaction(transactionDetails);
+      console.log("Transaction OK!");
+      //最后修改课程状态
+      CourseAttendances.update({'_id': itemId, 'student.id': curUser._id},{$set:{state:ScheduleTable.attendanceStateDict["attended"].value, 'detail.confirmType': 1}});
+    }
+
     return true;
   },
   checkConflictCourseSchedule: function(params) {

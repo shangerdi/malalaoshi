@@ -750,10 +750,8 @@ input[type=text].browser {
   .swiper-slide-prev a, .swiper-slide-next a {
     color: #333;
   }
-  .swiper-slide {
-    a[data-i="2"], a[data-i="-2"] {
-      color: #aaa;
-    }
+  .swiper-slide-prev-prev a, .swiper-slide-next-next a {
+    color: #aaa;
   }
 }
 .schedule-calendar .month-view {
@@ -996,51 +994,70 @@ input[type=text].browser {
 @progressOkColor: green;
 .apply-progress {
   .progress-row {
+    position: relative;
+    margin: 17px 14px 0 14px;
     padding-left: 40px;
     .progress-mark {
       position: absolute;
       left: 0;
       .flag {
         position: absolute;
+        width: 30px;
+        height: 30px;
         font-size: 30px;
         line-height: 30px;
-        top: -5px;
+        top: 33px;
       }
       .v-line {
         position: absolute;
-        border: 1px solid @bodyTextColor;
-        height: 70px;
-        top: 20px;
-        left: 12px;
-      }
-    }
-    &.ok {
-      .flag{
-        color: @progressOkColor;
-      }
-      .v-line{
-        border-color: @progressOkColor;
+        border: 1px solid @brand-success;
+        height: 120px;
+        top: 59px;
+        left: 14px;
       }
     }
     &.fail {
-      .flag{
-        color: @progressOkColor;
-      }
       .hint-info{
         color: red;
       }
     }
-    &:last-child .v-line {
-      display: none;
+    .progress-info {
+      position: relative;
+      margin-left: 12px;
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 6px;
+      i {
+        position: absolute;
+        left: -14px;
+        top: 28px;
+        font-size: 44px;
+        color: #fff;
+      }
+      h4{
+        color: #333;
+      }
+      .time-info {
+        font-size: 14px;
+        color: #939393;
+      }
+      .hint-info{
+        color: #5d5d5d;
+      }
     }
   }
   &.apply-info {
-    label {
-      font-size: 18px;
-      color: black;
+    .content {
+      padding-top: @page-padding;
     }
-    input[name=name]:focus {
-      border-bottom: 1px solid black;
+    .name {
+      padding: 0;
+      input {
+        height: 52px;
+      }
+      input:focus {
+        border-bottom: 1px solid #e6e6e6;
+      }
     }
     .error-msg {
       font-size: 14px;
@@ -1048,20 +1065,33 @@ input[type=text].browser {
     }
     .radio-group {
       label {
+        width: 50%;
         font-size: 14px;
-        margin-left: 40px;
-        color: gray;
+        color: #828282;
         &:first-child{
-          margin-left: 0;
+          border-right: 1px solid #e6e6e6;
         }
       }
+      img {
+        width: 23px;
+        height: 23px;
+      }
+      input {
+        display: none;
+      }
       input:checked + span {
-        color: black;
+        color: @brand-success;
       }
     }
     .subjects {
       button{
         color: black;
+      }
+      .subject {
+        padding: 10px;
+        color: @brand-success;
+        border: 1px solid @brand-success;
+        border-radius: 4px;
       }
     }
     .teaching-age {
@@ -1069,22 +1099,121 @@ input[type=text].browser {
         .swiper-slide {
           width: 44px;
           height: 44px;
+          color: #d0d0d0;
           &.swiper-slide-active {
-            border: 1px solid black;
+            border: 1px solid @brand-success;
+            color: @brand-success;
             border-radius: 50%;
+          }
+          &.swiper-slide-prev, &.swiper-slide-next {
+            color: #535353;
+          }
+          &.swiper-slide-prev-prev, &.swiper-slide-next-next {
+            color: #9a9a9a;
           }
         }
       }
     }
   }
 }
+.subjects-edit-modal {
+  .bar {
+    width: auto;
+    left: @page-padding;
+    right: @page-padding;
+    color: #333;
+    border-bottom-color: #707070;
+    button.button-icon {
+      position: absolute;
+      left: 0;
+      .icon:before {
+        font-size: 40px;
+      }
+    }
+  }
+}
 .subjects-edit-component {
+  padding-left: @page-padding;
+  padding-right: @page-padding;
   .selected-subjects{
-    min-height: 30px;
-    line-height: 30px;
+    padding: @page-padding;
+    min-height: 65px;
+    text-align: center;
+    .subject {
+      display: inline-block;
+      padding: 10px;
+      color: @brand-success;
+      border: 1px solid @brand-success;
+      border-radius: 4px;
+      margin-left: 14px;
+      &:first-child{
+        margin-left: 0;
+      }
+      &.empty {
+        width: 78px;
+        border: 1px dashed #e5e5e5;
+      }
+    }
   }
   .subjects-selecting-area {
-
+    .nav-tabs {
+      border-top: 1px solid #707070;
+      border-bottom: 1px solid #707070;
+      text-align: center;
+      li {
+        width: 33%;
+      }
+      li > a {
+        border: 0;
+        background: none;
+        color: #939393;
+        padding-left: @page-padding;
+        padding-right: @page-padding;
+      }
+      li.active > a {
+        border-bottom: 2px solid @brand-success;
+        color: #333;
+      }
+    }
+    .panel {
+      margin-top: 0px;
+    }
+    .panel-heading {
+      padding: 14px;
+      border-bottom: 1px solid #e5e5e5;
+      a {
+        display: block;
+        color: #5d5d5d;
+        .arrows {
+          display: inline-block;
+          float: right;
+          font-size: 20px;
+        }
+        .down {
+          display: none;
+        }
+        &.collapsed {
+          .up {
+            display: none;
+          }
+          .down {
+            display: inline-block;
+          }
+        }
+      }
+    }
+    .subject-item {
+      margin-left: 26px;
+      padding: 14px;
+      border-bottom: 1px solid #e5e5e5;
+      color: #939393;
+      a {
+        float: right;
+        color: #939393;
+        cursor: pointer;
+        padding-right: 1px;
+      }
+    }
   }
 }
 .mine-profile-view {
@@ -1297,19 +1426,55 @@ body.keyboard-open .platform-android .content.overflow-scroll {
   font-weight:600;
 }
 .message-main-view {
+  .content{
+    padding: 0 @page-padding;
+    background-color: #fff;
+    .list .item{
+      padding: 22px 0 22px 66px;
+      border-left: 0;
+      border-right: 0;
+      background: transparent;
+      img{
+        top: 18px;
+        left: 0;
+        max-width: 53px;
+        max-height: 53px;
+        border-radius: 0;
+      }
+    }
+  }
   .message-unread-count {
     position: absolute;
-    top: 5px;
-    left: 55px;
+    top: 14px;
+    left: 42px;
     padding: 0 5px;
-    background: #e8413d;
-    border-radius: 10px;
+    background: @brand-success;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 17px;
   }
   .message-body {
-    padding-left: 13px;
+    line-height: 22px;
+    .message-title {
+      color: #333;
+      font-size: 16px;
+    }
+    .last-time {
+      color: #e7e7e7;
+      font-size: 14px;
+    }
+    .message-content{
+      padding-top: 4px;
+      color: #5d5d5d;
+      font-size: 14px;
+    }
   }
 }
 .message-list-view{
+  .content {
+    background-color: #ebebeb;
+  }
   .message-list {
     background-color: transparent;
     .message-item {
@@ -1318,24 +1483,22 @@ body.keyboard-open .platform-android .content.overflow-scroll {
       .message-time {
         text-align: center;
         padding-bottom: 15px;
+        color: #939393;
       }
       .message-body {
         position: relative;
-        padding-left: 72px;
-        min-height: 72px;
+        padding: 0 42px;
         img {
           position: absolute;
-          top: 16px;
-          left: 16px;
+          left: 0;
           max-width: 40px;
           max-height: 40px;
           width: 100%;
-          border-radius: 50%;
         }
         .status-unread {
           position: absolute;
-          top: 5px;
-          left: 55px;
+          top: -5px;
+          left: 37px;
           width: 10px;
           height: 10px;
           background: #e8413d;
@@ -1345,15 +1508,19 @@ body.keyboard-open .platform-android .content.overflow-scroll {
           position: relative;
           display: inline-block;
           margin-left: 12px;
-          padding: 15px;
+          padding: 14px 10px;
           background-color: #fff;
           border-radius: 6px;
-          &:before{
-            content: "<";
+          white-space: normal;
+          color: #5d5d5d;
+          font-size: 14px;
+          i {
             position: absolute;
-            top: 9px;
-            left: -10px;
-          };
+            left: -8px;
+            top: 14px;
+            font-size: 22px;
+            color: #fff;
+          }
         }
       }
     }

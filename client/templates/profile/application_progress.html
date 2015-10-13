@@ -18,46 +18,55 @@
       <div class="progress-row profress-register {{getClass 'register'}}">
         <div class="progress-mark">
           <div class="v-line"></div>
-          <span class="flag ion-checkmark-circled"></span>
+          <!-- <span class="flag ion-checkmark-circled"></span> -->
+          <img class="flag" src="{{getFlagImg 'register'}}">
         </div>
-        <h4>恭喜您注册成功</h4>
-        <p class="hint-info">
-          请完善您的个人资料
-        </p>
-        <div class="time-info">{{getTime 'register'}}</div>
+        <div class="progress-info">
+          <i class="ion-arrow-left-b"></i>
+          <h4>恭喜您注册成功<div class="pull-right time-info">{{getTime 'register'}}</div></h4>
+          <p class="hint-info">
+            请完善您的个人资料
+          </p>
+        </div>
       </div>
       <div class="progress-row profress-submit {{getClass 'submit'}}">
         <div class="progress-mark">
           <div class="v-line"></div>
-          <span class="flag ion-checkmark-circled"></span>
+          <img class="flag" src="{{getFlagImg 'submit'}}">
         </div>
-        <h4>您的资料已经提交</h4>
-        <p class="hint-info">
-          我们会在3个工作日内给您答复
-        </p>
-        <div class="time-info">{{getTime 'submit'}}</div>
+        <div class="progress-info">
+          <i class="ion-arrow-left-b"></i>
+          <h4>您的资料已经提交<div class="pull-right time-info">{{getTime 'submit'}}</div></h4>
+          <p class="hint-info">
+            我们会在3个工作日内给您答复
+          </p>
+        </div>
       </div>
       <div class="progress-row profress-audit  {{getClass 'audit'}}">
         <div class="progress-mark">
           <div class="v-line"></div>
-          <span class="flag ion-checkmark-circled"></span>
+          <img class="flag" src="{{getFlagImg 'audit'}}">
         </div>
-        <h4>您的资料审核{{#if isProfileAuditedFail}}失败{{else}}成功{{/if}}</h4>
-        <p class="hint-info">
-          {{getAuditMsg}}
-        </p>
-        <div class="time-info">{{getTime 'audit'}}</div>
+        <div class="progress-info">
+          <i class="ion-arrow-left-b"></i>
+          <h4>您的资料审核{{#if isProfileAuditedFail}}失败{{else}}成功{{/if}}<div class="pull-right time-info">{{getTime 'audit'}}</div></h4>
+          <p class="hint-info">
+            {{getAuditMsg}}
+          </p>
+        </div>
       </div>
       <div class="progress-row profress-complete  {{getClass 'complete'}}">
         <div class="progress-mark">
           <div class="v-line"></div>
-          <span class="flag ion-checkmark-circled"></span>
+          <img class="flag" src="{{getFlagImg 'complete'}}">
         </div>
-        <h4>恭喜您成为麻辣老师</h4>
-        <p class="hint-info">
-          您可以继续完善资料、查看收入、查看课程安排等信息
-        </p>
-        <div class="time-info">{{getTime 'complete'}}</div>
+        <div class="progress-info">
+          <i class="ion-arrow-left-b"></i>
+          <h4>恭喜您成为麻辣老师<div class="pull-right time-info">{{getTime 'complete'}}</div></h4>
+          <p class="hint-info">
+            您可以继续完善资料、查看收入、查看课程安排等信息
+          </p>
+        </div>
       </div>
     {{/ionContent}}
   {{/ionView}}

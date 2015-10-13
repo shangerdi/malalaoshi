@@ -1,5 +1,35 @@
+submitTransaction = function(details) {
+  //要修改的余额，负数为减少
+  var increasedAmount = 0;
+  //多项交易明细
+  details.forEach(function(detail) {
+    increasedAmount += detail.amount;
+    if (detail.courseId) {
+      //带有课程信息的明细
+      TransactionDetail.insert({
+        userId: detail.userId,
+        courseId: detail.courseId,
+        amount: detail.amount,
+        title: detail.title,
+        operator: detail.operator
+      });
+    }
+    else {
+      //不带有课程信息的明细
+      TransactionDetail.insert({
+        userId: detail.userId,
+        amount: detail.amount,
+        title: detail.title,
+        operator: detail.operator
+      });
+    }
+  });
 
-function writeObj(obj){
+  //修改实际余额
+  TeacherBalance.update({userId: details[0].userId}, {$inc: {balance: increasedAmount}});
+}
+
+writeObj = function(obj) {
   var description = "";
   for(var i in obj){
     var property=obj[i];
