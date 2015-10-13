@@ -196,6 +196,8 @@ var getMonthNavNum = function() {
 }
 var initMonthViewSwiper = function() {
   if (cacheData.monthViewSwiper) {
+    cacheData.monthNavSwiper.onResize();
+    cacheData.monthViewSwiper.onResize();
     return;
   }
   cacheData.monthNavSwiper = new Swiper('.month-nav .swiper-container', {
@@ -261,6 +263,7 @@ var initMonthViewSwiper = function() {
 var initYearViewSwiper = function() {
   if (cacheData.yearViewSwiper) {
     cacheData.yearViewSwiper.slideTo(1, false, true);
+    cacheData.yearViewSwiper.onResize();
     return;
   }
   cacheData.yearViewSwiper = new Swiper('.year-view-box .swiper-container', {
@@ -283,8 +286,10 @@ var initYearViewSwiper = function() {
     }
     swiper.slideTo(1, false, true);
   });
-  cacheData.yearViewSwiper.on("setTranslate", function(swiper){
-    // console.log('setTranslate: '+swiper.translate);
+  var isMoved = false;
+  cacheData.yearViewSwiper.on("sliderMove", function(swiper){
+    // console.log('sliderMove: '+swiper.translate);
+    isMoved = true;
     $(".prev-year,.next-year").hide();
     var trans = Math.abs(swiper.translate), h1 = $(swiper.slides[0]).height();
     if (trans < h1) {
@@ -305,9 +310,10 @@ var initYearViewSwiper = function() {
   });
   cacheData.yearViewSwiper.on("touchEnd", function(swiper){
     // console.log('touchEnd: '+swiper.translate);
-    if (getViewType() === 'month') {
+    if (!isMoved) {
       return;
     }
+    isMoved = false;
     $(".prev-year,.next-year").hide();
     var trans = Math.abs(swiper.translate), h1 = $(swiper.slides[0]).height();
     var diff = 0;
@@ -419,7 +425,7 @@ Template.scheduleCalendar.helpers({
     if (m>=13) {
       m-=12;
     }
-    return (i==0?m+'月':m);
+    return m;
   },
   monthNavClass: function(i) {
     if (i==0) {
@@ -443,7 +449,7 @@ Template.scheduleCalendar.helpers({
     return getWeekdayClass(d);
   },
   weekdayText: function(d) {
-    return '周'+ScheduleTable.dayNumWords[d];
+    return ScheduleTable.dayNumWords[d];
   },
   weekrows: function(m) {
     var y = getCurYear();
@@ -499,7 +505,9 @@ Template.scheduleCalendar.helpers({
     _.each(items, function(obj){
       Meteor.subscribe("commentsByCourseAttendanceId", {'find':{'courseAttendanceId': obj._id}});
     });
-    return items;
+    return items.sort(function(a,b){
+      return a.attendTime - b.attendTime;
+    });
   },
   getCourseStateStr: function(obj) {
     var state=obj.state, stateStr="", nowTime = cacheData.now.get().getTime();
@@ -517,9 +525,37 @@ Template.scheduleCalendar.helpers({
       stateStr="已评价";
     }
     return stateStr;
+  },
+  isCommented: function(course) {
+    return course.state == ScheduleTable.attendanceStateDict["commented"].value;
+  },
+  commentStars: function(course){
+    var comment = Comments.findOne({'courseAttendanceId': course._id});
+    if (!comment) {
+      return null;
+    }
+    var maScore = comment.maScore;
+    var laScore = comment.laScore;
+    maScore = _.isNumber(maScore) ? maScore : 0;
+    laScore = _.isNumber(laScore) ? laScore : 0;
+    return genScoreStarsAry((maScore + laScore)/2, 5);
+  },
+  starImage: function(val){
+    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   }
 });
 Template.scheduleCalendar.events({
+  'click .year-title': function(e) {
+    var v = getViewType();
+    if (v=='month') {
+      Session.set('view', 'year');
+      $('.year-view-box').show();
+      $('.month-view-box').hide();
+      subscribe(getCurYear());
+      initYearViewSwiper();
+      clearSelectedDate();
+    }
+  },
   'click .btn-go-today': function(e) {
     var v = getViewType(), today = new Date();
     if (getCurYear()!=today.getFullYear()) {
