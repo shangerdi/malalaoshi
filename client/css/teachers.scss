@@ -1544,7 +1544,7 @@ body>.sticky-nav{
 }
 .comments-page-total-score{
   margin-top: 20px;
-  margin-bottom: 35px;
+  margin-bottom: 16.7px;
   > div:first-child{
     float: right;
     text-align: right;
@@ -1556,7 +1556,12 @@ body>.sticky-nav{
     }
   }
   > div:last-child{
-    font-size: 26px;
+    font-size: 16px;
+  }
+  .comments-stars{
+    img{
+      width: 17.3px;
+    }
   }
 }
 .comments-page-mala-score{
@@ -1568,46 +1573,23 @@ body>.sticky-nav{
   > div > div:first-child{
     float: right;
   }
+  .comments-stars{
+    img{
+      width: 17.3px;
+    }
+  }
+  span{
+    color: #b2b2b2;
+  }
 }
 .comments-page-tab{
   width: 33%;
   float: left;
-  border-style: solid;
-  border-width: 2px 0 2px 0;
   text-align: center;
-  padding: 20px 0 20px 0;
+  padding: 0;
   font-size: 20px;
-  color: $greyColor;
+  color: #000000;
   cursor: pointer;
-}
-.comments-page-comment-avt{
-  float: left;
-  width: 44px;
-  height: 44px;
-}
-.comments-page-comment-head{
-  padding-left: 53px;
-  margin: 0 auto;
-  > div:first-child{
-    > div:first-child{
-      float: right;
-      width: auto;
-      white-space: nowrap;
-    }
-    > div:last-child{
-      font-size: 17px;
-    }
-  }
-  > div:nth-child(2){
-    margin-top: 5px;
-  }
-  > div:last-child{
-    margin-top: 5px;
-    color: $greyColor;
-    > div:first-child{
-      float: right;
-    }
-  }
 }
 .comments-nav-tatic{
   width: 100%;
@@ -1955,5 +1937,62 @@ body>.sticky-nav{
 .orders-top-nav{
   a{
     width: 50%;
+  }
+}
+.comment-detail-body{
+  > div:first-child{
+    > div:first-child{
+      width: 38.3px;
+      float: left;
+    }
+    > div:last-child{
+      padding-left: 50px;
+      > div:first-child{
+        float: right;
+        font-size: 12px;
+        color: #939393;
+      }
+      > div:nth-child(2){
+        font-size: 13.3px;
+        color: #333333;
+      }
+    }
+  }
+  > div:last-child{
+    font-size: 13.3px;
+    color: #5d5d5d;
+    margin-top: 7px;
+  }
+  .comments-stars{
+    img{
+      width: 12px;
+    }
+  }
+  hr{
+    margin-bottom: 16.7px;
+    margin-top: 16.7px;
+  }
+}
+.comments-page-nav{
+  width: 100%;
+  border-bottom: solid 1px #e6e6e6;
+  margin-bottom: 20px;
+  hr{
+    width: 100%;
+    border: none;
+    margin: 0;
+  }
+  > div > div{
+    display: inline-block;
+    height: 100%;
+    height: 44px;
+    line-height: 44px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+.comments-page-nav-pre{
+  hr{
+    margin-bottom: 0;
   }
 }

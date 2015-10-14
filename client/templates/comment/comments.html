@@ -16,29 +16,37 @@
               <img src="/images/{{starImage this}}" />
             {{/each}}
           </div>
-          <div>共{{totalComments}}人评价</div>
         </div>
         <div>
-          {{totalScore}}分
+          综合评分（{{totalScore}}）
         </div>
       </div>
       <div class="view-both-side-margin"><hr></div>
       <div class="view-both-side-margin comments-page-mala-score">
         <div>
-          <div>{{maScore}}分</div>
-          <div>麻度（专业程度）</div>
+          <div class="comments-stars">
+            {{#each maScoreCount}}
+              <img src="/images/{{maImage this}}" />
+            {{/each}}
+          </div>
+          <div>麻度 <span>（专业程度）</span></div>
         </div>
         <div>
-          <div>{{laScore}}分</div>
-          <div>辣度（上课程度）</div>
+          <div class="comments-stars">
+            {{#each laScoreCount}}
+              <img src="/images/{{laImage this}}" />
+            {{/each}}
+          </div>
+          <div>辣度 <span>（上课态度）</span></div>
         </div>
       </div>
-      <div class="view-both-side-margin" id="commentsNav">
-        <div id="goodCommentsInScroll" class="comments-page-tab {{activeTabClass 'goodComments'}}">好评({{goodComments}})</div>
-        <div id="averageCommentsInScroll" class="comments-page-tab {{activeTabClass 'averageComments'}}">中评({{averageComments}})</div>
-        <div id="poolCommentsInScroll" class="comments-page-tab {{activeTabClass 'poolComments'}}">差评({{poolComments}})</div>
+      <div class="view-both-side-margin element-clear-both comments-page-nav-pre"><hr></div>
+      <div class="comments-page-nav" id="commentsNav">
+        <div id="goodCommentsInScroll" class="comments-page-tab {{activeTabClass 'goodComments'}}"><div>好评({{goodComments}})</div></div>
+        <div id="averageCommentsInScroll" class="comments-page-tab {{activeTabClass 'averageComments'}}"><div>中评({{averageComments}})</div></div>
+        <div id="poolCommentsInScroll" class="comments-page-tab {{activeTabClass 'poolComments'}}"><div>差评({{poolComments}})</div></div>
+        <hr/>
       </div>
-      <div class="view-both-side-margin element-clear-both"><hr></div>
       {{#each allComments}}
         {{> commentsDetailShow comment=this}}
         <div class="view-both-side-margin element-clear-both"><hr></div>
@@ -66,28 +74,19 @@
   {{/ionView}}
 </template>
 <template name="commentsDetailShow">
-  <div class="view-both-side-margin">
+  <div class="view-both-side-margin comment-detail-body">
     <div>
-      <div class="comments-page-comment-avt"><img src="{{userAvt}}" class="img-responsive img-circle"></div>
-      <div class="comments-page-comment-head">
-        <div>
-          <div class="comments-stars">
-            {{#each commentStars}}
-              <img src="/images/{{starImage this}}" />
-            {{/each}}
-          </div>
-          <div>
-            {{comment.student.name}}
-          </div>
-        </div>
-        <div>
-          {{comment.comment}}
-        </div>
-        <div>
-          <div>{{createDate}}</div>
-          <div>{{subject}}</div>
+      <div><img src="{{userAvt}}" class="img-responsive comment-user-avatar"></div>
+      <div>
+        <div>{{createDate}}</div>
+        <div>{{comment.student.name}}</div>
+        <div class="comments-stars">
+          {{#each commentStars}}
+            <img src="/images/{{starImage this}}" />
+          {{/each}}
         </div>
       </div>
     </div>
+    <div>{{comment.comment}}</div>
   </div>
 </template>
