@@ -42,7 +42,7 @@ Template.teacherScheduleCourses.helpers({
   getCommentTimeStr: function(item) {
     var comment = Comments.findOne({'courseAttendanceId': item._id});
     if (!comment) return;
-    return moment(comment.createdAt).format('M月D日 HH:mm');
+    return moment(comment.createdAt).fromNow();
   },
   getCommentContent: function(item) {
     var comment = Comments.findOne({'courseAttendanceId': item._id});

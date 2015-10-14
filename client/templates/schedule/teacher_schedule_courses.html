@@ -12,16 +12,16 @@
     {{#ionContent}}
       {{#ionList class="schedule-courses"}}
         {{#each courses}}
-        {{#ionItem class="schedule-course-item"}}
-          <div class="course-time-info">
+        {{#ionItem class="schedule-course-item for-teacher"}}
+          <div class="clearfix course-time-info">
             <div class="pull-left">
-              {{getCourseTime this.attendTime}} {{this.student.name}} {{getStateStr this}}
+              {{this.student.name}}（{{getCourseTime this.attendTime}}） <span class="state">{{getStateStr this}}</span>
             </div>
             <div class="pull-right">
               {{this.detail.subject}} {{convMinutes2Str this.phase.start}} - {{convMinutes2Str this.phase.end}}
             </div>
           </div>
-          <div class="course-addr-info">
+          <div class="clearfix course-addr-info">
             <div class="pull-left">
               上课地点
             </div>
@@ -30,35 +30,28 @@
             </div>
           </div>
           {{#if isCommented this}}
-          <div class="btn-box">
-            <div class="pull-right">
-              <button class="btn button button-positive btn-show-comment" data-id="{{this._id}}">查看评价</button>
+<!--           <div class="clearfix btn-box">
+            <button class="btn btn-success btn-show-comment" data-id="{{this._id}}">查看评价</button>
+          </div> -->
+          <div class="comment-box">
+            <div class="stu-avatar">
+              <img src="{{getAvatarUrl student.id}}" alt="头像" class="avatar img-responsive">
             </div>
-          </div>
-          <div class="comment-box hide">
-            <div class="clearfix">
-              <div class="pull-left"><label>学生评价</label></div>
-              <div class="pull-right comment-time">{{getCommentTimeStr this}}</div>
+            <div class="comment-body">
+              <div class="clearfix">
+                <div class="pull-left stu-name">
+                  {{this.student.name}}
+                </div>
+                <div class="pull-right comment-time">{{getCommentTimeStr this}}</div>
+              </div>
+              <div class="comments-stars">
+                {{#each commentStars this}}
+                  <img src="/images/{{starImage this}}" />
+                {{/each}}
+              </div>
             </div>
-            <div class="row">
-              <div class="stu-avatar">
-                <img src="{{getAvatarUrl student.id}}" alt="头像" class="img-responsive img-circle">
-              </div>
-              <div class="col">
-                <div class="clearfix">
-                  <div class="pull-left stu-name">
-                    {{this.student.name}}
-                  </div>
-                  <div class="pull-right stars">
-                    {{#each commentStars this}}
-                      <img src="/images/{{starImage this}}" />
-                    {{/each}}
-                  </div>
-                </div>
-                <div class="comment-content">
-                  {{getCommentContent this}}
-                </div>
-              </div>
+            <div class="comment-content">
+              {{getCommentContent this}}
             </div>
           </div>
           {{/if}}
