@@ -1,7 +1,7 @@
 Template.proceedsDetails.helpers({
   //add you helpers here
   transactionDetail: function() {
-    return TransactionDetail.find();
+    return TransactionDetail.find({}, {sort: {createdAt:-1}});
   }
 });
 
