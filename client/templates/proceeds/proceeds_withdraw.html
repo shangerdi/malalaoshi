@@ -15,13 +15,13 @@
         <p>尾号4410 储蓄卡</p>
         {{> ionIcon icon="ios-arrow-right"}}
       {{/ionItem}}
-      可转出余额: xxx 元
+      可转出余额: {{teacherBalance.balance}} 元
       {{#ionItem}}
         <label>提现金额</label>
-        <input type="number" placeholder="请输入提现金额"/>
+        <input id="amount" type="number" min="1" max="{{teacherBalance.balance}}" placeholder="请输入提现金额"/>
       {{/ionItem}}
       每笔限额5000元，本日还可以转出3次
-      <button class="btn btn-success btn-block">确认提现</button>
+      <button class="btn btn-success btn-block" data-action="input-password">确认提现</button>
     {{/ionContent}}
   {{/ionView}}
 </template>

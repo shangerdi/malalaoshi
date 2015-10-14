@@ -133,14 +133,38 @@ Meteor.methods({
     withdrawInfo.bankCardName;
     withdrawInfo.password;
 
+    console.log(writeObj(withdrawInfo));
+
     var curUser = Meteor.user();
     if (!curUser || !curUser.role) {
       throw new Meteor.Error('权限不足', "需要登录");
     }
 
+    //numberic the amount
+    if (withdrawInfo) {
+      withdrawInfo.amount = Number(withdrawInfo.amount);
+    }
+
     //amount must > 0
     if (withdrawInfo.amount <= 0) {
       throw new Meteor.Error('提现金额错误', "提现金额错误");
+    }
+
+    if (!withdrawInfo
+//    || !withdrawInfo.amount
+//    || !withdrawInfo.password
+      || !withdrawInfo.cardNumber
+      || !withdrawInfo.cardUserName
+      || !withdrawInfo.bankCardName) {
+      throw new Meteor.Error('参数错误', "参数错误");
+    }
+
+    //verify input password
+    var encryptedPass = CryptoJS.HmacMD5(withdrawInfo.password, this.userId).toString();
+    var isFound = TeacherBalance.findOne({userId: this.userId, withdrawPass: encryptedPass});
+    if (!isFound) {
+      //todo: 需增加错误次数验证
+      throw new Meteor.Error('密码错误', "密码错误");
     }
 
     //提现 明细
