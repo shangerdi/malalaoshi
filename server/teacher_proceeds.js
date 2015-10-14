@@ -1,9 +1,20 @@
 submitTransaction = function(details) {
   //要修改的余额，负数为减少
   var increasedAmount = 0;
-  //多项交易明细
+  //计算总共需要更改的金额(增加 或 减少)
   details.forEach(function(detail) {
     increasedAmount += detail.amount;
+  });
+  //todo: maybe to do this with another better way
+  var curBalance = TeacherBalance.findOne({userId: details[0].userId});
+  if (curBalance.balance + increasedAmount < 0) {
+    //余额不足
+    console.log("balance not enough");
+    throw new Meteor.Error('余额不足', "余额不足");
+  }
+
+  //写入交易明细
+  details.forEach(function(detail) {
     if (detail.courseId) {
       //带有课程信息的明细
       TransactionDetail.insert({
@@ -31,9 +42,9 @@ submitTransaction = function(details) {
 
 writeObj = function(obj) {
   var description = "";
-  for(var i in obj){
-    var property=obj[i];
-    description+=i+" = "+property+"\n";
+  for (var i in obj) {
+    var property = obj[i];
+    description += i + " = " + property + "\n";
   }
   return description;
 }
@@ -113,5 +124,38 @@ Meteor.methods({
     result.success = true;
     return result;
     //todo: 现有方式可直接通过 Router.go() 跳转到重置密码页面，需要完善和解决此处安全问题
+  },
+  withdraw: function(withdrawInfo) {
+    //params
+    withdrawInfo.amount;
+    withdrawInfo.cardNumber;
+    withdrawInfo.cardUserName;
+    withdrawInfo.bankCardName;
+    withdrawInfo.password;
+
+    var curUser = Meteor.user();
+    if (!curUser || !curUser.role) {
+      throw new Meteor.Error('权限不足', "需要登录");
+    }
+
+    //amount must > 0
+    if (withdrawInfo.amount <= 0) {
+      throw new Meteor.Error('提现金额错误', "提现金额错误");
+    }
+
+    //提现 明细
+    var withdrawDetail = {};
+    withdrawDetail.userId = curUser._id;
+    withdrawDetail.amount = withdrawInfo.amount * -1;
+    withdrawDetail.title = "提现";
+    withdrawDetail.operator = {'id': curUser._id, 'role': curUser.role};
+
+    var transactionDetails = [];
+    transactionDetails.push(withdrawDetail);
+
+    //提交交易
+    submitTransaction(transactionDetails);
+    //todo: 调用银行接口打款
+    //Meteor.call("pay");
   }
 });
