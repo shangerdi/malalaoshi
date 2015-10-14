@@ -9,7 +9,13 @@
 
   {{#ionView}}
     {{#ionContent}}
-
+      {{#each teacherBalance.bankCards}}
+        {{#ionItem class="item-icon-right item-avatar" iconRight=true}}
+          <img src="/images/apply/complete-ok.png">
+          <h2>{{cardUserName}}</h2>
+          <p>{{cardNumber}} {{bankName}}</p>
+        {{/ionItem}}
+      {{/each}}
     {{/ionContent}}
   {{/ionView}}
 </template>
