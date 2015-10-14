@@ -700,18 +700,27 @@ input[type=text].browser {
   position: absolute;
   top: 93px;
   width: 100%;
+  height: 44px;
+  margin-top: 10px;
+  padding: 0 14px;
   z-index: 4;
-  background-color: #f1f1f1;
-  border-bottom: 1px #aaa solid;
+  background-color: #fff;
+  border-bottom: 1px #d6d6d6 solid;
+  .year-title {
+    display: inline-block;
+    line-height: 44px;
+    color: #333;
+    font-size: 26px;
+  }
   > div {
     display: inline-block;
   }
-  .marks > div{
-    padding-bottom: 10px;
-    &.done{
+  .marks{
+    padding-top: 2px;
+    .done{
       color: @course-done-bgcolor;
     }
-    &.todo{
+    .todo{
       color: @course-todo-bgcolor;
     }
     .ion-record {
@@ -728,10 +737,10 @@ input[type=text].browser {
   }
 }
 .content.schedule-calendar {
-  padding-top: 61px;
+  padding-top: 55px;
 }
 .schedule-calendar .month-nav {
-  border-bottom: 1px #888 solid;
+  border-bottom: 1px #d6d6d6 solid;
   clear: both;
   line-height: 40px;
   padding: 5px;
@@ -740,12 +749,20 @@ input[type=text].browser {
     display: inline-block;
     min-width: 40px;
     color: #e5e5e5;
+    font-size: 16px;
     cursor: pointer;
+    & span {
+      display: none;
+    }
   }
   .swiper-slide-active a {
     background-color: @today-bgcolor;
     color: @today-color;
+    font-size: 18px;
     border-radius: 50%;
+    & span {
+      display: inline;
+    }
   }
   .swiper-slide-prev a, .swiper-slide-next a {
     color: #333;
@@ -763,22 +780,31 @@ input[type=text].browser {
     text-align: left;
     width: 100%;
   }
-  border-bottom: 1px #666 solid;
+  padding: 5px 0;
+  border-bottom: 1px #d6d6d6 solid;
+  background-color: #fff;
   text-align: center;
-  thead tr td{
-    line-height: 40px;
+  .table{
+    margin: 0;
+  }
+  thead > tr > td{
+    line-height: 30px;
+    font-size: 16px;
     padding: 8px 0;
   }
-  td{
+  tr > td{
     border: 0;
+    &:first-child{
+      padding-left: 22px;
+    }
+    &:last-child{
+      padding-right: 22px;
+    }
   }
   td > div{
-    display: inline-block;
     width: 30px;
     height: 30px;
     line-height: 30px;
-    border: 1px transparent solid;
-    border-radius: 50%;
     cursor: pointer;
   }
   td.today > div{
@@ -787,19 +813,39 @@ input[type=text].browser {
   }
 }
 .schedule-calendar .course-items {
+  margin-top: 10px;
+  padding: @page-padding;
+  min-height: 66px;
+  background-color: #fff;
   .title {
-    margin: 20px 0;
     font-style: normal;
+    color: #333;
   }
-  td {
-    border-top: 0;
-    border-bottom: 1px #ddd solid;
+  .list .item {
+    padding: @page-padding 0;
+    border-left: 0;
+    border-right: 0;
+    border-color: #d6d6d6;
+    &:first-child{
+      border-top: 0;
+    }
+    > div {
+      padding-top: 10px;
+      &:first-child{
+        padding-top: 0;
+      }
+    }
+    .subject {
+      color: #333;
+    }
+    .date {
+      font-size: 12px;
+      color: #939393;
+    }
+    .time {
+      color: #5d5d5d;
+    }
   }
-}
-.schedule-calendar .spinner-container{
-  position: absolute;
-  left: 0;
-  top: 0;
 }
 .schedule-calendar .year-view-box {
   .prev-year {
@@ -809,41 +855,36 @@ input[type=text].browser {
     position: absolute; top: 20px
   }
   .year-view-con {
+    padding: 20px 0;
     text-align: left;
     width: 100%;
+    background-color: #fff;
   }
 }
 .schedule-calendar .year-nav {
   padding: 10px 0;
 }
 .schedule-calendar .year-view {
-  margin-right: 0;
   a{
-    margin-left: 15px;
-    color: black;
+    margin-left: 7px;
+    color: @brand-success;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
   }
   .table {
     cursor: pointer;
-  }
-  thead{
-    display: none;
+    margin-bottom: 15px;
   }
   td{
     border: 0;
     padding: 0;
-    text-align: center;
   }
   td > div{
-    display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 17px;
+    height: 17px;
     line-height: 16px;
     font-size: 12px;
-    text-align: center;
-    border: 1px transparent solid;
-    border-radius: 50%;
   }
   td.today > div{
     background-color: @today-bgcolor;
@@ -851,8 +892,22 @@ input[type=text].browser {
   }
 }
 .schedule-calendar {
+  .spinner-container{
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
   .swiper-slide {
     height: auto;
+  }
+  td{
+    text-align: center;
+    color: #333;
+  }
+  td > div{
+    display: inline-block;
+    border: 0;
+    border-radius: 50%;
   }
   td.done > div{
     background-color: @course-done-bgcolor;
@@ -872,12 +927,18 @@ input[type=text].browser {
   .schedule-calendar .year-view .amonth{
     &:nth-child(3n+1){
       clear: left;
+      padding-left: 16px;
+      padding-right: 10px;
     }
     &:nth-child(3n+2){
       clear: none;
+      padding-left: 10px;
+      padding-right: 10px;
     }
     &:nth-child(3n+3){
       clear: right;
+      padding-left: 10px;
+      padding-right: 16px;
     }
   }
 }
@@ -890,15 +951,23 @@ input[type=text].browser {
     }
     &:nth-child(4n+1){
       clear: left;
+      padding-left: 16px;
+      padding-right: 10px;
     }
     &:nth-child(4n+2){
       clear: none;
+      padding-left: 10px;
+      padding-right: 10px;
     }
     &:nth-child(4n+3){
       clear: none;
+      padding-left: 10px;
+      padding-right: 10px;
     }
     &:nth-child(4n+4){
       clear: right;
+      padding-left: 10px;
+      padding-right: 16px;
     }
   }
 }
@@ -930,25 +999,100 @@ input[type=text].browser {
 }
 .schedule-courses {
   .schedule-course-item {
-    div {
-      padding: 5px 0;
+    margin-top: @page-padding;
+    padding: @page-padding;
+    padding-bottom: 0;
+    border: 0;
+    box-shadow: 0 1px #d6d6d6;
+    img.avatar{
+      left: @page-padding;
+      width: 66px;
+      height: 66px;
+      max-width: 66px;
+      max-height: 66px;
+      border-radius: 2px;
     }
-    & > div {
-      clear: both;
+    .course-info{
+      padding: 8px 0 8px 76px;
+      min-height: 94px;
+      border-bottom: 1px solid #d6d6d6;
+      & > div {
+        padding-top: 10px;
+        &:first-child{
+          padding-top: 0;
+        }
+      }
+      .subject {
+        color: #333;
+      }
+      .date {
+        font-size: 12px;
+        color: #939393;
+      }
+      .time {
+        color: #5d5d5d;
+      }
     }
-    .course-info .course-time, .pull-right {
-      color: #9b9b9b;
+    .btn-box {
+      padding: 10px 0;
+      text-align: right;
+    }
+    .pull-left {
+      font-size: 16px;
+      color: #333;
+    }
+    .pull-right {
+      font-size: 12px;
+      color: #939393;
+    }
+    &.for-teacher {
+      padding: 17px @page-padding;
+      > div {
+        padding: 10px 0;
+        border-bottom: 1px solid #e6e6e6;
+        &:first-child{
+          padding-top: 0;
+        }
+        &:last-child{
+          padding-bottom: 0;
+          border-bottom: 0;
+        }
+      }
+      .state {
+        display: inline-block;
+        padding: 0 3px;
+        border-radius: 3px;
+        background-color: #ffa100;
+        font-size: 12px;
+        color: #fff;
+        line-height: 19px;
+      }
+      .btn-box {
+        border-bottom: 0;
+      }
     }
     .comment-box {
-      .row{
-        margin: 0;
-      }
       .stu-avatar{
-        width: 80px;
-        height: 80px;
-        padding: 0;
+        position: absolute;
+        width: 56px;
+        height: 56px;
         overflow: hidden;
-        margin-right: 5px;
+        img {
+          width: 56px;
+          height: 56px;
+          max-width: 56px;
+          max-height: 56px;
+        }
+      }
+      .comment-body {
+        padding-top: 3px;
+        padding-left: 66px;
+        min-height: 56px;
+      }
+      .comment-content, .comments-stars{
+        padding-top: 10px;
+        font-size: 14px;
+        color: #5d5d5d;
       }
     }
   }

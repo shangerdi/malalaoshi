@@ -9,3 +9,57 @@ html,body {
 .pane, .view{
     background-color:#f1f1f1;
 }
+$popupBorderRadius: 7px;
+.popup-container .popup {
+  border-radius: $popupBorderRadius;
+  .popup-body{
+    display: table;
+    width: 100%;
+    min-height: 83px;
+    text-align: center;
+    border-bottom: 1px #d6d6d6 solid;
+    overflow: hidden;
+    span {
+      display: table-cell;
+      vertical-align: middle;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      div {
+        display: inline-block;
+        text-align: left;
+      }
+    }
+  }
+  .popup-buttons{
+    padding: 0;
+    height: 43px;
+    min-height: 0;
+    overflow: hidden;
+    .button {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      border: 0;
+      border-right: 1px #E6E6E6 solid;
+      border-radius: 0;
+      background-color: #fff;
+      &:first-child{
+        border-bottom-left-radius: $popupBorderRadius;
+      }
+      &:last-child{
+        border-bottom-right-radius: $popupBorderRadius;
+        border-right: 0;
+      }
+      &.button-default {
+        color: #333;
+      }
+      &.button-assertive, &.button-positive {
+        color: #e8413e;
+      }
+      &:active{
+        background-color: rgba(0,0,0,0.1);
+      }
+    }
+  }
+}

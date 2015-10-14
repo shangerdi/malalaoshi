@@ -26,6 +26,12 @@ Template.teacherScheduleCourses.helpers({
       }
     }
   },
+  getAddress: function(item) {
+    if (!item.detail || !item.detail.orderId) return;
+    var orderInfo = Orders.findOne(item.detail.orderId);
+    if (!orderInfo) return;
+    return orderInfo.address + (orderInfo.addressDetail?orderInfo.addressDetail:"");
+  },
   isCommented: function(item) {
     return (item && item.state==ScheduleTable.attendanceStateDict['commented'].value);
   },
@@ -42,7 +48,7 @@ Template.teacherScheduleCourses.helpers({
   getCommentTimeStr: function(item) {
     var comment = Comments.findOne({'courseAttendanceId': item._id});
     if (!comment) return;
-    return moment(comment.createdAt).format('M月D日 HH:mm');
+    return moment(comment.createdAt).fromNow();
   },
   getCommentContent: function(item) {
     var comment = Comments.findOne({'courseAttendanceId': item._id});

@@ -9,11 +9,15 @@
   {{> appScheduleTabs}}
 
   <div class="schedule-calendar-header">
-    <div class="marks"><div class="done"><span class="ion-record"></span>已上课</div><div class="todo"><span class="ion-record"></span>待上课</div></div>
-    <div class="pull-right btns-box">
+    <a class="year-title">{{year}}年</a>
+    <div class="pull-right marks">
+      <div class="todo"><span class="ion-record"></span>待上课</div>
+      <div class="done"><span class="ion-record"></span>已上课</div>
+    </div>
+    <!-- <div class="pull-right btns-box">
       {{#if isShowToToday}}<input class="btn btn-go-today" type="button" name="goToday" value="今天">{{/if}}
       <input class="btn btn-change-view" type="button" name="changeView" value="{{changeViewBtnText}}">
-    </div>
+    </div> -->
   </div>
 {{#ionView}}
   {{#ionContent class="schedule-calendar"}}
@@ -27,10 +31,10 @@
           <div class="swiper-slide"><div class="prev-year">上一年</div></div>
           <div class="swiper-slide">
            <div class="year-view-con">
-            <div class="year-nav">
+            <!-- <div class="year-nav">
               <h3>{{year}}年</h3>
-            </div>
-            <div class="mlls-row year-view">
+            </div> -->
+            <div class="clearfix year-view">
               {{#each monthNum}}
               <div class="col-xs-4 col-sm-4 col-md-3 amonth" data-month="{{this}}">
                 <a>{{this}}月</a>
@@ -63,7 +67,7 @@
           <div class="swiper-wrapper">
             {{#each monthNavNum}}
             <div class="swiper-slide">
-              <a class="{{monthNavClass this}}" data-i="{{this}}">{{monthNavText this}}</a>
+              <a class="{{monthNavClass this}}" data-i="{{this}}">{{monthNavText this}}<span class="unit">月</span></a>
             </div>
             {{/each}}
           </div>
@@ -92,20 +96,28 @@
         </div>
       </div>
       <div class="course-items">
-        <h4 class="title">课程安排</h4>
+        <h4 class="title">课程</h4>
         {{#ionList}}
           {{#each courseList}}
             {{#ionItem}}
-              <div class="clearfix teacher-info">
-                <div class="pull-left">
+              <div class="clearfix subject-info">
+                <div class="pull-left subject">
                   {{#if $eq currentUser.role 'teacher'}}{{this.student.name}}{{else}}{{this.teacher.name}}{{/if}}
-                  ({{this.detail.subject}})
+                  （{{this.detail.subject}}）
                 </div>
-                <div class="pull-right">{{formatDate this.attendTime 'MM-DD'}}</div>
+                <div class="pull-right date">{{formatDate this.attendTime 'MM-DD'}}</div>
               </div>
-              <div class="clearfix comment-info">星级评价TODO</div>
+              {{#if isCommented this}}
+              <div class="clearfix comment-info">
+                <div class="comments-stars">
+                  {{#each commentStars this}}
+                    <img src="/images/{{starImage this}}" />
+                  {{/each}}
+                </div>
+              </div>
+              {{/if}}
               <div class="clearfix attend-info">
-                <div class="pull-left">{{convMinutes2Str this.phase.start}}-{{convMinutes2Str this.phase.end}}</div>
+                <div class="pull-left time">{{convMinutes2Str this.phase.start}}-{{convMinutes2Str this.phase.end}}</div>
                 <div class="pull-right">{{getCourseStateStr this}}</div>
               </div>
             {{/ionItem}}
@@ -114,6 +126,16 @@
       </div>
     </div>
     <!-- {{/if}} -->
+    <div class="bottom-btn-view">
+      <div class="row">
+        <div class="col-xs-6 text-left">
+          <input class="btn btn-default btn-change-view" type="button" name="changeView" value="{{changeViewBtnText}}">
+        </div>
+        <div class="col-xs-6 text-right">
+          {{#if isShowToToday}}<input class="btn btn-success btn-go-today" type="button" name="goToday" value="今天">{{/if}}
+        </div>
+      </div>
+    </div>
   {{/ionContent}}
 {{/ionView}}
 </template>

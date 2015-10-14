@@ -101,8 +101,8 @@ Template.orderStepSchedule.events({
       }
       if (result && result.own) {
         IonPopup.confirm({
-          title: '确认课时',
-          template: '您已经在相同的时间段预约了课程，是否继续？',
+          // title: '确认课时',
+          template: '<div>您已经在相同的时间段预约了课程，是否继续？</div>',
           cancelText: '取消',
           okText: '继续购买',
           onOk: function() {

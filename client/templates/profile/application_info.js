@@ -46,7 +46,7 @@ Template.applicationInfo.onRendered(function(){
   $(".swiper-container").width((2*n-1)*u);
   var _initMoreNavClass = function(s){
     var i = s.activeIndex;
-    $(s.slides).each(function(k) {
+    s.slides.each(function(k) {
       var $slide = $(this);
       if (k!=i-2) {
         $slide.removeClass('swiper-slide-prev-prev');
