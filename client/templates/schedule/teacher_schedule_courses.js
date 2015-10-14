@@ -26,6 +26,12 @@ Template.teacherScheduleCourses.helpers({
       }
     }
   },
+  getAddress: function(item) {
+    if (!item.detail || !item.detail.orderId) return;
+    var orderInfo = Orders.findOne(item.detail.orderId);
+    if (!orderInfo) return;
+    return orderInfo.address + (orderInfo.addressDetail?orderInfo.addressDetail:"");
+  },
   isCommented: function(item) {
     return (item && item.state==ScheduleTable.attendanceStateDict['commented'].value);
   },
