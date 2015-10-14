@@ -1,10 +1,14 @@
 <template name="teacher">
-
   {{#ionView}}
     {{#ionContent class="teacher-detail with-bottom-btn"}}
       <div class="teacher-detail-top">
         <div>
-          老师详情
+          <div style="float: left;" id="backBtn">
+            <i class="icon ion-ios-arrow-back"></i>
+          </div>
+          <div>
+            老师详情
+          </div>
         </div>
         <div class="teacher-detail-head" id="teacherDetailHead">
           <div>
@@ -39,7 +43,7 @@
             国际数学奥林匹克冠军教练，中国青少年奥林匹克特聘专家，浙江电视台节目主持人
           </div>
       </div>
-      <div><hr></div>
+      <div class="teacher-detail-split-line"><hr></div>
       <div id="teacherAudit">
         <div clas="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
@@ -57,7 +61,6 @@
           <div class="clearfix"></div>
         </div>
       </div>
-      <div><hr></div>
       <div class="teacher-person-img-show">
         <div class="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
@@ -74,7 +77,6 @@
           </div>
         </div>
       </div>
-      <div><hr></div>
       <div class="teacher-edu-results">
         <div class="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
@@ -89,7 +91,6 @@
           {{/each}}
         </div>
       </div>
-      <div><hr></div>
       <div class="teacher-edu-results">
         <div class="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
@@ -104,7 +105,6 @@
           {{/each}}
         </div>
       </div>
-      <div><hr></div>
       {{#if $eq user.profile.teacherType "studyCenter"}}
       <div class="teacher-detial-study-center">
         <div class="teacher-detail-item-head">
@@ -122,7 +122,7 @@
       <div><hr></div>
       {{else}}
         {{#if $eq user.profile.teacherType "goHome"}}
-        <div>
+        <div class="teacher-detial-go-home">
           <div class="teacher-detail-item-head">
             <span class="teacher-detail-item-span">
               上门区域
@@ -133,7 +133,7 @@
         <div><hr></div>
         {{/if}}
       {{/if}}
-      <div>
+      <div class="teacher-detail-schedule-weekly">
         <div clas="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
             可授课时间
@@ -143,7 +143,6 @@
           {{>scheduleWeeklyForOrder teacherId=user._id}}
         </div>
       </div>
-      <div><hr></div>
       <div id="teacherEvaluation">
         <div class="teacher-detail-item-head">
           <span class="teacher-detail-item-span">
@@ -153,18 +152,20 @@
         <div id="moreEvaluation" class="teacher-more-info">点击查看更多</div>
         <div id="evaluationInfo">
           <div>
-            <div class="comments-stars">
-              {{#each commentStars}}
-                <img src="/images/{{starImage this}}" />
-              {{/each}}
+            <div><img src="{{commentUserAvatarUrl}}" class="img-responsive comment-user-avatar"></div>
+            <div>
+              <div>{{commentTime}}</div>
+              <div>{{commentUserName}}</div>
+              <div class="comments-stars">
+                {{#each commentStars}}
+                  <img src="/images/{{starImage this}}" />
+                {{/each}}
+              </div>
             </div>
-            <div><img src="{{commentUserAvatarUrl}}" class="img-responsive img-circle comment-user-avatar"></div>
-            <div>{{commentUserName}}</div>
           </div>
           <div>{{commentInfo}}</div>
         </div>
       </div>
-      <div><hr></div>
     {{/ionContent}}
     {{# if $neq currentUser._id user._id }}
     <div class="bottom-btn-view">

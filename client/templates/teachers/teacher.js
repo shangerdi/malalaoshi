@@ -160,6 +160,9 @@ Template.teacher.helpers({
   commentUserName: function(){
     return this.comment && this.comment.student && this.comment.student.name ? this.comment.student.name : "";
   },
+  commentTime: function(){
+    return this.comment ? moment(this.comment.createdAt).format('YYYY年MM月DD日') : "";
+  },
   commentUserAvatarUrl: function(){
     var avtUrl = "";
     if(this.comment && this.comment.student && this.comment.student.id){
@@ -217,6 +220,12 @@ Template.teacher.events({
   'click #moreEvaluation': function(e){
     e.preventDefault();
     Router.go('comments', {'tid': this.user._id});
+  },
+  'click #backBtn': function (event, template) {
+    $('[data-nav-container]').addClass('nav-view-direction-back');
+    $('[data-navbar-container]').addClass('nav-bar-direction-back');
+
+    window.history.back();
   }
 });
 Template.teacherPersonalPhotosShow.onCreated(function(){
