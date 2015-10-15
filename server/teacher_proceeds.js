@@ -98,17 +98,21 @@ Meteor.methods({
 
     return result;
   },
-  resetWithdrawPass: function(newPass) {
-    //todo: 假定通过了认证，允许重置密码
-    if (newPass && newPass.length !== 0) {
-      var encryptedPass = CryptoJS.HmacMD5(newPass, this.userId).toString();
-      console.log(encryptedPass);
-      TeacherBalance.update({userId: this.userId}, {$set: {withdrawPass: encryptedPass, isSetPass: true}});
-    }
-    else {
-      console.log("resetWithdrawPass Error!");
+  resetWithdrawPass: function(resetPassInfo) {
+    if (!resetPassInfo || !resetPassInfo.newPass || resetPassInfo.newPass.length == 0) {
       throw new Meteor.Error('密码不能为空', '密码不能为空');
     }
+    var curBalance = TeacherBalance.findOne({userId: this.userId});
+    //check the token unless user not set password yet
+    if (curBalance.withdrawPass && resetPassInfo.token != curBalance.token) {
+      console.log("Someone try to reset password without token, blocked!");
+      throw new Meteor.Error('身份验证失败', '身份验证失败');
+    }
+
+    var encryptedPass = CryptoJS.HmacMD5(resetPassInfo.newPass, this.userId).toString();
+    var token = Math.random() + 1;
+    TeacherBalance.update({userId: this.userId}, {$set: {withdrawPass: encryptedPass, isSetPass: true, token: token}});
+
   },
   identityVerify: function(params) {
     //TODO: verify following information
@@ -120,8 +124,10 @@ Meteor.methods({
     //result.errorMsg = "信息填写错误";
     //throw new Meteor.Error('信息填写错误', '信息填写错误');
 
-    //todo: 假定 实名认证通过
+    //todo: 假定 实名认证通过，返回重置密码所需要的token
     result.success = true;
+    result.token = Math.random() + 1;
+    TeacherBalance.update({userId: this.userId}, {$set: {token: result.token}});
     return result;
     //todo: 现有方式可直接通过 Router.go() 跳转到重置密码页面，需要完善和解决此处安全问题
   },

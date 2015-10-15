@@ -327,7 +327,7 @@ Meteor.publish('coupon', function(param){
 
 Meteor.publish("proceeds", function() {
   return [
-    TeacherBalance.find({userId: this.userId}, {fields: {withdrawPass: 0}}),
+    TeacherBalance.find({userId: this.userId}, {fields: {withdrawPass: 0, token: 0}}),
     TransactionDetail.find({userId: this.userId})
   ];
 });
