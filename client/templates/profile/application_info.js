@@ -25,7 +25,7 @@ var updateCheckedCity = function() {
 var updateCheckedGender = function() {
   $(".gender label").each(function(){
     var $label = $(this), input = $label.find('input')[0], isMale = (input.value==='男');
-    var imgSrc = '/images/'+(isMale?'male':'female')+(input.checked?'':'_gray')+'.png';
+    var imgSrc = '/images/'+(isMale?'male':'female')+(input.checked?'_active':'_gray')+'.png';
     $label.find('img')[0].src = imgSrc;
   });
 }
