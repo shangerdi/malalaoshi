@@ -47,7 +47,7 @@ Template.proceedsDetails.helpers({
     return "";
   },
   getDateTime: function(createdAt) {
-    return (new Date(createdAt)).format('mm:ss');
+    return (new Date(createdAt)).format('hh:mm');
   }
 });
 
