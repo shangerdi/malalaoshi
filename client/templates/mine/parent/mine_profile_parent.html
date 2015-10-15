@@ -16,6 +16,8 @@
           <img src="{{currentUser.profile.avatarUrl}}">
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
+      {{/ionList}}
+      {{#ionList class=""}}
         {{#ionItem path="mineProfileName" iconRight=true}}
           学生姓名
           <span class="item-note">
@@ -31,6 +33,15 @@
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
+        {{#ionItem path="mineProfileBirthday" iconRight=true}}
+          出生日期
+          <span class="item-note">
+            {{getBirthDayStr}}
+          </span>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/ionList}}
+      {{#ionList class=""}}
         {{#ionItem id="teachingLocationItem" href="" iconRight=true}}
           上课位置
           {{#unless currentUser.profile.location}}
@@ -62,10 +73,14 @@
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
+      {{/ionList}}
+      {{#ionList class=""}}
         {{#ionItem path="coupons" iconRight=true}}
           麻辣奖学金
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
+      {{/ionList}}
+      {{#ionList class=""}}
         {{#ionItem path="systemSettings" iconRight=true}}
           设置
           {{> ionIcon icon="ios-arrow-right"}}

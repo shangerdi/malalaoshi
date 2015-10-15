@@ -1522,6 +1522,35 @@ input[type=text].browser {
   a {
     cursor: pointer;
   }
+  .list {
+    margin-top: 10px;
+    padding: 0 @page-padding;
+    background-color: #fff;
+    .item {
+      padding-left: 0;
+      padding-right: 43px;
+      border-left: 0;
+      border-right: 0;
+      border-color: @indexBorderColor;
+      &:first-child{
+        border-top: 0;
+      }
+      &:last-child{
+        border-bottom: 0;
+      }
+      font-size: 16px;
+      color: #333;
+      .item-note {
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: @bodyTextColor;
+      }
+      &.item-icon-right .icon{
+        right: 0;
+      }
+    }
+  }
 }
 .no-float {
   float: none;
