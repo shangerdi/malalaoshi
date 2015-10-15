@@ -11,12 +11,21 @@ Template.proceedsAddCardStep3.events({
     var cardInfo = Session.get('cardInfo');
     Meteor.call('addNewCard', cardInfo, function(error, result) {
       if (error) {
-        alert(error.reason);
+        IonPopup.alert({
+          title: error.reason,
+          okText: "确定"
+        });
         return throwError(error.reason);
       }
 
-      alert('开通成功!');
-      Router.go('proceedsIndex');
+      IonPopup.alert({
+        title: "开通成功!",
+        okText: "确定",
+        onOk: function() {
+          Session.set('cardInfo', null);
+          Router.go('proceedsIndex');
+        }
+      });
     });
   }
 });

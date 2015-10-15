@@ -10,12 +10,19 @@ Template.proceedsAddCardStep1.events({
   'click [data-action=add-card-step2]': function() {
     var cardNumber = $("#cardNumber").val();
     if (!cardNumber) {
-      alert('请输入卡号');
+      IonPopup.alert({
+        title: "请输入卡号",
+        okText: "确定"
+      });
+      return;
     }
 
     Meteor.call('getCardInfo', cardNumber, function(error, result) {
       if (error) {
-        alert(error.reason);
+        IonPopup.alert({
+          title: error.reason,
+          okText: "确定"
+        });
         return throwError(error.reason);
       }
 

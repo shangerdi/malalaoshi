@@ -11,12 +11,20 @@ Template.proceedsPassword.events({
     var newPass = $("#withdrawPass").val();
     Meteor.call('resetWithdrawPass', newPass, function(error, result) {
       if (error) {
-        alert(error.reason);
+        IonPopup.alert({
+          title: error.reason,
+          okText: "确定"
+        });
         return throwError(error.reason);
       }
 
-      alert('设置密码成功!');
-      Router.go('proceedsMyCards');
+      IonPopup.alert({
+        title: "设置密码成功!",
+        okText: "确定",
+        onOk: function() {
+          Router.go('proceedsMyCards');
+        }
+      });
     });
   }
 });

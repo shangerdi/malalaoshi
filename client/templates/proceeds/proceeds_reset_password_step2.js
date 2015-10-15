@@ -11,7 +11,10 @@ Template.proceedsResetPasswordStep2.events({
     params.cardNumber = $("#cardNumber").val();
     Meteor.call('identityVerify', params, function(error, result) {
       if (error) {
-        alert(error.reason);
+        IonPopup.alert({
+          title: error.reason,
+          okText: "确定"
+        });
         return throwError(error.reason);
       }
 

@@ -10,10 +10,11 @@
   {{#ionView}}
     {{#ionContent}}
       {{#each transactionDetail}}
-        {{#ionItem class="item-icon-right" iconRight=true}}
-          {{title}}<br/>
-          {{amount}}<br/>
-          {{operator.role}}<br/>
+        {{#ionItem class="item-icon-right item-avatar" iconRight=true}}
+          <img src="/images/apply/complete-ok.png">
+          <h2>{{title}}</h2>
+          <p>{{operator.role}}</p>
+          <div class="icon">{{#if $gt amount 0}}+{{/if}}{{amount}}</div>
         {{/ionItem}}
       {{/each}}
     {{/ionContent}}
