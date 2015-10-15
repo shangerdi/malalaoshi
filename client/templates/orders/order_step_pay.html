@@ -9,34 +9,51 @@
 
   {{#ionView class="order-view order-course-pay"}}
     {{#ionContent claass="with-bottom-btn"}}
-    {{#ionList}}
-      {{#ionItem}}
-        <label>应付金额</label>
-        <div>
-          ￥{{toPayCost}}
-        </div>
-      {{/ionItem}}
-     <div class="{{errorClass 'pay'}}">
-      <label>选择支付方式</label>
-      {{#ionItem class="item-radio"}}
-        <input type="radio" name="payType" value="alipay">
-        <div class="item-content">
-          支付宝
-        </div>
-        {{> ionIcon icon="checkmark" class="radio-icon"}}
-      {{/ionItem}}
-      {{#if isCordova}} <!-- 微信支付只有客户端（web方式是公共号） -->
-      {{#ionItem class="item-radio"}}
-        <input type="radio" name="payType" value="weixin">
-        <div class="item-content">
-          微信支付
-        </div>
-        {{> ionIcon icon="checkmark" class="radio-icon"}}
-      {{/ionItem}}
-      {{/if}}
-      <span class="help-block">{{errorMessage 'pay'}}</span>
-     </div>
-    {{/ionList}}
+      {{#ionList class="cost-list"}}
+        {{#ionItem}}
+          <label>原价</label>
+          <div class="item-note">
+            ￥{{totalCost}}
+          </div>
+        {{/ionItem}}
+        {{#ionItem class="to-pay"}}
+          <label>支付金额</label>
+          <div class="item-note">
+            ￥{{toPayCost}}
+          </div>
+        {{/ionItem}}
+      {{/ionList}}
+
+      <div class="{{errorClass 'pay'}}">
+        <span class="pay-type-hint">选择支付方式</span>
+        {{#ionList class="pay-type-list"}}
+          {{#ionItem class="item-radio" avatar="left"}}
+            <input type="radio" name="payType" value="alipay">
+            <div class="item-content">
+              <img src="/images/alipay.png">
+              <label>支付宝</label>
+              <span class="radio-img">
+                <img class="no" src="/images/checked-none.png">
+                <img class="yes" src="/images/checked.png">
+              </span>
+            </div>
+          {{/ionItem}}
+          <!-- {{#if isCordova}} 微信支付只有客户端（web方式是公共号） -->
+          {{#ionItem class="item-radio" avatar="left"}}
+            <input type="radio" name="payType" value="weixin">
+            <div class="item-content">
+              <img src="/images/weixin.png">
+              <label>微信支付</label>
+              <span class="radio-img">
+                <img class="no" src="/images/checked-none.png">
+                <img class="yes" src="/images/checked.png">
+              </span>
+            </div>
+          {{/ionItem}}
+          <!-- {{/if}} -->
+        {{/ionList}}
+        <span class="help-block">{{errorMessage 'pay'}}</span>
+      </div>
     {{/ionContent}}
     <div class="bottom-btn-view">
         <button id="callPayment" class="btn btn-lg btn-success col-xs-12">

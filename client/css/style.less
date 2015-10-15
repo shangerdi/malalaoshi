@@ -1073,6 +1073,76 @@ input[type=text].browser {
     }
   }
 }
+.order-view.order-course-pay {
+  .content {
+    padding: 0;
+    background-color: @appBackGroundColor;
+    .list {
+      margin-top: 10px;
+      padding: 0 @page-padding;
+      background-color: #fff;
+      .item {
+        padding: 17px 0;
+        border-color: @indexBorderColor;
+        &:first-child{
+          border-top: 0;
+        }
+        &:last-child{
+          border-bottom: 0;
+        }
+        label {
+          font-size: 16px;
+          color: #333;
+        }
+        .item-note {
+          color: @bodyTextColor;
+        }
+        &.to-pay .item-note{
+          color: @malaRed2;
+        }
+      }
+    }
+    .pay-type-hint {
+      color: @bodyTextColor;
+      padding-left: @page-padding;
+    }
+    .pay-type-list {
+      line-height: 40px;
+      .item-content {
+        padding: 0;
+        padding-left: 50px;
+        min-height: 40px;
+        background-color: transparent;
+        img:first-child{
+          top:0;
+          left:0;
+          border-radius: 0;
+        }
+      }
+      .radio-img {
+        position: absolute;
+        right: 0;
+        font-size: 0;
+        img {
+          width: 36px;
+          height: 36px;
+          vertical-align: middle;
+          &.yes {
+            display: none;
+          }
+        }
+      }
+      .item-radio input:checked ~ div .radio-img {
+        img.no {
+          display: none;
+        }
+        img.yes {
+          display: inline;
+        }
+      }
+    }
+  }
+}
 .schedule-courses {
   .schedule-course-item {
     margin-top: @page-padding;
