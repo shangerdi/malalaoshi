@@ -1572,6 +1572,8 @@ body>.sticky-nav{
   }
   > div > div:first-child{
     float: right;
+    word-break: keep-all;
+    white-space: nowrap;
   }
   .comments-stars{
     img{
