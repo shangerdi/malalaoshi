@@ -285,15 +285,20 @@ $indexBorderColor: #E6E6E6;
 .teacher-content .teacher-cert div{
   margin-top: 8px;
 }
-.teacher-cert div{
-  float: left;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  div:last-child{
-    margin-right: 0;
+.teacher-cert{
+  div{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 8px;
+    div:last-child{
+      margin-right: 0;
+    }
+    span{
+      font-size: 13.3px;
+    }
   }
-  span{
-    font-size: 13.3px;
+  img{
+    width: 11px;
   }
 }
 .teacher-avatar{
