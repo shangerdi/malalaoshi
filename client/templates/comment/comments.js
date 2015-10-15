@@ -2,6 +2,7 @@ var navMoveHeight = 0;
 var defalutIncrement = 10;
 var sort = {createdAt: -1};
 var commentsLimit = defalutIncrement;
+var viewHeight = 0;
 Template.comments.onCreated(function(){
   var self = this;
   this.loadMoreComments = new ReactiveVar();
@@ -77,6 +78,7 @@ Template.comments.onRendered(function(){
     setNavClass(actId);
   });
 
+  viewHeight = $('.view-page-common').height() - $('.bottom-btn-view').height();
   var detailScrollTop = $('.view-page-common').scrollTop();
   var commentsDetailOffTop = $(".view-page-common").offset().top;
   var barHeaderHeight = $(".bar-header").outerHeight(true);
@@ -85,6 +87,18 @@ Template.comments.onRendered(function(){
   $('.view-page-common').scroll(function(){
     if($("#commentsNav").offset().top <= commentsDetailOffTop){
       $('#commentsNavStatic').css('display','block');
+      var listBottomTop = $('.view-page-common > div:nth-last-of-type(2)').position().top;
+      if($('.view-page-common > div').length > 6 && listBottomTop < viewHeight){
+        if($('.view-page-common').scrollTop() > navMoveHeight){
+          var topOver = $('.view-page-common').scrollTop() - navMoveHeight;
+          var bottomOver = viewHeight - listBottomTop;
+          if(topOver > bottomOver){
+            $('.view-page-common').scrollTo(($('.view-page-common').scrollTop() - bottomOver)+'px',500);
+          }else{
+            $('.view-page-common').scrollTo(navMoveHeight+'px',500);
+          }
+        }
+      }
     }else{
       $('#commentsNavStatic').css('display','none');
     }
@@ -226,7 +240,7 @@ Template.commentsDetailShow.helpers({
 Template.comments.events({
   'click .comments-page-tab': function(e){
     e.preventDefault();
-    commentsPageAcitveTabClick(e.target.id.toString().replace("InScroll", ""));
+    commentsPageAcitveTabClick($(e.target).closest('.comments-page-tab').attr('id').toString().replace("InScroll", ""));
   },
   'click .load-more': function(e){
     e.preventDefault();
@@ -240,7 +254,7 @@ Template.comments.onDestroyed(function(){
 var commentsPageAcitveTabClick = function(id){
   commentsLimit = defalutIncrement;
   Session.set('commentsPageAcitveTab', id);
-  if($('.view-page-common').scrollTop() != navMoveHeight){
+  if(($('.view-page-common').scrollTop() - navMoveHeight) != 0){
     setMarginBottom();
     $('.view-page-common').scrollTo(navMoveHeight+'px',500);
   }
@@ -266,16 +280,16 @@ function setNavClass(actId){
     if(commentType[i] == actId){
       var navIds = navIdAry[i];
       _.each(navIds, function(item){
-        $(item).addClass('teacher-detail-tab-active');
+        $(item).closest('.comments-page-tab').addClass('teacher-detail-tab-active');
       });
     }else{
       var navIds = navIdAry[i];
       _.each(navIds, function(item){
-        $(item).removeClass('teacher-detail-tab-active');
+        $(item).closest('.comments-page-tab').removeClass('teacher-detail-tab-active');
       });
     }
   }
 }
 function setMarginBottom(){
-  $('.view-page-common > div:last-child').css('margin-bottom', ($('.view-page-common').height() - 63)+'px');
+  $('.view-page-common > div:last-child').css('margin-bottom', ($('.view-page-common').height() - 44)+'px');
 }
