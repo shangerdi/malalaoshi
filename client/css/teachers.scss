@@ -289,18 +289,18 @@ $indexBorderColor: #E6E6E6;
   float: left;
   margin-right: 8px;
   margin-bottom: 8px;
-}
-.teacher-cert div:last-child{
-  margin-right: 0;
+  div:last-child{
+    margin-right: 0;
+  }
+  span{
+    font-size: 13.3px;
+  }
 }
 .teacher-avatar{
   width: 50px;
   height: 50px;
   vertical-align: middle;
   float: right;
-}
-.teacher-cert span{
-  font-size: 15px;
 }
 .ion-checked{
   color: #59e3c3;
@@ -456,7 +456,7 @@ $indexBorderColor: #E6E6E6;
   font-size: 18px;
 }
 .teacher-detail-item-span{
-  font-size: 17px;
+  font-size: 16px;
 }
 .teacher-detail-submit{
   padding-bottom: 50px;
@@ -1268,8 +1268,13 @@ body>.sticky-nav{
     line-height: 12px
   }
   >div{
-    padding:0 $pagepadding;
+    padding-left: $pagepadding;
+    padding-right: $pagepadding;
     width:100%;
+  }
+  > div:first-child{
+    padding-left: 0;
+    padding-right: 0;
   }
   >div.above-tabs,>div.sticky-nav{
     padding:0;
@@ -1305,8 +1310,22 @@ body>.sticky-nav{
       }
     }
   }
-  .teacher-detail-tab-content{
+  .teacher-detail-tab-content, #teacherAudit, .teacher-detail-split-line, .teacher-person-img-show,
+  .teacher-edu-results, .teacher-detial-study-center, .teacher-detial-go-home,
+  .teacher-detail-schedule-weekly, #teacherEvaluation{
     background-color: #FFFFFF;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .teacher-person-img-show, .teacher-edu-results, .teacher-detial-study-center, .teacher-detial-go-home, #teacherEvaluation{
+    margin-top: 10px;
+  }
+  .teacher-detail-tab-content, #teacherAudit, .teacher-person-img-show, .teacher-edu-results,
+  .teacher-edu-results, .teacher-detail-schedule-weekly, #teacherEvaluation{
+    border-bottom: 1px solid #eeeeee;
+  }
+  hr{
+    margin: 0;
   }
 }
 .teacher-detail-top{
@@ -1319,30 +1338,44 @@ body>.sticky-nav{
     font-size: 19px;
     padding-top: 15px;
     color: #FFFFFF;
+    > div:first-child{
+      float: left;
+      font-size: 30px;
+      margin-top: -6px;
+      padding-left: 7px;
+      width: 35px;
+      text-align: left;
+      cursor: pointer;
+    }
   }
 }
 .teacher-detail-sp-info{
   width: 100%;
-  margin-top: 25px;
-}
-.teacher-detail-sp-info > div:first-child{
-  float: left;
-  width: 85px;
-  font-size: 18px;
-}
-.teacher-detail-sp-info > div:last-child{
-  width: 100%;
-  padding-left: 85px;
-  color: #000000;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #FFFFFF;
+  > div:first-child{
+    width: 85px;
+    font-size: 16px;
+    color: #333333;
+  }
+  > div:last-child{
+    width: 100%;
+    color: #5d5d5d;
+    font-size: 13.3px;
+    padding-top: 3px;
+  }
+
 }
 .teacher-person-img-show{
   overflow: auto;
-}
-.teacher-person-img-show > div:last-child{
-  margin-top: 40px;
+  > div:last-child{
+    margin-top: 40px;
+  }
 }
 .teacher-swiper-container{
-  height: 100px;
+  height: 75px;
 }
 .teacher-swiper-container img{
   height: 100px;
@@ -1350,9 +1383,8 @@ body>.sticky-nav{
 }
 .teacher-more-info{
   float: right;
-  color: $greyColor;
-  font-size: 15px;
-  font-weight: bolder;
+  color: #C5B2B2;
+  font-size: 14px;
   cursor: pointer;
 }
 #eduReults{
@@ -1379,30 +1411,29 @@ body>.sticky-nav{
     font-size: 20px;
   }
   .comment-user-avatar{
-    width: 35px;
+    width: 38.3px;
     display: inline;
   }
   > div:last-child{
-    color: $greyColor;
+    color: #5d5d5d;
     clear: both;
-    padding-left: $pagepadding;
-    margin-top: -1px;
   }
   > div:first-child{
-    line-height: 40px;
-    > div{
-      height: 40px;
-    }
     > div:first-child{
-      float: right;
       width: auto;
-      white-space: nowrap;
-    }
-    > div:nth-child(2){
       float: left;
     }
     > div:last-child{
-      padding-left: 42px;
+      padding-left: 45px;
+      > div:first-child{
+        float: right;
+      }
+    }
+  }
+  .comments-stars{
+    white-space: nowrap;
+    img{
+      width: 12px;
     }
   }
 }
@@ -1513,7 +1544,7 @@ body>.sticky-nav{
 }
 .comments-page-total-score{
   margin-top: 20px;
-  margin-bottom: 35px;
+  margin-bottom: 16.7px;
   > div:first-child{
     float: right;
     text-align: right;
@@ -1525,7 +1556,12 @@ body>.sticky-nav{
     }
   }
   > div:last-child{
-    font-size: 26px;
+    font-size: 16px;
+  }
+  .comments-stars{
+    img{
+      width: 17.3px;
+    }
   }
 }
 .comments-page-mala-score{
@@ -1537,46 +1573,23 @@ body>.sticky-nav{
   > div > div:first-child{
     float: right;
   }
+  .comments-stars{
+    img{
+      width: 17.3px;
+    }
+  }
+  span{
+    color: #b2b2b2;
+  }
 }
 .comments-page-tab{
   width: 33%;
   float: left;
-  border-style: solid;
-  border-width: 2px 0 2px 0;
   text-align: center;
-  padding: 20px 0 20px 0;
+  padding: 0;
   font-size: 20px;
-  color: $greyColor;
+  color: #000000;
   cursor: pointer;
-}
-.comments-page-comment-avt{
-  float: left;
-  width: 44px;
-  height: 44px;
-}
-.comments-page-comment-head{
-  padding-left: 53px;
-  margin: 0 auto;
-  > div:first-child{
-    > div:first-child{
-      float: right;
-      width: auto;
-      white-space: nowrap;
-    }
-    > div:last-child{
-      font-size: 17px;
-    }
-  }
-  > div:nth-child(2){
-    margin-top: 5px;
-  }
-  > div:last-child{
-    margin-top: 5px;
-    color: $greyColor;
-    > div:first-child{
-      float: right;
-    }
-  }
 }
 .comments-nav-tatic{
   width: 100%;
@@ -1924,5 +1937,62 @@ body>.sticky-nav{
 .orders-top-nav{
   a{
     width: 50%;
+  }
+}
+.comment-detail-body{
+  > div:first-child{
+    > div:first-child{
+      width: 38.3px;
+      float: left;
+    }
+    > div:last-child{
+      padding-left: 50px;
+      > div:first-child{
+        float: right;
+        font-size: 12px;
+        color: #939393;
+      }
+      > div:nth-child(2){
+        font-size: 13.3px;
+        color: #333333;
+      }
+    }
+  }
+  > div:last-child{
+    font-size: 13.3px;
+    color: #5d5d5d;
+    margin-top: 7px;
+  }
+  .comments-stars{
+    img{
+      width: 12px;
+    }
+  }
+  hr{
+    margin-bottom: 16.7px;
+    margin-top: 16.7px;
+  }
+}
+.comments-page-nav{
+  width: 100%;
+  border-bottom: solid 1px #e6e6e6;
+  margin-bottom: 20px;
+  hr{
+    width: 100%;
+    border: none;
+    margin: 0;
+  }
+  > div > div{
+    display: inline-block;
+    height: 100%;
+    height: 44px;
+    line-height: 44px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+.comments-page-nav-pre{
+  hr{
+    margin-bottom: 0;
   }
 }

@@ -49,25 +49,26 @@ Template.comments.onRendered(function(){
   var self = this;
 
   var addNavElement = '' +
-  '  <div class="comments-nav-tatic nav-fixed-top" id="commentsNavStatic"> ' +
-  '    <div id="goodComments" class="comments-page-tab">好评(0)</div> ' +
-  '    <div id="averageComments" class="comments-page-tab">中评(0)</div> ' +
-  '    <div id="poolComments" class="comments-page-tab">差评(0)</div> ' +
+  '  <div class="comments-nav-tatic nav-fixed-top comments-page-nav" id="commentsNavStatic"> ' +
+  '    <div class="comments-page-tab"><div id="goodComments">好评(0)</div></div> ' +
+  '    <div class="comments-page-tab"><div id="averageComments">中评(0)</div></div> ' +
+  '    <div class="comments-page-tab"><div id="poolComments">差评(0)</div></div> ' +
+  '   <hr/>' +
   '  </div> ';
 
   $('body').append(addNavElement);
-  $('#goodComments').html($('#goodCommentsInScroll').html());
-  $('#averageComments').html($('#averageCommentsInScroll').html());
-  $('#poolComments').html($('#poolCommentsInScroll').html());
+  $('#goodComments').html($('#goodCommentsInScroll > div').html());
+  $('#averageComments').html($('#averageCommentsInScroll > div').html());
+  $('#poolComments').html($('#poolCommentsInScroll > div').html());
 
   commentsPageAcitveTabClick('goodComments');
-  $('#goodComments').click(function(){
+  $('#goodComments').parent().click(function(){
     commentsPageAcitveTabClick('goodComments');
   });
-  $('#averageComments').click(function(){
+  $('#averageComments').parent().click(function(){
     commentsPageAcitveTabClick('averageComments');
   });
-  $('#poolComments').click(function(){
+  $('#poolComments').parent().click(function(){
     commentsPageAcitveTabClick('poolComments');
   });
 
@@ -93,29 +94,28 @@ Template.comments.helpers({
   commentStars: function(){
     return genScoreStarsAry(cmpTotalScore(this.teacher), 5);
   },
-  totalComments: function(){
-    var maCount = this.teacher.profile.maCount;
-    var laCount = this.teacher.profile.laCount;
-    maCount = _.isNumber(maCount) ? maCount : 0;
-    laCount = _.isNumber(laCount) ? laCount : 0;
-    return maCount + laCount;
-  },
   starImage: function(val){
     return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   },
-  maScore: function(){
+  maImage: function(val){
+    return val == 3 ? "evaluate_icon_hemp_highlight.png" : val == 2 ? "evaluate_icon_hemp_half.png" : val == 1 ? "evaluate_icon_hemp_normal.png" : "";
+  },
+  laImage: function(val){
+    return val == 3 ? "evaluate_icon_spicy_highlight.png" : val == 2 ? "evaluate_icon_spicy_half.png" : val == 1 ? "evaluate_icon_spicy_normal.png" : "";
+  },
+  maScoreCount: function(){
     var maScore = this.teacher.profile.maScore;
     var maCount = this.teacher.profile.maCount;
     maScore = _.isNumber(maScore) ? maScore : 0;
     maCount = _.isNumber(maCount) ? maCount : 0;
-    return accounting.formatNumber(maCount == 0 ? 0 : maScore/maCount, 1);
+    return genScoreStarsAry(maCount == 0 ? 0 : maScore/maCount, 5);
   },
-  laScore: function(){
+  laScoreCount: function(){
     var laScore = this.teacher.profile.laScore;
     var laCount = this.teacher.profile.laCount;
     laScore = _.isNumber(laScore) ? laScore : 0;
     laCount = _.isNumber(laCount) ? laCount : 0;
-    return accounting.formatNumber(laCount == 0 ? 0 : laScore/laCount, 1);
+    return genScoreStarsAry(laCount == 0 ? 0 : laScore/laCount, 5);
   },
   activeTabClass: function(id){
     var actId = Session.get('commentsPageAcitveTab');
