@@ -3,6 +3,14 @@
 @page-max-width: 1080px;
 @bodyTextColor: #5d5d5d;
 @greyColor: #f7f7f7;
+@appBackGroundColor: #F7F7F7;
+@malaRed: #ff9290;
+@malaRed2: #e8413e;
+@malaRed3: #fa7471;
+@indexBorderColor: #E6E6E6;
+@timeAvailableColor: #fff;
+@timeUnavailableColor: #e5e5e5;
+@timeChosenColor: @malaRed;
 
 @import "custom.bootstrap.import.less";
 html.browser{
@@ -672,19 +680,34 @@ input[type=text].browser {
 }
 .course-table {
   white-space: normal;
+  text-align: center;
   thead > tr.week-row:first-child > td {
-    border-top: 1px solid #aaa;
+    border: 1px solid @malaRed2;
+    border-bottom: 1px solid @malaRed;
+    background-color: @malaRed3;
+  }
+  tr > td:last-child {
+    border-right: 1px solid @malaRed2;
+  }
+  tbody > tr:last-child > td {
+    border-bottom: 1px solid @malaRed2;
+  }
+  tr > td:first-child {
+    border-left: 1px solid @malaRed2;
   }
   td{
-    border: 1px solid #aaa;
+    border: 1px solid @malaRed;
     &.phase.available {
-      background-color: green;
+      background-color: @timeAvailableColor;
+    }
+    &.phase.unavailable {
+      background-color: @timeUnavailableColor;
     }
     &.phase.chosen {
-      background-color: blue;
+      background-color: @timeChosenColor;
     }
     &.phase.reserved {
-      background-color: yellow;
+      background-color: @timeUnavailableColor;
     }
     &.phase.removed {
       background-color: gray;
@@ -971,31 +994,84 @@ input[type=text].browser {
     }
   }
 }
-.order-course-select-time {
+.order-view.order-course-select-time {
+  .content {
+    padding: 0;
+    background-color: @appBackGroundColor;
+    .list .item {
+      margin-top: 10px;
+      padding: 17px @page-padding;
+      border-top: 0;
+    }
+    .course-table {
+      margin-bottom: 10px;
+    }
+    .flag {
+      margin-right: 10px;
+      font-size: 16px;
+      .rect {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-right: 7px;
+        vertical-align: -1px;
+        &.unavailable {
+          background-color: @timeUnavailableColor;
+        }
+        &.available {
+          border: 1px solid @malaRed;
+        }
+        &.chosen {
+          background-color: @timeChosenColor;
+        }
+      }
+    }
+    label {
+      color: #333;
+      font-size: 16px;
+      line-height: 30px;
+    }
+    .course-price {
+      color: @malaRed2;
+      font-size: 14px;
+      line-height: 30px;
+      .price {
+        font-size: 16px;
+      }
+    }
+  }
   .count-edit-box {
+    height: 30px;
+    line-height: 30px;
     a {
+      position: relative;
       display: inline-block;
-      width: 22px;
-      height: 22px;
-      line-height: 18px;
+      width: 30px;
+      height: 30px;
       padding: 0;
-      border: 1px #aaa solid;
-      background: #ddd;
       text-align: center;
-      color: #000;
+      color: @malaRed2;
       cursor: pointer;
+      &:before{
+        position: absolute;
+        top: -4px;
+        left: -1px;
+        font-size: 37px;
+      }
     }
     input {
       display: inline-block;
       width: 50px;
-      height: 22px;
+      height: 30px;
+      line-height: 30px;
       padding: 0px 3px;
-      margin: 0 5px;
-      border: 1px #ddd solid;
+      border: 0;
       text-align: center;
+      color: @malaRed2;
+      vertical-align: 9px;
+      font-size: 16px;
     }
   }
-
 }
 .schedule-courses {
   .schedule-course-item {
@@ -1125,6 +1201,13 @@ input[type=text].browser {
   z-index: 20;
   background-color:@greyColor;
   font-size:18px;
+  .row .col-xs-6:first-child{
+    color: @malaRed2;
+    font-size: 16px;
+    .price {
+      font-size: 18px;
+    }
+  }
 }
 .bar.bar-footer {
   height: 54px;
