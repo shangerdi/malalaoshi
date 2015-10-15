@@ -64,8 +64,11 @@ Template.comment.helpers({
   laStars: function(){
     return Session.get("commentLaDuStars");
   },
-  starImage: function(val){
-    return val ? "star_h.png" : "star_normal.png";
+  starImageMa: function(val){
+    return val ? "evaluate_icon_hemp_highlight.png" : "evaluate_icon_hemp_normal.png";
+  },
+  starImageLa: function(val){
+    return val ? "evaluate_icon_spicy_highlight.png" : "evaluate_icon_spicy_normal.png";
   },
   commented: function(){
     return this.courseAttendance && this.courseAttendance.state == 3;
