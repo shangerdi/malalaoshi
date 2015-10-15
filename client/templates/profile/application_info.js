@@ -19,7 +19,7 @@ var getSubjectStr = function(obj) {
 var updateCheckedCity = function() {
   $(".city label").each(function(){
     var $label = $(this), input = $label.find('input')[0];
-    $label.find('img')[0].src = '/images/checked'+(input.checked?'':'_none')+'.png';
+    $label.find('img')[0].src = '/images/target'+(input.checked?'':'_none')+'.png';
   });
 }
 var updateCheckedGender = function() {
