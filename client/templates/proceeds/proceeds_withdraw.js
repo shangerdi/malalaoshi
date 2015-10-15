@@ -11,7 +11,11 @@ var submitWithdraw = function(withdrawInfo) {
       title: "提现成功!",
       okText: "确定",
       onOk: function() {
-        window.history.back();
+        if (Meteor.isCordova) {
+          navigator.app && navigator.app.backHistory && navigator.app.backHistory();
+        } else {
+          history.back();
+        }
       }
     });
   });
