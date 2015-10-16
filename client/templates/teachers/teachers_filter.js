@@ -68,6 +68,7 @@ Template.teachersFilter.onCreated(function(){
   this.studyCenters = new ReactiveVar([]);
 });
 Template.teachersFilter.onRendered(function(){
+  IonNavigation.skipTransitions = true;
   var self = this;
   self.autorun(function(){
     var way = Session.get('teachersTeacherWay');

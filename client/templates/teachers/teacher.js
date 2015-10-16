@@ -13,6 +13,7 @@ Template.teacher.onCreated(function(){
   }
 });
 Template.teacher.onRendered(function(){
+  IonNavigation.skipTransitions = true;
   var swiper = new Swiper('.teacher-swiper-container', {
       slidesPerView: 3,
       spaceBetween: 7,

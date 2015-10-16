@@ -39,6 +39,7 @@ function getScore(arr){
   return 0;
 }
 Template.comment.onRendered(function(){
+  IonNavigation.skipTransitions = true;
   if(this.data && this.data.comment){
     var madu = this.data.comment.maScore;
     var ladu = this.data.comment.laScore;

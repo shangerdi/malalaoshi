@@ -46,6 +46,7 @@ Template.comments.onCreated(function(){
   });
 });
 Template.comments.onRendered(function(){
+  IonNavigation.skipTransitions = true;
   var self = this;
 
   var addNavElement = '' +
