@@ -11,9 +11,9 @@
     {{#ionContent}}
       {{#each transactionDetail}}
         {{#ionItem class="item-icon-right item-avatar" iconRight=true}}
-          <img src="/images/apply/complete-ok.png">
+          <img src={{convTitle2IconUrl title}}>
           <h2>{{title}}</h2>
-          <p>{{operator.role}}</p>
+          <p>{{getDateTime createdAt}}</p>
           <div class="icon">{{#if $gt amount 0}}+{{/if}}{{amount}}</div>
         {{/ionItem}}
       {{/each}}
