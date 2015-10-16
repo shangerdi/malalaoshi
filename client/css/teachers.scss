@@ -12,6 +12,9 @@ $indexBorderColor: #E6E6E6;
   background-color: #E8413E;
   border-bottom: none;
 }
+.list-item-border-bottom{
+  border-bottom: solid 1px #EFE6E6;
+}
 //TODO: teacher-div needs to be refactored by flex
 @media screen and(max-width: 199px){
   .teacher-div{
@@ -544,6 +547,7 @@ $indexBorderColor: #E6E6E6;
   }
 }
 .orders-detail-order{
+  @extend .list-item-border-bottom;
   clear: both;
   margin-top: 10px;
   color: #000;
@@ -1535,7 +1539,7 @@ body>.sticky-nav{
   p{
     line-height: 20px;
   }
-  border-bottom: solid 1px #EFE6E6;
+  @extend .list-item-border-bottom;
 }
 .view-page-common{
   background-color: $appBackGroundColor;
@@ -1545,13 +1549,13 @@ body>.sticky-nav{
   }
 }
 .course-attendance-comment-evaluate{
+  @extend .list-item-border-bottom;
   background-color: #FFFFFF;
   margin-top: 12px;
   padding-left: $pagepadding;
   padding-right: 5px;
   padding-top: 17px;
   padding-bottom: 17px;
-  border-bottom: solid 1px #EFE6E6;
   > div > div:last-child{
    font-size: 16px;
    line-height: 33px;
@@ -1571,13 +1575,13 @@ body>.sticky-nav{
   }
 }
 .course-attendance-comment-cominfo{
+  @extend .list-item-border-bottom;
   background-color: #FFFFFF;
   margin-top: 12px;
   padding-left: $pagepadding;
   padding-right: $pagepadding;
   padding-top: 17px;
   padding-bottom: 17px;
-  border-bottom: solid 1px #EFE6E6;
   textarea{
     background-color: #F9EEEE;
   }
