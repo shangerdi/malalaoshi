@@ -9,42 +9,34 @@
 
   {{#ionView}}
   {{#ionContent class="view-page-common {{# if $not commented }}with-bottom-btn{{/if}}"}}
-      <div class="teacher-detail-sp-info view-both-side-margin course-attendance-comment-head">
+      <div class="course-attendance-comment-head">
+        <div><img src="{{teacher.profile.avatarUrl}}" class="img-responsive"></div>
         <div>
-          <img src="{{teacher.profile.avatarUrl}}" class="img-responsive img-circle">
-        </div>
-        <div>
-          <p>{{teacher.profile.name}} {{subject}}</p>
-          <p>¥{{price}}/课时</p>
+          <div>¥{{price}}/课时</div>
+          <div>{{teacher.profile.name}}</div>
+          <div>{{subject}}</div>
         </div>
       </div>
-      <div class="view-both-side-margin"><hr></div>
-      <div class="view-both-side-margin course-attendance-comment-evaluate">
-          <div>
-            给老师评分
+      <div class="course-attendance-comment-evaluate">
+        <div>
+          <div class="course-attendance-comment-evaluate-i">
+            {{#each maStars}}
+              <img src="/images/{{starImageMa this.value}}" data-index="{{this.index}}" name="maDu"/>
+            {{/each}}
           </div>
-          <div>
-            <div>
-              <div class="course-attendance-comment-evaluate-i">
-                {{#each maStars}}
-                  <img src="/images/{{starImage this.value}}" data-index="{{this.index}}" name="maDu"/>
-                {{/each}}
-              </div>
-              <div>麻度（上课老好了，一学就会）</div>
-            </div>
-            <div>
-              <div class="course-attendance-comment-evaluate-i">
-                {{#each laStars}}
-                  <img src="/images/{{starImage this.value}}" data-index="{{this.index}}" name="laDu"/>
-                {{/each}}
-              </div>
-              <div>辣度（老师太棒了，必须点赞）</div>
-            </div>
+          <div>麻度<span>（上课老好了，一学就会）</span></div>
+        </div>
+        <div>
+          <div class="course-attendance-comment-evaluate-i">
+            {{#each laStars}}
+              <img src="/images/{{starImageLa this.value}}" data-index="{{this.index}}" name="laDu"/>
+            {{/each}}
           </div>
+          <div>辣度<span>（老师太棒了，必须点赞）</span></div>
+        </div>
       </div>
-      <div class="view-both-side-margin"><hr></div>
-      <div class="view-both-side-margin">
-        <textarea rows="3" {{readOnly}}>{{commentInfo}}</textarea>
+      <div class="course-attendance-comment-cominfo">
+        <textarea rows="3" {{readOnly}} placeholder="请写下对老师的感受吧，对他人帮助很大哦">{{commentInfo}}</textarea>
       </div>
     {{/ionContent}}
     {{# if $not commented }}
