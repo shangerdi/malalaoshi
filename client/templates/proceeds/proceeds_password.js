@@ -8,8 +8,10 @@ Template.proceedsPassword.helpers({
 Template.proceedsPassword.events({
   //add your events here
   'click [data-action=my-cards]': function() {
-    var newPass = $("#withdrawPass").val();
-    Meteor.call('resetWithdrawPass', newPass, function(error, result) {
+    var resetPassInfo = {};
+    resetPassInfo.newPass = $("#withdrawPass").val();
+    resetPassInfo.token = Session.get('resetPassToken');
+    Meteor.call('resetWithdrawPass', resetPassInfo, function(error, result) {
       if (error) {
         IonPopup.alert({
           title: error.reason,
@@ -18,6 +20,7 @@ Template.proceedsPassword.events({
         return throwError(error.reason);
       }
 
+      Session.set('resetPassToken', null);
       IonPopup.alert({
         title: "设置密码成功!",
         okText: "确定",

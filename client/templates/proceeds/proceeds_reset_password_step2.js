@@ -18,6 +18,9 @@ Template.proceedsResetPasswordStep2.events({
         return throwError(error.reason);
       }
 
+      if (result && result.success) {
+        Session.set('resetPassToken', result.token);
+      }
       Router.go('proceedsPassword');
     });
   }

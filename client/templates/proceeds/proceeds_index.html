@@ -8,17 +8,20 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear button-light" data-action="proceeds-security">
-      账户安全
-    </button>
+    <img src="/images/proceeds/security.png" class="button button-clear button-light" data-action="proceeds-security">
   {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent}}
-      <p>¥ {{teacherBalance.balance}}</p>
-      <button class="btn btn-success" data-action="proceeds-withdraw">
-        提现
-      </button>
+      <div style="height: 30%; text-align: center;">
+        <div style="font-size: 30px">
+          ¥ {{teacherBalance.balance}}
+        </div>
+        <div>
+          <button class="btn btn-success" data-action="proceeds-withdraw">提现</button>
+        </div>
+      </div>
+
       {{#ionList}}
         {{#ionItem class="item-icon-right" path="proceedsDetails" iconRight=true}}
           收支明细
