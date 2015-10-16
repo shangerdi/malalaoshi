@@ -226,7 +226,7 @@ Template.commentsDetailShow.helpers({
 Template.comments.events({
   'click .comments-page-tab': function(e){
     e.preventDefault();
-    commentsPageAcitveTabClick(e.target.id.toString().replace("InScroll", ""));
+    commentsPageAcitveTabClick($(e.target).closest('.comments-page-tab').attr('id').toString().replace("InScroll", ""));
   },
   'click .load-more': function(e){
     e.preventDefault();
@@ -240,7 +240,7 @@ Template.comments.onDestroyed(function(){
 var commentsPageAcitveTabClick = function(id){
   commentsLimit = defalutIncrement;
   Session.set('commentsPageAcitveTab', id);
-  if($('.view-page-common').scrollTop() != navMoveHeight){
+  if(($('.view-page-common').scrollTop() - navMoveHeight) != 0){
     setMarginBottom();
     $('.view-page-common').scrollTo(navMoveHeight+'px',500);
   }
@@ -266,16 +266,16 @@ function setNavClass(actId){
     if(commentType[i] == actId){
       var navIds = navIdAry[i];
       _.each(navIds, function(item){
-        $(item).addClass('teacher-detail-tab-active');
+        $(item).closest('.comments-page-tab').addClass('teacher-detail-tab-active');
       });
     }else{
       var navIds = navIdAry[i];
       _.each(navIds, function(item){
-        $(item).removeClass('teacher-detail-tab-active');
+        $(item).closest('.comments-page-tab').removeClass('teacher-detail-tab-active');
       });
     }
   }
 }
 function setMarginBottom(){
-  $('.view-page-common > div:last-child').css('margin-bottom', ($('.view-page-common').height() - 63)+'px');
+  $('.view-page-common > div:last-child').css('margin-bottom', ($('.view-page-common').height() - 44)+'px');
 }

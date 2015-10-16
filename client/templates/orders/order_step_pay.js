@@ -1,6 +1,10 @@
 var getOrderId = function() {
   return Router.current().params.orderId;
 }
+var getTotalCost = function() {
+  var orderId = getOrderId(), curOrder = Orders.findOne({"_id": orderId});
+  return curOrder.cost;
+}
 var calcToPayCost = function() {
   var orderId = getOrderId(), curOrder = Orders.findOne({"_id": orderId});
   return Orders.getOrderPayAmount(curOrder);
@@ -18,12 +22,16 @@ Template.orderStepPay.helpers({
   },
   toPayCost: function() {
     return calcToPayCost();
+  },
+  totalCost: function() {
+    return getTotalCost();
   }
 });
 Template.orderStepPay.events({
   'click .item-radio': function(e) {
     var ele = e.target, $ele = $(ele).closest(".item-radio");
     $ele.find("input")[0].click();
+    Session.set('errors','');
   },
   'click #callPayment': function(e) {
     var orderId = getOrderId(), errors={hasError:false};

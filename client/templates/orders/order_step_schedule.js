@@ -16,6 +16,19 @@ var calcTotalCost = function() {
   var courseCount = getCourseCount();
   $("#totalCost").text(courseCount * getUnitPrice());
 }
+// clear error msg of certain field
+var clearErrorMsg = function(name) {
+  if (!name) {
+    Session.set('errors','');
+    return;
+  }
+  var errors = Session.get("errors");
+  if (!errors) {
+    return;
+  }
+  errors[name]='';
+  Session.set("errors", errors);
+}
 Template.orderStepSchedule.onCreated(function(){
   Session.set('errors','');
 });
@@ -119,6 +132,7 @@ Template.orderStepSchedule.events({
   },
   'keyup #courseCount, change #courseCount': function(e) {
     calcTotalCost();
+    clearErrorMsg('courseCount');
   },
   'click .count-edit-box a': function(e) {
     var ele=e.target, $ele = $(ele);
@@ -133,6 +147,7 @@ Template.orderStepSchedule.events({
     }
     $("#courseCount").val(courseCount);
     calcTotalCost();
+    clearErrorMsg('courseCount');
   },
   'click td.phase': function(e) {
     var ele=e.target, $ele = $(ele);
@@ -142,5 +157,6 @@ Template.orderStepSchedule.events({
     var nChosen = $('td.phase.chosen').length;
     $('#courseCount').val(Math.max($('#courseCount').val(), nChosen*2));
     calcTotalCost();
+    clearErrorMsg();
   }
 });

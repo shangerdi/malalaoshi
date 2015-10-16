@@ -12,6 +12,9 @@ $indexBorderColor: #E6E6E6;
   background-color: #E8413E;
   border-bottom: none;
 }
+.list-item-border-bottom{
+  border-bottom: solid 1px #EFE6E6;
+}
 //TODO: teacher-div needs to be refactored by flex
 @media screen and(max-width: 199px){
   .teacher-div{
@@ -285,15 +288,20 @@ $indexBorderColor: #E6E6E6;
 .teacher-content .teacher-cert div{
   margin-top: 8px;
 }
-.teacher-cert div{
-  float: left;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  div:last-child{
-    margin-right: 0;
+.teacher-cert{
+  div{
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 8px;
+    div:last-child{
+      margin-right: 0;
+    }
+    span{
+      font-size: 13.3px;
+    }
   }
-  span{
-    font-size: 13.3px;
+  img{
+    width: 11px;
   }
 }
 .teacher-avatar{
@@ -539,6 +547,7 @@ $indexBorderColor: #E6E6E6;
   }
 }
 .orders-detail-order{
+  @extend .list-item-border-bottom;
   clear: both;
   margin-top: 10px;
   color: #000;
@@ -1499,34 +1508,60 @@ body>.sticky-nav{
   margin-left: $pagepadding;
 }
 .course-attendance-comment-head{
-  margin-top: 20px;
+  margin-top: 12px;
   font-size: 20px;
-  padding-bottom: 10px;
-
-  > div:last-child{
-    padding-top: 20px;
-    padding-left: 110px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  background-color: #FFFFFF;
+  padding-left: $pagepadding;
+  padding-right: $pagepadding;
+  display: inline-block;
+  width: 100%;
+  > div:first-child{
+    float: left;
+    img{
+      width: 78px;
+    }
   }
-
+  > div:last-child{
+    font-size: 16px;
+    padding-top: 3px;
+    padding-left: 90px;
+  }
+  > div:last-child > div:first-child{
+      float: right;
+      color: $malaRed2;
+  }
+  > div:last-child > div:last-child{
+    padding-top: 3px;
+    color: #5d5d5d;
+  }
   p{
     line-height: 20px;
   }
+  @extend .list-item-border-bottom;
 }
 .view-page-common{
-  background-color: #FFFFFF;
+  background-color: $appBackGroundColor;
   textarea{
     border: solid #c2c2c2 1px;
     padding: 10px;
   }
 }
 .course-attendance-comment-evaluate{
-  > div:first-child{
-   font-size: 20px;
-   padding-bottom: 10px;
- }
- > div:last-child > div{
+  @extend .list-item-border-bottom;
+  background-color: #FFFFFF;
+  margin-top: 12px;
+  padding-left: $pagepadding;
+  padding-right: 5px;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  > div > div:last-child{
    font-size: 16px;
    line-height: 33px;
+   span{
+     color: #b2b2b2;
+   }
  }
 }
 .course-attendance-comment-evaluate-i{
@@ -1537,6 +1572,18 @@ body>.sticky-nav{
   img{
     cursor: pointer;
     width: 25px;
+  }
+}
+.course-attendance-comment-cominfo{
+  @extend .list-item-border-bottom;
+  background-color: #FFFFFF;
+  margin-top: 12px;
+  padding-left: $pagepadding;
+  padding-right: $pagepadding;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  textarea{
+    background-color: #F9EEEE;
   }
 }
 .pop-remind-template{
@@ -1572,6 +1619,8 @@ body>.sticky-nav{
   }
   > div > div:first-child{
     float: right;
+    word-break: keep-all;
+    white-space: nowrap;
   }
   .comments-stars{
     img{
@@ -1632,8 +1681,6 @@ body>.sticky-nav{
   z-index: 8;
   background-color: #FFFFFF;
   top: 27px;
-  padding-right: $pagepadding;
-  padding-left: $pagepadding;
   display: none;
 }
 .alter-page-view{
@@ -1989,6 +2036,12 @@ body>.sticky-nav{
     line-height: 44px;
     padding-right: 20px;
     padding-left: 20px;
+  }
+  .teacher-detail-tab-active{
+    > div{
+      color: $malaRed2;
+      border-bottom: solid 2px $malaRed2;
+    }
   }
 }
 .comments-page-nav-pre{
