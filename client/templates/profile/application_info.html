@@ -22,8 +22,8 @@
         {{#ionItem class="gender"}}
           <!-- 3性别 -->
           <div class="radio-group">
-            <label><img src="/images/checked_none.png"><br><input type="radio" name="gender" value="女" checked="{{$eq currentUser.profile.gender '女'}}"/><span>女老师</span></label>
-            <label><img src="/images/checked_none.png"><br><input type="radio" name="gender" value="男" checked="{{$eq currentUser.profile.gender '男'}}"/><span>男老师</span></label>
+            <label><img src="/images/female_gray.png"><br><input type="radio" name="gender" value="女" checked="{{$eq currentUser.profile.gender '女'}}"/><span>女老师</span></label>
+            <label><img src="/images/male_gray.png"><br><input type="radio" name="gender" value="男" checked="{{$eq currentUser.profile.gender '男'}}"/><span>男老师</span></label>
           </div>
           <span class="error-msg">{{getErrorMsg 'gender'}}</span>
         {{/ionItem}}
@@ -64,8 +64,8 @@
         {{#ionItem class="city"}}
           <!-- 6所在城市 -->
           <div class="radio-group">
-            <label><img src="/images/checked_none.png"><br><input type="radio" name="city" value="luoyang"/><span>洛阳</span></label>
-            <label><img src="/images/checked_none.png"><br><input type="radio" name="city" value="other"/><span>其他</span></label>
+            <label><img src="/images/target_none.png"><br><input type="radio" name="city" value="luoyang"/><span>洛阳</span></label>
+            <label><img src="/images/target_none.png"><br><input type="radio" name="city" value="other"/><span>其他</span></label>
           </div>
           <span class="error-msg">{{getErrorMsg 'city'}}</span>
         {{/ionItem}}

@@ -19,13 +19,13 @@ var getSubjectStr = function(obj) {
 var updateCheckedCity = function() {
   $(".city label").each(function(){
     var $label = $(this), input = $label.find('input')[0];
-    $label.find('img')[0].src = '/images/checked'+(input.checked?'':'_none')+'.png';
+    $label.find('img')[0].src = '/images/target'+(input.checked?'':'_none')+'.png';
   });
 }
 var updateCheckedGender = function() {
   $(".gender label").each(function(){
     var $label = $(this), input = $label.find('input')[0], isMale = (input.value==='男');
-    var imgSrc = '/images/'+(isMale?'male':'female')+(input.checked?'':'_gray')+'.png';
+    var imgSrc = '/images/'+(isMale?'male':'female')+(input.checked?'_active':'_gray')+'.png';
     $label.find('img')[0].src = imgSrc;
   });
 }

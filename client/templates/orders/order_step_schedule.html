@@ -13,31 +13,34 @@
       {{#ionItem}}
       <div class="{{errorClass 'phases'}}">
         {{#unless teacherId}}<div>没有选择老师，<a href="{{pathFor 'teachers'}}">请重新选择老师</a></div>{{/unless}}
-        <label>选择上课时间</label>
+        <!-- <label>选择上课时间</label> -->
         {{>scheduleWeeklyForOrder teacherId=teacherId}}
-        <span class="help-block">{{errorMessage 'phases'}}</span>
+        <div class="flags">
+          <span class="flag"><span class="rect unavailable"></span>已占</span>
+          <span class="flag"><span class="rect available"></span>可选</span>
+          <span class="flag"><span class="rect chosen"></span>已选</span>
+        </div>
+        <span class="help-block {{#unless errorMessage 'phases'}}hide{{/unless}}">{{errorMessage 'phases'}}</span>
       </div>
       {{/ionItem}}
       {{#ionItem}}
       <div class="{{errorClass 'courseCount'}}">
         <label>选择课时</label>
+        <span class="course-price">￥<span class="price">{{unitPrice}}</span>/小时</span>
         <div class="item-note count-edit-box">
-          <a class="subtract">-</a><input class="input-course-count" type="text" id="courseCount" name="courseCount" value="0"><a class="add">+</a>
+          <a class="subtract ion-ios-minus-outline"></a>
+          <input class="input-course-count" type="text" id="courseCount" name="courseCount" value="0">
+          <a class="add ion-ios-plus-outline"></a>
         </div>
-        <span class="help-block">{{errorMessage 'courseCount'}}</span>
+        <span class="help-block {{#unless errorMessage 'courseCount'}}hide{{/unless}}">{{errorMessage 'courseCount'}}</span>
       </div>
-      {{/ionItem}}
-      {{#ionItem}}
-        <label>课程单价</label>
-        <div class="item-note course-price">￥{{unitPrice}}/小时</div>
-        <div class="clearfix"></div>
       {{/ionItem}}
     {{/ionList}}
     {{/ionContent}}
   <div class="bottom-btn-view">
     <div class="row">
       <div class="col-xs-6">
-        课程总价：￥<span id="totalCost">0</span>
+        共￥<span id="totalCost" class="price">0</span>
       </div>
       <div class="col-xs-6">
         <button id="nextStep" class="btn btn-lg btn-success col-xs-12">
