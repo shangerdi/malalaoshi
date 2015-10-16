@@ -43,7 +43,7 @@ Template.orders.helpers({
     return this.createdAt && (momentTime = moment(this.createdAt)) ? (new Date().getTime() - this.createdAt) < 79200000 ? momentTime.fromNow() : momentTime.fromNow() + " " + momentTime.format('HH:mm') : "";
   },
   courseHour: function(){
-    return this.hour ? this.hour * 2 : "";
+    return this.hour ? this.hour : "";
   },
   payMoney: function(){
     return this.cost ? accounting.formatNumber(this.cost, 2) : "";
