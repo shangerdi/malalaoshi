@@ -15,6 +15,9 @@ $indexBorderColor: #E6E6E6;
 .list-item-border-bottom{
   border-bottom: solid 1px #EFE6E6;
 }
+.list-item-border-top{
+  border-top: solid 1px #EFE6E6;
+}
 //TODO: teacher-div needs to be refactored by flex
 @media screen and(max-width: 199px){
   .teacher-div{
@@ -471,52 +474,90 @@ $indexBorderColor: #E6E6E6;
 }
 .order-detail{
   width: 100%;
-  padding-right: $pagepadding;
-  padding-left: $pagepadding;
-  float: left;
   background-color: $appBackGroundColor;
-  > div{
-    background-color: $appBackGroundColor;
-    border-left: none;
-    border-right: none;
-    padding-left: 0;
-    padding-right: 0;
-    > div:nth-child(1){
-      color: $greyColor;
-      font-size: 15px;
-      font-weight: bolder;
+  .item{
+    border: none;
+    margin: 0;
+    padding: 0;
+    > div{
+      background-color: #FFFFFF;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      font-size: 16px;
+      color: #000000;
+      > div:first-child{
+        float: right;
+        color: #5d5d5d;
+      }
+    }
+    hr, .element-clear-both{
+      margin: 0;
+      padding: 0;
     }
   }
-  > div:last-child{
-    border-bottom: none;
-    border-left: none;
-    border-right: none;
+  .od-far{
+    color: $malaRed2;
   }
-  .item-note{
-    color: $greyColor;
-    font-size: 15px;
-    font-weight: 500;
+  .list{
+    > div{
+      @extend .list-item-border-bottom;
+      padding-left: $pagepadding;
+      padding-right: $pagepadding;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
   }
-  .item-note-cost{
-    float: right;
-    color: #000000;
-    font-size: 15px;
-    font-weight: 500;
-    text-align: right;
+  .order-detial-item-box{
+    display: inline-block;
+    width: 100%;
   }
   .order-address{
     margin-top: 6px;
   }
+  .item-icon-right{
+    cursor: pointer;
+    padding-right: 0;
+    > div:first-child{
+      margin-top: -5px;
+    }
+    i{
+      position: static;
+      color: #D2B3B3;
+      font-size: 30px;
+    }
+  }
+  .bottom-btn-view{
+    @extend .list-item-border-top;
+    .col-xs-6:first-child{
+      color: $malaRed2;
+    }
+  }
+  .button-bar > .button{
+    border-width: 1px 1px 1px 1px;
+    border-color: #ef473a;
+  }
+  .button-bar > .button:last-child{
+    margin-left: 12px;
+    border-radius: 3.3px;
+  }
+  .button-bar > .button:first-child {
+    border-radius: 3.3px;
+    color: #ef473a;
+  }
 }
 #addressDetail{
-  border: solid $greyColor 1px;
-  margin-top: 6px;
+  margin-top: 10px;
   padding-left: 5px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #F7F7F7;
+  border: solid 1px #e6e6e6;
 }
 #addressDetail::-moz-placeholder,
 #addressDetail:-ms-input-placeholder,
 #addressDetail::-webkit-input-placeholder{
   padding-left: 5px;
+  color: red;
 }
 .order-detail-head, .index-page-title-head{
   font-size: 16px;
@@ -527,12 +568,6 @@ $indexBorderColor: #E6E6E6;
 .order-detail-avatar{
   display: table;
   float: left;
-}
-.order-detail-detail{
-  margin-top: 10px;
-  color: $greyColor;
-  font-size: 15px;
-  font-weight: 500;
 }
 
 .orders-detail{
@@ -610,18 +645,6 @@ $indexBorderColor: #E6E6E6;
       float: left;
     }
   }
-}
-
-.teacher-detail-submit .button-bar > .button{
-  border-width: 1px 1px 1px 1px;
-  border-color: #ef473a;
-}
-.teacher-detail-submit .button-bar > .button:last-child{
-  margin-left: 12px;
-}
-.teacher-detail-submit .button-bar > .button:first-child {
-  border-radius: 2px 0px 0px 2px;
-  color: #ef473a;
 }
 .teachers-grid-view{
   background-color: $appBackGroundColor;
@@ -1335,6 +1358,11 @@ body>.sticky-nav{
   }
   hr{
     margin: 0;
+  }
+}
+.teacher-detail-view{
+  .bottom-btn-view{
+    @extend .list-item-border-top;
   }
 }
 .teacher-detail-top{
