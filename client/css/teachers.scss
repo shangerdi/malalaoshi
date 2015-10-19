@@ -1266,6 +1266,7 @@ body>.sticky-nav{
         border-width: 2px 0;
         color: $malaRed2;
         border-color: $malaRed2;
+        border-top: none;
       }
     }
   }
@@ -1354,11 +1355,17 @@ body>.sticky-nav{
   }
   .teacher-detail-tab-content, #teacherAudit, .teacher-person-img-show, .teacher-edu-results,
   .teacher-edu-results, .teacher-detail-schedule-weekly, #teacherEvaluation{
-    border-bottom: 1px solid #eeeeee;
+    @extend .list-item-border-bottom;
   }
   hr{
     margin: 0;
   }
+  .teacher-detail-tab-content{
+    @extend .list-item-border-top;
+  }
+}
+.teacher-detail-tab-content{
+  @extend .list-item-border-bottom;
 }
 .teacher-detail-view{
   .bottom-btn-view{
@@ -2075,5 +2082,45 @@ body>.sticky-nav{
 .comments-page-nav-pre{
   hr{
     margin-bottom: 0;
+  }
+}
+.comment-success-pop{
+  width: 231px;
+  > div:first-child{
+    font-size: 18px;
+    margin-top: 12px;
+  }
+  > div:nth-child(2){
+    font-size: 13.3px;
+    color: #5d5d5d;
+    margin-top: 6px;
+  }
+  > div:nth-child(3){
+    margin-top: 30px;
+    img{
+      width: 231px;
+    }
+  }
+  > div:nth-child(4){
+    margin-top: 17px;
+    button{
+      border-radius: 3.3px;
+    }
+  }
+  > div:nth-child(5){
+    margin-top: 10px;
+    button{
+      border-radius: 3.3px;
+      border: solid 1px $malaRed2;
+    }
+  }
+  > div:nth-child(6){
+    cursor: pointer;
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    img{
+      width: 30px;
+    }
   }
 }
