@@ -3,6 +3,7 @@
 @page-max-width: 1080px;
 @bodyTextColor: #5d5d5d;
 @greyColor: #f7f7f7;
+@greyColor2: #939393;
 @appBackGroundColor: #F7F7F7;
 @malaRed: #ff9290;
 @malaRed2: #e8413e;
@@ -1560,6 +1561,23 @@ input[type=text].browser {
         color: #bbb;
         font-size: 26px;
       }
+    }
+  }
+  .hint-block {
+    margin-top: 17px;
+    margin-left: @page-padding;
+    color: @greyColor2;
+    font-size: 14px;
+    img {
+      margin-right: 6px;
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+    }
+  }
+  &.name-view {
+    .input-label {
+      width: auto;
     }
   }
 }
