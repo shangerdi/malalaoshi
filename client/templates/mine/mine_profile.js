@@ -102,5 +102,35 @@ Template.mineProfile.events({
     } else {
       Router.go('mineProfileAvatar');
     }
+  },
+  'click #mineProfileGender': function(e) {
+    IonActionSheet.show({
+      titleText: "",
+      buttons: [
+        { text: '<div class="action-sheet-gender male"><img src="/images/male.png">男</div>' },
+        { text: '<div class="action-sheet-gender female"><img src="/images/female.png">女</div>' }
+      ],
+      destructiveText: false,
+      cancelText: '取消',
+      cancel: function() {
+      },
+      buttonClicked: function(index) {
+        var gender='';
+        if (index==0) {
+          gender='男';
+        }
+        if (index==1) {
+          gender='女';
+        }
+        if (!gender) return true;
+        if (gender!==Meteor.user().profile.gender) {
+          Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.gender':gender}});
+        }
+        return true;
+      },
+      destructiveButtonClicked: function() {
+        return true;
+      }
+    });
   }
 });
