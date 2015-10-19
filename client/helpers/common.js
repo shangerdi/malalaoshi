@@ -101,7 +101,7 @@ logoutButtonHandler = function(e) {
     IonActionSheet.show({
       titleText: "确定要退出登录吗？",
       buttons: [
-        { text: '确定' }
+        { text: '退出登录' }
       ],
       destructiveText: false,
       cancelText: '取消',

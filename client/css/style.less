@@ -1596,6 +1596,29 @@ input[type=text].browser {
     vertical-align: text-top;
   }
 }
+.system-settings-view {
+  background: #fff;
+  .list {
+    padding: 0 @page-padding;
+    .item {
+      padding-left: 0;
+      padding-right: 0;
+      border-right:0;
+      border-left:0;
+      border-color: @indexBorderColor;
+      color: #333;
+      .item-note {
+        color: #939393;
+      }
+      &.item-icon-right .icon{
+        right: 0;
+        width: 12px;
+        color: #bbb;
+        font-size: 26px;
+      }
+    }
+  }
+}
 .date-swiper-comp {
   > div {
     float: left;
