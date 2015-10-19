@@ -1,5 +1,4 @@
 Template.orders.onCreated(function(){
-  IonNavigation.skipTransitions = true;
   var self = this;
   if(Session.get('ionTab.current') != 'ordersPaidOk' && Session.get('ionTab.current') != 'ordersNoPaid'){
     Session.set('ionTab.current', "ordersNoPaid");
@@ -21,6 +20,7 @@ Template.orders.onCreated(function(){
   });
 });
 Template.orders.onRendered(function (){
+  IonNavigation.skipTransitions = true;
   $('.view').css("background-color","#FFFFFF");
   setMarginBottom();
 });

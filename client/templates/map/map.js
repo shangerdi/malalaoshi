@@ -24,7 +24,6 @@ function setPlace(map){
 }
 Template.map.onCreated(function(){
   lastAct = null;
-  IonNavigation.skipTransitions = true;
   Session.set("locationPlaceholder", "请输入您的上课位置");
   appSetDefaultCity();
   this.locationList = new ReactiveVar([]);
@@ -42,6 +41,7 @@ function selectPoint(addRess, street, point){
   Router.go("teachersFilter", null, {hash: "setAddress"});
 }
 Template.map.rendered=function(){
+  IonNavigation.skipTransitions = true;
   IonLoading.show({backdrop:true});
   var self = this;
 
