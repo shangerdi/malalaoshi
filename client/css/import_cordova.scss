@@ -12,6 +12,7 @@ html,body {
 $popupBorderRadius: 7px;
 .popup-container .popup {
   border-radius: $popupBorderRadius;
+  overflow: hidden;
   .popup-body{
     display: table;
     width: 100%;
