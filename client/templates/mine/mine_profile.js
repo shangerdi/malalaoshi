@@ -154,5 +154,41 @@ Template.mineProfile.events({
         }
       }
     });
+  },
+  'click #mineProfileDegree': function(e) {
+    IonActionSheetCustom.show('_degreeActionSheet',{
+      finishText: '完成',
+      cancelText: '取消',
+      buttons: [],
+      finish: function() {
+        var degree =  Session.get("curSwiperDegree");
+        if (!degree) {
+          alert("不能为空！");
+          return;
+        }
+        if (degree!==Meteor.user().profile.degree) {
+          Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.degree':degree}});
+          Session.set("curSwiperDegree",'');
+        }
+      }
+    });
+  },
+  'click #mineProfileTeachingAge': function(e) {
+    IonActionSheetCustom.show('_teachingAgeActionSheet',{
+      finishText: '完成',
+      cancelText: '取消',
+      buttons: [],
+      finish: function() {
+        var teachingAge =  Session.get("curSwiperTeachingAge");
+        if (!teachingAge) {
+          alert("不能为空！");
+          return;
+        }
+        if (teachingAge!==Meteor.user().profile.teachingAge) {
+          Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.teachingAge':teachingAge}});
+          Session.set("curSwiperTeachingAge",'');
+        }
+      }
+    });
   }
 });

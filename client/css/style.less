@@ -1580,6 +1580,9 @@ input[type=text].browser {
       width: auto;
     }
   }
+  &.subjects-view {
+    background-color: #fff;
+  }
 }
 .no-float {
   float: none;
@@ -1594,6 +1597,29 @@ input[type=text].browser {
     margin-right: 7px;
     height: 20px;
     vertical-align: text-top;
+  }
+}
+.action-sheet .swiper-container, .date-swiper-comp .swiper-container {
+  height: 200px;
+  .swiper-button-prev {
+    left: 0;
+    width: 100%;
+    border: 0;
+    cursor: auto;
+    background: #f9edec;
+    z-index: -1;
+  }
+  .swiper-slide {
+    color: #e5e5e5;
+    font-size: 16px;
+    &.swiper-slide-prev, &.swiper-slide-next {
+      color: #aaa;
+      font-size: 16px;
+    }
+    &.swiper-slide-active {
+      color: #333;
+      font-size: 18px;
+    }
   }
 }
 .system-settings-view {
@@ -1623,25 +1649,6 @@ input[type=text].browser {
   > div {
     float: left;
     width: 33%;
-    height: 300px;
-  }
-  .swiper-button-prev {
-    left: 0;
-    width: 100%;
-    border: 0;
-    cursor: auto;
-    background: #f9edec;
-    z-index: -1;
-  }
-  .swiper-slide {
-    color: #e5e5e5;
-    &.swiper-slide-prev, &.swiper-slide-next {
-      color: #aaa;
-    }
-    &.swiper-slide-active {
-      color: #333;
-      font-size: 18px;
-    }
   }
   .swiper-tag {
     position: absolute;
