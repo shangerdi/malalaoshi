@@ -132,5 +132,27 @@ Template.mineProfile.events({
         return true;
       }
     });
+  },
+  'click #mineProfileBirthday': function(e) {
+    IonActionSheetCustom.show('_birthdayActionSheet',{
+      finishText: '完成',
+      destructiveText: false,
+      cancelText: '取消',
+      buttons: [],
+      finish: function() {
+        var year = Session.get("curSwiperYear");
+        var month = Session.get("curSwiperMonth");
+        var day = Session.get("curSwiperDay");
+        var momentObj = moment([year, month-1, day]);
+        if (!momentObj.isValid() || !momentObj.isBefore(moment(new Date()))) {
+          alert("选择出错，请重新选择");
+          return;
+        }
+        var birthday = year+'-'+month+'-'+day;
+        if (birthday!==Meteor.user().profile.birthday) {
+          Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.birthday':birthday}});
+        }
+      }
+    });
   }
 });
