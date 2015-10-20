@@ -63,3 +63,18 @@ $popupBorderRadius: 7px;
     }
   }
 }
+
+.action-sheet {
+  margin-left: 0;
+  margin-right: 0;
+  .action-sheet-group {
+    border-radius: 0;
+  }
+  .action-sheet-title {
+    padding: 0 14px;
+  }
+  .action-sheet-finish-btn {
+    float: right;
+    width: auto;
+  }
+}
