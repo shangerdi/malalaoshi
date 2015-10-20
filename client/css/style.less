@@ -1626,24 +1626,38 @@ input[type=text].browser {
     height: 300px;
   }
   .swiper-button-prev {
-    background-image: none;
     left: 0;
     width: 100%;
-    border: solid #D66D6D 1px;
-    border-right: none;
-    border-left: none;
+    border: 0;
     cursor: auto;
-    background-color: #A0A2A5;
-    opacity: .2;
+    background: #f9edec;
+    z-index: -1;
   }
   .swiper-slide {
     color: #e5e5e5;
     &.swiper-slide-prev, &.swiper-slide-next {
-      color: #9b9b9b;
+      color: #aaa;
     }
     &.swiper-slide-active {
-      color: #444;
+      color: #333;
+      font-size: 18px;
     }
+  }
+  .swiper-tag {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    color: #333;
+    text-align: center;
+    height: 44px;
+    margin-top: -22px;
+    z-index: 10;
+    font-size: 18px;
+    padding-left: 42px;
+    padding-top: 12px;
+  }
+  .year-swiper .swiper-tag{
+    padding-left: 64px;
   }
 }
 .cert-img-upload-view {
