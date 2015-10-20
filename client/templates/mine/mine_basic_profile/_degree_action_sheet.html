@@ -1,0 +1,12 @@
+<template name="_degreeActionSheet">
+  {{#ionActionSheetCustom}}
+    <div class="swiper-container degree-swiper">
+      <div class="swiper-wrapper">
+        {{#each degreeList}}
+          <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
+        {{/each}}
+      </div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  {{/ionActionSheetCustom}}
+</template>
