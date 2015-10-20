@@ -7,17 +7,41 @@ var submitWithdraw = function(withdrawInfo) {
       });
       return throwError(error.reason);
     }
-    IonPopup.alert({
-      title: "提现成功!",
-      okText: "确定",
-      onOk: function() {
-        if (Meteor.isCordova) {
-          navigator.app && navigator.app.backHistory && navigator.app.backHistory();
-        } else {
-          history.back();
-        }
+
+    if (result && result.success == false) {
+      //已经锁定
+      if (result.errorType == 'locked') {
+        IonPopup.confirm({
+          title: result.errorMsg,
+          cancelText: "确定",
+          okText: "重置提现密码",
+          onOk: function() {
+            Router.go("proceedsResetPasswordStep1");
+          }
+        });
       }
-    });
+      //密码错误，提醒可用的重试次数
+      else if (result.errorType == 'retry') {
+        IonPopup.alert({
+          title: result.errorMsg,
+          okText: "确定"
+        });
+      }
+    }
+    //提现成功
+    else {
+      IonPopup.alert({
+        title: "提现成功!",
+        okText: "确定",
+        onOk: function() {
+          if (Meteor.isCordova) {
+            navigator.app && navigator.app.backHistory && navigator.app.backHistory();
+          } else {
+            history.back();
+          }
+        }
+      });
+    }
   });
 };
 
