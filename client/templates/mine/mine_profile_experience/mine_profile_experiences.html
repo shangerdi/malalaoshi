@@ -8,23 +8,25 @@
   {{/contentFor}}
 
 
-{{#ionView}}
+{{#ionView class="mine-profile-view"}}
   {{#ionContent}}
 
     {{#ionList class="profile-experience-list"}}
       {{#each experienceList}}
         {{#ionItem path="mineProfileExperience" data=this query=this iconRight=true}}
-          <span>{{formatDate startDate}}~{{formatDate endDate}}</span>
+          <span>{{formatDate startDate 'YYYY年MM月'}}~{{formatDate endDate 'YYYY年MM月'}}</span>
           <div class="item-note">
             {{content}}
           </div>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
       {{/each}}
-      {{#ionItem path="mineProfileExperience" iconRight=true}}
-        添加过往经历
-        {{> ionIcon icon="plus"}}
-      {{/ionItem}}
+      {{#if isEmpty}}
+        {{#ionItem path="mineProfileExperience" iconRight=true}}
+          添加过往经历
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/if}}
     {{/ionList}}
 
   {{/ionContent}}

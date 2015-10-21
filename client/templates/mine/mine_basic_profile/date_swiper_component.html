@@ -19,10 +19,10 @@
             {{/each}}
           </div>
           <div class="swiper-tag">月</div>
-          <div class="swiper-button-prev"></div><div class="swiper-middle-line"></div>
+          <div class="swiper-button-prev"></div><div class="swiper-middle-line {{#if hideDay}}hide{{/if}}"></div>
         </div>
       </div>
-      <div>
+      <div class="{{#if hideDay}}hide{{/if}}">
         <div class="swiper-container day-swiper">
           <div class="swiper-wrapper">
             {{#each dayList}}
