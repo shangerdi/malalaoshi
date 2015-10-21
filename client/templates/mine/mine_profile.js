@@ -94,7 +94,8 @@ Template.mineProfile.events({
         return;
       }
     }
-    Router.go("mineProfileServiceAreaList");
+    // Router.go("mineProfileServiceAreaList");
+    Router.go("mineProfileServiceArea", {}, {'query': {'code': '410300'}});
   },
   'click #mineProfileAvatar': function(e) {
     if (Meteor.isCordova) {

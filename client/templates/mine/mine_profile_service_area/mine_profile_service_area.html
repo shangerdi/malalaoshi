@@ -20,16 +20,18 @@
     {{#ionList}}
       {{#if parentArea}}
         {{#ionItem href="" class="parent-area" id=parentArea._id iconRight=true}}
-          {{parentArea.name}}
-          {{> ionIcon icon="arrow-return-left"}}
+          当前城市&nbsp;&nbsp;{{parentArea.name}}
+          <!-- {{> ionIcon icon="arrow-return-left"}} -->
         {{/ionItem}}
       {{/if}}
     {{/ionList}}
 
-    <div>选择可上门授课的区县（可多选）</div>
+    <div class="areas-hint">选择可上门授课的区县（可多选）</div>
     <div class="areas-box">
       {{#each areaList}}
-        <div class="area {{all}} {{selected}}" code="{{code}}">{{name}}</div>
+        <div class="area-outer">
+          <div class="area {{all}} {{selected}}" code="{{code}}" title="{{name}}">{{name}}</div>
+        </div>
       {{/each}}
     </div>
 
