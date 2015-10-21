@@ -14,18 +14,20 @@
   {{/contentFor}}
 
 
-{{#ionView}}
+{{#ionView class="mine-profile-view name-view"}}
   {{#ionContent}}
 
-    {{#ionList class="parent-settings-box"}}
-      {{#ionItem class="item-icon-right"}}
-        <label class="input-label" for="college">院校名称</label>
-        <label class="item-input">
-          <i class="icon ion-ios-close-empty placeholder-icon"></i>
-          <input type="text" id="college" name="college" value="{{currentUser.profile.college}}"/>
-        </label>
+    {{#ionList}}
+      {{#ionItem class="item-input"}}
+        <span class="input-label" for="college">院校</span>
+        <input type="text" id="college" name="college" value="{{currentUser.profile.college}}"/>
       {{/ionItem}}
     {{/ionList}}
+
+    <div class="hint-block">
+      <img src="/images/info.png">
+      保存后，其他人会看到你的学校哦
+    </div>
 
   {{/ionContent}}
 {{/ionView}}

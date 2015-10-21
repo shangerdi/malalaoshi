@@ -14,16 +14,19 @@
   {{#ionView}}
     {{#ionContent}}
     <form class="form feedback-form">
-      <div class="form-group {{errorClass 'content'}}">
-        <textarea rows="5" class="form form-control" name="content" placeholder="请在这里写下你对麻辣老师的意见，我们将不断进步，为孩子做的更好~"></textarea>
-        <span class="help-block">{{errorMessage 'content'}}</span>
-      </div>
-      <div class="form-group {{errorClass 'contact'}}">
-        <label>联系方式</label>
-        <input type="text" class="form form-control" name="contact" placeholder="电话、QQ、邮箱">
-        <span class="help-block">{{errorMessage 'contact'}}</span>
-      </div>
+
+    {{#ionList}}
+      {{#ionItem class="item-input"}}
+        <textarea rows="5" class="" name="content" placeholder="请在这里写下你对麻辣老师的意见，我们将不断进步，为孩子做的更好~"></textarea>
+      {{/ionItem}}
+      {{#ionItem class="item-input"}}
+        <span class="input-label" for="name">联系方式</span>
+        <input type="text" class="" name="contact" placeholder="请输入您的手机号／邮箱等（选填）">
+      {{/ionItem}}
+    {{/ionList}}
+      {{#unless isCordova}}
       <input type="submit" class="btn btn-success" value="提交" />
+      {{/unless}}
     </form>
     {{/ionContent}}
   {{/ionView}}

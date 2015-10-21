@@ -14,18 +14,20 @@
   {{/contentFor}}
 
 
-{{#ionView}}
+{{#ionView class="mine-profile-view name-view"}}
   {{#ionContent}}
 
-    {{#ionList class="parent-settings-box"}}
-      {{#ionItem class="item-icon-right"}}
-        <label class="input-label" for="company">所在机构名称</label>
-        <label class="item-input">
-          <i class="icon ion-ios-close-empty placeholder-icon"></i>
-          <input type="text" id="company" name="company" value="{{currentUser.profile.company}}"/>
-        </label>
+    {{#ionList}}
+      {{#ionItem class="item-input"}}
+        <span class="input-label" for="company">机构</span>
+        <input type="text" id="company" name="company" value="{{currentUser.profile.company}}"/>
       {{/ionItem}}
     {{/ionList}}
+
+    <div class="hint-block">
+      <img src="/images/info.png">
+      保存后，其他人会看到你的机构哦
+    </div>
 
   {{/ionContent}}
 {{/ionView}}
