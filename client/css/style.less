@@ -683,9 +683,11 @@ input[type=text].browser {
   white-space: normal;
   text-align: center;
   thead > tr.week-row:first-child > td {
+    padding: 8px 0;
     border: 1px solid @malaRed2;
     border-bottom: 1px solid @malaRed;
     background-color: @malaRed3;
+    color: #fff;
   }
   tr > td:last-child {
     border-right: 1px solid @malaRed2;
@@ -694,7 +696,9 @@ input[type=text].browser {
     border-bottom: 1px solid @malaRed2;
   }
   tr > td:first-child {
+    padding: 3px;
     border-left: 1px solid @malaRed2;
+    color: #333;
   }
   td{
     border: 1px solid @malaRed;
@@ -711,7 +715,7 @@ input[type=text].browser {
       background-color: @timeUnavailableColor;
     }
     &.phase.removed {
-      background-color: gray;
+      background-color: @timeUnavailableColor;
     }
   }
 }
@@ -1010,6 +1014,7 @@ input[type=text].browser {
     .flag {
       margin-right: 10px;
       font-size: 16px;
+      color: #333;
       .rect {
         display: inline-block;
         width: 14px;
@@ -1525,10 +1530,13 @@ input[type=text].browser {
     background-color: #fff;
     .item {
       padding-left: 0;
-      padding-right: 20px;
+      padding-right: 0;
       border-left: 0;
       border-right: 0;
       border-color: @indexBorderColor;
+      &.item-icon-right {
+        padding-right: 20px;
+      }
       &:first-child{
         border-top: 0;
       }
@@ -1594,6 +1602,40 @@ input[type=text].browser {
   }
   &.subjects-view {
     background-color: #fff;
+  }
+  &.schedule-weekly-view {
+    .list {
+      margin: 0;
+      padding: 0;
+      padding-top: @page-padding;
+      height: 100%;
+      background-color: transparent;
+      .item {
+        padding: 17px @page-padding;
+        height: 100%;
+      }
+    }
+    td.phase.chosen {
+      background-color: @timeAvailableColor;
+    }
+    .flag {
+      margin-right: 10px;
+      font-size: 16px;
+      color: #333;
+      .rect {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-right: 7px;
+        vertical-align: -1px;
+        &.unavailable {
+          background-color: @timeUnavailableColor;
+        }
+        &.available {
+          border: 1px solid @malaRed;
+        }
+      }
+    }
   }
 }
 .no-float {

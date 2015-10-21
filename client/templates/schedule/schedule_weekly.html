@@ -13,17 +13,18 @@
     </button>
   {{/contentFor}}
 
-{{#ionView}}
+{{#ionView class="mine-profile-view schedule-weekly-view"}}
   {{#ionContent}}
+  {{#ionList}}{{#ionItem}}
     <div class="course-table-box">
-      <div>每周共{{lessonCounts}}课时</div>
+      <!-- <div>每周共{{lessonCounts}}课时</div> -->
       <table class="table course-table">
         <thead><tr class="week-row"><td></td><td>周一</td><td>周二</td><td>周三</td><td>周四</td><td>周五</td><td>周六</td><td>周日</td></tr></thead>
         <!-- <tr><td class="time-phase"></td><td data-weekday=0 data-start=0 data-end=0 class="phase available|unavailable">......</tr> -->
         <tbody>
           {{#each timePhases}}
             <tr>
-              <td class="time-phase">{{convMinutes2Str start}} - {{convMinutes2Str end}}</td>
+              <td class="time-phase">{{convMinutes2Str start}}<br>{{convMinutes2Str end}}</td>
               {{#each days}}
               <td data-weekday="{{this}}" data-start="{{../start}}" data-end="{{../end}}" class="phase {{getPhaseState this ../start ../end}}"> </td>
               {{/each}}
@@ -31,6 +32,10 @@
           {{/each}}
         </tbody>
       </table>
+      <div class="flags">
+        <span class="flag"><span class="rect unavailable"></span>不上课</span>
+        <span class="flag"><span class="rect available"></span>可上课</span>
+      </div>
     </div>
     {{#if isPartTime}}
     <div class="{{errorClass 'save'}}">
@@ -40,6 +45,7 @@
       {{/unless}}
     </div>
     {{/if}}
+  {{/ionItem}}{{/ionList}}
   {{/ionContent}}
 {{/ionView}}
 </template>
