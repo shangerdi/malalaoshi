@@ -1680,7 +1680,37 @@ input[type=text].browser {
   }
 }
 .cert-img-upload-view {
-  .content{
+  .list {
+    padding: 0;
+    margin: 10px 0;
+    .item {
+      padding: @page-padding 0;
+    }
+  }
+  .progress-header {
+    .line {
+      position: absolute;
+      border-bottom: 1px solid red;
+      width: 100%;
+      top: 50%;
+      z-index: -1;
+    }
+    .row .col{
+      float: left;
+      padding: 0;
+      text-align: center;
+      color: @malaRed2;
+      span {
+        background-color: #fff;
+        img {
+          margin-right: 4px;
+          width: 30px;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+  .item.cert-upload-box {
     padding: @page-padding;
   }
   .cert-img-box {
@@ -1704,10 +1734,14 @@ input[type=text].browser {
       display: none;
     }
     .file-input-mask{
-      position: relative;
+      position: absolute;
       bottom: 0;
       width: 100%;
+      height: 34px;
       overflow: hidden;
+      background-color: rgba(0,0,0,0.1);
+      border-radius: 0;
+      border: 0;
       input {
         position: absolute;
         top: -100px;
