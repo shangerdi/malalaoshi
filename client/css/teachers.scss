@@ -5,6 +5,16 @@ $malaRed2: #e8413e;
 $pagepadding: 14px;
 $indexBorderColor: #E6E6E6;
 
+@media (min--moz-device-pixel-ratio: 1.5), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
+  .bar {
+    border: none;
+    background-image: linear-gradient(0deg, #B19E9E, #B19E9E 50%, transparent 50%);
+    background-position: bottom;
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+  }
+}
+
 .teacher-div > div > div:first-child{
   min-height:85px;
 }
@@ -844,27 +854,42 @@ $indexBorderColor: #E6E6E6;
 .index-page > div{
   height: 50%;
 }
-.index-page-nav > div{
-  width: 100%;
-  height: 50%;
-}
-.index-page-nav a{
-  width: 100%;
-  height: 100%;
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  img{
-    width: 48.8%;
+.index-page-nav{
+  > div{
+    width: 100%;
+    height: 50%;
+    > div{
+      width: 50%;
+      height: 100%;
+      float: left;
+      display: table;
+      color: #000000;
+      font-size: 20px;
+    }
   }
-}
-.index-page-nav > div > div{
-  width: 50%;
-  height: 100%;
-  float: left;
-  display: table;
-  color: #000000;
-  font-size: 20px;
+  a{
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    img{
+      width: 48.8%;
+    }
+  }
+  > div:first-child{
+    > div:first-child{
+      border: solid $indexBorderColor 1px;
+      border-left: none;
+    }
+    > div:last-child{
+      border-top: solid $indexBorderColor 1px;
+      border-bottom: solid $indexBorderColor 1px;
+    }
+  }
+  > div:last-child > div:first-child{
+    border-right: solid $indexBorderColor 1px;
+  }
 }
 .index-page-cell{
   display: table-cell;
@@ -874,17 +899,6 @@ $indexBorderColor: #E6E6E6;
 .index-page-cell i{
   font-size: 70px;
   display: block;
-}
-.index-page-nav > div:first-child > div:first-child{
-  border: solid $indexBorderColor 1px;
-  border-left: none;
-}
-.index-page-nav > div:first-child > div:last-child{
-  border-top: solid $indexBorderColor 1px;
-  border-bottom: solid $indexBorderColor 1px;
-}
-.index-page-nav > div:last-child > div:first-child{
-  border-right: solid $indexBorderColor 1px;
 }
 .index-swiper .swiper-slide, .index-swiper img, .index-swiper a{
   height: 100%;
@@ -1147,7 +1161,7 @@ $indexBorderColor: #E6E6E6;
 }
 .teachers-filter-study-center-item{
   overflow: hidden;
-  padding: 10px;
+  padding: 0;
   font-size: 16px;
   width: 95%;
   background-color: #f1f1f1;
@@ -1155,34 +1169,39 @@ $indexBorderColor: #E6E6E6;
   width: 95%;
   margin: 0 auto;
   display: table;
-}
-.teachers-filter-study-center-item > div{
-  display: table-cell;
-  vertical-align: middle;
-}
-.teachers-filter-study-center-item > div:first-child{
-  width: 40%;
-}
-.teachers-filter-study-center-item > div:last-child{
-  width: 60%;
-}
-.teachers-filter-study-center-item img{
-  width: 100%;
-}
-.teachers-filter-study-center-item span{
-  font-size: 21px;
-  display: block;
-}
-.teachers-filter-study-center-item i{
-  font-size: 40px;
-  position: absolute;
-  background-color: #f1f1f1;
-  left: 4%;
-  margin-top: -10px;
-  z-index: 20;
+  > div{
+    display: table-cell;
+    vertical-align: middle;
+  }
+  > div:first-child{
+    width: 40%;
+  }
+  > div:last-child{
+    width: 60%;
+  }
+  img{
+    width: 100%;
+  }
+  span{
+    font-size: 21px;
+    display: block;
+  }
+  .selected-img{
+    position: absolute;
+    right: 13.5px;
+    width: 29px;
+    margin-top: 0px;
+    z-index: 20;
+    visibility: hidden;
+  }
+  .avatar-and-select{
+    margin-bottom: -4px;
+  }
 }
 .study-center-item-select{
-  border: solid #000 2px;
+  .selected-img{
+    visibility: visible;
+  }
 }
 .study-center-item-select i{
   color: #000000;
@@ -1195,19 +1214,33 @@ $indexBorderColor: #E6E6E6;
 }
 .teachers-filter-study-center-item-info{
   text-align: left;
-  padding-left: $pagepadding;
-}
-.teachers-filter-study-center-item-info span{
-  line-height: 25px;
-}
-.teachers-filter-study-center-item-info > p:nth-last-child(2){
-  float: left;
-}
-.teachers-filter-study-center-item-info > p:last-child{
-  float: right;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  color: #988c8d;
+  span{
+    line-height: 25px;
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 10px;
+  }
+  > p:nth-last-child(2){
+    float: left;
+  }
+  > p:last-child{
+    float: right;
+  }
 }
 #teachersFilterNearestStudyCenter{
   display: none;
+  background-color: #FFFFFF;
+  #selectTitle{
+    background-color: $appBackGroundColor;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    margin-bottom: 13px;
+  }
 }
 .teacher-item-no-recommend-info{
   width: 100%;
@@ -1494,7 +1527,7 @@ body>.sticky-nav{
   }
 }
 .teachers-filter .teachers-filter-study-center-item{
-  margin: 0 auto 20px auto;
+  margin: 0 auto 10px auto;
 }
 .teacher-swiper-container-modal{
   width: 100%;
@@ -1740,7 +1773,7 @@ body>.sticky-nav{
   background-color: transparent;
   .raffle-info{
     color: #FFFFFF;
-    font-size: 20px;
+    font-size: 13.3px;
     font-weight: 600;
   }
 }
@@ -1935,7 +1968,7 @@ body>.sticky-nav{
 .coupon-selected{
   color: #000000;
 }
-.inde-page-swiper-parent{
+.index-page-swiper-parent{
   background-color: #B19E9E;
   > div{
     text-align: right;
