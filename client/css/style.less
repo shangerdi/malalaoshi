@@ -1829,6 +1829,20 @@ input[type=text].browser {
     cursor: pointer;
   }
 }
+.profile-photos-view {
+  .content {
+    background-color: #fff;
+  }
+  .action-btn-box {
+    .delete-photos {
+      position: absolute;
+      right: 0;
+      img {
+        max-height: 100%;
+      }
+    }
+  }
+}
 .profile-photo-list{
   .item{
     display: inline-block;
@@ -1836,10 +1850,11 @@ input[type=text].browser {
     height: 100px;
     width: 100px;
     text-align: center;
-    line-height: 100px;
+    line-height: 90px;
     img{
       max-height: 100%;
       max-width: 100%;
+      vertical-align: middle;
     }
   }
   .file-input-mask {
@@ -1867,25 +1882,42 @@ input[type=text].browser {
       display: block;
     }
   }
-  .manage-box{
+  .photo-mask{
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    background: rgba(0,0,0,0.2);
-    span {
-      display: block;
-      position: absolute;
-      right: 5px;
-      top: 5px;
-      width: 16px;
-      height: 16px;
-      line-height: 16px;
-    }
-    &.checked {
+    background: rgba(0,0,0,0.1);
+    &.manage-box{
       span {
-        color: green;
+        display: block;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        .yes {
+          display: none;
+        }
+      }
+      &.checked {
+        span {
+          color: green;
+          .no {
+            display: none;
+          }
+          .yes {
+            display: inline;
+          }
+        }
+      }
+    }
+    &.upload-box{
+      span {
+        display: block;
+        padding-top: 5px;
       }
     }
   }
