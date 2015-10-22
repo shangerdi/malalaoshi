@@ -1,3 +1,8 @@
+Template.mineProfileExperiences.onRendered(function(){
+  $("[data-action=add-experience]").click(function() {
+    Router.go('mineProfileExperience');
+  });
+});
 Template.mineProfileExperiences.helpers({
   isEmpty: function() {
     var teacherAudit = TeacherAudit.findOne({'userId': Meteor.userId()});
