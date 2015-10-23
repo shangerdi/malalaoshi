@@ -3,6 +3,7 @@
 @page-max-width: 1080px;
 @bodyTextColor: #5d5d5d;
 @greyColor: #f7f7f7;
+@greyColor2: #939393;
 @appBackGroundColor: #F7F7F7;
 @malaRed: #ff9290;
 @malaRed2: #e8413e;
@@ -1514,21 +1515,17 @@ input[type=text].browser {
   }
 }
 .mine-profile-view {
-  .item.item-avatar-right.item-icon-right {
-    img:first-child {
-      margin-right: 35px;
-    }
-  }
   a {
     cursor: pointer;
   }
   .list {
     margin-top: 10px;
+    margin-bottom: 0;
     padding: 0 @page-padding;
     background-color: #fff;
     .item {
       padding-left: 0;
-      padding-right: 43px;
+      padding-right: 20px;
       border-left: 0;
       border-right: 0;
       border-color: @indexBorderColor;
@@ -1538,48 +1535,148 @@ input[type=text].browser {
       &:last-child{
         border-bottom: 0;
       }
+      &.item-avatar-right, &.item-avatar-right .item-content {
+        min-height: 85px;
+        line-height: 53px;
+        img:first-child {
+          margin-right: 0;
+          right: 20px;
+          max-width: 53px;
+          max-height: 53px;
+          width: 100%;
+          border-radius: 0;
+        }
+      }
       font-size: 16px;
       color: #333;
       .item-note {
         max-width: 220px;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: @bodyTextColor;
+        color: #939393;
       }
       &.item-icon-right .icon{
         right: 0;
+        width: 12px;
+        color: #bbb;
+        font-size: 26px;
       }
     }
+  }
+  .hint-block {
+    margin-top: 17px;
+    margin-left: @page-padding;
+    color: @greyColor2;
+    font-size: 14px;
+    img {
+      margin-right: 6px;
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+    }
+  }
+  &.name-view {
+    .item.item-input {
+      padding-right: 0;
+      .count-hint {
+        position: absolute;
+        bottom: 7px;
+        right: 8px;
+        font-size: 12px;
+        &.overflow {
+          color: @malaRed2;
+        }
+      }
+    }
+    .input-label {
+      width: auto;
+    }
+  }
+  &.subjects-view {
+    background-color: #fff;
   }
 }
 .no-float {
   float: none;
 }
+.action-sheet-gender {
+  height: 48px;
+  padding: @page-padding 0;
+  line-height: 20px;
+  font-size: 16px;
+  color: @greyColor2;
+  img {
+    margin-right: 7px;
+    height: 20px;
+    vertical-align: text-top;
+  }
+}
+.action-sheet .swiper-container, .date-swiper-comp .swiper-container {
+  height: 200px;
+  .swiper-button-prev {
+    left: 0;
+    width: 100%;
+    border: 0;
+    cursor: auto;
+    background: #f9edec;
+    z-index: -1;
+  }
+  .swiper-slide {
+    color: #e5e5e5;
+    font-size: 16px;
+    &.swiper-slide-prev, &.swiper-slide-next {
+      color: #aaa;
+      font-size: 16px;
+    }
+    &.swiper-slide-active {
+      color: #333;
+      font-size: 18px;
+    }
+  }
+}
+.system-settings-view {
+  background: #fff;
+  .list {
+    padding: 0 @page-padding;
+    .item {
+      padding-left: 0;
+      padding-right: 0;
+      border-right:0;
+      border-left:0;
+      border-color: @indexBorderColor;
+      color: #333;
+      .item-note {
+        color: #939393;
+      }
+      &.item-icon-right .icon{
+        right: 0;
+        width: 12px;
+        color: #bbb;
+        font-size: 26px;
+      }
+    }
+  }
+}
 .date-swiper-comp {
   > div {
     float: left;
     width: 33%;
-    height: 300px;
   }
-  .swiper-button-prev {
-    background-image: none;
-    left: 0;
+  .swiper-tag {
+    position: absolute;
     width: 100%;
-    border: solid #D66D6D 1px;
-    border-right: none;
-    border-left: none;
-    cursor: auto;
-    background-color: #A0A2A5;
-    opacity: .2;
+    top: 50%;
+    color: #333;
+    text-align: center;
+    height: 44px;
+    margin-top: -22px;
+    z-index: 10;
+    font-size: 18px;
+    padding-left: 42px;
+    padding-top: 12px;
   }
-  .swiper-slide {
-    color: #e5e5e5;
-    &.swiper-slide-prev, &.swiper-slide-next {
-      color: #9b9b9b;
-    }
-    &.swiper-slide-active {
-      color: #444;
-    }
+  .year-swiper .swiper-tag{
+    padding-left: 64px;
   }
 }
 .cert-img-upload-view {
@@ -1851,6 +1948,18 @@ body.keyboard-open .platform-android .content.overflow-scroll {
             color: #fff;
           }
         }
+      }
+    }
+  }
+}
+.feedback-form {
+  .list {
+    .item {
+      margin-top: 10px;
+      padding: 10px @page-padding;
+      .input-label {
+        width: auto;
+        color: #333;
       }
     }
   }

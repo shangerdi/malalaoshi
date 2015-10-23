@@ -111,8 +111,7 @@ Meteor.methods({
 
     var encryptedPass = CryptoJS.HmacMD5(resetPassInfo.newPass, this.userId).toString();
     var token = Math.random() + 1;
-    TeacherBalance.update({userId: this.userId}, {$set: {withdrawPass: encryptedPass, isSetPass: true, token: token}});
-
+    TeacherBalance.update({userId: this.userId}, {$set: {withdrawPass: encryptedPass, isSetPass: true, token: token, tryTimes: 0}});
   },
   identityVerify: function(params) {
     //TODO: verify following information
@@ -165,13 +164,64 @@ Meteor.methods({
       throw new Meteor.Error('参数错误', "参数错误");
     }
 
+    var result = {};
+
+    var balance = TeacherBalance.findOne({userId: this.userId}, {fields: {tryTimes: 1}});
+    //连续3次密码错误则需要重置密码
+    if (balance.tryTimes >= 3) {
+      result.success = false;
+      result.errorType = 'locked';
+      result.errorMsg = '提现密码已被锁定，建议您找回密码';
+      return result;
+    }
+
     //verify input password
     var encryptedPass = CryptoJS.HmacMD5(withdrawInfo.password, this.userId).toString();
     var isFound = TeacherBalance.findOne({userId: this.userId, withdrawPass: encryptedPass});
     if (!isFound) {
-      //todo: 需增加错误次数验证
-      throw new Meteor.Error('密码错误', "密码错误");
+      //错误次数 ＋1
+      TeacherBalance.update({userId: this.userId}, {$inc: {tryTimes: 1}});
+      var balance = TeacherBalance.findOne({userId: this.userId}, {fields: {tryTimes: 1}});
+      //连续3次密码错误则需要重置密码
+      if (balance.tryTimes >= 3) {
+        result.success = false;
+        result.errorType = 'locked';
+        result.errorMsg = '提现密码已被锁定，建议您找回密码';
+        return result;
+      }
+      else {
+        result.success = false;
+        result.errorType = 'retry';
+        result.errorMsg = '提现密码错误，您还可以输入' + (3 - balance.tryTimes) + '次';
+        return result;
+      }
     }
+    else {
+      //输入正确，恢复错误次数为 0
+      TeacherBalance.update({userId: this.userId}, {$set: {tryTimes: 0}});
+    }
+
+    //var up = new UnionPay;
+    //var customerInfo = up.customerInfo({
+    //  phoneNo: '13552535506',
+    //  customerNm: '全渠道'
+    //});
+    //var params = {
+    //  txnType: '72',
+    //  txnSubType: '01',
+    //  bizType: '000201',
+    //  channelType: '07',
+    //  orderId: moment().format('YYYYMMDDHHmmss'),
+    //  txnTime: moment().format('YYYYMMDDHHmmss'),
+    //  accNo: '6216261000000000018',
+    //  customerInfo: customerInfo,
+    //  relTxnType: '02',
+    //  payCardType: '01'
+    //};
+    //
+    //up.build(params);
+    //var ret = up.request();
+    //console.log(ret);
 
     //提现 明细
     var withdrawDetail = {};
@@ -187,5 +237,8 @@ Meteor.methods({
     submitTransaction(transactionDetails);
     //todo: 调用银行接口打款
     //Meteor.call("pay");
+
+    result.success = true;
+    return result;
   }
 });

@@ -25,7 +25,7 @@ var getDayList = function(year, month) {
   }
   var a = [];
   for (var i = maxDay; i >= 1; i--) {
-    a.push({'key':i, 'text': i + "日"});
+    a.push({'key':i, 'text': i});
   }
   return a;
 }
@@ -125,14 +125,14 @@ Template.dateSwiperComponent.helpers({
   yearList: function() {
     var a = [], curYear = new Date().getFullYear();
     for (var i = curYear; i >= 1900; i--) {
-      a.push({'key':i, 'text': i + "年"});
+      a.push({'key':i, 'text': i});
     }
     return a;
   },
   monthList: function() {
     var a = [];
     for (var i = 12; i >= 1; i--) {
-      a.push({'key':i, 'text': i + "月"});
+      a.push({'key':i, 'text': i});
     }
     return a;
   },

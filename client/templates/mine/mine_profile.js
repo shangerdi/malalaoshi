@@ -102,5 +102,93 @@ Template.mineProfile.events({
     } else {
       Router.go('mineProfileAvatar');
     }
+  },
+  'click #mineProfileGender': function(e) {
+    IonActionSheet.show({
+      titleText: "",
+      buttons: [
+        { text: '<div class="action-sheet-gender male"><img src="/images/male.png">男</div>' },
+        { text: '<div class="action-sheet-gender female"><img src="/images/female.png">女</div>' }
+      ],
+      destructiveText: false,
+      cancelText: '取消',
+      cancel: function() {
+      },
+      buttonClicked: function(index) {
+        var gender='';
+        if (index==0) {
+          gender='男';
+        }
+        if (index==1) {
+          gender='女';
+        }
+        if (!gender) return true;
+        if (gender!==Meteor.user().profile.gender) {
+          Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.gender':gender}});
+        }
+        return true;
+      },
+      destructiveButtonClicked: function() {
+        return true;
+      }
+    });
+  },
+  'click #mineProfileBirthday': function(e) {
+    IonActionSheetCustom.show('_birthdayActionSheet',{
+      finishText: '完成',
+      destructiveText: false,
+      cancelText: '取消',
+      buttons: [],
+      finish: function() {
+        var year = Session.get("curSwiperYear");
+        var month = Session.get("curSwiperMonth");
+        var day = Session.get("curSwiperDay");
+        var momentObj = moment([year, month-1, day]);
+        if (!momentObj.isValid() || !momentObj.isBefore(moment(new Date()))) {
+          alert("选择出错，请重新选择");
+          return;
+        }
+        var birthday = year+'-'+month+'-'+day;
+        if (birthday!==Meteor.user().profile.birthday) {
+          Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.birthday':birthday}});
+        }
+      }
+    });
+  },
+  'click #mineProfileDegree': function(e) {
+    IonActionSheetCustom.show('_degreeActionSheet',{
+      finishText: '完成',
+      cancelText: '取消',
+      buttons: [],
+      finish: function() {
+        var degree =  Session.get("curSwiperDegree");
+        if (!degree) {
+          alert("不能为空！");
+          return;
+        }
+        if (degree!==Meteor.user().profile.degree) {
+          Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.degree':degree}});
+          Session.set("curSwiperDegree",'');
+        }
+      }
+    });
+  },
+  'click #mineProfileTeachingAge': function(e) {
+    IonActionSheetCustom.show('_teachingAgeActionSheet',{
+      finishText: '完成',
+      cancelText: '取消',
+      buttons: [],
+      finish: function() {
+        var teachingAge =  Session.get("curSwiperTeachingAge");
+        if (!teachingAge) {
+          alert("不能为空！");
+          return;
+        }
+        if (teachingAge!==Meteor.user().profile.teachingAge) {
+          Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.teachingAge':teachingAge}});
+          Session.set("curSwiperTeachingAge",'');
+        }
+      }
+    });
   }
 });

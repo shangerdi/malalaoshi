@@ -23,7 +23,7 @@ Template.proceedsDetails.helpers({
     return "";
   },
   getDateTime: function(createdAt) {
-    return (new moment(createdAt).format('hh:mm'));
+    return (new moment(createdAt).format('HH:mm'));
   }
 });
 

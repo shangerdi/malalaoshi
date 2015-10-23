@@ -4,7 +4,7 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title">修改自我介绍</h1>
+    <h1 class="title normal-title">个人介绍</h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
@@ -14,16 +14,13 @@
   {{/contentFor}}
 
 
-{{#ionView}}
+{{#ionView class="mine-profile-view name-view"}}
   {{#ionContent}}
 
-    {{#ionList class="parent-settings-box"}}
-      {{#ionItem class="item-icon-right"}}
-        <label class="input-label" for="selfIntro">自我介绍</label>
-        <label class="item-input">
-          <!-- <i class="icon ion-ios-close-empty placeholder-icon"></i> -->
+    {{#ionList}}
+      {{#ionItem class="item-input"}}
           <textarea rows="5" type="text" id="selfIntro" name="selfIntro" value="{{currentUser.profile.selfIntro}}">{{currentUser.profile.selfIntro}}</textarea>
-        </label>
+          <div class="count-hint {{overflow}}">{{leftCount}}</div>
       {{/ionItem}}
     {{/ionList}}
 
