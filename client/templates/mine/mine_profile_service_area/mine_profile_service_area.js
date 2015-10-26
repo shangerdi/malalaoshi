@@ -78,6 +78,7 @@ Template.mineProfileServiceArea.helpers({
 });
 Template.mineProfileServiceArea.events({
   'click .parent-area': function (e) {
+    return;
     var code = Template.instance().upperCode;
     var area = Areas.findOne({'code': code}), query = {};
     if (area.parentCode) {

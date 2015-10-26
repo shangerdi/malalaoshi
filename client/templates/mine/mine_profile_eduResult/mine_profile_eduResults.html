@@ -7,24 +7,32 @@
     <h1 class="title normal-title">成果分享</h1>
   {{/contentFor}}
 
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear button-light" data-action="add-eduResult">
+      {{> ionIcon icon="ios-plus-empty"}}
+    </button>
+  {{/contentFor}}
 
-{{#ionView}}
+
+{{#ionView class="mine-profile-view"}}
   {{#ionContent}}
 
     {{#ionList class="profile-edu-result-list"}}
       {{#each eduResultList}}
         {{#ionItem path="mineProfileEduResult" data=this query=this iconRight=true}}
-          <span>{{title}}~{{formatDate doneDate}}</span>
+          <span>{{title}}~{{formatDate doneDate 'YYYY年MM月'}}</span>
           <div class="item-note">
             {{content}}
           </div>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
       {{/each}}
-      {{#ionItem path="mineProfileEduResult" iconRight=true}}
-        添加成果
-        {{> ionIcon icon="plus"}}
-      {{/ionItem}}
+      {{#if isEmpty}}
+        {{#ionItem path="mineProfileEduResult" iconRight=true}}
+          添加成果
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/if}}
     {{/ionList}}
 
   {{/ionContent}}

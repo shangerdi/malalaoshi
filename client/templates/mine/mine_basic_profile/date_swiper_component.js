@@ -57,6 +57,7 @@ var _upadteDaySwiperSlides = function() {
 }
 
 Template.dateSwiperComponent.onRendered(function(){
+  var isShowDaySwiper = !(this.data && this.data.hideDay);
   // create swiper
   var swiperOption = {
     slidesPerView: 5,
@@ -71,12 +72,16 @@ Template.dateSwiperComponent.onRendered(function(){
   };
   this.yearSwiper = new Swiper('.swiper-container.year-swiper', swiperOption);
   this.monthSwiper = new Swiper('.swiper-container.month-swiper', swiperOption);
-  this.daySwiper = new Swiper('.swiper-container.day-swiper', swiperOption);
+  if (isShowDaySwiper) {
+    this.daySwiper = new Swiper('.swiper-container.day-swiper', swiperOption);
+  } else {
+    $(".date-swiper-comp > div").width("50%");
+  }
   dateSwipers = this;
   var _yearSwiperChange = function(swiper){
     var year = $(swiper.slides[swiper.activeIndex]).data('value');
     Session.set("curSwiperYear", year);
-    _upadteDaySwiperSlides();
+    isShowDaySwiper && _upadteDaySwiperSlides();
   }
   // NOTE: if only use "slideChangeEnd" event, it doesn't work well
   this.yearSwiper.on("slideChangeEnd", _yearSwiperChange);
@@ -84,16 +89,18 @@ Template.dateSwiperComponent.onRendered(function(){
   var _monthSwiperChange = function(swiper) {
     var month = $(swiper.slides[swiper.activeIndex]).data('value');
     Session.set("curSwiperMonth", month);
-    _upadteDaySwiperSlides();
+    isShowDaySwiper && _upadteDaySwiperSlides();
   }
   this.monthSwiper.on("slideChangeEnd", _monthSwiperChange);
   this.monthSwiper.on("transitionEnd", _monthSwiperChange);
-  var _daySwiperChange = function(swiper) {
-    var day = $(swiper.slides[swiper.activeIndex]).data('value');
-    Session.set("curSwiperDay", day);
+  if (isShowDaySwiper) {
+    var _daySwiperChange = function(swiper) {
+      var day = $(swiper.slides[swiper.activeIndex]).data('value');
+      Session.set("curSwiperDay", day);
+    }
+    this.daySwiper.on("slideChangeEnd", _daySwiperChange);
+    this.daySwiper.on("transitionEnd", _daySwiperChange);
   }
-  this.daySwiper.on("slideChangeEnd", _daySwiperChange);
-  this.daySwiper.on("transitionEnd", _daySwiperChange);
   // init old value
   var year = Session.get("curSwiperYear");
   var month = Session.get("curSwiperMonth");
@@ -112,14 +119,16 @@ Template.dateSwiperComponent.onRendered(function(){
   } else {
     this.monthSwiper.slideTo(monthIndex, 0, null);
   }
-  var dayIndex = _getSlideIndex(this.daySwiper, day);
-  if (dayIndex==-1) {
-    day = getDayList(year, month)[0].key;
-    Session.set("curSwiperDay", day);
-  } else {
-    this.daySwiper.slideTo(dayIndex, 0, null);
+  if (isShowDaySwiper) {
+    var dayIndex = _getSlideIndex(this.daySwiper, day);
+    if (dayIndex==-1) {
+      day = getDayList(year, month)[0].key;
+      Session.set("curSwiperDay", day);
+    } else {
+      this.daySwiper.slideTo(dayIndex, 0, null);
+    }
+    _upadteDaySwiperSlides();
   }
-  _upadteDaySwiperSlides();
 });
 Template.dateSwiperComponent.helpers({
   yearList: function() {

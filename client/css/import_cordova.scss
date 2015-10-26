@@ -72,13 +72,30 @@ $popupBorderRadius: 7px;
     border-radius: 0;
   }
   .action-sheet-title {
+    height: 47px;
+    line-height: 47px;
     padding: 0 14px;
     background-color: #f7f7f7;
+    font-size: 16px;
+    color: #5d5d5d;
   }
   .action-sheet-finish-btn {
-    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
     width: auto;
     font-size: 16px;
     color: #5d5d5d;
+  }
+}
+
+.bar .title + .button:last-child,
+ .bar > .button + .button:last-child,
+ .bar > .button.pull-right,
+ .bar .buttons.pull-right,
+ .bar .title + .buttons {
+  color: #fff;
+  .icon.ion-ios-plus-empty:before {
+    font-size: 38px;
   }
 }
