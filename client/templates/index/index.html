@@ -7,54 +7,43 @@
   {{#ionView}}
     {{#ionContent class="index-page"}}
       {{#if $eq currentUser.role 'teacher'}}
-      <div class="inde-page-swiper">
+      <div class="index-page-swiper-parent">
         <div class="swiper-container index-swiper">
             <div class="swiper-wrapper">
               {{#each recommendedTeachers}}
                 <div class="swiper-slide" data-value="{{key}}">
-                  <a href="{{pathFor 'teacher' id=id}}">
+                  <a href="{{pathFor thisPath}}">
                     <img src="{{imgSrc}}">
                   </a>
+                  <div class="swiper-title"><img src="/images/title-head.png" />{{title}}</div>
                 </div>
               {{/each}}
             </div>
-            <div class="swiper-pagination swiper-pagination-white"></div>
+            <div class="swiper-pagination"></div>
         </div>
       </div>
       <div class="index-page-nav">
         <div>
           <div>
             <a href="{{pathFor 'scheduleCalendar'}}">
-              <div class="index-page-cell">
-                <i class="icon ion-ios-eye-outline"></i>
-                课程
-              </div>
+              <img src="/images/course.png" />
             </a>
           </div>
           <div>
-            <a href="{{pathFor 'proceedsIndex'}}">
-              <div class="index-page-cell">
-                <i class="icon ion-ios-list-outline"></i>
-                收入
-              </div>
+            <a href="{{pathFor 'accountEntry'}}">
+              <img src="/images/entry.png" />
             </a>
           </div>
         </div>
         <div>
           <div>
-            <a href="{{pathFor 'messageMain'}}">
-              <div class="index-page-cell">
-                <i class="icon ion-ios-cart-outline"></i>
-                消息
-              </div>
+            <a href="{{pathFor 'messages'}}">
+              <img src="/images/message.png" />
             </a>
           </div>
           <div>
             <a href="{{pathFor 'mineProfile'}}">
-              <div class="index-page-cell">
-                <i class="icon ion-ios-person-outline"></i>
-                我的
-              </div>
+              <img src="/images/mine.png" />
             </a>
           </div>
         </div>
