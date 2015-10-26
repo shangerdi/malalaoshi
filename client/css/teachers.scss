@@ -25,7 +25,7 @@ $indexBorderColor: #E6E6E6;
 .list-item-border-bottom{
   border-bottom: solid 1px #EFE6E6;
 }
-.list-item-border-top{
+.element-border-top{
   border-top: solid 1px #EFE6E6;
 }
 //TODO: teacher-div needs to be refactored by flex
@@ -537,7 +537,7 @@ $indexBorderColor: #E6E6E6;
     }
   }
   .bottom-btn-view{
-    @extend .list-item-border-top;
+    @extend .element-border-top;
     .col-xs-6:first-child{
       color: $malaRed2;
     }
@@ -1406,7 +1406,7 @@ body>.sticky-nav{
     margin: 0;
   }
   .teacher-detail-tab-content{
-    @extend .list-item-border-top;
+    @extend .element-border-top;
   }
 }
 .teacher-detail-tab-content{
@@ -1414,7 +1414,7 @@ body>.sticky-nav{
 }
 .teacher-detail-view{
   .bottom-btn-view{
-    @extend .list-item-border-top;
+    @extend .element-border-top;
   }
 }
 .teacher-detail-top{
