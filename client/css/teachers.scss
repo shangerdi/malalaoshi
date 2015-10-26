@@ -14,10 +14,6 @@ $indexBorderColor: #E6E6E6;
     background-repeat: no-repeat;
   }
 }
-
-.teacher-div > div > div:first-child{
-  min-height:85px;
-}
 .app-layout-nav-bar{
   background-color: #E8413E;
   border-bottom: none;
@@ -663,12 +659,17 @@ $indexBorderColor: #E6E6E6;
     background-color: #FFFFFF;
   }
 }
-.teacher-div > div:first-child{
-  margin: 5px;
-  border: solid #919191 1px;
-}
-.teacher-div > div > div:first-child{
-  text-align: left;
+.teacher-div{
+  > div:first-child{
+    margin: 5px;
+  }
+  > div{
+    background-color: #ffffff;
+    > div:first-child{
+      min-height:85px;
+      text-align: left;
+    }
+  }
 }
 .teachers-grid{
   clear: both;
@@ -2023,7 +2024,7 @@ body>.sticky-nav{
     height: 39px;
   }
 }
-.teacher-div-stars{
+.teacher-stars{
   img{
     width: 13px;
   }
