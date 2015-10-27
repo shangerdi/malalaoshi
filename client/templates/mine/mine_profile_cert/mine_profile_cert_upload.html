@@ -7,24 +7,41 @@
   {{/contentFor}}
 
   {{#ionView class="cert-img-upload-view"}}
-    {{#ionContent class="cert-upload-box"}}
+    {{#ionContent}}
+      {{#ionList class="progress-header"}}
+        {{#ionItem}}
+          <div class="line"></div>
+          <div class="row">
+            <div class="col col-50">
+              <span><img src="{{getStatusImg 'submit'}}">(上传{{getStatusStr 'submit'}})</span>
+            </div>
+            <div class="col col-50">
+              <span><img src="{{getStatusImg 'audit'}}">(审核{{getStatusStr 'audit'}})</span>
+            </div>
+          </div>
+        {{/ionItem}}
+      {{/ionList}}
+      {{#ionList}}
+        {{#ionItem class="cert-upload-box"}}
         <p>{{getHintText}}</p>
         <div class="cert-img-box">
           <div class="img-box"><img src={{getCertImgUrl}}></div>
           <div class="uploading-hint-box">{{>loading}}</div>
           <a class="btn btn-success file-input-mask">
-            <span>点击上传图片</span>
+            <span>{{uploadButtonText}}</span>
 
             {{#unless isCordova}} <!-- if is Cordova, call app native camera or album -->
-              <input title="请选择图片" type="file" name="photo" multiple="">
+              <input title="请选择图片" type="file" name="photo" multiple="" class="hide">
             {{/unless}}
           </a>
         </div>
-        <p>请保证图片清晰正确</p>
+        <p class="text-center">确定信息正确后，请提交申请</p>
         <span class="help-block"></span>
-        <div class="action-btn-box">
-          <button id="submit" class="btn btn-lg btn-success col-xs-12">提交</button>
-        </div>
+        {{/ionItem}}
+      {{/ionList}}
+      {{#ionFooterBar class="action-btn-box"}}
+          <button id="submit" class="btn btn-lg btn-success col-xs-12">{{submitButtonText}}</button>
+      {{/ionFooterBar}}
     {{/ionContent}}
   {{/ionView}}
 </template>

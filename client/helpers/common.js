@@ -101,7 +101,7 @@ logoutButtonHandler = function(e) {
     IonActionSheet.show({
       titleText: "确定要退出登录吗？",
       buttons: [
-        { text: '确定' }
+        { text: '退出登录' }
       ],
       destructiveText: false,
       cancelText: '取消',
@@ -124,3 +124,7 @@ logoutButtonHandler = function(e) {
   //   doLogout();
   // }
 }
+
+Template.registerHelper('starImage', function(val){
+  return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
+});

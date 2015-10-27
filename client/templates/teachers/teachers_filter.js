@@ -68,6 +68,7 @@ Template.teachersFilter.onCreated(function(){
   this.studyCenters = new ReactiveVar([]);
 });
 Template.teachersFilter.onRendered(function(){
+  IonNavigation.skipTransitions = true;
   var self = this;
   self.autorun(function(){
     var way = Session.get('teachersTeacherWay');
@@ -189,13 +190,9 @@ Template.teachersFilter.helpers({
     var stCenter = Template.instance().studyCenters.get();
     return stCenter ? stCenter.length : 0;
   },
-  commendStudyCenter: function(){
+  studyCenters: function(){
     var stCenter = Template.instance().studyCenters.get();
-    return stCenter ? stCenter[0] : {};
-  },
-  otherStudyCenter: function(){
-    var stCenter = Template.instance().studyCenters.get();
-    return stCenter ? stCenter.slice(1) : [];
+    return stCenter ? stCenter : [];
   }
 });
 

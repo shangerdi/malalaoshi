@@ -25,7 +25,7 @@
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
-        {{#ionItem path="mineProfileGender" iconRight=true}}
+        {{#ionItem id="mineProfileGender" href="" iconRight=true}}
           性别
           <span class="item-note">
             {{#unless currentUser.profile.gender}}未设置{{/unless}}
@@ -33,7 +33,7 @@
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
-        {{#ionItem path="mineProfileBirthday" iconRight=true}}
+        {{#ionItem id="mineProfileBirthday" href="" iconRight=true}}
           出生日期
           <span class="item-note">
             {{getBirthDayStr}}
@@ -66,7 +66,7 @@
           </span>
           {{> ionIcon icon="ios-arrow-right"}}
         {{/ionItem}}
-        {{#ionItem path="mineProfileGrade" iconRight=true}}
+        {{#ionItem id="mineProfileGrade" href="" iconRight=true}}
           年级
           <span class="item-note">
             {{getGradeStr}}

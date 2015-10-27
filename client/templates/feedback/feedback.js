@@ -7,6 +7,13 @@ var seenFeedback = function(e) {
     var errors = Session.get('feedbackErrors');
     errors['content'] = "内容不能为空";
     Session.set('feedbackErrors', errors);
+    IonPopup.alert({
+      'template': "内容不能为空"
+    });
+    setTimeout(function () {
+      IonPopup.close();
+    }, 800);
+    return;
   }
   var contact = $(curForm).find('input[name="contact"]').val();
 
@@ -14,12 +21,18 @@ var seenFeedback = function(e) {
     if (error) {
       return throwError(error.reason);
     }
-    
-    if (Meteor.isCordova) {
-      navigator.app && navigator.app.backHistory && navigator.app.backHistory();
-    } else {
-      history.back();
-    }
+
+    IonPopup.alert({
+      'template': "反馈成功"
+    });
+    setTimeout(function () {
+      IonPopup.close();
+      if (Meteor.isCordova) {
+        navigator.app && navigator.app.backHistory && navigator.app.backHistory();
+      } else {
+        history.back();
+      }
+    }, 800);
   });
 }
 Template.feedback.onCreated(function() {

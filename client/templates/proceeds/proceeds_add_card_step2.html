@@ -10,17 +10,19 @@
   {{#ionView}}
     {{#ionContent}}
       {{#ionList}}
-        {{#ionItem class="item-icon-right" iconRight=true}}
-          卡类型<input type="text" value="{{cardInfo.bankName}} - {{cardInfo.cardType}}"/>
+        {{#ionItem class="item-input"}}
+          <span class="input-label">卡类型</span>
+          <input type="text" value="{{cardInfo.bankName}} - {{cardInfo.cardType}}"/>
         {{/ionItem}}
-        {{#ionItem class="item-icon-right" iconRight=true}}
-          手机号<input id="cardPhoneNumber" type="text" value="{{currentUser.phoneNo}}"/>
+        {{#ionItem class="item-input"}}
+          <span class="input-label" for="cardPhoneNumber">手机号</span>
+          <input id="cardPhoneNumber" name="cardPhoneNumber" type="text" value="{{currentUser.phoneNo}}"/>
         {{/ionItem}}
-        {{#ionItem class="item-icon-right" iconRight=true}}
+        {{#ionItem}}
           同意《服务协议》
         {{/ionItem}}
-        {{#ionItem class="item-icon-right" iconRight=true}}
-          <button data-action="add-card-step3">下一步</button>
+        {{#ionItem}}
+          <button class="btn btn-success" data-action="add-card-step3">下一步</button>
         {{/ionItem}}
       {{/ionList}}
     {{/ionContent}}

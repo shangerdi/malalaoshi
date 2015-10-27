@@ -4,6 +4,7 @@ Template.index.onCreated(function(){
 });
 
 Template.index.onRendered(function () {
+  IonNavigation.skipTransitions = true;
   this.data = this.data || {};
   this.data.swiperObj = new Swiper('.index-swiper', {
     pagination: '.swiper-pagination',

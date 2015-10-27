@@ -7,6 +7,7 @@
               <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
             {{/each}}
           </div>
+          <div class="swiper-tag">年</div>
           <div class="swiper-button-prev"></div><div class="swiper-middle-line"></div>
         </div>
       </div>
@@ -17,16 +18,18 @@
               <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
             {{/each}}
           </div>
-          <div class="swiper-button-prev"></div><div class="swiper-middle-line"></div>
+          <div class="swiper-tag">月</div>
+          <div class="swiper-button-prev"></div><div class="swiper-middle-line {{#if hideDay}}hide{{/if}}"></div>
         </div>
       </div>
-      <div>
+      <div class="{{#if hideDay}}hide{{/if}}">
         <div class="swiper-container day-swiper">
           <div class="swiper-wrapper">
             {{#each dayList}}
               <div class="swiper-slide" data-value="{{key}}">{{text}}</div>
             {{/each}}
           </div>
+          <div class="swiper-tag">日</div>
           <div class="swiper-button-prev"></div>
         </div>
       </div>

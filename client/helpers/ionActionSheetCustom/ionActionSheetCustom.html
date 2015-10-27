@@ -1,0 +1,32 @@
+<template name="ionActionSheetCustom">
+  <div class="action-sheet-backdrop">
+    <div class="action-sheet-wrapper">
+      <div class="action-sheet">
+        <div class="action-sheet-group">
+            <div class="clearfix action-sheet-title">
+              {{titleText}}
+              {{#if finishText}}
+              <button class="button pull-right action-sheet-finish-btn" data-finish>{{{finishText}}}</button>
+              {{/if}}
+            </div>
+          <div class="clearfix action-sheet-body">
+            {{> UI.contentBlock}}
+          </div>
+          {{#each buttons}}
+            <button class="button" data-index="{{index}}">{{{text}}}</button>
+          {{/each}}
+        </div>
+        {{#if destructiveText}}
+          <div class="action-sheet-group">
+            <button class="button destructive" data-destructive>{{{destructiveText}}}</button>
+          </div>
+        {{/if}}
+        {{#if cancelText}}
+          <div class="action-sheet-group">
+            <button class="button" data-cancel>{{{cancelText}}}</button>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>

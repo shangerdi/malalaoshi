@@ -1,21 +1,22 @@
 <template name="mineProfilePhotos">
   {{#contentFor "headerButtonLeft"}}
-    <button class="button button-clear button-light {{#unless isManaging}}hide{{/unless}}" data-action="cancle-manage">
-      取消
-    </button>
-    {{#unless isManaging}}
     {{>ionNavBackButton class="button-clear button-light" text=false}}
-    {{/unless}}
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title">照片</h1>
+    <h1 class="title normal-title">
+      {{#if isManaging}}
+        {{#if toDeleteCount}}已选择{{toDeleteCount}}张照片{{else}}所有照片{{/if}}
+      {{else}}
+        相册({{curCount}}/{{maxCount}})
+      {{/if}}
+    </h1>
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
     <button class="button button-clear button-light" data-action="manage-profile-photos">
       {{#if isManaging}}
-        删除({{toDeleteCount}})
+        取消
       {{else}}
         管理
       {{/if}}
@@ -23,29 +24,49 @@
   {{/contentFor}}
 
 
-{{#ionView}}
+{{#ionView class="profile-photos-view"}}
   {{#ionContent}}
 
     {{#ionList class="profile-photo-list"}}
       {{#each photoList}}
         {{#ionItem class="photo"}}
           <img src="{{this}}">
-          <div class="manage-box {{#unless isManaging}}hide{{/unless}}">
-            <span class="flag ion-checkmark-circled"></span>
+          <div class="photo-mask manage-box {{#unless isManaging}}hide{{/unless}}">
+            <span class="flag">
+              <img class="yes" src="/images/checked.png">
+            </span>
           </div>
         {{/ionItem}}
       {{/each}}
+
+      {{#each uploadingList}}
+        {{#ionItem class="photo"}}
+          <img src="{{src}}">
+          <div class="photo-mask upload-box" style="height:{{leftProgress progress}}%">
+            <span class="hint-box">正在上传...{{progress}}%</span>
+          </div>
+        {{/ionItem}}
+      {{/each}}
+
       {{#unless isHideAddButton}}
-      {{#ionItem class="add-photo file-input-mask"}}
-        {{> ionIcon icon="ios-plus-outline"}}
-        添加照片
-        {{#unless isCordova}} <!-- if is Cordova, call app native camera or album -->
-        <input title="请选择图片" type="file" name="photo" multiple="">
-        {{/unless}}
-      {{/ionItem}}
+        {{#ionItem class="add-photo file-input-mask"}}
+          {{> ionIcon icon="ios-plus-outline"}}
+          添加照片
+          {{#unless isCordova}} <!-- if is Cordova, call app native camera or album -->
+          <input title="请选择图片" type="file" name="photo" multiple="">
+          {{/unless}}
+        {{/ionItem}}
       {{/unless}}
     {{/ionList}}
 
   {{/ionContent}}
+
+  {{#if isManaging}}
+    {{#ionFooterBar class="action-btn-box"}}
+        <button class="button-clear delete-photos" data-action="delete-photos">
+          {{#if toDeleteCount}}<img src="/images/trash.png">{{else}}<img src="/images/trash-empty.png">{{/if}}
+        </button>
+    {{/ionFooterBar}}
+  {{/if}}
 {{/ionView}}
 </template>
