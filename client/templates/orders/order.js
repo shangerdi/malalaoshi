@@ -105,7 +105,6 @@ Template.order.events({
       this.order.lng = lngLat.lng;
       this.order.lat = lngLat.lat;
     }
-
     Meteor.call('updateOrder', this.order, function(error, result) {
       if(error){
         Session.set("orderShowLoading", false);
@@ -141,5 +140,11 @@ function cmpToPayCost(content){
   return cmpTotalCost(content) - (cp ? cp.value : 0);
 }
 function getTeacherUnitPrice(content){
-  return content && content.teacher ? TeacherAudit.getTeacherUnitPrice(content.teacher._id) : 0;
+  try {
+    return content && content.teacher ? TeacherAudit.getTeacherUnitPrice(content.teacher._id) : 0;
+  }catch(e){
+    console.log(e);
+  }finally{
+    return 0;
+  }
 }

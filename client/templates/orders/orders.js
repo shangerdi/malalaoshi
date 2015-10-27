@@ -1,5 +1,4 @@
 Template.orders.onCreated(function(){
-  IonNavigation.skipTransitions = true;
   var self = this;
   if(Session.get('ionTab.current') != 'ordersPaidOk' && Session.get('ionTab.current') != 'ordersNoPaid'){
     Session.set('ionTab.current', "ordersNoPaid");
@@ -21,6 +20,7 @@ Template.orders.onCreated(function(){
   });
 });
 Template.orders.onRendered(function (){
+  IonNavigation.skipTransitions = true;
   $('.view').css("background-color","#FFFFFF");
   setMarginBottom();
 });
@@ -43,7 +43,7 @@ Template.orders.helpers({
     return this.createdAt && (momentTime = moment(this.createdAt)) ? (new Date().getTime() - this.createdAt) < 79200000 ? momentTime.fromNow() : momentTime.fromNow() + " " + momentTime.format('HH:mm') : "";
   },
   courseHour: function(){
-    return this.hour ? this.hour * 2 : "";
+    return this.hour ? this.hour : "";
   },
   payMoney: function(){
     return this.cost ? accounting.formatNumber(this.cost, 2) : "";

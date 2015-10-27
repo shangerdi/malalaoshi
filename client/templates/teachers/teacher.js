@@ -13,6 +13,7 @@ Template.teacher.onCreated(function(){
   }
 });
 Template.teacher.onRendered(function(){
+  IonNavigation.skipTransitions = true;
   var swiper = new Swiper('.teacher-swiper-container', {
       slidesPerView: 3,
       spaceBetween: 7,
@@ -108,9 +109,6 @@ Template.teacher.helpers({
     return genScoreStarsAry(this.user && this.user.profile && this.user.profile.laCount
       && this.user.profile.laScore ? this.user.profile.laScore/this.user.profile.laCount : 0, 5);
   },
-  starImage: function(val){
-    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
-  },
   teacherStudyCenters: function(){
     var pointBasic = Session.get("locationLngLat");
     var retStudyCenters = [];
@@ -153,9 +151,6 @@ Template.teacher.helpers({
   commentStars: function(){
     var score = this.comment && this.comment.maScore && this.comment.laScore ? (this.comment.maScore + this.comment.laScore)/2 : 0;
     return genScoreStarsAry(score, 5);
-  },
-  starImage: function(val){
-    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   },
   commentUserName: function(){
     return this.comment && this.comment.student && this.comment.student.name ? this.comment.student.name : "";

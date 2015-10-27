@@ -4,59 +4,74 @@
   {{/contentFor}}
 
   {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title"></h1>
+    <h1 class="title normal-title">麻辣奖学金</h1>
   {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent class="raffle-page-content"}}
-      <div class="raffle-view">
-        <div>
-          <div id="raffleA">
-            <img src="{{img}}"/>
-            <div class="raffle-money-view">
-              <div>￥</div>
-              <div></div>
-            </div>
-          </div>
-          <div id="raffleB">
-            <img src="{{img}}"/>
-            <div class="raffle-money-view">
-              <div>￥</div>
-              <div></div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div id="raffleC">
-            <img src="{{img}}"/>
-            <div class="raffle-money-view">
-              <div>￥</div>
-              <div></div>
-            </div>
-          </div>
-          <div id="raffleD">
-            <img src="{{img}}"/>
-            <div class="raffle-money-view">
-              <div>￥</div>
-              <div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        {{#if $eq hasCouponStatus 2}}
-          <span>选一个试试手气</span>
+    <div class="raffle-info">
+      {{#if $eq hasCouponStatus 2}}
+        <span>选一个试试手气</span>
+      {{else}}
+        {{#if $eq hasCouponStatus 1}}
+          <span>手气不错哦！</span>
         {{else}}
-          {{#if $eq hasCouponStatus 1}}
-            <span>恭喜你打败了{{proportion}}%的用户</span>
-          {{else}}
-            {{#if $eq hasCouponStatus 3}}
-            <span>已经抽过了</span>
-            {{/if}}
+          {{#if $eq hasCouponStatus 3}}
+          <span>已经抽过了</span>
           {{/if}}
-          <button id="confirm" class="button button-assertive">确认</button>
         {{/if}}
-      </div>
+      {{/if}}
+    </div>
+    <table class="raffle-table-container">
+      <tr>
+        <td id="raffle_1_1"><div class="raffle-value">&nbsp;</div></td>
+        <td id="raffle_1_2"><div class="raffle-value">&nbsp;</div></td>
+        <td id="raffle_1_3"><div class="raffle-value">&nbsp;</div></td>
+      </tr>
+      <tr>
+        <td id="raffle_2_1"><div class="raffle-value">&nbsp;</div></td>
+        <td id="raffle_2_2"><div class="raffle-value">&nbsp;</div></td>
+        <td id="raffle_2_3"><div class="raffle-value">&nbsp;</div></td>
+      </tr>
+      <tr>
+        <td id="raffle_3_1"><div class="raffle-value">&nbsp;</div></td>
+        <td id="raffle_3_2"><div class="raffle-value">&nbsp;</div></td>
+        <td id="raffle_3_3"><div class="raffle-value">&nbsp;</div></td>
+      </tr>
+    </table>
     {{/ionContent}}
+    <div class="raffle-prize-show">
+      <div class="click-prize-show"><img src="/images/red-red-close.png"/></div>
+      <div>恭喜您</div>
+      <div>获得<span>{{raffleValue}}</span>元奖学金</div>
+      <div>
+        <div id="allCouponBtn"></div>
+        <div id="commentBtn"></div>
+        <div id="whoCoupon"></div>
+      </div>
+    </div>
+    <div class="raffle-whatis-coupon">
+      <div class="click-prize-show"><img src="/images/red-red-close.png"/></div>
+      <div>
+        <div>使用说明：</div>
+        <ol type="1">
+          <li>
+            新生奖学金只限新用户在有效期限内支付订单时使用，注册成为麻辣老师用户即可获得。
+          </li>
+          <li>
+            麻辣奖学金可在确认课时或评价老师时获得，麻辣奖学金可以抵扣订单金额或购买“盐”参加“我为老师代盐”活动，盐可以作为礼物赠送给老师。
+          </li>
+          <li>
+            老师获得的盐可以直接兑换成收入，并在个人主页中显示老师被“喂袋盐”的数量。
+          </li>
+          <li>
+            每次只可以使用一张麻辣奖学金，不可重复使用。
+          </li>
+        </ol>
+        <div>
+          <img id="noteBack" src="/images/raffle-note-back.png"/>
+        </div>
+      </div>
+    </div>
   {{/ionView}}
 </template>

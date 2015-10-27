@@ -46,6 +46,7 @@ Template.comments.onCreated(function(){
   });
 });
 Template.comments.onRendered(function(){
+  IonNavigation.skipTransitions = true;
   var self = this;
 
   var addNavElement = '' +
@@ -93,9 +94,6 @@ Template.comments.onRendered(function(){
 Template.comments.helpers({
   commentStars: function(){
     return genScoreStarsAry(cmpTotalScore(this.teacher), 5);
-  },
-  starImage: function(val){
-    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   },
   maImage: function(val){
     return val == 3 ? "evaluate_icon_hemp_highlight.png" : val == 2 ? "evaluate_icon_hemp_half.png" : val == 1 ? "evaluate_icon_hemp_normal.png" : "";
@@ -197,9 +195,6 @@ Template.commentsDetailShow.helpers({
     maScore = _.isNumber(maScore) ? maScore : 0;
     laScore = _.isNumber(laScore) ? laScore : 0;
     return genScoreStarsAry((maScore + laScore)/2, 5);
-  },
-  starImage: function(val){
-    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   },
   createDate: function(){
     return this.comment ? moment(this.comment.createdAt).format('YYYY年MM月DD日') : "";
