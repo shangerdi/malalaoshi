@@ -109,18 +109,18 @@
 
 <template name="teachersFilterStudyCenter">
   <div class="teachers-filter-study-center-item {{itemSelect}}">
-      <div>
-        <div class="avatar-and-select">
-          <img class="selected-img" src="/images/study-center-select.png" />
-          <img src="{{studyCenter.avatar}}">
-        </div>
+    <img class="selected-img" src="/images/study-center-select.png" />
+    <div>
+      <div class="avatar-and-select">
+        <img src="{{studyCenter.avatar}}">
       </div>
-      <div>
-        <div class="teachers-filter-study-center-item-info">
-          <span>{{studyCenter.name}}（{{studyCenter.city}})</span>
-          <p>{{studyCenter.address}}</p>
-          <p>{{formatDist studyCenter.distance}} 米</p>
-        </div>
+    </div>
+    <div>
+      <div class="teachers-filter-study-center-item-info">
+        <span>{{studyCenter.name}}（{{studyCenter.city}})</span>
+        <p>{{studyCenter.address}}</p>
+        <p>{{formatDist studyCenter.distance}} 米</p>
       </div>
+    </div>
   </div>
 </template>

@@ -78,12 +78,12 @@ Template.comments.onRendered(function(){
     setNavClass(actId);
   });
 
-  var detailScrollTop = $('.view-page-common').scrollTop();
-  var commentsDetailOffTop = $(".view-page-common").offset().top;
+  var detailScrollTop = $('.comments-page-content').scrollTop();
+  var commentsDetailOffTop = $(".comments-page-content").offset().top;
   var barHeaderHeight = $(".bar-header").outerHeight(true);
   var navStaticHeight = $("#commentsNavStatic").outerHeight(true);
   navMoveHeight = detailScrollTop + $("#commentsNav").offset().top + 2 - barHeaderHeight;
-  $('.view-page-common').scroll(function(){
+  $('.comments-page-content').scroll(function(){
     if($("#commentsNav").offset().top <= commentsDetailOffTop){
       $('#commentsNavStatic').css('display','block');
     }else{
@@ -235,9 +235,9 @@ Template.comments.onDestroyed(function(){
 var commentsPageAcitveTabClick = function(id){
   commentsLimit = defalutIncrement;
   Session.set('commentsPageAcitveTab', id);
-  if(($('.view-page-common').scrollTop() - navMoveHeight) != 0){
+  if(($('.comments-page-content').scrollTop() - navMoveHeight) != 0){
     setMarginBottom();
-    $('.view-page-common').scrollTo(navMoveHeight+'px',500);
+    $('.comments-page-content').scrollTo(navMoveHeight+'px',500);
   }
 }
 function cmpTotalScore(teacher){
@@ -272,5 +272,5 @@ function setNavClass(actId){
   }
 }
 function setMarginBottom(){
-  $('.view-page-common > div:last-child').css('margin-bottom', ($('.view-page-common').height() - 44)+'px');
+  $('.comments-page-content > div:last-child').css('margin-bottom', ($('.comments-page-content').height() - 44)+'px');
 }
