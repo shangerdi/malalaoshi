@@ -99,12 +99,8 @@ Template.mylogin.events({
 
     var $loginBtn = $(e.target);
     $loginBtn.val("登录中...");
-    var $getCodeButton = $("#getCheckCode");
     // do login
     Meteor.call('loginWithPhone', params, function(error, result) {
-      window.clearInterval(timer);
-      $getCodeButton.val("获取验证码");
-      $getCodeButton.removeAttr("disabled");
       if (error) {
         // return throwError(error.reason);
         $loginBtn.val("登录");

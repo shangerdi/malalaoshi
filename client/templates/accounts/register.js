@@ -161,11 +161,7 @@ Template.register.events({
           Meteor._localStorage.setItem(loginTokenExpiresKey, tokenExpires);
           Accounts.connection.setUserId(userId);
           Accounts._setLoggingIn(true);
-          if (role=="parent") {
-            Router.go('teachers');
-          } else {
-            Router.go('dashboard');
-          }
+          Router.go('index');
         } else {
           $regBtn.val("注册");
           return Session.set('registerErrors', {checkCode: result.msg});
