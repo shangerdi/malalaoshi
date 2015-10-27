@@ -42,9 +42,6 @@ Template.teacherScheduleCourses.helpers({
     var laScore = _.isNumber(comment.laScore) ? comment.laScore : 0;
     return genScoreStarsAry((maScore + laScore)/2, 5);
   },
-  starImage: function(val){
-    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
-  },
   getCommentTimeStr: function(item) {
     var comment = Comments.findOne({'courseAttendanceId': item._id});
     if (!comment) return;

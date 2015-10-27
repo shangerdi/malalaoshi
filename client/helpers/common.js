@@ -124,3 +124,7 @@ logoutButtonHandler = function(e) {
   //   doLogout();
   // }
 }
+
+Template.registerHelper('starImage', function(val){
+  return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
+});
