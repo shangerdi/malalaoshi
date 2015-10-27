@@ -10,11 +10,12 @@
   {{#ionView}}
     {{#ionContent}}
       {{#ionList}}
-        {{#ionItem class="item-icon-right" iconRight=true}}
+        {{#ionItem}}
           请输入手机号 {{cardInfo.cardPhoneNumber}} 收到的短信校验码
         {{/ionItem}}
         {{#ionItem class="item-icon-right" iconRight=true}}
           <input type="text" />
+          <button>重新获取</button>
         {{/ionItem}}
         {{#ionItem class="item-icon-right" iconRight=true}}
           <button data-action="add-card">下一步</button>

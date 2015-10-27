@@ -10,14 +10,16 @@
   {{#ionView}}
     {{#ionContent}}
       {{#ionList}}
-        {{#ionItem class="item-icon-right" iconRight=true}}
-          持卡人<input id="cardUserName" disabled type="text" value="{{currentUser.profile.name}}" placeholder="持卡人真实姓名"/>
+        {{#ionItem class="item-input"}}
+          <span class="input-label" for="cardUserName">持卡人</span>
+          <input id="cardUserName" name="cardUserName" disabled type="text" value="{{currentUser.profile.name}}" placeholder="持卡人真实姓名"/>
         {{/ionItem}}
-        {{#ionItem class="item-icon-right" iconRight=true}}
-          卡号<input id="cardNumber" type="text" value="{{cardInfo.cardNumber}}" placeholder="储蓄卡号"/>
+        {{#ionItem class="item-input"}}
+          <span class="input-label" for="cardNumber">卡号</span>
+          <input id="cardNumber" name="cardNumber" type="text" value="{{cardInfo.cardNumber}}" placeholder="储蓄卡号"/>
         {{/ionItem}}
-        {{#ionItem class="item-icon-right" iconRight=true}}
-          <button data-action="add-card-step2">下一步</button>
+        {{#ionItem}}
+          <button class="btn btn-success" data-action="add-card-step2">下一步</button>
         {{/ionItem}}
       {{/ionList}}
     {{/ionContent}}
