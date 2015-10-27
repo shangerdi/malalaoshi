@@ -5,8 +5,8 @@
 
   {{#contentFor "headerTitle"}}
   <label class="item item-input item-icon-left map-page-head">
+    <img class="map-search-bar-img" src="/images/location-search-bar.png"/>
     <input id="searchInput" type="text" placeholder="{{placeholder}}">
-    <i id="searchIcon" class="icon ion-ios-location-outline" style="font-size: 23px; min-width: 60px;"></i>
   </label>
   {{/contentFor}}
 
@@ -18,9 +18,14 @@
           {{#each autoLocation}}
           {{#ionItem}}
             <div class="location-map-info">
-              <div>
-                <i id="searchIcon" class="icon ion-ios-location {{selectStyle}}"></i>
+              <div class="{{selectStyle}}">
+                {{#if $eq selectStyle 'location-map-info-i-select'}}
+                <img src="/images/location-active.png"/>
                 <span>{{#if select}}[当前]{{/if}} {{title}}</span>
+                {{else}}
+                <img src="/images/location-normal.png"/>
+                <span>{{#if select}}[当前]{{/if}} {{title}}</span>
+                {{/if}}
               </div>
               <div>{{address}}</div>
             </div>

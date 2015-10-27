@@ -39,6 +39,7 @@ function getScore(arr){
   return 0;
 }
 Template.comment.onRendered(function(){
+  IonNavigation.skipTransitions = true;
   if(this.data && this.data.comment){
     var madu = this.data.comment.maScore;
     var ladu = this.data.comment.laScore;
@@ -88,10 +89,18 @@ Template.comment.events({
   },
   'click img[name="maDu"]': function(e){
     e.preventDefault();
+    var dt = Template.instance().data;
+    if(dt.courseAttendance && dt.courseAttendance.state == 3){
+      return;
+    }
     Session.set("commentMaDuStars", genStarsAry(this.index));
   },
   'click img[name="laDu"]': function(e){
     e.preventDefault();
+    var dt = Template.instance().data;
+    if(dt.courseAttendance && dt.courseAttendance.state == 3){
+      return;
+    }
     Session.set("commentLaDuStars", genStarsAry(this.index));
   },
   'click .bottom-btn-view button': function(e){
@@ -113,7 +122,26 @@ Template.comment.events({
       }
 
       $('.bottom-btn-view').remove();
-      Router.go('commented', {'cid': saveObj.courseAttendanceId});
+      popupInfo(saveObj.courseAttendanceId);
      });
   }
 });
+
+function popupInfo(courseAttendanceId){
+  IonPopup.show({
+    title: null,
+    templateName: 'commentSuccessPop',
+    buttons: []
+  });
+  $('#closePop').on('click', function(){
+    IonPopup.close();
+  });
+  $('#getCoupon').on('click', function(){
+    IonPopup.close();
+    Router.go('raffle', {'cid': courseAttendanceId});
+  });
+  $('#backToConfirm').on('click', function(){
+    IonPopup.close();
+    Router.go('coursesConfirmed');
+  });
+}

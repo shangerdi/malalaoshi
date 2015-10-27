@@ -61,9 +61,6 @@ Template.teacherItem.helpers({
   commentStars: function(){
     return genCommentStarsVal(this);
   },
-  starImage: function(val){
-    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
-  },
   price: function(){
     return doPrice(this);
   }
@@ -74,9 +71,6 @@ Template.teacherItemRecommend.helpers({
   },
   commentStars: function(){
     return genCommentStarsVal(this);
-  },
-  starImage: function(val){
-    return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
   },
   price: function(){
     return doPrice(this);
