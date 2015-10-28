@@ -8,7 +8,8 @@
   {{/contentFor}}
 
   {{#ionView}}
-    {{#ionContent class="view-page-common"}}
+    {{#ionContent class="comments-page-content"}}
+      <div class="comments-page-sep"></div>
       <div class="view-both-side-margin comments-page-total-score">
         <div>
           <div class="comments-stars">
@@ -47,6 +48,7 @@
         <div id="poolCommentsInScroll" class="comments-page-tab {{activeTabClass 'poolComments'}}"><div>差评({{poolComments}})</div></div>
         <hr/>
       </div>
+      <div class="comments-page-sep"></div>
       {{#each allComments}}
         {{> commentsDetailShow comment=this}}
         <div class="view-both-side-margin element-clear-both"><hr></div>
