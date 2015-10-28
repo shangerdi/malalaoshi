@@ -48,7 +48,7 @@ function genCommentStarsVal(self){
 }
 function doPrice(self){
   try {
-    return TeacherAudit.getTeacherUnitPrice(self._id);
+    return TeacherAudit.getTeacherUnitPrice(self._id)/100;
   } catch(e) {
     return 'X.XX';
   }
