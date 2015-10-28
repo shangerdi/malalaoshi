@@ -42,13 +42,42 @@ if (Meteor.users.find().count() === 0) {
 }
 // init some test teacher accounts
 (function() {
+  // @see user.js & user_education.js
+  var generateTestSubjects = function(count) {
+    var a=[], // only 小学
+      subjects = _.keys(getEduSubjectDict()).slice(0,3),
+      grades = _.keys(getEduGradeDict()).slice(0,6);
+      grades.push('all');
+      grades = _.shuffle(grades);
+    for(k=0; k<count; k++){
+      a.push({stage:'elementary', subject:subjects[_.random(0,subjects.length-1)], grade:grades[k]});
+    }
+    return a;
+  }
+  var setSubjectsPrice = function(subjects) {
+    var a = _.clone(subjects);
+    _.each(a, function(obj){
+      obj.price = _.random(1,2);// price is penny and type is int
+    });
+    return a;
+  }
+  // @see fix_study_center.js
+  var generateTestStudyCenterIds = function(count) {
+    var a=[], k=0, ids = _.shuffle([1,2,3,4,5,6]);
+    for(k=0; k<count; k++){
+      a.push('testid'+ids[k]);
+    }
+    return a;
+  }
   try {
     for (var i = 0; i < 10; i++) {
       var id = '0000' + i;
       var t = Meteor.users.findOne({username: id});
       if (t) {
         var ta = TeacherAudit.findOne({userId: t._id});
-        if (!ta || !ta.prices) {
+        // check if it needs to re-init
+        if (!t.profile.teacherType || !ta || !ta.prices) {
+          console.log("re-init test teachers data");
           Meteor.users.find({username: /^0000.*/}).forEach(function(tmp){
             Meteor.users.remove({_id: tmp._id});
             TeacherAudit.remove({userId: tmp._id});
@@ -61,7 +90,11 @@ if (Meteor.users.find().count() === 0) {
         username: id,
         phoneNo: id,
         profile: {
-          name: "测试老师" + i
+          name: "测试老师" + i,
+          teacherType: i%3?'studyCenter':'goHome',
+          studyCenters: i%3?generateTestStudyCenterIds(3):[],
+          subjects: generateTestSubjects(i%5),
+          prices: [{price: 1}]// price is penny and type is int
         },
         role: 'teacher'
       };
@@ -74,7 +107,7 @@ if (Meteor.users.find().count() === 0) {
         applyStatus: i % 2 ? 'passed' : 'started',
         type: i % 3 ? 'fullTime' : 'partTime',
         // price: 200, modified by Erdi
-        prices: [{price: 200}],
+        prices: [{price: 1}],// price is penny and type is int
         basicInfo: {
           submitTime: Date.now(),
           status: 'approved',

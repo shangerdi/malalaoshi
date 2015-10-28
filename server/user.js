@@ -93,6 +93,27 @@ UserSubjectsSchema = new SimpleSchema({
     label: 'Grade'
   }
 });
+var _subjectPriceSchema = new SimpleSchema({
+  subject: {
+    type: String,
+    label: '科目',
+    optional: true
+  },
+  grade: {
+    type: String,
+    label: '年级',
+    optional: true
+  },
+  stage: {
+    type: String,
+    label: '阶段',
+    optional: true
+  },
+  price: {
+    type: Number,
+    label: 'Price / Hour'
+  }
+});
 var serviceAreaSchema = new SimpleSchema({
   upperCode: {
     type: String,
@@ -154,6 +175,11 @@ ProfileSchema = new SimpleSchema({
   subjects: {
     optional: true,
     type: [UserSubjectsSchema]
+  },
+  prices: { // 课时单价
+    type: [_subjectPriceSchema],
+    label: 'Price of each subject',
+    optional: true
   },
   address: {
     optional: true,
