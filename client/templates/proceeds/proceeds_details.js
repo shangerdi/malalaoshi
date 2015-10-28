@@ -1,8 +1,5 @@
 Template.proceedsDetails.helpers({
   //add you helpers here
-  transactionDetail: function() {
-    return TransactionDetail.find({}, {sort: {createdAt:-1}});
-  },
   transactionDetails: function() {
     var transactionDetails = [];
     TransactionDetail.find({}, {sort: {createdAt:-1}}).forEach(function(detail) {

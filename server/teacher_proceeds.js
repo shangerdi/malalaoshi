@@ -145,9 +145,9 @@ Meteor.methods({
       throw new Meteor.Error('权限不足', "需要登录");
     }
 
-    //numberic the amount
     if (withdrawInfo) {
-      withdrawInfo.amount = Number(withdrawInfo.amount);
+      // this amount as user input, need to change from YUAN to Cent
+      withdrawInfo.amount = parseInt(Number(withdrawInfo.amount)*100);
     }
 
     //amount must > 0
@@ -203,17 +203,19 @@ Meteor.methods({
 
     //var up = new UnionPay;
     //var customerInfo = up.customerInfo({
-    //  phoneNo: '13552535506',
-    //  customerNm: '全渠道'
+    //  phoneNo: '13552535506',           //预留手机号
+    //  customerNm: '全渠道',              //户名
+    //  certifTp: '01',                   //证件类型
+    //  certifId: '341126197709218366'    //证件号码
     //});
     //var params = {
-    //  txnType: '72',
-    //  txnSubType: '01',
-    //  bizType: '000201',
-    //  channelType: '07',
-    //  orderId: moment().format('YYYYMMDDHHmmss'),
-    //  txnTime: moment().format('YYYYMMDDHHmmss'),
-    //  accNo: '6216261000000000018',
+    //  txnType: '72',                    //交易类型
+    //  txnSubType: '01',                 //交易子类
+    //  bizType: '000201',                //业务类型
+    //  channelType: '07',                //渠道类型
+    //  orderId: moment().format('YYYYMMDDHHmmss'),//商户订单号
+    //  txnTime: moment().format('YYYYMMDDHHmmss'),//订单发送时间
+    //  accNo: '6216261000000000018',     //卡号
     //  customerInfo: customerInfo,
     //  relTxnType: '02',
     //  payCardType: '01'

@@ -149,3 +149,12 @@ asyncAlert = function(msg, callback, num) {
     }
   }, num);
 }
+
+//display as YUAN, 2 decimal places
+convCent2Yuan = function(cents) {
+  return (cents / 100).toFixed(2);
+};
+
+Template.registerHelper('convCent2Yuan', function(cents) {
+  return convCent2Yuan(cents);
+});
