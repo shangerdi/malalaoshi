@@ -189,10 +189,10 @@ if (Meteor.users.find().count() === 0) {
         TeacherBalance.insert({userId: teacher._id, bankCards: []});
         // todo: for test will assign 50.00 RMB to every teacher
         // MUST BE DELETED before online!!!!!
-        TeacherBalance.update({userId: teacher._id}, {$inc: {balance: 50*100}});//number of cents
+        TeacherBalance.update({userId: teacher._id}, {$inc: {balance: 50*100}});//number of fen
         TransactionDetail.insert({
           userId: teacher._id,
-          amount: 50*100,//number of cents
+          amount: 50*100,//number of fen
           title: '平台测试补助',
           operator: {
             role: 'system'

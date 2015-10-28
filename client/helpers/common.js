@@ -155,10 +155,10 @@ asyncAlert = function(msg, callback, num) {
 }
 
 //display as YUAN, 2 decimal places
-convCent2Yuan = function(cents) {
-  return (cents / 100).toFixed(2);
+fen2Yuan = function(fen) {
+  return fen / 100;
 };
 
-Template.registerHelper('convCent2Yuan', function(cents) {
-  return convCent2Yuan(cents);
+Template.registerHelper('fen2YuanFixed2', function(fen) {
+  return fen2Yuan(fen).toFixed(2);
 });

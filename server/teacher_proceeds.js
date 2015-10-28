@@ -146,7 +146,7 @@ Meteor.methods({
     }
 
     if (withdrawInfo) {
-      // this amount as user input, need to change from YUAN to Cent
+      // this amount as user input, need to change from YUAN to fen
       withdrawInfo.amount = parseInt(Number(withdrawInfo.amount)*100);
     }
 

@@ -16,7 +16,7 @@
             <img src={{convTitle2IconUrl title}}>
             <h2>{{title}}</h2>
             <p>{{getDateTime createdAt}}</p>
-            <div class="icon">{{#if $gt amount 0}}+{{/if}}{{convCent2Yuan amount}}</div>
+            <div class="icon">{{#if $gt amount 0}}+{{/if}}{{fen2YuanFixed2 amount}}</div>
           {{/ionItem}}
         {{/each}}
       {{/each}}
