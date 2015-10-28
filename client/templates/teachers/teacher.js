@@ -143,7 +143,7 @@ Template.teacher.helpers({
     }
   },
   price: function() {
-    return TeacherAudit.getTeacherUnitPrice(this.user._id);
+    return TeacherAudit.getTeacherUnitPrice(this.user._id)/100;
   },
   commentInfo: function(){
     return this.comment && this.comment.comment ? this.comment.comment : "";

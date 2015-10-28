@@ -28,6 +28,9 @@ Template.orders.helpers({
   empty: function(){
     return !this.orders || this.orders.count() === 0;
   },
+  priceDwon: function(val){
+    return val/100;
+  },
   showOrders: function(){
     var cutTab = Session.get('ionTab.current');
     setMarginBottom();
@@ -46,7 +49,7 @@ Template.orders.helpers({
     return this.hour ? this.hour : "";
   },
   payMoney: function(){
-    return this.cost ? accounting.formatNumber(this.cost, 2) : "";
+    return this.cost ? accounting.formatNumber(this.cost/100, 2) : "";
   },
   canRenew: function(){
     if(this.status != 'paid' && this.status != 'end'){

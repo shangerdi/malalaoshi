@@ -128,3 +128,7 @@ logoutButtonHandler = function(e) {
 Template.registerHelper('starImage', function(val){
   return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
 });
+
+Template.registerHelper('priceDown', function(val){
+  return val/100;
+});

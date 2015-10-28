@@ -33,12 +33,12 @@ Meteor.methods({
       return old._id;
     }else{
       //check submit order[price, cost, coupon] matched server
-      var teacherAudit = TeacherAudit.findOne({"userId": order.teacher.id});
-      if(!teacherAudit){
-        throw new Meteor.Error('老师错误', "老师审核信息错误！");
-      }
-      //TODO check coupon
-      if(teacherAudit.price != order.price || order.price * order.hour - (order.couponValue ? order.couponValue : 0) != order.cost){
+      //TODO check coupon, this for one price more to do.
+      var teacherAuditPrice = 0;
+      try{
+        teacherAuditPrice = TeacherAudit.getTeacherUnitPrice(order.teacher.id);
+      }catch(e){}
+      if(teacherAuditPrice != order.price || order.price * order.hour - (order.couponValue ? order.couponValue : 0) != order.cost){
         throw new Meteor.Error('单价错误', "老师课程单价已经变化，请返回重新提交！");
       }
       if(order.couponId || order.couponValue){
