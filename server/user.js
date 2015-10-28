@@ -111,7 +111,6 @@ var _subjectPriceSchema = new SimpleSchema({
   },
   price: {
     type: Number,
-    decimal: true,
     label: 'Price / Hour'
   }
 });

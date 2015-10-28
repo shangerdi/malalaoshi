@@ -20,7 +20,7 @@ Meteor.methods({
       throw ex;
     }
     // 支付参数
-    var total_fee = Orders.getOrderPayAmount(order)*100; // RMB: currency is cny, unit is fen(penny)
+    var total_fee = Orders.getOrderPayAmount(order); // RMB: currency is cny, unit is fen(cent)
     var channel = 'alipay_wap', extra = {};
     if (params.channel === 'alipay') {
       if (isCordova) {
