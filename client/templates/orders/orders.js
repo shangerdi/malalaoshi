@@ -46,7 +46,7 @@ Template.orders.helpers({
     return this.hour ? this.hour : "";
   },
   payMoney: function(){
-    return this.cost ? accounting.formatNumber(this.cost, 2) : "";
+    return this.cost ? accounting.formatNumber(this.cost/100, 2) : "";
   },
   canRenew: function(){
     if(this.status != 'paid' && this.status != 'end'){

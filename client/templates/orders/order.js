@@ -39,7 +39,7 @@ Template.order.helpers({
     return this.order ? this.order.subject : "";
   },
   money: function(val){
-    return accounting.formatMoney(val, '');
+    return accounting.formatMoney(val/100, '');
   },
   formatNum: function(val){
     return accounting.formatNumber(val, 2);
@@ -66,7 +66,7 @@ Template.order.helpers({
     return this.order._id ? this.order.cost : cmpTotalCost(this);
   },
   toPayCost: function(){
-    return cmpToPayCost(this);
+    return cmpToPayCost(this)/100;
   },
   couponId: function(){
     var cp = Template.instance().selectedCoupon ? Template.instance().selectedCoupon.get() : null;
@@ -144,7 +144,6 @@ function getTeacherUnitPrice(content){
     return content && content.teacher ? TeacherAudit.getTeacherUnitPrice(content.teacher._id) : 0;
   }catch(e){
     console.log(e);
-  }finally{
     return 0;
   }
 }
