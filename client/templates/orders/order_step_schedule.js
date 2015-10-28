@@ -12,9 +12,10 @@ var getCourseCount = function() {
   }
   return courseCount;
 }
+var totalCost = new ReactiveVar(0);
 var calcTotalCost = function() {
   var courseCount = getCourseCount();
-  $("#totalCost").text(courseCount * getUnitPrice());
+  totalCost.set(courseCount * getUnitPrice());
 }
 // clear error msg of certain field
 var clearErrorMsg = function(name) {
@@ -70,6 +71,9 @@ Template.orderStepSchedule.helpers({
   },
   'unitPrice': function() {
     return getUnitPrice();
+  },
+  'totalCost': function() {
+    return totalCost.get();
   }
 });
 Template.orderStepSchedule.events({
