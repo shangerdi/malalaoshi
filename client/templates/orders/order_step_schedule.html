@@ -26,7 +26,7 @@
       {{#ionItem}}
       <div class="{{errorClass 'courseCount'}}">
         <label>选择课时</label>
-        <span class="course-price">￥<span class="price">{{unitPrice}}</span>/小时</span>
+        <span class="course-price">￥<span class="price">{{fen2YuanFixed2 unitPrice}}</span>/小时</span>
         <div class="item-note count-edit-box">
           <a class="subtract ion-ios-minus-outline"></a>
           <input class="input-course-count" type="text" id="courseCount" name="courseCount" value="0">
@@ -40,7 +40,7 @@
   <div class="bottom-btn-view">
     <div class="row">
       <div class="col-xs-6">
-        共￥<span id="totalCost" class="price">0</span>
+        共￥<span id="totalCost" class="price">{{fen2YuanFixed2 totalCost}}</span>
       </div>
       <div class="col-xs-6">
         <button id="nextStep" class="btn btn-lg btn-success col-xs-12">
