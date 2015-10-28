@@ -3,6 +3,20 @@ Template.proceedsDetails.helpers({
   transactionDetail: function() {
     return TransactionDetail.find({}, {sort: {createdAt:-1}});
   },
+  transactionDetails: function() {
+    var transactionDetails = [];
+    TransactionDetail.find({}, {sort: {createdAt:-1}}).forEach(function(detail) {
+      var dayStr = new moment(detail.createdAt).format('MM月DD日');
+      if (transactionDetails.length === 0 || transactionDetails[transactionDetails.length-1].dayStr !== dayStr) {
+        var detailsInOneDay = {};
+        detailsInOneDay.dayStr = dayStr;
+        detailsInOneDay.details = [];
+        transactionDetails.push(detailsInOneDay);
+      }
+      transactionDetails[transactionDetails.length-1].details.push(detail);
+    });
+    return transactionDetails;
+  },
   convTitle2IconUrl: function(title) {
     if (title && title.indexOf)
     {

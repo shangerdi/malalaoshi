@@ -9,13 +9,16 @@
 
   {{#ionView}}
     {{#ionContent}}
-      {{#each transactionDetail}}
-        {{#ionItem class="item-icon-right item-avatar" iconRight=true}}
-          <img src={{convTitle2IconUrl title}}>
-          <h2>{{title}}</h2>
-          <p>{{getDateTime createdAt}}</p>
-          <div class="icon">{{#if $gt amount 0}}+{{/if}}{{amount}}</div>
-        {{/ionItem}}
+      {{#each transactionDetails}}
+        {{dayStr}}
+        {{#each details}}
+          {{#ionItem class="item-icon-right item-avatar" iconRight=true}}
+            <img src={{convTitle2IconUrl title}}>
+            <h2>{{title}}</h2>
+            <p>{{getDateTime createdAt}}</p>
+            <div class="icon">{{#if $gt amount 0}}+{{/if}}{{amount}}</div>
+          {{/ionItem}}
+        {{/each}}
       {{/each}}
     {{/ionContent}}
   {{/ionView}}
