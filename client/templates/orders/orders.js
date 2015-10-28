@@ -28,9 +28,6 @@ Template.orders.helpers({
   empty: function(){
     return !this.orders || this.orders.count() === 0;
   },
-  priceDwon: function(val){
-    return val/100;
-  },
   showOrders: function(){
     var cutTab = Session.get('ionTab.current');
     setMarginBottom();
