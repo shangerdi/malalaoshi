@@ -15,7 +15,7 @@
         <p>尾号4410 储蓄卡</p>
         {{> ionIcon icon="ios-arrow-right"}}
       {{/ionItem}}
-      可转出余额: {{teacherBalance.balance}} 元
+      可转出余额: {{convCent2Yuan teacherBalance.balance}} 元
       {{#ionItem}}
         <label>提现金额</label>
         <input id="amount" type="number" min="1" max="{{teacherBalance.balance}}" placeholder="请输入提现金额"/>
