@@ -128,3 +128,24 @@ logoutButtonHandler = function(e) {
 Template.registerHelper('starImage', function(val){
   return val == 3 ? "star_h.png" : val == 2 ? "star_half.png" : val == 1 ? "star_normal.png" : "";
 });
+
+asyncAlert = function(msg, callback, num) {
+  if (_.isNumber(callback)) {
+    var tmp = num;
+    num = callback;
+    callback = tmp;
+  }
+  if (!num || !_.isNumber(num)) {
+    num = 800;
+  }
+  IonPopup.show({
+    'template': ""+msg,
+    'buttons': []
+  });
+  setTimeout(function () {
+    IonPopup.close();
+    if (_.isFunction(callback)) {
+      setTimeout(callback, 0);
+    }
+  }, num);
+}

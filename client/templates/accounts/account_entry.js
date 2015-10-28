@@ -16,3 +16,11 @@ Template.accountEntry.helpers({
     return getRole()==="parent";
   }
 });
+Template.accountEntry.events({
+  'click .btn-login': function(e) {
+    IonModal.open('_loginModal', {title:"", type: "login"});
+  },
+  'click .btn-register': function(e) {
+    IonModal.open('_loginModal', {title:"", type: "register"});
+  }
+});
