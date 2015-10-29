@@ -7,6 +7,11 @@ Template.proceedsSelectCard.helpers({
 
 Template.proceedsSelectCard.events({
   //add your events here
+  'click .item-card': function() {
+    localStorage.setItem('withdrawCard', JSON.stringify(this));
+    IonNavBack();
+  }
+
 });
 
 Template.proceedsSelectCard.onCreated(function() {

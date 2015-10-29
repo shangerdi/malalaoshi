@@ -135,7 +135,7 @@ Meteor.methods({
     withdrawInfo.amount;
     withdrawInfo.cardNumber;
     withdrawInfo.cardUserName;
-    withdrawInfo.bankCardName;
+    withdrawInfo.bankName;
     withdrawInfo.password;
 
     console.log(writeObj(withdrawInfo));
@@ -160,7 +160,7 @@ Meteor.methods({
 //    || !withdrawInfo.password
       || !withdrawInfo.cardNumber
       || !withdrawInfo.cardUserName
-      || !withdrawInfo.bankCardName) {
+      || !withdrawInfo.bankName) {
       throw new Meteor.Error('参数错误', "参数错误");
     }
 

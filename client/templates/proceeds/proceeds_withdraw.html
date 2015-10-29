@@ -9,19 +9,30 @@
 
   {{#ionView}}
     {{#ionContent}}
-      {{#ionItem class="item-avatar item-icon-right" path="proceedsSelectCard" iconRight=true}}
-        <img src="/images/apply/complete-ok.png">
-        <h2>尚尔迪</h2>
-        <p>尾号4410 储蓄卡</p>
-        {{> ionIcon icon="ios-arrow-right"}}
-      {{/ionItem}}
-      可转出余额: {{fen2YuanFixed2 teacherBalance.balance}} 元
-      {{#ionItem}}
-        <label>提现金额</label>
-        <input id="amount" type="number" min="1" max="{{teacherBalance.balance}}" placeholder="请输入提现金额"/>
+      {{#if getWithdrawCard}}
+        {{#ionItem class="item-avatar item-icon-right" path="proceedsSelectCard" iconRight=true}}
+          <img src="/images/apply/complete-ok.png">
+          <h2>{{getWithdrawCard.cardUserName}}</h2>
+          <p>{{getWithdrawCard.cardNumber}} {{getWithdrawCard.bankName}}</p>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{else}}
+        {{#ionItem class="item-icon-right" path="proceedsSelectCard" iconRight=true}}
+          <h2>请选择要提现的银行卡</h2>
+          {{> ionIcon icon="ios-arrow-right"}}
+        {{/ionItem}}
+      {{/if}}
+      可转出余额: <span style="color: red">{{fen2YuanFixed2 teacherBalance.balance}}</span> 元
+      {{#ionItem class="item-input"}}
+        <span class="input-label" for="amount">提现金额</span>
+        <input id="amount" name="amount" type="number" min="1" max="{{teacherBalance.balance}}" placeholder="请输入提现金额"/>
       {{/ionItem}}
       每笔限额5000元，本日还可以转出3次
-      <button class="btn btn-success btn-block" data-action="input-password">确认提现</button>
+      {{#if getWithdrawCard}}
+        <button class="btn btn-success btn-block" data-action="input-password">确认提现</button>
+      {{else}}
+        <button class="btn btn-success btn-block" data-action="input-password" disabled>确认提现</button>
+      {{/if}}
     {{/ionContent}}
   {{/ionView}}
 </template>
