@@ -42,7 +42,7 @@ var submitWithdraw = function(withdrawInfo) {
 };
 
 getWithdrawCard = function() {
-  var selectedCard = {};
+  var selectedCard = null;
   var cardStoredStr = localStorage.getItem('withdrawCard');
   if (!cardStoredStr) {
     return null;
