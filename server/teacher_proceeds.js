@@ -77,16 +77,54 @@ Meteor.methods({
     return result;
   },
   addNewCard: function(cardInfo) {
-    //TODO: verify following information
     //cardInfo.cardNumber;
     //cardInfo.cardUserName;
     //cardInfo.cardPhoneNumber;
-    //verify(cardInfo);
+    console.log(writeObj(cardInfo));
+
+    var up = new UnionPay;
+    var customerInfo = up.customerInfo({
+      phoneNo: cardInfo.cardPhoneNumber,//预留手机号
+      customerNm: cardInfo.cardUserName,//户名
+      certifTp: '01',                   //证件类型
+      //certifId: params.IDNumber       //证件号码
+    });
+    var params = {
+      txnType: '72',                    //交易类型
+      txnSubType: '01',                 //交易子类
+      bizType: '000201',                //业务类型
+      channelType: '07',                //渠道类型
+      orderId: moment().format('YYYYMMDDHHmmss'),//商户订单号
+      txnTime: moment().format('YYYYMMDDHHmmss'),//订单发送时间
+      accNo: cardInfo.cardNumber,       //卡号
+      customerInfo: customerInfo,
+      relTxnType: '02',
+      payCardType: '01'
+    };
+    //code for test
+    if (process.env.NODE_ENV === 'development') {
+      customerInfo = up.customerInfo({
+        phoneNo: '13552535506',
+        customerNm: '全渠道',
+        certifTp: '01',
+        certifId: '341126197709218366'
+      });
+      params.accNo = '6216261000000000018';
+      params.customerInfo = customerInfo;
+    }
+    //end of test code
+    up.build(params);
+    var ret = up.request();
+
     var result = {};
-    result.success = false;
-    result.errorMsg = "户名不匹配 or 信息有误";
-    result.errorMsg = "手机号不匹配，到柜台修改";
-    //todo: 假定验证码通过 and 实名认证通过
+    if (!ret) {
+      result.success = false;
+      result.errorMsg = "信息填写错误";
+      throw new Meteor.Error('验证失败，信息填写错误', '验证失败，信息填写错误');
+    }
+    //result.success = false;
+    //result.errorMsg = "户名不匹配 or 信息有误";
+    //result.errorMsg = "手机号不匹配，到柜台修改";
     result.success = true;
     if (result.success === true) {
       var bankCard = {};
@@ -114,29 +152,66 @@ Meteor.methods({
     TeacherBalance.update({userId: this.userId}, {$set: {withdrawPass: encryptedPass, isSetPass: true, token: token, tryTimes: 0}});
   },
   identityVerify: function(params) {
-    //TODO: verify following information
-    //params.cardUserName  持卡人姓名
-    //params.IDNumber  身份证号
-    //params.cardNumber  卡号
-    var result = {};
-    //result.success = false;
-    //result.errorMsg = "信息填写错误";
-    //throw new Meteor.Error('信息填写错误', '信息填写错误');
+    //params.cardNumber;
+    //params.cardUserName;
+    //params.IDNumber;
+    console.log(writeObj(params));
 
-    //todo: 假定 实名认证通过，返回重置密码所需要的token
+    var up = new UnionPay;
+    var customerInfo = up.customerInfo({
+      //phoneNo: '13552535506',         //预留手机号
+      customerNm: params.cardUserName,  //户名
+      certifTp: '01',                   //证件类型
+      certifId: params.IDNumber         //证件号码
+    });
+    var params = {
+      txnType: '72',                    //交易类型
+      txnSubType: '01',                 //交易子类
+      bizType: '000201',                //业务类型
+      channelType: '07',                //渠道类型
+      orderId: moment().format('YYYYMMDDHHmmss'),//商户订单号
+      txnTime: moment().format('YYYYMMDDHHmmss'),//订单发送时间
+      accNo: params.cardNumber,         //卡号
+      customerInfo: customerInfo,
+      relTxnType: '02',
+      payCardType: '01'
+    };
+    //code for test
+    if (process.env.NODE_ENV === 'development') {
+      customerInfo = up.customerInfo({
+        phoneNo: '13552535506',
+        customerNm: '全渠道',
+        certifTp: '01',
+        certifId: '341126197709218366'
+      });
+      params.accNo = '6216261000000000018';
+      params.customerInfo = customerInfo;
+    }
+    //end of test code
+    up.build(params);
+    var ret = up.request();
+
+    var result = {};
+    //实名认证没有通过
+    if (!ret) {
+      result.success = false;
+      result.errorMsg = "信息填写错误";
+      throw new Meteor.Error('验证失败，信息填写错误', '验证失败，信息填写错误');
+    }
+
+    //实名认证通过，返回重置密码所需要的token
     result.success = true;
     result.token = Math.random() + 1;
     TeacherBalance.update({userId: this.userId}, {$set: {token: result.token}});
     return result;
-    //todo: 现有方式可直接通过 Router.go() 跳转到重置密码页面，需要完善和解决此处安全问题
   },
   withdraw: function(withdrawInfo) {
     //params
-    withdrawInfo.amount;
-    withdrawInfo.cardNumber;
-    withdrawInfo.cardUserName;
-    withdrawInfo.bankName;
-    withdrawInfo.password;
+    //withdrawInfo.amount;
+    //withdrawInfo.cardNumber;
+    //withdrawInfo.cardUserName;
+    //withdrawInfo.bankName;
+    //withdrawInfo.password;
 
     console.log(writeObj(withdrawInfo));
 
@@ -201,30 +276,6 @@ Meteor.methods({
       TeacherBalance.update({userId: this.userId}, {$set: {tryTimes: 0}});
     }
 
-    //var up = new UnionPay;
-    //var customerInfo = up.customerInfo({
-    //  phoneNo: '13552535506',           //预留手机号
-    //  customerNm: '全渠道',              //户名
-    //  certifTp: '01',                   //证件类型
-    //  certifId: '341126197709218366'    //证件号码
-    //});
-    //var params = {
-    //  txnType: '72',                    //交易类型
-    //  txnSubType: '01',                 //交易子类
-    //  bizType: '000201',                //业务类型
-    //  channelType: '07',                //渠道类型
-    //  orderId: moment().format('YYYYMMDDHHmmss'),//商户订单号
-    //  txnTime: moment().format('YYYYMMDDHHmmss'),//订单发送时间
-    //  accNo: '6216261000000000018',     //卡号
-    //  customerInfo: customerInfo,
-    //  relTxnType: '02',
-    //  payCardType: '01'
-    //};
-    //
-    //up.build(params);
-    //var ret = up.request();
-    //console.log(ret);
-
     //提现 明细
     var withdrawDetail = {};
     withdrawDetail.userId = curUser._id;
@@ -237,8 +288,8 @@ Meteor.methods({
 
     //提交交易
     submitTransaction(transactionDetails);
-    //todo: 调用银行接口打款
-    //Meteor.call("pay");
+    //todo: 保存提现记录数据用于财物打款
+    //XXXCollection.inster();
 
     result.success = true;
     return result;
