@@ -34,21 +34,41 @@ var submitWithdraw = function(withdrawInfo) {
         title: "提现成功!",
         okText: "确定",
         onOk: function() {
-          if (Meteor.isCordova) {
-            navigator.app && navigator.app.backHistory && navigator.app.backHistory();
-          } else {
-            history.back();
-          }
+          IonNavBack();
         }
       });
     }
   });
 };
 
+var getWithdrawCard = function() {
+  var selectedCard = {};
+  var cardStoredStr = localStorage.getItem('withdrawCard');
+  if (!cardStoredStr) {
+    return null;
+  }
+  try {
+    var cardStored = JSON.parse(cardStoredStr);
+  } catch (e) {
+    return null;
+  }
+  var teacherBalance = TeacherBalance.findOne();
+  teacherBalance.bankCards.forEach(function(card) {
+    if (card.cardNumber == cardStored.cardNumber) {
+      selectedCard = card;
+      return false;
+    }
+  });
+  return selectedCard;
+}
+
 Template.proceedsWithdraw.helpers({
   //add you helpers here
   teacherBalance: function() {
     return TeacherBalance.findOne();
+  },
+  getWithdrawCard: function() {
+    return getWithdrawCard();
   }
 });
 
@@ -56,25 +76,36 @@ Template.proceedsWithdraw.events({
   //add your events here
   'click [data-action=input-password]': function() {
     var amount = Number($("#amount").val());
-    IonPopup.prompt({
-      title: "请输入提现密码",
-      subTitle: amount + " 元",
-      okText: '确认提现',
-      cancelText: "取消",
-      inputType: 'password',
-      onOk: function(event, inputVal) {
-        var withdrawInfo = {};
-        withdrawInfo.amount = amount;
-        withdrawInfo.cardNumber = "6225881010034410";
-        withdrawInfo.cardUserName = "尚尔迪";
-        withdrawInfo.bankCardName = "招商银行";
-        withdrawInfo.password = inputVal;
-        setTimeout(function() {
-          submitWithdraw(withdrawInfo);
-        }, 100);
-        ;
-      }
-    });
+    if (amount <= 0) {
+      IonPopup.alert({
+        title: "请输入正确的金额",
+        okText: "确定",
+        onOk: function() {
+          $("#amount").focus();
+        }
+      });
+    }
+    else {
+      IonPopup.prompt({
+        title: "请输入提现密码",
+        subTitle: amount + " 元",
+        okText: '确认提现',
+        cancelText: "取消",
+        inputType: 'password',
+        onOk: function(event, inputVal) {
+          var withdrawInfo = {};
+          withdrawInfo.amount = amount;
+          withdrawInfo.cardNumber = getWithdrawCard() ? getWithdrawCard().cardNumber : null;
+          withdrawInfo.cardUserName = getWithdrawCard() ? getWithdrawCard().cardUserName : null;
+          withdrawInfo.bankName = getWithdrawCard() ? getWithdrawCard().bankName: null;
+          withdrawInfo.password = inputVal;
+          setTimeout(function() {
+            submitWithdraw(withdrawInfo);
+          }, 100);
+          ;
+        }
+      });
+    }
   }
 });
 

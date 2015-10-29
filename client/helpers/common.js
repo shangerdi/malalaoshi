@@ -162,3 +162,14 @@ fen2Yuan = function(fen) {
 Template.registerHelper('fen2YuanFixed2', function(fen) {
   return fen2Yuan(fen).toFixed(2);
 });
+
+//Ionic back for directly call
+IonNavBack = function() {
+  $('[data-nav-container]').addClass('nav-view-direction-back');                                                     // 9
+  $('[data-navbar-container]').addClass('nav-bar-direction-back');
+  if (Meteor.isCordova) {
+    navigator.app && navigator.app.backHistory && navigator.app.backHistory();
+  } else {
+    history.back();
+  }
+}
