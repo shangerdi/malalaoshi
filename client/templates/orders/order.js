@@ -12,6 +12,10 @@ Template.order.onCreated(function(){
 Template.order.onRendered(function () {
   IonNavigation.skipTransitions = true;
   Session.set("orderShowLoading", false);
+
+  if(this.data.order.status == "paid"){
+    $('.with-bottom-btn').removeClass('with-bottom-btn');
+  }
 });
 Template.order.helpers({
   showLoading: function(){
