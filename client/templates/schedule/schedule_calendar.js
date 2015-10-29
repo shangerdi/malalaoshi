@@ -84,6 +84,15 @@ var getIndexLastDay = function(y,m) {
   cacheData.indexLastDay[key] = tmp;
   return tmp;
 }
+var getWeekrowsCount = function(m) {
+  var y = getCurYear();
+  if (!m) {
+    m = getCurMonth();
+  }
+  var indexFirstDay = getIndexFirstDay(y,m), maxDay = getMaxDay(y,m);
+  var daysInFirstWeek = 7-indexFirstDay;
+  return Math.ceil((maxDay-daysInFirstWeek)/7)+1;
+}
 var getDateByTable = function(m, row, col) {
   var y = getCurYear();
   var indexFirstDay = getIndexFirstDay(y,m), maxDay = getMaxDay(y,m);
@@ -135,6 +144,24 @@ var getWeekdayClass = function(weekday) {
     return "weekend";
   }
   return "";
+}
+var appendMonthBodyText = function(buf, m) {
+  buf.push('<tbody>');
+  var rows = getWeekrowsCount(m);
+  for (var r=0; r<rows; r++) {
+    buf.push('<tr>');
+    for (var i=0; i<7; i++) {
+      var tdDateClass = '', dateText = '';
+      var date = getDateByTable(m, r, i);
+      if (date && date.flag) {
+        tdDateClass = getTdDateClass(date);
+        dateText = date.date;
+      }
+      buf.push('<td class="date '+tdDateClass+'" data-row="'+r+'" data-col="'+i+'"><div>'+dateText+'</div></td>');
+    }
+    buf.push('</tr>');
+  }
+  buf.push('</tbody>');
 }
 var subscribe = function(year, month, callback) {
   if (_.isFunction(month)) {
@@ -436,66 +463,30 @@ Template.scheduleCalendar.helpers({
   monthNavNum: function() {
     return getMonthNavNum();
   },
-  monthNum: function() {
-    return [1,2,3,4,5,6,7,8,9,10,11,12];
-  },
-  indexNum: function() {
-    return [0,1,2,3,4,5,6];
-  },
-  weekdays: function() {
-    return getWeekdays();
-  },
-  getWeekdayClass: function(d) {
-    return getWeekdayClass(d);
-  },
-  weekdayText: function(d) {
-    return ScheduleTable.dayNumWords[d];
-  },
-  weekrows: function(m) {
-    var y = getCurYear();
-    if (!m) {
-      m = getCurMonth();
+  yearViewContentText: function() {
+    var buf = [];
+    for (var m=1; m<=12; m++) {
+      buf.push('<div class="col-xs-4 col-sm-4 col-md-3 amonth" data-month="'+m+'">');
+      buf.push(' <a>'+m+'月</a>');
+      buf.push(' <table class="table">');
+      appendMonthBodyText(buf, m);
+      buf.push(' </table>');
+      buf.push('</div>');
     }
-    var indexFirstDay = getIndexFirstDay(y,m), maxDay = getMaxDay(y,m);
-    var daysInFirstWeek = 7-indexFirstDay;
-    var rows = Math.ceil((maxDay-daysInFirstWeek)/7);
-    var i, a=[];
-    for(i=0; i<=rows; i++) {
-      a.push(i);
-    }
-    return a;
+    return buf.join('\n');
   },
-  dateText: function(m, row, col) {
-    var date = getDateByTable(m, row, col);
-    if (!date || !date.flag) {
-      return "";
+  monthViewContentText: function() {
+    var buf = [], m = getCurMonth();;
+    buf.push('<table class="table">');
+    buf.push('<thead><tr class="week-row">');
+    var weekdays = getWeekdays();
+    for (var i=0; i<weekdays.length; i++) {
+      buf.push('<td>'+ScheduleTable.dayNumWords[weekdays[i]]+'</td>');
     }
-    return date.date;
-  },
-  dateClass: function(m, row, col) {
-    var date = getDateByTable(m, row, col);
-    if (!date || !date.flag) {
-      return "";
-    }
-    // var weekday = getWeekdays()[col];
-    return getTdDateClass(date);// + " " + getWeekdayClass(weekday);
-  },
-  dateText2: function(row, col) {
-    var m = getCurMonth();
-    var date = getDateByTable(m, row, col);
-    if (!date || !date.flag) {
-      return "";
-    }
-    return date.date;
-  },
-  dateClass2: function(row, col) {
-    var m = getCurMonth();
-    var date = getDateByTable(m, row, col);
-    if (!date || !date.flag) {
-      return "";
-    }
-    // var weekday = getWeekdays()[col];
-    return getTdDateClass(date);// + " " + getWeekdayClass(weekday);
+    buf.push('</tr></thead>');
+    appendMonthBodyText(buf, m);
+    buf.push('</table>');
+    return buf.join('\n');
   },
   courseList: function() {
     var date = cacheData.selectedDate.get();

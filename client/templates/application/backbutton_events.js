@@ -2,7 +2,11 @@ if (Meteor.isCordova) {
   var onBackButtonPressed = function(event) {
     // console.log("on back-button pressed");
     if ($('body').hasClass('action-sheet-open')) {
-      IonActionSheet.close();
+      try {
+        IonActionSheet.close();
+      } catch(ex) {
+        IonActionSheetCustom.close();
+      }
       return;
     }
     if ($('body').hasClass('popup-open')) {
