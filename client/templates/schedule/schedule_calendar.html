@@ -10,7 +10,7 @@
 
   <div class="schedule-calendar-header">
     <div class="inner">
-      <a class="year-title">{{{year}}}年</a>
+      <a class="year-title">{{year}}年</a>
       <div class="pull-right marks">
         <div class="todo"><span class="ion-record"></span>待上课</div>
         <div class="done"><span class="ion-record"></span>已上课</div>
@@ -46,7 +46,7 @@
           <div class="swiper-wrapper">
             {{#each monthNavNum}}
             <div class="swiper-slide">
-              <a class="{{monthNavClass this}}" data-i="{{this}}">{{{monthNavText this}}}<span class="unit">月</span></a>
+              <a class="{{monthNavClass this}}" data-i="{{this}}">{{monthNavText this}}<span class="unit">月</span></a>
             </div>
             {{/each}}
           </div>
@@ -98,7 +98,7 @@
     <div class="bottom-btn-view">
       <div class="row">
         <div class="col-xs-6 text-left">
-          <button class="btn btn-default btn-change-view" type="button" name="changeView">{{{changeViewBtnText}}}</button>
+          <button class="btn btn-default btn-change-view" type="button" name="changeView">{{changeViewBtnText}}</button>
         </div>
         <div class="col-xs-6 text-right">
           {{#if isShowToToday}}<input class="btn btn-success btn-go-today" type="button" name="goToday" value="今天">{{/if}}
