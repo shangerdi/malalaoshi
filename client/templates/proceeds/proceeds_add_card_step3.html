@@ -14,11 +14,13 @@
           请输入手机号 {{cardInfo.cardPhoneNumber}} 收到的短信校验码
         {{/ionItem}}
         {{#ionItem class="item-icon-right" iconRight=true}}
-          <input type="text" />
-          <button>重新获取</button>
+          <input type="text" style="border: solid 1px #d5d5d5; width: 80%; font-size: 20px; font-weight: bold; text-align: center;"/>
+          <div class="icon">
+            <button class="btn btn-success">重新获取</button>
+          </div>
         {{/ionItem}}
-        {{#ionItem class="item-icon-right" iconRight=true}}
-          <button data-action="add-card">下一步</button>
+        {{#ionItem}}
+          <button class="btn btn-success btn-block" data-action="add-card">下一步</button>
         {{/ionItem}}
       {{/ionList}}
     {{/ionContent}}

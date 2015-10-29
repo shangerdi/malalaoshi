@@ -10,13 +10,15 @@
   {{#ionView}}
     {{#ionContent}}
       {{#each transactionDetails}}
-        {{dayStr}}
+        <div style="margin: 10px 14px; color: #5d5d5d; font-size: 13px;">{{dayStr}}</div>
         {{#each details}}
           {{#ionItem class="item-icon-right item-avatar" iconRight=true}}
             <img src={{convTitle2IconUrl title}}>
             <h2>{{title}}</h2>
             <p>{{getDateTime createdAt}}</p>
-            <div class="icon">{{#if $gt amount 0}}+{{/if}}{{fen2YuanFixed2 amount}}</div>
+            <div class="icon" style="font-size: 20px; font-weight: bold;">
+              {{#if $gt amount 0}}+{{/if}}{{fen2YuanFixed2 amount}}
+            </div>
           {{/ionItem}}
         {{/each}}
       {{/each}}

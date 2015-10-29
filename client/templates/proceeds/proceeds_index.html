@@ -8,18 +8,18 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <img src="/images/proceeds/security.png" class="button button-clear button-light" data-action="proceeds-security">
+    <img src="/images/proceeds/security.png" class="button button-clear button-light" data-action="proceeds-security"
+         style="right: 10px; height: 16px;">
   {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent}}
-      <div style="height: 30%; text-align: center;">
-        <div style="font-size: 30px">
+      <div style="text-align: center; background-color: #fff; margin-bottom: 8px;">
+        <div style="font-size: 30px; padding: 44px 0px 20px; font-weight: bold; color: #4d4d4d">
           ¥ {{fen2YuanFixed2 teacherBalance.balance}}
         </div>
-        <div>
-          <button class="btn btn-success" data-action="proceeds-withdraw">提现</button>
-        </div>
+        <button class="btn btn-success" data-action="proceeds-withdraw"
+                style="margin: 30px 0px 44px; font-size: 15px; font-weight: bold; width: 117px; height: 40px;">提现</button>
       </div>
 
       {{#ionList}}
