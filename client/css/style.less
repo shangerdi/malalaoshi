@@ -808,20 +808,23 @@ input[type=text].browser {
   position: absolute;
   top: 93px;
   width: 100%;
-  height: 44px;
-  margin-top: 10px;
-  padding: 0 14px;
+  padding-top: 10px;
   z-index: 4;
-  background-color: #fff;
-  border-bottom: 1px #d6d6d6 solid;
+  background-color: @appBackGroundColor;
+  .inner {
+    height: 44px;
+    padding: 0 14px;
+    background-color: #fff;
+    border-bottom: 1px #d6d6d6 solid;
+    > div {
+      display: inline-block;
+    }
+  }
   .year-title {
     display: inline-block;
     line-height: 44px;
     color: #333;
     font-size: 26px;
-  }
-  > div {
-    display: inline-block;
   }
   .marks{
     padding-top: 2px;
@@ -844,9 +847,40 @@ input[type=text].browser {
     }
   }
 }
-.content.schedule-calendar {
-  padding-top: 55px;
-  padding-bottom: 66px;
+.schedule-calendar {
+  &.content {
+    padding-top: 55px;
+    padding-bottom: 66px;
+  }
+  .spinner-container{
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .swiper-slide {
+    height: auto;
+  }
+  td{
+    text-align: center;
+    color: #333;
+  }
+  td > div{
+    border: 0;
+    border-radius: 50%;
+  }
+  td.done > div{
+    background-color: @course-done-bgcolor;
+  }
+  td.todo > div{
+    background-color: @course-todo-bgcolor;
+    color: @course-todo-color;
+  }
+  td.weekend {
+    color: #b83521;
+    > div {
+      color: #b83521;
+    }
+  }
 }
 .schedule-calendar .month-nav {
   border-bottom: 1px #d6d6d6 solid;
@@ -987,7 +1021,7 @@ input[type=text].browser {
   }
   td{
     border: 0;
-    padding: 0;
+    padding: 2px 0;
   }
   td > div{
     width: 16px;
@@ -1000,54 +1034,22 @@ input[type=text].browser {
     color: @today-color;
   }
 }
-.schedule-calendar {
-  .spinner-container{
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  .swiper-slide {
-    height: auto;
-  }
-  td{
-    text-align: center;
-    color: #333;
-  }
-  td > div{
-    display: inline-block;
-    border: 0;
-    border-radius: 50%;
-  }
-  td.done > div{
-    background-color: @course-done-bgcolor;
-  }
-  td.todo > div{
-    background-color: @course-todo-bgcolor;
-    color: @course-todo-color;
-  }
-  td.weekend {
-    color: #b83521;
-    > div {
-      color: #b83521;
-    }
-  }
-}
 @media (max-width: @screen-sm-max) {
   .schedule-calendar .year-view .amonth{
     &:nth-child(3n+1){
       clear: left;
-      padding-left: 16px;
-      padding-right: 10px;
+      padding-left: 7px;
+      padding-right: 3px;
     }
     &:nth-child(3n+2){
       clear: none;
-      padding-left: 10px;
-      padding-right: 10px;
+      padding-left: 3px;
+      padding-right: 3px;
     }
     &:nth-child(3n+3){
       clear: right;
-      padding-left: 10px;
-      padding-right: 16px;
+      padding-left: 3px;
+      padding-right: 7px;
     }
   }
 }
