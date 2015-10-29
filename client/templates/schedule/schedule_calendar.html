@@ -9,15 +9,11 @@
   {{> appScheduleTabs}}
 
   <div class="schedule-calendar-header">
-    <a class="year-title">{{year}}年</a>
+    <a class="year-title">{{{year}}}年</a>
     <div class="pull-right marks">
       <div class="todo"><span class="ion-record"></span>待上课</div>
       <div class="done"><span class="ion-record"></span>已上课</div>
     </div>
-    <!-- <div class="pull-right btns-box">
-      {{#if isShowToToday}}<input class="btn btn-go-today" type="button" name="goToday" value="今天">{{/if}}
-      <input class="btn btn-change-view" type="button" name="changeView" value="{{changeViewBtnText}}">
-    </div> -->
   </div>
 {{#ionView}}
   {{#ionContent class="schedule-calendar"}}
@@ -31,27 +27,8 @@
           <div class="swiper-slide"><div class="prev-year">上一年</div></div>
           <div class="swiper-slide">
            <div class="year-view-con">
-            <!-- <div class="year-nav">
-              <h3>{{year}}年</h3>
-            </div> -->
             <div class="clearfix year-view">
-              {{#each monthNum}}
-              <div class="col-xs-4 col-sm-4 col-md-3 amonth" data-month="{{this}}">
-                <a>{{this}}月</a>
-                <table class="table">
-                  <!-- <thead><tr class="week-row">{{#each weekdays}}<td>{{weekdayText this}}</td>{{/each}}</tr></thead> -->
-                  <tbody>
-                    {{#each weekrows this}}
-                    <tr>
-                      {{#each indexNum}}
-                        <td class="date {{dateClass ../.. .. this}}" data-row="{{..}}" data-col="{{this}}"><div>{{dateText ../.. .. this}}</div></td>
-                      {{/each}}
-                    </tr>
-                    {{/each}}
-                  </tbody>
-                </table>
-              </div>
-              {{/each}}
+              {{{yearViewContentText}}}
             </div>
            </div>
           </div>
@@ -67,7 +44,7 @@
           <div class="swiper-wrapper">
             {{#each monthNavNum}}
             <div class="swiper-slide">
-              <a class="{{monthNavClass this}}" data-i="{{this}}">{{monthNavText this}}<span class="unit">月</span></a>
+              <a class="{{monthNavClass this}}" data-i="{{this}}">{{{monthNavText this}}}<span class="unit">月</span></a>
             </div>
             {{/each}}
           </div>
@@ -78,18 +55,7 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide"><div class="prev-month">上个月</div></div>
             <div class="swiper-slide">
-              <table class="table">
-                <thead><tr class="week-row">{{#each weekdays}}<td>{{weekdayText this}}</td>{{/each}}</tr></thead>
-                <tbody>
-                  {{#each weekrows}}
-                  <tr>
-                    {{#each indexNum}}
-                      <td class="date {{dateClass2 .. this}}" data-row="{{..}}" data-col="{{this}}"><div>{{dateText2 .. this}}</div></td>
-                    {{/each}}
-                  </tr>
-                  {{/each}}
-                </tbody>
-              </table>
+              {{{monthViewContentText}}}
             </div>
             <div class="swiper-slide"><div class="next-month">下个月</div></div>
           </div>
@@ -130,7 +96,7 @@
     <div class="bottom-btn-view">
       <div class="row">
         <div class="col-xs-6 text-left">
-          <input class="btn btn-default btn-change-view" type="button" name="changeView" value="{{changeViewBtnText}}">
+          <button class="btn btn-default btn-change-view" type="button" name="changeView">{{{changeViewBtnText}}}</button>
         </div>
         <div class="col-xs-6 text-right">
           {{#if isShowToToday}}<input class="btn btn-success btn-go-today" type="button" name="goToday" value="今天">{{/if}}
