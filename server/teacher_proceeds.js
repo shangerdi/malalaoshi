@@ -37,7 +37,7 @@ submitTransaction = function(details) {
   });
 
   //修改实际余额
-  TeacherBalance.update({userId: details[0].userId}, {$inc: {balance: increasedAmount}});
+  return TeacherBalance.update({userId: details[0].userId}, {$inc: {balance: increasedAmount}});
 }
 
 writeObj = function(obj) {
@@ -236,10 +236,18 @@ Meteor.methods({
     transactionDetails.push(withdrawDetail);
 
     //提交交易
-    submitTransaction(transactionDetails);
-    //todo: 调用银行接口打款
-    //Meteor.call("pay");
-
+    if (submitTransaction(transactionDetails)) {
+      //保存提现记录数据用于财物打款
+      TeacherWithdraw.insert({
+        userId: curUser._id,
+        amount: withdrawInfo.amount,
+        cardNumber: withdrawInfo.cardNumber,
+        cardUserName: withdrawInfo.cardUserName,
+        bankName: withdrawInfo.bankName
+      });
+    } else {
+      throw new Meteor.Error('操作失败', "操作失败");
+    }
     result.success = true;
     return result;
   }
