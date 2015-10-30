@@ -110,10 +110,15 @@ Meteor.methods({
       transactionDetails.push(courseDetail);
       transactionDetails.push(chargesDetail);
       //提交交易
-      submitTransaction(transactionDetails);
-      console.log("Transaction OK!");
-      //最后修改课程状态
-      CourseAttendances.update({'_id': itemId, 'student.id': curUser._id},{$set:{state:ScheduleTable.attendanceStateDict["attended"].value, 'detail.confirmType': 1}});
+      if (submitTransaction(transactionDetails)) {
+        console.log("Transaction OK!");
+        //最后修改课程状态
+        CourseAttendances.update({'_id': itemId, 'student.id': curUser._id},{$set:{state:ScheduleTable.attendanceStateDict["attended"].value, 'detail.confirmType': 1}});
+      }
+      else {
+        console.log("Transaction Failed!");
+        throw new Meteor.Error('提交失败', "提交失败");
+      }
     }
 
     return true;
