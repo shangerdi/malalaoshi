@@ -39,6 +39,9 @@ Template.teacher.onRendered(function(){
     var des = $(e.target).closest('a').attr('href');
     $('.teacher-detail').scrollTo(des);
   });
+  if(!roleIsParent()){
+    $('.with-bottom-btn').removeClass('with-bottom-btn');
+  }
 });
 Template.teacher.onDestroyed(function(){
   $('body>.sticky-nav').remove();
@@ -165,6 +168,9 @@ Template.teacher.helpers({
       avtUrl = u && u.profile.avatarUrl ? u.profile.avatarUrl : "";
     }
     return avtUrl;
+  },
+  roleIsParent: function(){
+    return roleIsParent();
   }
 });
 

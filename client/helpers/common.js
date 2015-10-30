@@ -173,3 +173,9 @@ IonNavBack = function() {
     history.back();
   }
 }
+
+if(typeof roleIsParent != 'function'){
+  roleIsParent = function(){
+    return Meteor.user().role == "parent";
+  }
+}
