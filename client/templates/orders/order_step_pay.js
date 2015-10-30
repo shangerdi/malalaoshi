@@ -30,8 +30,18 @@ Template.orderStepPay.helpers({
 Template.orderStepPay.events({
   'click .item-radio': function(e) {
     var ele = e.target, $ele = $(ele).closest(".item-radio");
-    $ele.find("input")[0].click();
+    // $ele.find("input")[0].click();
+    var val = $ele.find("input")[0].value;
+    $(".item-radio").each(function(){
+      var $this = $(this), v = $this.find("input")[0].value;
+      if (v===val) {
+        $this.addClass('checked');
+      } else {
+        $this.removeClass('checked');
+      }
+    });
     Session.set('errors','');
+    e.stopPropagation();
   },
   'click #callPayment': function(e) {
     var orderId = getOrderId(), errors={hasError:false};
@@ -39,7 +49,8 @@ Template.orderStepPay.events({
       alert("订单ID错误");
       return;
     }
-    var channel = $("input[name=payType]:checked").val();
+    var selectedInput = $(".item-radio.checked").find("input")[0];
+    var channel = selectedInput?selectedInput.value:false;
     if (!channel) {
       errors.pay="请选择支付方式";
       errors.hasError=true;
