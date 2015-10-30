@@ -47,8 +47,11 @@ App.configurePlugin('cn.jpush.phonegap.JPushPlugin', {
   'JPUSH_CHANNEL': 'channel1',
   'APS_FOR_PRODUCTION': 0
 });
+App.configurePlugin('cordova-plugin-customurlscheme', {
+  'URL_SCHEME': 'malalaoshi'
+});
 App.configurePlugin('co.airsia.cordova.pingpp', {
-  'URL_SCHEME': 'malalaoshi://'
+  'URL_SCHEME': 'malalaoshi'
 });
 App.accessRule("*://s3.cn-north-1.amazonaws.com.cn/*");
 App.accessRule("*://s3-ap-southeast-1.amazonaws.com/*");
