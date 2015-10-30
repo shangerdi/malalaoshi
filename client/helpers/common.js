@@ -167,8 +167,9 @@ Template.registerHelper('fen2YuanFixed2', function(fen) {
 IonNavBack = function() {
   $('[data-nav-container]').addClass('nav-view-direction-back');
   $('[data-navbar-container]').addClass('nav-bar-direction-back');
-  if (Meteor.isCordova) {
-    navigator.app && navigator.app.backHistory && navigator.app.backHistory();
+
+  if (Meteor.isCordova && navigator.app && navigator.app.backHistory) {
+      navigator.app.backHistory();
   } else {
     history.back();
   }
