@@ -2,6 +2,18 @@ Template.proceedsResetPasswordStep1.helpers({
   //add you helpers here
   teacherBalance: function() {
     return TeacherBalance.findOne();
+  },
+  getSelectCard: function() {
+    var sessionCard = Session.get('selectCard');
+    if (sessionCard) {
+      return sessionCard;
+    }
+    var storedCard = getWithdrawCard();
+    if (storedCard) {
+      Session.set('selectCard', storedCard);
+      return storedCard;
+    }
+    return null;
   }
 });
 
@@ -9,6 +21,9 @@ Template.proceedsResetPasswordStep1.events({
   //add your events here
   'click [data-action=reset-password-step2]': function() {
     Router.go('proceedsResetPasswordStep2');
+  },
+  'click .item-card': function() {
+    Session.set('selectCard', this);
   }
 });
 
