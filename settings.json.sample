@@ -13,5 +13,32 @@
   "YunPianApiKey": "4094d66bedf5ef7cb3134b4da6c12a0e",
   "PingPPAppId": "app_4eXP8OfP0mzL4SmP",
   "PingPPApiKey": "sk_test_0e1W58PWXvTS94a18GvzTyj5",
-  "PingPPPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA63ies43K5pgEQdnr8uIB\ngBB54Ht3pMm9HdV8/w6w3RlNDpIaQYQjqURiEzb2JUJmdPqNZ904luMo5Dd8wNbT\n/lF/ooe5s5Scm08+ja84yE7mT2fxJyvMzT2qSTlDBp84iW+rAspRu3bTDQjWuWyH\nghMYTIvAEgv7lRtoN18F8gVeCIjrN++a2M8m4mucOyCXH1HJZYMs4CuTuydnsJdn\nGT1f+ILzQkOcHj236WCtP55OryVOwZXScZnAZKkx21gSZayW3YNNA8aWh21R/tc3\nB3o4f+GRCRnrGW58FERhOzwqTKgnOYPTnk50Et28XRXEHoZa3wyTZA1ivP5As4T6\n6wIDAQAB\n-----END PUBLIC KEY-----"
+  "PingPPPublicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA63ies43K5pgEQdnr8uIB\ngBB54Ht3pMm9HdV8/w6w3RlNDpIaQYQjqURiEzb2JUJmdPqNZ904luMo5Dd8wNbT\n/lF/ooe5s5Scm08+ja84yE7mT2fxJyvMzT2qSTlDBp84iW+rAspRu3bTDQjWuWyH\nghMYTIvAEgv7lRtoN18F8gVeCIjrN++a2M8m4mucOyCXH1HJZYMs4CuTuydnsJdn\nGT1f+ILzQkOcHj236WCtP55OryVOwZXScZnAZKkx21gSZayW3YNNA8aWh21R/tc3\nB3o4f+GRCRnrGW58FERhOzwqTKgnOYPTnk50Et28XRXEHoZa3wyTZA1ivP5As4T6\n6wIDAQAB\n-----END PUBLIC KEY-----",
+  "UnionPay":{
+          "merId": "777290058118684",
+          "accessType": "0",
+          "encrypt": {
+              "certPath": "/etc/unionpay/encrypt.cer",
+              "CVN2": 0,
+              "Exp": 0,
+              "PAN": 0
+          },
+          "sign": {
+              "certPath": "/etc/unionpay/700000000000001_acp.pfx",
+              "password": "000000"
+          },
+          "verify": {
+              "certPath": "/etc/unionpay/verify_sign_acp.cer"
+          },
+          "url": {
+              "trans": "https://101.231.204.80:5000/gateway/api/backTransReq.do",
+              "batchRequest": "https://101.231.204.80:5000/gateway/api/batchTrans.do",
+              "singleQuery": "https://101.231.204.80:5000/gateway/api/queryTrans.do",
+              "fileQuery": "https://101.231.204.80:9080/",
+              "byCard": "https://101.231.204.80:5000/gateway/api/cardTransReq.do",
+              "byApp": "https://101.231.204.80:5000/gateway/api/appTransReq.do",
+              "notifyFrontEnd": "",
+              "notifyBackEnd": ""
+          }
+      }
 }
