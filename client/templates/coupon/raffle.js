@@ -12,12 +12,12 @@ Template.raffle.onRendered(function(){
   };
 });
 Template.raffle.events({
-  'click .raffle-table-container td': function(e){
+  'click .raffle-table-container > div > div': function(e){
     e.preventDefault();
     if(canRaffle){
       canRaffle = false;
       var newRaffleValue = Template.instance().newRaffleValue;
-      var item = $(e.target).closest('td');
+      var item = $(e.target).closest('[id]');
       item.addClass('raffle-animate');
       var startTime = new Date().getTime();
       Meteor.call('generateCoupon', this.courseAttendanceId, 9, function(error, result){
@@ -156,9 +156,9 @@ function reSetSize(){
   var tbHeight = docHeight * 0.485;
   var raffInfoTop = docHeight * 0.358;
   var raffValPaddingBottom = docHeight * 0.023;
-  $('.raffle-table-container').css('height', tbHeight + 'px');
   $('.raffle-info').css('margin-top', raffInfoTop + 'px');
-  $('.raffle-table-container td').css('padding-bottom', raffValPaddingBottom + 'px');
+  $('.raffle-table-container > div > div').css('padding-bottom', raffValPaddingBottom + 'px');
+  $('.raffle-table-container').css('height', tbHeight + 'px');
 }
 function turnCards(selectId, alreadyHave){
   $('#'+selectId).css('background-image', 'none');
@@ -166,10 +166,10 @@ function turnCards(selectId, alreadyHave){
   $('#'+selectId).css('background-image', 'url(/images/raffle-item-get-act.png)');
   $('#'+selectId+' > div').css('visibility', 'visible');
   Meteor.setTimeout(function(){
-    $('.raffle-table-container td[id!="'+selectId+'"]').css('background-image', 'none');
-    $('.raffle-table-container td[id!="'+selectId+'"]').addClass('raffle-reversal-animat');
-    $('.raffle-table-container td[id!="'+selectId+'"]').css('background-image', 'url(/images/raffle-item-get.png)');
-    $('.raffle-table-container td[id!="'+selectId+'"]').addClass('raffle-table-td-with-value');
+    $('.raffle-table-container > div > div[id!="'+selectId+'"]').css('background-image', 'none');
+    $('.raffle-table-container > div > div[id!="'+selectId+'"]').addClass('raffle-reversal-animat');
+    $('.raffle-table-container > div > div[id!="'+selectId+'"]').css('background-image', 'url(/images/raffle-item-get.png)');
+    $('.raffle-table-container > div > div[id!="'+selectId+'"]').addClass('raffle-table-td-with-value');
     Meteor.setTimeout(function(){
       $('.raffle-value').css('visibility', 'visible');
       if(!alreadyHave){

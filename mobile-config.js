@@ -1,6 +1,6 @@
 App.info({
   id: 'com.malalaoshi.app',
-  name: '麻辣老师',
+  name: 'malalaoshi',
   description: '找到独特的老师，只为独特的你',
   author: 'Malalaoshi Dev Team',
   website: 'https://malalaoshi.com',
@@ -70,4 +70,3 @@ App.setPreference('android-windowSoftInputMode', 'stateVisible|adjustResize');
 App.setPreference('webviewbounce', 'true');
 App.setPreference('DisallowOverscroll', 'false');
 App.setPreference('AutoHideSplashScreen', 'true');
-
