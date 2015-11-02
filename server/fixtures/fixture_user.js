@@ -412,3 +412,34 @@ if (Meteor.users.find().count() === 0) {
       });
     }
 })();
+
+// add some messages test data
+(function(){
+  if (Messages.find().count()>20) {
+    return;
+  }
+  var generateRandWords = function(len) {　　
+    var $chars = ' qwert yuiop asdfg hjkl zxcvbnm '; // qwert键盘按键顺序
+    var maxPos = $chars.length;　　
+    var str = '';　　
+    for (i = 0; i < len; i++) {　　　　
+      str += $chars.charAt(Math.floor(Math.random() * maxPos));　　
+    }　　
+    return str;
+  }
+
+  var uids = Meteor.users.find({},{fields:{_id:1}}).fetch();
+  for (var u=0; u<uids.length; u++) {
+    var flag = _.random(1,5)>1;
+    if (!flag) continue;
+    var curUid = uids[u]._id;
+    var count = _.random(1,20);
+    for (var k=0; k<count; k++) {
+      Messages.insert({
+        userId: curUid,
+        type: Messages.Types[_.random(0,Messages.Types.length-1)],
+        content: 'Test message: ' + generateRandWords(Math.ceil(Math.random()*100))
+      });
+    }
+  }
+})();

@@ -1,5 +1,20 @@
 Template.proceedsResetPasswordStep2.helpers({
   //add you helpers here
+  getSelectCard: function() {
+    var sessionCard = Session.get('selectCard');
+    if (sessionCard) {
+      return sessionCard;
+    }
+    var storedCard = getWithdrawCard();
+    if (storedCard) {
+      Session.set('selectCard', storedCard);
+      return storedCard;
+    }
+    return null;
+  },
+  getTailNumber: function(cardNumber) {
+    return cardNumber.slice(-4);
+  }
 });
 
 Template.proceedsResetPasswordStep2.events({

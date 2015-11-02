@@ -41,8 +41,8 @@ var submitWithdraw = function(withdrawInfo) {
   });
 };
 
-var getWithdrawCard = function() {
-  var selectedCard = {};
+getWithdrawCard = function() {
+  var selectedCard = null;
   var cardStoredStr = localStorage.getItem('withdrawCard');
   if (!cardStoredStr) {
     return null;
@@ -75,7 +75,7 @@ Template.proceedsWithdraw.helpers({
 Template.proceedsWithdraw.events({
   //add your events here
   'click [data-action=input-password]': function() {
-    var amount = Number($("#amount").val());
+    var amount = Number($("#amount").val()).toFixed(2);
     if (amount <= 0) {
       IonPopup.alert({
         title: "请输入正确的金额",

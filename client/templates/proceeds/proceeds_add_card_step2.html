@@ -16,13 +16,13 @@
         {{/ionItem}}
         {{#ionItem class="item-input"}}
           <span class="input-label" for="cardPhoneNumber">手机号</span>
-          <input id="cardPhoneNumber" name="cardPhoneNumber" type="text" value="{{currentUser.phoneNo}}"/>
+          <input id="cardPhoneNumber" name="cardPhoneNumber" type="number" value="{{currentUser.phoneNo}}"/>
         {{/ionItem}}
         {{#ionItem}}
           同意《服务协议》
         {{/ionItem}}
         {{#ionItem}}
-          <button class="btn btn-success" data-action="add-card-step3">下一步</button>
+          <button class="btn btn-success btn-block" data-action="add-card-step3">下一步</button>
         {{/ionItem}}
       {{/ionList}}
     {{/ionContent}}

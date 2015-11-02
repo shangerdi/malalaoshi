@@ -34,7 +34,7 @@ Template.proceedsPassword.events({
 
 Template.proceedsPassword.onCreated(function() {
   //add your statement here
-  IonKeyboard.show();
+  //IonKeyboard.show();
 });
 
 Template.proceedsPassword.onRendered(function() {
@@ -43,6 +43,6 @@ Template.proceedsPassword.onRendered(function() {
 
 Template.proceedsPassword.onDestroyed(function() {
   //add your statement here
-  IonKeyboard.close();
+  //IonKeyboard.close();
 });
 
