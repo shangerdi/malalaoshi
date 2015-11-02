@@ -18,8 +18,17 @@
         <div style="font-size: 30px; padding: 44px 0px 20px; font-weight: bold; color: #4d4d4d">
           ¥ {{fen2YuanFixed2 teacherBalance.balance}}
         </div>
-        <button class="btn btn-success" data-action="proceeds-withdraw"
+        {{#if teacherBalance.isSetPass}}
+          <button class="btn btn-success" data-action="proceeds-withdraw"
                 style="margin: 30px 0px 44px; font-size: 15px; font-weight: bold; width: 117px; height: 40px;">提现</button>
+        {{else}}
+          <div style="font-size: 13px; color: #e8413d">
+            <img width="11px" src="/images/proceeds/warning.png">
+            <span>&nbsp;设置账户密码，保障账户安全</span>
+          </div>
+          <button class="btn btn-success" data-action="proceeds-security"
+                  style="margin: 30px 0px 44px; font-size: 15px; font-weight: bold; width: 117px; height: 40px;">提现</button>
+        {{/if}}
       </div>
 
       {{#ionList}}
