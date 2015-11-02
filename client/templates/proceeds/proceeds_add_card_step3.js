@@ -23,7 +23,11 @@ Template.proceedsAddCardStep3.events({
         okText: "确定",
         onOk: function() {
           Session.set('cardInfo', null);
-          Router.go('proceedsIndex');
+          //todo: back to 'my cards' or 'select card' (ugly)
+          IonNavBack();
+          IonNavBack();
+          IonNavBack();
+          //Router.go('proceedsIndex');
         }
       });
     });

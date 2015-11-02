@@ -6,7 +6,17 @@ Template.proceedsResetPasswordStep1.helpers({
   getSelectCard: function() {
     var sessionCard = Session.get('selectCard');
     if (sessionCard) {
-      return sessionCard;
+      var isSessionCardValid = false;
+      var teacherBalance = TeacherBalance.findOne();
+      teacherBalance.bankCards.forEach(function(card) {
+        if (card.cardNumber == sessionCard.cardNumber) {
+          isSessionCardValid = true;
+          return false;
+        }
+      });
+      if (isSessionCardValid) {
+        return sessionCard;
+      }
     }
     var storedCard = getWithdrawCard();
     if (storedCard) {
