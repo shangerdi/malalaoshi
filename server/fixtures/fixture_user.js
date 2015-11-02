@@ -179,8 +179,8 @@ if (Meteor.users.find().count() === 0) {
 })();
 
 //init for TeacherBalance(after all user init done)
-TeacherBalance.remove({});
-TransactionDetail.remove({});
+//TeacherBalance.remove({});
+//TransactionDetail.remove({});
 (function() {
   Meteor.users.find({"role": "teacher"}).
     forEach(function(teacher) {
