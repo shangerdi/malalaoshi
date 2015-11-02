@@ -72,7 +72,7 @@ Meteor.methods({
         }
       });
     if (!result.cardNumber) {
-      throw new Meteor.Error('卡号无法识别', '卡号无法识别');
+      throw new Meteor.Error('卡号无法识别，请添加储蓄卡(借记卡)', '卡号无法识别，请添加储蓄卡(借记卡)');
     }
     return result;
   },
