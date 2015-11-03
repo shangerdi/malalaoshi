@@ -1,13 +1,5 @@
 <template name="scheduleCalendar">
-  {{#contentFor "headerButtonLeft"}}
-    {{>ionNavBackButton class="button-clear button-light" text=false}}
-  {{/contentFor}}
-  {{#contentFor "headerTitle"}}
-    <h1 class="title normal-title">我的课程</h1>
-  {{/contentFor}}
-
-  {{> appScheduleTabs}}
-
+  {{> appScheduleHead}}
   <div class="schedule-calendar-header">
     <div class="inner">
       <a class="year-title">{{year}}年</a>
