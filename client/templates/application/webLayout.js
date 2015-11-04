@@ -1,4 +1,4 @@
-Template.layout.onRendered(function() {
+Template.webLayout.onRendered(function() {
   this.find('#main')._uihooks = {
     insertElement: function(node, next) {
       $(node)

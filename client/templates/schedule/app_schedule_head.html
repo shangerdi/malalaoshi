@@ -1,0 +1,18 @@
+<template name="appScheduleHead">
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton class="button-clear button-light" path="index" text=false}}
+  {{/contentFor}}
+  {{#contentFor "headerTitle"}}
+  <h1 class="title normal-title">我的课程</h1>
+  {{/contentFor}}
+  {{#ionTabs}}
+    {{> ionTab title="课表" path="scheduleCalendar"}}
+    {{#if $eq currentUser.role 'teacher'}}
+      {{> ionTab title="待上课" path="coursesToattend"}}
+      {{> ionTab title="已完成" path="coursesAttended"}}
+    {{else}}
+      {{> ionTab title="待确认" path="coursesToconfirm"}}
+      {{> ionTab title="已确认" path="coursesConfirmed"}}
+    {{/if}}
+  {{/ionTabs}}
+</template>
