@@ -161,10 +161,7 @@ function reSetSize(){
   $('.raffle-table-container > div > div').css('padding-bottom', raffValPaddingBottom + 'px');
   $('.raffle-table-container').css('height', tbHeight + 'px');
   if($('.content').position().top == 64){
-    $('.raffle-table-container').css('position', 'relative');
-    $('.raffle-table-container').css('top', '0');
-    $('.raffle-table-container').css('margin', 'o auto');
-    $('.raffle-table-container').css('left', '11.6%');
+    $('.raffle-table-container').addClass('raffle-table-container-iphone');
     var tbContainerHeight = $('.raffle-table-container').height();
     $('.raffle-table-container').css('margin-top', docHeight * 0.025 + 'px');
     $('.raffle-value').css('margin-top', tbContainerHeight * 0.198 + 'px');
