@@ -4,7 +4,7 @@
 @bodyTextColor: #5d5d5d;
 @greyColor: #f7f7f7;
 @greyColor2: #939393;
-@appBackGroundColor: #F7F7F7;
+@appBackGroundColor: #f1f1f1;
 @malaRed: #ff9290;
 @malaRed2: #e8413e;
 @malaRed3: #fa7471;
@@ -805,8 +805,8 @@ input[type=text].browser {
 @today-bgcolor: #e8413e;
 @today-color: #fff;
 .schedule-calendar-header {
-  position: absolute;
-  top: 93px;
+  /*position: absolute;
+  top: 93px;*/
   width: 100%;
   padding-top: 10px;
   z-index: 4;
@@ -849,7 +849,7 @@ input[type=text].browser {
 }
 .schedule-calendar {
   &.content {
-    padding-top: 55px;
+    /*padding-top: 55px;*/
     padding-bottom: 66px;
   }
   .spinner-container{
@@ -865,6 +865,7 @@ input[type=text].browser {
     color: #333;
   }
   td > div{
+    display: inline-block;
     border: 0;
     border-radius: 50%;
   }
@@ -899,12 +900,17 @@ input[type=text].browser {
     }
   }
   .swiper-slide-active a {
-    background-color: @today-bgcolor;
+    /*background-color: @today-bgcolor;*/
     color: @today-color;
     font-size: 18px;
-    border-radius: 50%;
     & span {
       display: inline;
+    }
+    &.moving {
+      color: black;
+      span {
+        display: none;
+      }
     }
   }
   .swiper-slide-prev a, .swiper-slide-next a {
@@ -913,15 +919,19 @@ input[type=text].browser {
   .swiper-slide-prev-prev a, .swiper-slide-next-next a {
     color: #aaa;
   }
+  .month-nav-mask {
+    position: absolute;
+    left: 50%;
+    margin-left: -20px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: @today-bgcolor;
+  }
 }
 .schedule-calendar .month-view {
-  .prev-month {
-    text-align: right;
-    width: 100%;
-  }
-  .next-month {
-    text-align: left;
-    width: 100%;
+  .swiper-slide {
+    padding: 0 @page-padding;
   }
   padding: 5px 0;
   border-bottom: 1px #d6d6d6 solid;
@@ -936,13 +946,9 @@ input[type=text].browser {
     padding: 8px 0;
   }
   tr > td{
+    line-height: 0;
+    padding: 8px 0;
     border: 0;
-    &:first-child{
-      padding-left: 22px;
-    }
-    &:last-child{
-      padding-right: 22px;
-    }
   }
   td > div{
     width: 30px;
@@ -991,23 +997,18 @@ input[type=text].browser {
   }
 }
 .schedule-calendar .year-view-box {
-  .prev-year {
-    position: absolute; bottom: 20px
-  }
-  .next-year {
-    position: absolute; top: 20px
-  }
-  .year-view-con {
-    padding: 20px 0;
-    text-align: left;
-    width: 100%;
+  .swiper-slide {
     background-color: #fff;
   }
-}
-.schedule-calendar .year-nav {
-  padding: 10px 0;
+  .year-view-con {
+    padding: 0;
+    text-align: left;
+    width: 100%;
+  }
 }
 .schedule-calendar .year-view {
+  padding-top: @page-padding;
+  background-color: #fff;
   a{
     margin-left: 7px;
     color: @brand-success;
@@ -1021,7 +1022,8 @@ input[type=text].browser {
   }
   td{
     border: 0;
-    padding: 2px 0;
+    padding: 0;
+    line-height: 20px;
   }
   td > div{
     width: 16px;
