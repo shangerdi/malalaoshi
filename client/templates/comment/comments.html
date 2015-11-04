@@ -61,6 +61,7 @@
       {{#unless commentsReady}}
         {{> spinner}}
       {{/unless}}
+    {{#if $eq currentUser.role 'parent'}}
     <div class="bottom-btn-view element-border-top">
       <div class="row">
         <div class="col-xs-6">
@@ -73,6 +74,7 @@
         </div>
       </div>
     </div>
+    {{/if}}
   {{/ionView}}
 </template>
 <template name="commentsDetailShow">
