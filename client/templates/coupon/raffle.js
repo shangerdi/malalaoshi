@@ -6,6 +6,7 @@ Template.raffle.onCreated(function(){
   couponId = '';
 });
 Template.raffle.onRendered(function(){
+  IonNavigation.skipTransitions = true;
   reSetSize();
   window.onresize = function(){
     reSetSize();
@@ -159,6 +160,15 @@ function reSetSize(){
   $('.raffle-info').css('margin-top', raffInfoTop + 'px');
   $('.raffle-table-container > div > div').css('padding-bottom', raffValPaddingBottom + 'px');
   $('.raffle-table-container').css('height', tbHeight + 'px');
+  if($('.content').position().top == 64){
+    $('.raffle-table-container').addClass('raffle-table-container-iphone');
+    var tbContainerHeight = $('.raffle-table-container').height();
+    $('.raffle-table-container').css('margin-top', docHeight * 0.025 + 'px');
+    $('.raffle-value').css('margin-top', tbContainerHeight * 0.198 + 'px');
+  }else{
+    var tbContainerHeight = $('.raffle-table-container').height();
+    $('.raffle-value').css('margin-top', tbContainerHeight * 0.2083 + 'px');
+  }
 }
 function turnCards(selectId, alreadyHave){
   $('#'+selectId).css('background-image', 'none');

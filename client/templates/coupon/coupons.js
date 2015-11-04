@@ -1,3 +1,6 @@
+Template.coupons.onRendered(function(){
+  IonNavigation.skipTransitions = true;
+});
 Template.coupons.helpers({
   empty: function(){
     return this.coupons.count() == 0;
