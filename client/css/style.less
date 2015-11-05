@@ -550,84 +550,91 @@ background: rgba(0, 0, 0, 0.1); }
     }
   }
 }
+.sign-panel-outer {
+  width: 200%;
+  height: 100%;
+  .sign-panel {
+    position: relative;
+    width: 50%;
+    padding: 0 @page-padding;
+    height: 100%;
+    float: left;
+    input[type="button"] {
+      width: 100%;
+    }
+    .list {
+      margin-top: 50px;
+      margin-bottom: 26px;
+      .item {
+        padding: 10px 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom-color: @indexBorderColor;
+        &:first-child {
+          border-top: 0;
+        }
+        color: #333;
+        .input-label {
+          width: 27%;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        input + .icon {
+          display: none;
+          position: absolute;
+          right: 0;
+          top: 17px;
+          font-size: 20px;
+          color: #ccc;
+        }
+        &.item-checkcode {
+          input {
+            max-width: 46%;
+          }
+          .btn-get-checkcode {
+            position: absolute;
+            right: 0;
+            top: 17px;
+            color: @greyColor2;
+            &[get="true"] {
+              color: @malaRed2;
+            }
+            &[get="false"] {
+              color: @greyColor2;
+            }
+          }
+        }
+      }
+    }
+    .btns-other {
+      margin-top: 20px;
+      text-align: center;
+      a {
+        color: @greyColor2;
+      }
+    }
+    &.register-panel {
+      .agreement {
+        position: absolute;
+        left: 0;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
 .login-modal {
   .bar {
     border-bottom: 0;
     background-color: #fff;
   }
-  .sign-panel-outer {
-    width: 200%;
-    height: 100%;
-    .sign-panel {
-      position: relative;
-      width: 50%;
-      padding: 0 @page-padding;
-      height: 100%;
-      float: left;
-      input[type="button"] {
-        width: 100%;
-      }
-      .list {
-        margin-top: 50px;
-        margin-bottom: 26px;
-        .item {
-          padding: 10px 0;
-          border-left: 0;
-          border-right: 0;
-          border-bottom-color: @indexBorderColor;
-          &:first-child {
-            border-top: 0;
-          }
-          color: #333;
-          .input-label {
-            width: 27%;
-            padding-left: 0;
-            padding-right: 0;
-          }
-          input + .icon {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 17px;
-            font-size: 20px;
-            color: #ccc;
-          }
-          &.item-checkcode {
-            input {
-              max-width: 46%;
-            }
-            .btn-get-checkcode {
-              position: absolute;
-              right: 0;
-              top: 17px;
-              color: @greyColor2;
-              &[get="true"] {
-                color: @malaRed2;
-              }
-              &[get="false"] {
-                color: @greyColor2;
-              }
-            }
-          }
-        }
-      }
-      .btns-other {
-        margin-top: 20px;
-        text-align: center;
-        a {
-          color: @greyColor2;
-        }
-      }
-      &.register-panel {
-        .agreement {
-          position: absolute;
-          left: 0;
-          bottom: 10px;
-          width: 100%;
-          text-align: center;
-        }
-      }
-    }
+}
+.new-login-view {
+  background-color: #fff;
+  .title {
+    padding-top: @page-padding;
+    font-style: normal;
   }
 }
 @lgRed: #f44;
