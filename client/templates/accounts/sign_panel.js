@@ -30,13 +30,13 @@ var isCheckCodeOk = function($panel) {
   var val = getCheckCode($panel);
   return (val && /^\d{6}$/.test(val));
 }
-Template._loginModal.onRendered(function(){
+Template.signPanel.onRendered(function(){
   // console.log(this.data);
   if (this.data && this.data.type==='register') {
     $(".sign-panel-outer .sign-panel").css("left", "-50%");
   }
 });
-Template._loginModal.events({
+Template.signPanel.events({
   'click #go-register-panel': function(e) {
     $(".sign-panel-outer .sign-panel").animate({left: "-50%"}, 'normal');
   },

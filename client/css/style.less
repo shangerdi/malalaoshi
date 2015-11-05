@@ -479,24 +479,148 @@ background: rgba(0, 0, 0, 0.1); }
     }
   }
 }
+.mala-slogan-box {
+  position: absolute;
+  top:20%;
+  width:100%;
+  margin: 0;
+  text-align: center;
+  .mala-slogan {
+    display: inline-block;
+    width: 210px;
+    padding: 0 17px;
+    border: 1px solid #000;
+    text-align: center;
+    .slogan {
+      padding: 25px 0;
+      font-size: 16px;
+      .line1 {
+        padding-bottom: 7px;
+        font-size: 18px;
+      }
+    }
+    .preview-btn {
+      padding: 20px 0;
+      border-top: 1px solid #000;
+      font-size: 14px;
+    }
+  }
+}
 .account-role-box {
   margin: 0;
   text-align: center;
   position:absolute;
-  width:100%;
-  bottom:60px;
+  width:200%;
+  bottom:73px;
   .btns-box {
-    margin:0 auto;
+    position: relative;
+    margin: 0 auto;
+    width: 50%;
+    float: left;
   }
-  a {
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-    line-height: 100px;
-    border: 1px black solid;
-    border-radius: 50%;
-    &:first-child{
-      margin-right: 30px;
+  .role-btns-box {
+    a {
+      img {
+        margin: 0;
+        width: 55px;
+      }
+      display: inline-block;
+      font-size: 16px;
+      color: #000;
+      &:first-child{
+        margin-right: 90px;
+      }
+    }
+  }
+  .login-btn-box {
+    padding: 0 44px;
+    button {
+      display: block;
+      width: 100%;
+      border: 1px @malaRed2 solid;
+      margin-bottom: 14px;
+      &.btn-login {
+        background-color: @malaRed2;
+        color: #fff;
+      }
+      &.btn-register {
+        background-color: #f5f5f5;
+        color: @malaRed2;
+      }
+    }
+  }
+}
+.sign-panel-outer {
+  width: 200%;
+  height: 100%;
+  .sign-panel {
+    position: relative;
+    width: 50%;
+    padding: 0 @page-padding;
+    height: 100%;
+    float: left;
+    input[type="button"] {
+      width: 100%;
+    }
+    .list {
+      margin-top: 50px;
+      margin-bottom: 26px;
+      .item {
+        padding: 10px 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom-color: @indexBorderColor;
+        &:first-child {
+          border-top: 0;
+        }
+        color: #333;
+        .input-label {
+          width: 27%;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        input + .icon {
+          display: none;
+          position: absolute;
+          right: 0;
+          top: 17px;
+          font-size: 20px;
+          color: #ccc;
+        }
+        &.item-checkcode {
+          input {
+            max-width: 46%;
+          }
+          .btn-get-checkcode {
+            position: absolute;
+            right: 0;
+            top: 17px;
+            color: @greyColor2;
+            &[get="true"] {
+              color: @malaRed2;
+            }
+            &[get="false"] {
+              color: @greyColor2;
+            }
+          }
+        }
+      }
+    }
+    .btns-other {
+      margin-top: 20px;
+      text-align: center;
+      a {
+        color: @greyColor2;
+      }
+    }
+    &.register-panel {
+      .agreement {
+        position: absolute;
+        left: 0;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 }
@@ -505,79 +629,12 @@ background: rgba(0, 0, 0, 0.1); }
     border-bottom: 0;
     background-color: #fff;
   }
-  .sign-panel-outer {
-    width: 200%;
-    height: 100%;
-    .sign-panel {
-      position: relative;
-      width: 50%;
-      padding: 0 @page-padding;
-      height: 100%;
-      float: left;
-      input[type="button"] {
-        width: 100%;
-      }
-      .list {
-        margin-top: 50px;
-        margin-bottom: 26px;
-        .item {
-          padding: 10px 0;
-          border-left: 0;
-          border-right: 0;
-          border-bottom-color: @indexBorderColor;
-          &:first-child {
-            border-top: 0;
-          }
-          color: #333;
-          .input-label {
-            width: 27%;
-            padding-left: 0;
-            padding-right: 0;
-          }
-          input + .icon {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 17px;
-            font-size: 20px;
-            color: #ccc;
-          }
-          &.item-checkcode {
-            input {
-              max-width: 46%;
-            }
-            .btn-get-checkcode {
-              position: absolute;
-              right: 0;
-              top: 17px;
-              color: @greyColor2;
-              &[get="true"] {
-                color: @malaRed2;
-              }
-              &[get="false"] {
-                color: @greyColor2;
-              }
-            }
-          }
-        }
-      }
-      .btns-other {
-        margin-top: 20px;
-        text-align: center;
-        a {
-          color: @greyColor2;
-        }
-      }
-      &.register-panel {
-        .agreement {
-          position: absolute;
-          left: 0;
-          bottom: 10px;
-          width: 100%;
-          text-align: center;
-        }
-      }
-    }
+}
+.new-login-view {
+  background-color: #fff;
+  .title {
+    padding-top: @page-padding;
+    font-style: normal;
   }
 }
 @lgRed: #f44;
