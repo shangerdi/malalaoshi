@@ -23,6 +23,11 @@ if (Meteor.isCordova) {
       return;
     }
 
+    if ($('#backBtn').length > 0) {
+      $('backBtn').click();
+      return;
+    }
+
     var curRouter = Router.current();
     var curRouterName = curRouter.route.getName();
     // console.log("curRouterName is: "+curRouterName);
