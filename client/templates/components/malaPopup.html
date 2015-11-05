@@ -1,0 +1,38 @@
+<template name="malaPopup">
+  <div class="backdrop">
+    <div class="popup-container">
+      <div class="mala-popup">
+        {{#if hasHead}}
+          <div class="popup-head">
+            {{#if title}}
+              <h3 class="popup-title">{{title}}</h3>
+            {{/if}}
+            {{#if subTitle}}
+              <h5 class="popup-sub-title">{{subTitle}}</h5>
+            {{/if}}
+          </div>
+        {{/if}}
+        {{#if template}}
+          <div class="mala-popup-body">
+            {{#if closeBtn}}
+            <div>
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            {{/if}}
+            <div>{{{template}}}</div>
+          </div>
+        {{/if}}
+        {{#if buttons.length}}
+          <div class="popup-buttons">
+            {{#each buttons}}
+              <button data-action="buttonTapped" data-index="{{index}}"
+              class="button {{type}}">
+                {{{text}}}
+              </button>
+            {{/each}}
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</template>
