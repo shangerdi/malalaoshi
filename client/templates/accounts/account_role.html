@@ -1,10 +1,35 @@
 <template name="accountRole">
 {{#ionView}}
   {{#ionContent}}
+  <img src="/images/login/bg.jpg" width="100%">
+
+  <div class="mala-slogan-box">
+    <div class="mala-slogan">
+      <div class="slogan">
+        <div class="line1">有个性的老师</div>
+        专属你的麻辣老师
+      </div>
+      <div class="preview-btn {{#unless isParent}}hide{{/unless}}">
+        提前逛逛
+      </div>
+    </div>
+  </div>
+
   <div class="account-role-box">
-    <div class="btns-box">
-      <a href="{{pathFor 'accountEntry' query='role=teacher'}}" class="role-teacher">我是老师</a>
-      <a href="{{pathFor 'accountEntry' query='role=parent'}}" class="role-parent">我是家长</a>
+    <div class="btns-box role-btns-box">
+      <a class="role-teacher">
+        <img src="/images/login/teacher.png"><br>
+        我是老师
+      </a>
+      <a class="role-parent">
+        <img src="/images/login/parent.png"><br>
+        我是家长
+      </a>
+    </div>
+    <div class="btns-box login-btn-box">
+      <button class="btn btn-login">登录</button>
+      <button class="btn btn-register">注册</button>
+      <button class="btn btn-goto-role">重选角色</button>
     </div>
   </div>
   {{/ionContent}}
