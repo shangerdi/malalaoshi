@@ -7,19 +7,13 @@
     <h1 class="title normal-title">选择银行卡</h1>
   {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionContent}}
-      {{#each teacherBalance.bankCards}}
-        <div class="item item-icon-right item-avatar item-card">
-          <img src="/images/apply/complete-ok.png">
-          <h2>{{cardUserName}}</h2>
-          <p>{{cardNumber}} {{bankName}}</p>
-        </div>
-      {{/each}}
-      {{#ionItem class="item-icon-right" path="proceedsAddCardStep1" iconRight=true}}
-        <h2>添加银行卡</h2>
-        {{> ionIcon icon="plus"}}
-      {{/ionItem}}
-    {{/ionContent}}
-  {{/ionView}}
+  {{#contentFor "headerButtonRight"}}
+    {{#if teacherBalance.bankCards.length}}
+      <button class="button button-clear button-light" data-action="add-card-step1" style="font-size: 30px;">
+        添加
+      </button>
+    {{/if}}
+  {{/contentFor}}
+
+  {{> templateBankCards}}
 </template>

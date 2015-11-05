@@ -20,6 +20,9 @@ Template.proceedsSelectCard.onCreated(function() {
 
 Template.proceedsSelectCard.onRendered(function() {
   //add your statement here
+  $("[data-action=add-card-step1]").click(function(e) {
+    Router.go('proceedsAddCardStep1');
+  });
 });
 
 Template.proceedsSelectCard.onDestroyed(function() {

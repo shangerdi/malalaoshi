@@ -1,0 +1,20 @@
+<template name="templateBankCards">
+  {{#ionView}}
+    {{#ionContent}}
+      {{#if teacherBalance.bankCards.length}}
+        {{#each teacherBalance.bankCards}}
+          <div class="item item-icon-right item-avatar item-card">
+            <img src={{getBankIconUrl bankName}}>
+            <h2>{{cardUserName}}</h2>
+            <p>{{cardNumber}} {{bankName}}</p>
+          </div>
+        {{/each}}
+      {{else}}
+        {{#ionItem class="item-icon-right" path="proceedsAddCardStep1" iconRight=true}}
+          <h2>添加银行卡</h2>
+          {{> ionIcon icon="ios-plus-empty"}}
+        {{/ionItem}}
+      {{/if}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>

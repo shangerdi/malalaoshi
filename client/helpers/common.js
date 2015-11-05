@@ -200,3 +200,20 @@ if(typeof roleIsParent != 'function'){
     return Meteor.user().role == "parent";
   }
 }
+
+Template.registerHelper('getBankIconUrl', function(bankName){
+  if (bankName && bankName.indexOf)
+  {
+    var src = '/images/banks/';
+    for (var i = 0; i < bankIconList.length; i++) {
+      var keywords = bankIconList[i].keywords;
+      for (var j = 0; j < keywords.length; j++) {
+        if (bankName.indexOf(keywords[j]) !== -1) {
+          return src + bankIconList[i].icon;
+        }
+      }
+    }
+  }
+  // 默认显示银联图标
+  return '/images/banks/default.png';
+});
