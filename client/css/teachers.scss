@@ -2382,3 +2382,162 @@ body>.sticky-nav{
   margin: 0 auto;
   left: 11.6%;
 }
+.popup-container.active .mala-popup{
+  -webkit-animation-name: superScaleIn;
+  animation-name: superScaleIn;
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.popup-open .popup-backdrop, .popup-open .mala-popup{
+  pointer-events: auto;
+}
+.popup-container{
+  .mala-popup{
+    width: 250px;
+    max-width: 100%;
+    max-height: 90%;
+    border-radius: 0px;
+    //background-color: rgba(255, 255, 255, 0.9);
+    background-color: transparent;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+
+    .popup-head{
+      padding: 15px 10px;
+      border-bottom: 1px solid #eee;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 7px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .mala-popup-body{
+      width: 100%;
+      min-height: 50px;
+      text-align: center;
+      border-bottom: 1px #d6d6d6 solid;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 7px;
+      button.close{
+        margin-bottom: -4px;
+      }
+      > div{
+        width: 100%;
+      }
+      > div:nth-child(n+2){
+        float: left;
+        display: table;
+      }
+      > div > span {
+        display: block;
+        vertical-align: middle;
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        width: 230px;
+        white-space: normal;
+        word-break:break-all
+      }
+    }
+    .mala-popup-body:nth-child(n+2){
+      margin-top: 5px;
+    }
+    .popup-buttons{
+      padding: 0;
+      height: 43px;
+      min-height: 0;
+      overflow: hidden;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-direction: normal;
+      -webkit-box-orient: horizontal;
+      -webkit-flex-direction: row;
+      -moz-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      padding: 10px;
+      min-height: 40px;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      border: 0;
+      border-right: 1px #E6E6E6 solid;
+      border-radius: 0;
+      background-color: #fff;
+      border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
+      .button{
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        border: 0;
+        border-right: 1px #E6E6E6 solid;
+        border-radius: 0;
+        background-color: #fff;
+      }
+      .button:first-child{
+        border-bottom-left-radius: 7px;
+      }
+      .button:last-child{
+        border-bottom-right-radius: 7px;
+        border-right: 0;
+      }
+      .button.button-default{
+        color: #333;
+      }
+      .button.button-assertive,
+      .button.button-positive{
+        color: #e8413e;
+      }
+      .button:active{
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+  .has-buttons{
+    .mala-popup-body{
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .mala-popup-body:nth-child(n+2){
+      margin-top: 0;
+    }
+  }
+  .has-head{
+    .mala-popup-body{
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+    }
+    .mala-popup-body:nth-child(n+2){
+      margin-top: 0;
+    }
+  }
+}
+.popup-container-modal{
+  pointer-events: none;
+  .mala-popup{
+    pointer-events: auto;
+  }
+}
