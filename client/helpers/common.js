@@ -206,11 +206,8 @@ Template.registerHelper('getBankIconUrl', function(bankName){
   {
     var src = '/images/banks/';
     for (var i = 0; i < bankIconList.length; i++) {
-      var keywords = bankIconList[i].keywords;
-      for (var j = 0; j < keywords.length; j++) {
-        if (bankName.indexOf(keywords[j]) !== -1) {
-          return src + bankIconList[i].icon;
-        }
+      if (bankIconList[i].re.test(bankName)) {
+        return src + bankIconList[i].icon;
       }
     }
   }
